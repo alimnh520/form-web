@@ -6,7 +6,6 @@ import { ImMenu } from "react-icons/im";
 
 const Header = () => {
     const[showNav, setShowNav] = useState(false);
-
     const pathName = usePathname();
     const [scroll, setScroll] = useState(0);
     useEffect(() => {
@@ -14,7 +13,6 @@ const Header = () => {
             setScroll(window.scrollY);
         });
     }, []);
-    console.log(scroll);
 
     const linkCls = "relative h-full flex items-center justify-center gap-x-1 font-bold before:absolute before:content-[''] before:h-[3px] before:hover:w-full before:bg-teal-300 before:bottom-0 before:transition-all before:duration-300 transition-all duration-300 hover:text-teal-300 uppercase text-sm"
     return (
