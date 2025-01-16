@@ -13,3 +13,7 @@ body::-webkit-scrollbar {
 .border-animate{
   animation: borderTop 1s linear infinite;
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}

@@ -10,7 +10,9 @@ const page = () => {
     const [upazilaName, setUpazilaName] = useState('');
     const [mouzaName, setMouzaName] = useState('');
     const [khatianName, setKhatianNumber] = useState('');
-    const [mobile, setMobile] = useState('');
+    const [nidNum, setNidNum] = useState('');
+
+
     const [division, setDivision] = useState('');
     const [district, setDistrict] = useState('');
     const [loader, setLoader] = useState(false);
@@ -46,7 +48,7 @@ const page = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ divisionName, districtName, upazilaName, mouzaName, khatianName, mobile }),
+            body: JSON.stringify({ divisionName, districtName, upazilaName, mouzaName, khatianName, nidNum }),
         });
 
         const data = await res.json();
@@ -62,7 +64,7 @@ const page = () => {
         setUpazilaName('');
         setMouzaName('');
         setKhatianNumber('');
-        setMobile('');
+        setNidNum('');
     };
 
     return (
@@ -70,7 +72,7 @@ const page = () => {
 
             <div className="  absolute size-40 rounded-full"></div>
 
-            <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খতিয়ান অনুসন্ধান করুন</h1>
+            <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খারিজ আবেদন</h1>
 
             <form onSubmit={handleSubmit} className='w-10/12 sm:w-full space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:grid-cols-1 sm:grid-rows-none'>
 
@@ -96,7 +98,7 @@ const page = () => {
                 </div>
 
                 <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12'>
-                <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
+                    <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
                         <div className="w-0.5 h-6 bg-neutral-300"></div>
                         <MdOutlineArrowDropDownCircle />
                     </div>
@@ -114,7 +116,7 @@ const page = () => {
                 </div>
 
                 <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12'>
-                <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
+                    <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
                         <div className="w-0.5 h-6 bg-neutral-300"></div>
                         <MdOutlineArrowDropDownCircle />
                     </div>
@@ -154,8 +156,40 @@ const page = () => {
                 <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
                     <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>মোবাইল নাম্বার <span className='text-red-500 relative top-1 text-lg '>*</span></p>
                     <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={mobile} placeholder='মোবাইল নাম্বার লিখুন...'
-                            onChange={(e) => setMobile(e.target.value)} />
+                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={nidNum} placeholder='মোবাইল নাম্বার লিখুন...'
+                            onChange={(e) => setNidNum(e.target.value)} />
+                    </div>
+                </div>
+
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>খতিয়ান <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none'>
+                        <input type="file" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
+                            onChange={(e) => setKhatianNumber(e.target.value)} />
+                    </div>
+                </div>
+
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>দলিল <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none'>
+                        <input type="file" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
+                            onChange={(e) => setKhatianNumber(e.target.value)} />
+                    </div>
+                </div>
+
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>ছবি <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none'>
+                        <input type="file" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
+                            onChange={(e) => setKhatianNumber(e.target.value)} />
+                    </div>
+                </div>
+
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>দাখিলা <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none'>
+                        <input type="file" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
+                            onChange={(e) => setKhatianNumber(e.target.value)} />
                     </div>
                 </div>
 

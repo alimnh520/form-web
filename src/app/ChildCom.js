@@ -4,7 +4,7 @@ import Footer from './layout/Footer'
 
 const ChildCom = ({children}) => {
     return (
-        <div className=' bg-[url("/bg/6600674_3334896.jpg")] bg-cover bg-center bg-fixed scroll-smooth'>
+        <div className='scroll-smooth'>
             <Header/>
             {children}
             <Footer/>
