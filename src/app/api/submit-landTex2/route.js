@@ -2,16 +2,16 @@ import connectDb from '../../../../lib/mongodb';
 import LandTax2 from '../../../../models/LandTax2';
 
 export async function POST(request) {
-    const { divisionName, districtName, upazilaName, mouzaName, khatianName, mobile, nidNum, dobNum} = await request.json();
+    const { divisionName, districtName, upazilaName, mouzaName, khatianName, mobile, nidNum, dobNum } = await request.json();
     await connectDb();
     const newUser = new LandTax2({
-        divisionName, 
-        districtName, 
-        upazilaName, 
-        mouzaName, 
-        khatianName, 
+        divisionName,
+        districtName,
+        upazilaName,
+        mouzaName,
+        khatianName,
         mobile,
-        nidNum, 
+        nidNum,
         dobNum
     });
 

@@ -41,7 +41,7 @@ const page = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch('../../api/submit', {
+        const res = await fetch('../../api/submit-landTex', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
