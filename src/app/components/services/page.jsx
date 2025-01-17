@@ -4,7 +4,7 @@ import { FaFingerprint } from "react-icons/fa";
 
 const page = () => {
     return (
-        <div className="bg-gray-100 h-screen w-full flex flex-col items-center justify-center px-20 bg-fixed bg-center sm:px-5">
+        <div className="bg-gray-100 h-screen w-full flex flex-col items-center justify-center px-20 bg-fixed bg-center sm:px-5 sm:pb-10">
             <div className="w-full h-80 flex flex-col space-y-5 items-center justify-center sm:h-auto sm:justify-start sm:mt-5">
                 <h1 className='text-4xl font-semibold sm:text-2xl'>ভূমি সংক্রান্ত সেবা</h1>
                 <div className="w-10/12 h-56 grid grid-rows-1 grid-cols-3 gap-x-10 sm:gap-x-0 sm:grid-cols-1 sm:grid-rows-3 sm:h-auto sm:gap-y-5">

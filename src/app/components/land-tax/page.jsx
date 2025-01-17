@@ -1,5 +1,6 @@
 'use client';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 
@@ -15,6 +16,8 @@ const page = () => {
     const [district, setDistrict] = useState('');
     const [loader, setLoader] = useState(false);
     const [message, setMessage] = useState('');
+    const [submit, setSubmit] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         async function getDistrict() {
@@ -48,12 +51,17 @@ const page = () => {
             },
             body: JSON.stringify({ divisionName, districtName, upazilaName, mouzaName, khatianName, mobile }),
         });
-
+        setLoader(true);
         const data = await res.json();
 
         if (res.ok) {
-            setMessage('User created successfully!');
-            setLoader(false);
+            setTimeout(() => {
+                setLoader(false);
+                setSubmit(true);
+            },1000);
+            setTimeout(() => {
+                setSubmit(false);
+            }, 3000);
         } else {
             setMessage('Error saving user');
         }
@@ -68,7 +76,18 @@ const page = () => {
     return (
         <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-10 sm:justify-start sm:pt-5'>
 
-            <div className="  absolute size-40 rounded-full"></div>
+            {loader && <div className="dot-spinner absolute top-1/2 -translate-y-1/2 z-20">
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+            </div>}
+
+            {submit && <p className=' absolute text-lg top-1/2 -translate-y-1/2 bg-red-500 px-10 py-2 text-white rounded-md z-20'>আবেদনটি জমা হয়েছে</p>}
 
             <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খতিয়ান অনুসন্ধান করুন</h1>
 
@@ -96,7 +115,7 @@ const page = () => {
                 </div>
 
                 <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12'>
-                <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
+                    <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
                         <div className="w-0.5 h-6 bg-neutral-300"></div>
                         <MdOutlineArrowDropDownCircle />
                     </div>
@@ -114,7 +133,7 @@ const page = () => {
                 </div>
 
                 <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12'>
-                <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
+                    <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
                         <div className="w-0.5 h-6 bg-neutral-300"></div>
                         <MdOutlineArrowDropDownCircle />
                     </div>
@@ -161,7 +180,10 @@ const page = () => {
 
                 <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg'>জমা দিন</button>
             </form>
-            {message && <p>{message}</p>}
+
+            {message && <p className='text-lg font-semibold text-red-500'>{message}</p>}
+
+            <button className='bg-blue-600 mt-10 px-10 py-2 text-lg text-white rounded-md ' onClick={() => router.back()}>Back</button>
         </div>
     );
 };

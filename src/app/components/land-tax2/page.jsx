@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 
@@ -15,7 +16,9 @@ const page = () => {
     const [division, setDivision] = useState('');
     const [district, setDistrict] = useState('');
     const [loader, setLoader] = useState(false);
+    const [submit, setSubmit] = useState(false);
     const [message, setMessage] = useState('');
+    const router = useRouter();
 
     useEffect(() => {
         async function getDistrict() {
@@ -41,6 +44,7 @@ const page = () => {
     }, []);
 
     const handleSubmit = async (e) => {
+        setLoader(true);
         e.preventDefault();
         const res = await fetch('../../api/submit-landTex2', {
             method: 'POST',
@@ -53,8 +57,13 @@ const page = () => {
         const data = await res.json();
 
         if (res.ok) {
-            setMessage('User created successfully!');
-            setLoader(false);
+            setTimeout(() => {
+                setLoader(false);
+                setSubmit(true);
+            },1000);
+            setTimeout(() => {
+                setSubmit(false);
+            }, 3000);
         } else {
             setMessage('Error saving user');
         }
@@ -64,12 +73,27 @@ const page = () => {
         setMouzaName('');
         setKhatianNumber('');
         setNidNum('');
+        setMobile('');
+        setDobNum('')
     };
 
     return (
-        <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-5 sm:justify-start sm:pt-5'>
+        <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-5 sm:justify-start sm:py-7 sm:h-auto'>
 
-            <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>ভূমি উন্নয়ন কর দিন</h1>
+            {loader && <div className="dot-spinner absolute top-1/2 -translate-y-1/2 z-20">
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+            </div>}
+
+            {submit && <p className=' absolute text-lg top-1/2 -translate-y-1/2 bg-red-500 px-10 py-2 text-white rounded-md z-20'>আবেদনটি জমা হয়েছে</p>}
+
+            <h1 className='text-4xl w-full text-center font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>ভূমি উন্নয়ন কর দিন</h1>
 
             <form onSubmit={handleSubmit} className='w-10/12 space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:w-full sm:gap-x-0 sm:flex sm:flex-col'>
 
@@ -176,6 +200,8 @@ const page = () => {
                 <button type="submit" className='w-full py-3 text-lg col-start-2 col-span-2 font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg'>জমা দিন</button>
             </form>
             {message && <p>{message}</p>}
+
+            <button className='bg-blue-600 mt-10 px-10 py-2 text-lg text-white rounded-md ' onClick={() => router.back()}>Back</button>
         </div>
     );
 };

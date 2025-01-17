@@ -1,5 +1,6 @@
 'use client';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 
@@ -12,11 +13,12 @@ const page = () => {
     const [khatianName, setKhatianNumber] = useState('');
     const [nidNum, setNidNum] = useState('');
 
-
     const [division, setDivision] = useState('');
     const [district, setDistrict] = useState('');
     const [loader, setLoader] = useState(false);
+    const [submit, setSubmit] = useState(false);
     const [message, setMessage] = useState('');
+    const router = useRouter();
 
     useEffect(() => {
         async function getDistrict() {
@@ -50,12 +52,16 @@ const page = () => {
             },
             body: JSON.stringify({ divisionName, districtName, upazilaName, mouzaName, khatianName, nidNum }),
         });
-
+        setLoader(true);
         const data = await res.json();
-
         if (res.ok) {
-            setMessage('User created successfully!');
-            setLoader(false);
+            setTimeout(() => {
+                setLoader(false);
+                setSubmit(true);
+            }, 1000);
+            setTimeout(() => {
+                setSubmit(false);
+            }, 3000);
         } else {
             setMessage('Error saving user');
         }
@@ -68,9 +74,20 @@ const page = () => {
     };
 
     return (
-        <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-10 sm:justify-start sm:pt-5'>
+        <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-10 sm:justify-start sm:py-5 sm:h-auto'>
 
-            <div className="  absolute size-40 rounded-full"></div>
+            {loader && <div className="dot-spinner absolute top-1/2 -translate-y-1/2 z-20">
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+                <div className="dot-spinner__dot"></div>
+            </div>}
+
+            {submit && <p className=' absolute text-lg top-1/2 -translate-y-1/2 bg-red-500 px-10 py-2 text-white rounded-md z-20'>আবেদনটি জমা হয়েছে</p>}
 
             <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খারিজ আবেদন</h1>
 
@@ -164,38 +181,36 @@ const page = () => {
                 <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
                     <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>খতিয়ান <span className='text-red-500 relative top-1 text-lg '>*</span></p>
                     <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="file" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
-                            onChange={(e) => setKhatianNumber(e.target.value)} />
+                        <input type="file" className='w-full'/>
                     </div>
                 </div>
 
                 <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
                     <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>দলিল <span className='text-red-500 relative top-1 text-lg '>*</span></p>
                     <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="file" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
-                            onChange={(e) => setKhatianNumber(e.target.value)} />
+                        <input type="file" className='w-full' />
                     </div>
                 </div>
 
                 <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
                     <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>ছবি <span className='text-red-500 relative top-1 text-lg '>*</span></p>
                     <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="file" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
-                            onChange={(e) => setKhatianNumber(e.target.value)} />
+                        <input type="file" className='w-full'/>
                     </div>
                 </div>
 
                 <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
                     <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>দাখিলা <span className='text-red-500 relative top-1 text-lg '>*</span></p>
                     <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="file" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
-                            onChange={(e) => setKhatianNumber(e.target.value)} />
+                        <input type="file" className='w-full' />
                     </div>
                 </div>
 
                 <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg'>জমা দিন</button>
             </form>
-            {message && <p>{message}</p>}
+            {message && <p className='text-lg font-semibold text-red-500'>{message}</p>}
+
+            <button className='bg-blue-600 mt-10 px-10 py-2 text-lg text-white rounded-md ' onClick={() => router.back()}>Back</button>
         </div>
     );
 };
