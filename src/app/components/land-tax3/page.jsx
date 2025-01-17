@@ -64,6 +64,10 @@ const page = () => {
             }, 3000);
         } else {
             setMessage('Error saving user');
+            setTimeout(() => {
+                setMessage('');
+            }, 1500);
+            setLoader(false);
         }
         setDivisionName('');
         setDistrictName('');

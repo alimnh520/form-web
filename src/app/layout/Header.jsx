@@ -14,12 +14,12 @@ const Header = () => {
         });
     }, []);
 
-    const linkCls = "relative h-full flex items-center justify-center gap-x-1 font-bold before:absolute before:content-[''] before:h-[3px] before:hover:w-full before:bg-red5text-red-500 before:bottom-0 before:transition-all before:duration-300 transition-all duration-300 hover:text-red-500 uppercase text-sm"
+    const linkCls = "relative h-full flex items-center justify-center gap-x-1 font-bold before:absolute before:content-[''] before:h-[3px] before:hover:w-full before:bg-red-500 before:bottom-0 before:transition-all before:duration-300 transition-all duration-300 hover:text-red-500 uppercase text-sm"
     return (
-        <div className={`w-full sticky top-0 transition-all duration-300 ${scroll > 5 ? 'h-10' : 'h-16'} flex items-center justify-center bg-transparent scroll-smooth z-50 backdrop-blur-md text-white border-b border-b-gray-500 sm:h-auto sm:relative`}>
+        <div className={`w-full sticky top-0 transition-all duration-300 ${scroll > 5 ? 'h-10' : 'h-16'} flex items-center justify-center bg-transparent scroll-smooth z-50 backdrop-blur-md text-black border-b border-b-gray-500 sm:h-auto sm:relative bg-white`}>
 
-            <div className="w-24 rounded-md h-8 hidden sm:flex items-center justify-between absolute top-5 right-5 z-20 px-2.5 border border-purple-800 shadow-[inset_0_0_5px_rgb(107,33,168)]" onClick={() => setShowNav(!showNav)}>
-                <p>MENU</p>
+            <div className="w-24 rounded-md h-8 hidden sm:flex items-center justify-between absolute top-5 right-5 z-20 px-2.5 border border-gray-800 shadow-[inset_0_0_5px_rgb(0,0,0)]" onClick={() => setShowNav(!showNav)}>
+                <p className='mt-px'>MENU</p>
                 <ImMenu className='mb-1 text-lg'/>
             </div>
 
