@@ -1,7 +1,9 @@
 'use client';
+import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
+import Animation from '../Animation';
 
 const page = () => {
     const [divisionName, setDivisionName] = useState('');
@@ -10,14 +12,11 @@ const page = () => {
     const [mouzaName, setMouzaName] = useState('');
     const [khatianName, setKhatianNumber] = useState('');
     const [mobile, setMobile] = useState('');
-    const [nidNum, setNidNum] = useState('');
-    const [dobNum, setDobNum] = useState('');
-
     const [division, setDivision] = useState('');
     const [district, setDistrict] = useState('');
     const [loader, setLoader] = useState(false);
-    const [submit, setSubmit] = useState(false);
     const [message, setMessage] = useState('');
+    const [submit, setSubmit] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -44,23 +43,23 @@ const page = () => {
     }, []);
 
     const handleSubmit = async (e) => {
-        setLoader(true);
         e.preventDefault();
-        const res = await fetch('../../api/submit-landTex2', {
+        const res = await fetch('/api/submit-landTex', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ divisionName, districtName, upazilaName, mouzaName, khatianName, mobile, nidNum, dobNum }),
+            body: JSON.stringify({ divisionName, districtName, upazilaName, mouzaName, khatianName, mobile }),
         });
-
+        setLoader(true);
         const data = await res.json();
+        console.log(data);
 
         if (res.ok) {
             setTimeout(() => {
                 setLoader(false);
                 setSubmit(true);
-            },1000);
+            }, 1000);
             setTimeout(() => {
                 setSubmit(false);
             }, 3000);
@@ -76,32 +75,21 @@ const page = () => {
         setUpazilaName('');
         setMouzaName('');
         setKhatianNumber('');
-        setNidNum('');
         setMobile('');
-        setDobNum('')
     };
 
     return (
-        <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-5 sm:justify-start sm:py-7 sm:h-auto'>
+        <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-10 sm:justify-start sm:pt-5'>
 
-            {loader && <div className="dot-spinner absolute top-1/2 -translate-y-1/2 z-20">
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-            </div>}
+            <Animation loader={loader} />
 
             {submit && <p className=' absolute text-lg top-1/2 -translate-y-1/2 bg-red-500 px-10 py-2 text-white rounded-md z-20'>আবেদনটি জমা হয়েছে</p>}
 
-            <h1 className='text-4xl w-full text-center font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>ভূমি উন্নয়ন কর দিন</h1>
+            <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খতিয়ান অনুসন্ধান করুন</h1>
 
-            <form onSubmit={handleSubmit} className='w-10/12 space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:w-full sm:gap-x-0 sm:flex sm:flex-col'>
+            <form onSubmit={handleSubmit} className='w-10/12 sm:w-full space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:grid-cols-1 sm:grid-rows-none'>
 
-                <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12 mt-6 sm:mt-0'>
+                <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12 mt-6'>
 
                     <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
                         <div className="w-0.5 h-6 bg-neutral-300"></div>
@@ -185,24 +173,10 @@ const page = () => {
                             onChange={(e) => setMobile(e.target.value)} />
                     </div>
                 </div>
-                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
-                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>NID নাম্বার <span className='text-red-500 relative top-1 text-lg '>*</span></p>
-                    <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={nidNum} placeholder='NID নাম্বার লিখুন...'
-                            onChange={(e) => setNidNum(e.target.value)} />
-                    </div>
-                </div>
 
-                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
-                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>জন্ম তারিখ<span className='text-red-500 relative top-1 text-lg '>*</span></p>
-                    <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="date" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={dobNum} placeholder='জন্ম তারিখ লিখুন...'
-                            onChange={(e) => setDobNum(e.target.value)} />
-                    </div>
-                </div>
-
-                <button type="submit" className='w-full py-3 text-lg col-start-2 col-span-2 font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg'>জমা দিন</button>
+                <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg'>জমা দিন</button>
             </form>
+
             {message && <p className='text-lg font-semibold text-red-500'>{message}</p>}
 
             <button className='bg-blue-600 mt-10 px-10 py-2 text-lg text-white rounded-md ' onClick={() => router.back()}>Back</button>

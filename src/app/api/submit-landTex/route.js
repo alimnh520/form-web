@@ -2,8 +2,8 @@ import connectDb from '../../../../lib/mongodb';
 import LandTax from '../../../../models/LandTax';
 
 export async function POST(request) {
-    const { divisionName, districtName, upazilaName, mouzaName, khatianName, mobile} = await request.json();
     await connectDb();
+    const { divisionName, districtName, upazilaName, mouzaName, khatianName, mobile} = await request.json();
     const newUser = new LandTax({
         divisionName, 
         districtName, 
@@ -21,7 +21,7 @@ export async function POST(request) {
         );
     } catch (error) {
         return new Response(
-            JSON.stringify({ message: 'Error saving user', error }),
+            JSON.stringify({ message: 'Sending error', error }),
             { status: 500 }
         );
     }

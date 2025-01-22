@@ -1,22 +1,26 @@
 'use client';
-import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
+import Animation from '../Animation';
 
 const page = () => {
-    const pathName = usePathname();
     const [divisionName, setDivisionName] = useState('');
     const [districtName, setDistrictName] = useState('');
     const [upazilaName, setUpazilaName] = useState('');
     const [mouzaName, setMouzaName] = useState('');
-    const [khatianName, setKhatianNumber] = useState('');
+    const [khatianNumber, setKhatianNumber] = useState('');
     const [mobile, setMobile] = useState('');
+    const [khatian, setKhatian] = useState('');
+    const [dolil, setDolil] = useState('');
+    const [photo, setPhoto] = useState('');
+    const [dakhila, setDakhila] = useState('');
+
     const [division, setDivision] = useState('');
     const [district, setDistrict] = useState('');
     const [loader, setLoader] = useState(false);
-    const [message, setMessage] = useState('');
     const [submit, setSubmit] = useState(false);
+    const [message, setMessage] = useState('');
     const router = useRouter();
 
     useEffect(() => {
@@ -42,32 +46,48 @@ const page = () => {
         getDistrict();
     }, []);
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch('../../api/submit-landTex', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ divisionName, districtName, upazilaName, mouzaName, khatianName, mobile }),
-        });
         setLoader(true);
-        const data = await res.json();
+        const formData = new FormData();
+        formData.append('divisionName', divisionName);
+        formData.append('districtName', districtName);
+        formData.append('upazilaName', upazilaName);
+        formData.append('mouzaName', mouzaName);
+        formData.append('khatianNumber', khatianNumber);
+        formData.append('mobile', mobile);
+        formData.append('khatian', khatian);
+        formData.append('dolil', dolil);
+        formData.append('photo', photo);
+        formData.append('dakhila', dakhila);
 
-        if (res.ok) {
-            setTimeout(() => {
+        try {
+            let result = await fetch("/api/submit-landTex3", {
+                method: 'POST',
+                body: formData
+            });
+            result = await result.json();
+            console.log(result);
+            
+            if (result.message === "Image uploaded successfully") {
+                setTimeout(() => {
+                    setLoader(false);
+                    setSubmit(true);
+                }, 1000);
+                setTimeout(() => {
+                    setSubmit(false);
+                }, 3000);
+            } else {
+                setMessage('Fill all the fields');
+                setTimeout(() => {
+                    setMessage('');
+                }, 1500);
                 setLoader(false);
-                setSubmit(true);
-            },1000);
-            setTimeout(() => {
-                setSubmit(false);
-            }, 3000);
-        } else {
-            setMessage('Error saving user');
-            setTimeout(() => {
-                setMessage('');
-            }, 1500);
-            setLoader(false);
+            }
+
+        } catch (error) {
+            console.log(error);
         }
         setDivisionName('');
         setDistrictName('');
@@ -75,25 +95,17 @@ const page = () => {
         setMouzaName('');
         setKhatianNumber('');
         setMobile('');
-    };
+    }
+
 
     return (
-        <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-10 sm:justify-start sm:pt-5'>
+        <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-10 sm:justify-start sm:py-5 sm:h-auto'>
 
-            {loader && <div className="dot-spinner absolute top-1/2 -translate-y-1/2 z-20">
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-                <div className="dot-spinner__dot"></div>
-            </div>}
+            <Animation loader={loader} />
 
             {submit && <p className=' absolute text-lg top-1/2 -translate-y-1/2 bg-red-500 px-10 py-2 text-white rounded-md z-20'>আবেদনটি জমা হয়েছে</p>}
 
-            <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খতিয়ান অনুসন্ধান করুন</h1>
+            <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খারিজ আবেদন</h1>
 
             <form onSubmit={handleSubmit} className='w-10/12 sm:w-full space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:grid-cols-1 sm:grid-rows-none'>
 
@@ -169,7 +181,7 @@ const page = () => {
                 <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
                     <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>খতিয়ান নাম্বার <span className='text-red-500 relative top-1 text-lg '>*</span></p>
                     <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
+                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianNumber} placeholder='খতিয়ান নাম্বার লিখুন...'
                             onChange={(e) => setKhatianNumber(e.target.value)} />
                     </div>
                 </div>
@@ -182,9 +194,40 @@ const page = () => {
                     </div>
                 </div>
 
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>খতিয়ান <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none flex items-center justify-center'>
+                        <p className='text-white text-center py-1 absolute -top-1.5 w-10/12 bg-green-600 rounded-md cursor-pointer truncate'>{khatian == '' ? 'Select File' : `${khatian.name}`}</p>
+                        <input type="file" className='w-full opacity-0 z-20 cursor-pointer h-full py-2' onChange={(e) => setKhatian(e.target.files[0])} />
+                    </div>
+                </div>
+
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>দলিল <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none flex items-center justify-center'>
+                        <p className='text-white text-center py-1 absolute -top-1.5 w-10/12 bg-green-600 rounded-md cursor-pointer truncate'>{dolil == '' ? 'Select File' : `${dolil.name}`}</p>
+                        <input type="file" className='w-full opacity-0 z-20 cursor-pointer h-full py-2' onChange={(e) => setDolil(e.target.files[0])} />
+                    </div>
+                </div>
+
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>ছবি <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none flex items-center justify-center'>
+                        <p className='text-white text-center py-1 absolute -top-1.5 w-10/12 bg-green-600 rounded-md cursor-pointer truncate'>{photo == '' ? 'Select File' : `${photo.name}`}</p>
+                        <input type="file" className='w-full opacity-0 z-20 cursor-pointer h-full py-2' onChange={(e) => setPhoto(e.target.files[0])} />
+                    </div>
+                </div>
+
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>দাখিলা <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none flex items-center justify-center'>
+                        <p className='text-white text-center py-1 absolute -top-1.5 w-10/12 bg-green-600 rounded-md cursor-pointer truncate'>{dakhila == '' ? 'Select File' : `${dakhila.name}`}</p>
+                        <input type="file" className='w-full opacity-0 z-20 cursor-pointer h-full py-2' onChange={(e) => setDakhila(e.target.files[0])} />
+                    </div>
+                </div>
+
                 <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg'>জমা দিন</button>
             </form>
-
             {message && <p className='text-lg font-semibold text-red-500'>{message}</p>}
 
             <button className='bg-blue-600 mt-10 px-10 py-2 text-lg text-white rounded-md ' onClick={() => router.back()}>Back</button>

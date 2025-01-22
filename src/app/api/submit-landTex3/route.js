@@ -1,0 +1,52 @@
+import { Kablammo } from "next/font/google";
+import { UploadImage } from "../../../../lib/cloudinary/cloud-image";
+import connectDb from "../../../../lib/mongodb"
+import LandTax3 from "../../../../models/LandTax3";
+
+export const POST = async (request) => {
+    await connectDb();
+
+    try {
+        const formData = await request.formData();
+        const divisionName = formData.get("divisionName");
+        const districtName = formData.get("districtName");
+        const upazilaName = formData.get("upazilaName");
+        const mouzaName = formData.get("mouzaName");
+        const khatianNumber = formData.get("khatianNumber");
+        const mobile = formData.get("mobile");
+        const khatian = formData.get("khatian");
+        const dolil = formData.get("dolil");
+        const photo = formData.get("photo");
+        const dakhila = formData.get("dakhila");
+
+
+        if (!divisionName || !districtName || !upazilaName || !mouzaName || !khatianNumber || !mobile || !khatian || !dolil || !photo || !dakhila) {
+            return Response.json({ message: "Fill all the fields" });
+            
+        } else {
+            const khatianPic = await UploadImage(khatian, "images");
+            const dolilPic = await UploadImage(dolil, "images");
+            const mainPhoto = await UploadImage(photo, "images");
+            const dakhilaPic = await UploadImage(dakhila, "images");
+
+            const addDetails = new LandTax3({
+                divisionName: divisionName,
+                districtName: districtName,
+                upazilaName: upazilaName,
+                mouzaName: mouzaName,
+                khatianName: khatianNumber,
+                mobile: mobile,
+                khatian: khatianPic.secure_url,
+                dolil: dolilPic.secure_url,
+                photo: mainPhoto.secure_url,
+                dakhila: dakhilaPic.secure_url
+            });
+            await addDetails.save();
+            return Response.json({ message: "Image uploaded successfully" });
+        }
+
+    } catch (error) {
+        console.log(error);
+        return Response.json({ message: "Image upload failed" });
+    }
+}
