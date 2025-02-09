@@ -1,19 +1,19 @@
-import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 import { connectDb } from "../../../../lib/mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 export const POST = async (request) => {
+    const uri = process.env.MONGODB_URI;
+    const client = new MongoClient(uri);
+    const db = client.db('test');
+    const coll = db.collection('landforms');
+
     try {
-        const { userID } = await request.json();
-        const db = await connectDb();
-        const collection = db.collection("landforms");
-        const result = await collection.deleteOne({ _id: new ObjectId(userID) });
+        const body = await request.json();
+        const id = body.userId;
+        await coll.deleteOne({_id: new ObjectId(id)}); 
 
-        if (result.deletedCount === 0) {
-            return NextResponse.json({ error: "No document found" }, { status: 404 });
-        }
-
-        return NextResponse.json({ message: 'success to delete' });
+        return NextResponse.json({ message: 'success to delete', success: true});
     } catch (error) {
         return NextResponse.json({ message: 'failed to delete' });
     }

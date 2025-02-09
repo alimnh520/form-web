@@ -45,7 +45,7 @@ const page = () => {
                             <button className='text-white text-sm absolute top-0 px-3 py-1 shadow-[2px_2px_2px_rgba(0,0,0,0.6)] hover:shadow-[-2px_-2px_2px_rgba(0,0,0,0.6)] bg-blue-800 rounded' onClick={printBtn}>প্রিন্ট</button>
                         </div>
 
-                        <div className={`w-[765px] h-[1350px] mt-10 flex flex-col items-start text-[13.5px] p-4 border-[1.5px] border-dotted border-black text-zinc-800 text- rounded-md bg-white gap-y-[5px]`}>
+                        <div className={`w-[765px] h-[1250px] mt-10 flex flex-col items-start text-[13.5px] p-4 border-[1.5px] border-dotted border-black text-zinc-800 text- rounded-md bg-white gap-y-[5px]`}>
                             <div className="w-full flex items-center justify-between">
                                 <p>বাংলাদেশ ফরম নং ১০৭৭ <br /> (সংশোধিত)</p>
                                 <div className="flex flex-col items-end">
@@ -79,9 +79,9 @@ const page = () => {
                                 </div>
                             </div>
 
-                            <div className="w-full flex justify-start items-center">
-                                <p className='w-[30%]'>২ নং রেজিস্টার অনুযায়ী হোল্ডিং নম্বর:</p>
-                                <p className='w-[70%] border-b-[1.5px] border-dotted border-b-black'>{elem.holdingNmbr}</p>
+                            <div className="w-full flex justify-between items-center">
+                                <p className='w-[30%]'>২ নং রেজিস্টার অনুযায়ী হোল্ডিং নম্বর: </p>
+                                <p className='w-[68%] border-b-[1.5px] border-dotted border-b-black'>{elem.holdingNmbr}</p>
                             </div>
 
                             <div className="w-full flex space-x-1 justify-start items-center">
@@ -104,7 +104,7 @@ const page = () => {
                                             </thead>
                                             <tbody className='w-full'>
                                                 {
-                                                    elem.ownerData.filter((elem) => elem.ownerCromik % 2 === 1).map((elem) => {
+                                                    elem.ownerData.filter((elem, index) => index % 2 === 0).map((elem) => {
                                                         return (
                                                             <tr className='w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black' key={elem.ownerCromik}>
                                                                 <td className='w-[15%] border-r-[1.5px] border-dotted border-r-black text-center'>{elem.ownerCromik}</td>
@@ -128,7 +128,7 @@ const page = () => {
                                             </thead>
                                             <tbody className='w-full'>
                                                 {
-                                                    elem.ownerData.filter((elem) => elem.ownerCromik % 2 === 0).map((elem) => {
+                                                    elem.ownerData.filter((elem, index) => index % 2 === 1).map((elem) => {
                                                         return (
                                                             <tr className='w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black' key={elem.ownerCromik}>
                                                                 <td className='w-[15%] border-r-[1.5px] border-dotted border-r-black text-center'>{elem.ownerCromik}</td>
@@ -160,7 +160,7 @@ const page = () => {
                                             </thead>
                                             <tbody className='w-full'>
                                                 {
-                                                    elem.landData.filter((elem) => elem.landCromik % 2 === 1).map((elem) => {
+                                                    elem.landData.filter((elem, index) => index % 2 === 0).map((elem) => {
                                                         return (
                                                             <tr className='w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black' key={elem.landCromik}>
                                                                 <td className='w-[15%] border-r-[1.5px] border-dotted border-r-black text-center'>{elem.landCromik}</td>
@@ -186,7 +186,7 @@ const page = () => {
                                             </thead>
                                             <tbody className='w-full'>
                                                 {
-                                                    elem.landData.filter((elem) => elem.landCromik % 2 === 0).map((elem) => {
+                                                    elem.landData.filter((elem, index) => index % 2 === 1).map((elem) => {
                                                         return (
                                                             <tr className='w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black' key={elem.landCromik}>
                                                                 <td className='w-[15%] border-r-[1.5px] border-dotted border-r-black text-center'>{elem.landCromik}</td>
@@ -269,7 +269,7 @@ const page = () => {
                 )
             })
         ) : <div className="w-full h-screen flex items-center justify-center">
-            <img src="/loader/3d6aa9082f3c9e285df9970dc7b762ac.gif" alt="" />
+            <img src="/loader/images.png" className=' animate-pulse' alt="" />
         </div>
     )
 
