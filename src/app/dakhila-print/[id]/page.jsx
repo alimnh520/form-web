@@ -33,7 +33,7 @@ const page = () => {
         userData();
     }, []);
 
-    const url = `https://www.razim.my.id/dakhila-print/${params.id}`
+    const url = `https://ldtax.gov.bdl.tax/dakhila-print/${params.id}`
 
     return (
         fetchData ? (
@@ -45,7 +45,7 @@ const page = () => {
                             <button className='text-white text-sm absolute top-0 px-3 py-1 shadow-[2px_2px_2px_rgba(0,0,0,0.6)] hover:shadow-[-2px_-2px_2px_rgba(0,0,0,0.6)] bg-blue-800 rounded' onClick={printBtn}>প্রিন্ট</button>
                         </div>
 
-                        <div className={`w-[765px] h-auto pb-40 mt-10 flex flex-col items-start text-[13.5px] p-4 border-[1.5px] border-dotted border-black text-zinc-800 text- rounded-md bg-white gap-y-[5px] relative`}>
+                        <div className={`w-[765px] h-auto pb-40 mt-10 flex flex-col items-start text-[11.5px] p-4 border-[1.5px] border-dotted border-black text-zinc-800 text- rounded-md bg-white gap-y-[5px] relative`}>
                             <div className="w-full flex items-center justify-between">
                                 <p>বাংলাদেশ ফরম নং ১০৭৭ <br /> (সংশোধিত)</p>
                                 <div className="flex flex-col items-end">
@@ -80,8 +80,8 @@ const page = () => {
                             </div>
 
                             <div className="w-full flex justify-between items-center">
-                                <p className='w-[30%]'>২ নং রেজিস্টার অনুযায়ী হোল্ডিং নম্বর: </p>
-                                <p className='w-[68%] border-b-[1.5px] border-dotted border-b-black'>{elem.holdingNmbr}</p>
+                                <p className='w-[31%]'>২ নং রেজিস্টার অনুযায়ী হোল্ডিং নম্বর: </p>
+                                <p className='w-[69%] border-b-[1.5px] border-dotted border-b-black'>{elem.holdingNmbr}</p>
                             </div>
 
                             <div className="w-full flex space-x-1 justify-start items-center">
@@ -89,17 +89,17 @@ const page = () => {
                                 <p className='w-[90%] border-b-[1.5px] border-dotted border-b-black mb-1'>{elem.khatianNmbr}</p>
                             </div>
 
-                            <div className="w-full flex flex-col items-center justify-center mt-2  text-[13px]">
-                                <p className='border-b border-b-black font-semibold'>মালিকের বিবরণ</p>
+                            <div className="w-full flex flex-col items-center justify-center mt-2  text-[11.5]">
+                                <p className='border-b border-b-black  font-semibold'>মালিকের বিবরণ</p>
 
                                 <div className="w-full flex items-start justify-between space-x-3 mt-3 text-[11px]">
                                     <div className={`${elem.ownerData.length < 2 ? 'w-full' : 'w-1/2'} flex items-center justify-center`}>
                                         <table className="w-full mt-3 border-t-[1.5px] border-t-black border-l-[1.5px] border-l-black border-r-[1.5px] border-r-black border-dotted flex flex-col items-center justify-center">
                                             <thead className='w-full border-b-[1.5px] border-dotted border-b-black'>
                                                 <tr className='w-full flex items-center justify-center'>
-                                                    <th className='w-[15%] border-r-[1.5px] border-dotted border-r-black'>ক্রমঃ</th>
-                                                    <th className='w-[55%]'>মালিকের নাম </th>
-                                                    <th className='w-[30%] border-l-[1.5px] border-dotted border-l-black'>মালিকের অংশ</th>
+                                                    <th className='w-[15%] border-r-[1.5px] border-dotted border-r-black font-semibold'>ক্রমঃ</th>
+                                                    <th className='w-[55%] font-semibold'>মালিকের নাম </th>
+                                                    <th className='w-[30%] border-l-[1.5px] border-dotted border-l-black font-semibold'>মালিকের অংশ</th>
                                                 </tr>
                                             </thead>
                                             <tbody className='w-full'>
@@ -121,9 +121,9 @@ const page = () => {
                                         <table className="w-full mt-3 border-t-[1.5px] border-t-black border-l-[1.5px] border-l-black border-r-[1.5px] border-r-black border-dotted flex flex-col items-center justify-center">
                                             <thead className='w-full border-b-[1.5px] border-dotted border-b-black'>
                                                 <tr className='w-full flex items-center justify-center'>
-                                                    <th className='w-[15%] border-r-[1.5px] border-dotted border-r-black'>ক্রমঃ</th>
-                                                    <th className='w-[55%]'>মালিকের নাম </th>
-                                                    <th className='w-[30%] border-l-[1.5px] border-dotted border-l-black'>মালিকের অংশ</th>
+                                                    <th className='w-[15%] border-r-[1.5px] border-dotted border-r-black font-semibold'>ক্রমঃ</th>
+                                                    <th className='w-[55%] font-semibold'>মালিকের নাম </th>
+                                                    <th className='w-[30%] border-l-[1.5px] border-dotted border-l-black font-semibold'>মালিকের অংশ</th>
                                                 </tr>
                                             </thead>
                                             <tbody className='w-full'>
@@ -145,17 +145,17 @@ const page = () => {
                             </div>
 
                             <div className="w-full flex flex-col items-center justify-center mt-2 ">
-                                <p className='border-b border-b-black font-semibold text-[13px]'>জমির বিবরণ</p>
+                                <p className='border-b border-b-black  font-semibold text-[11.5]'>জমির বিবরণ</p>
 
                                 <div className="w-full flex items-center justify-between space-x-3 mt-3 text-[11px]">
                                     <div className={`${elem.landData.length < 2 ? 'w-full' : 'w-1/2'} flex items-center justify-center`}>
                                         <table className="w-full border-dotted border-t-[1.5px] border-t-black border-l-[1.5px] border-l-black border-r-[1.5px] border-r-black flex flex-col items-center justify-center">
                                             <thead className='w-full border-b-[1.5px] border-dotted border-b-black'>
                                                 <tr className='w-full flex items-center justify-center'>
-                                                    <th className='w-[15%] border-r-[1.5px] border-dotted border-r-black'>ক্রম </th>
-                                                    <th className='w-[20%] border-r-[1.5px] border-dotted border-r-black'>দাগ নং</th>
-                                                    <th className='w-[25%] border-r-[1.5px] border-dotted border-r-black'>জমির শ্রেণি</th>
-                                                    <th className='w-[40%]'>জমির পরিমাণ (শতাংশ)</th>
+                                                    <th className='w-[15%] border-r-[1.5px] border-dotted border-r-black font-semibold'>ক্রম </th>
+                                                    <th className='w-[20%] border-r-[1.5px] border-dotted border-r-black font-semibold'>দাগ নং</th>
+                                                    <th className='w-[25%] border-r-[1.5px] border-dotted border-r-black font-semibold'>জমির শ্রেণি</th>
+                                                    <th className='w-[40%] font-semibold'>জমির পরিমাণ (শতাংশ)</th>
                                                 </tr>
                                             </thead>
                                             <tbody className='w-full'>
@@ -178,10 +178,10 @@ const page = () => {
                                         <table className="w-full border-dotted border-t-[1.5px] border-t-black border-l-[1.5px] border-l-black border-r-[1.5px] border-r-black flex flex-col items-center justify-center">
                                             <thead className='w-full border-b-[1.5px] border-dotted border-b-black'>
                                                 <tr className='w-full flex items-center justify-center'>
-                                                    <th className='w-[15%] border-r-[1.5px] border-dotted border-r-black'>ক্রম </th>
-                                                    <th className='w-[20%] border-r-[1.5px] border-dotted border-r-black'>দাগ নং</th>
-                                                    <th className='w-[25%] border-r-[1.5px] border-dotted border-r-black'>জমির শ্রেণি</th>
-                                                    <th className='w-[40%]'>জমির পরিমাণ (শতাংশ)</th>
+                                                    <th className='w-[15%] border-r-[1.5px] border-dotted border-r-black font-semibold'>ক্রম </th>
+                                                    <th className='w-[20%] border-r-[1.5px] border-dotted border-r-black font-semibold'>দাগ নং</th>
+                                                    <th className='w-[25%] border-r-[1.5px] border-dotted border-r-black font-semibold'>জমির শ্রেণি</th>
+                                                    <th className='w-[40%] font-semibold'>জমির পরিমাণ (শতাংশ)</th>
                                                 </tr>
                                             </thead>
                                             <tbody className='w-full'>
@@ -208,8 +208,8 @@ const page = () => {
                                 <p className='px-5 mt-0.5 w-1/2'>{elem.totalLand}</p>
                             </div>
 
-                            <div className="w-full flex items-center justify-center flex-col border-[1.5px] mt-6 border-zinc-200 text-[13px]">
-                                <p className='text-[14px] w-full text-center font-semibold p-2 bg-slate-100'>আদায়ের বিবরণ</p>
+                            <div className="w-full flex items-center justify-center flex-col border-[1.5px] mt-6 border-zinc-200 text-[11.5]">
+                                <p className='text-[12px] font-semibold w-full text-center p-2 bg-slate-100'>আদায়ের বিবরণ</p>
 
                                 <table className="w-full flex flex-col items-center justify-center">
                                     <thead className='w-full border-t-[1.5px] border-t-zinc-200 border-b-[1.5px] border-b-zinc-200'>
@@ -239,20 +239,20 @@ const page = () => {
                                 </table>
                             </div>
 
-                            <div className='w-full flex items-center justify-start space-x-1.5 border-b-[1.5px] border-b-black border-t-[1.5px] text-[13px] h-5 pt-1 border-t-slate-500 border-dotted'>
+                            <div className='w-full flex items-center justify-start space-x-1.5 border-b-[1.5px] border-b-black text-[11.5] h-5 pt-1 border-dotted'>
                                 <p>সর্বমোট (কথায়):</p>
                                 <p> {elem.totalAmount} </p>
                             </div>
 
-                            <div className="w-full flex items-start mt-1.5 justify-between text-[13px]">
+                            <div className="w-full flex items-start mt-1.5 justify-between text-[11.5]">
                                 <div className="flex items-start justify-start flex-col">
                                     <p>নোট: সর্বশেষ কর পরিশোধের সাল - <span>{elem.year}</span> (অর্থবছর)</p>
                                     <p>চালান নংঃ {elem.calanNumber}</p>
                                     <div className="flex items-center justify-between space-x-1">
                                         <p>তারিখ:</p>
-                                        <div className="flex flex-col items-start justify-center">
+                                        <div className="flex flex-col items-start justify-center w-fit">
                                             <p className=''>{elem.banglaDate}</p>
-                                            <p className='border-t border-t-gray-900 pt-1'>{elem.englishDate}</p>
+                                            <p className='border-t border-t-gray-900 pt-1 w-full'>{elem.englishDate}</p>
                                         </div>
                                     </div>
                                 </div>

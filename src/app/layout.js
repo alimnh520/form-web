@@ -1,10 +1,8 @@
-import { Josefin_Sans } from 'next/font/google';
+import { Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import ChildCom from "./ChildCom";
 
-const roboto = Josefin_Sans({
-  subsets: ['latin'],
-});
+const banglaFont = Noto_Sans_Bengali({ subsets: ["bengali"], weight: ["400", "700"], variable: '--font-noto-sans-bengali' });
 
 export const metadata = {
   title: "Create Next App",
@@ -14,10 +12,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={roboto.className}
-      >
-        <ChildCom children={children}/>
+      <body className={banglaFont.className}>
+        <ChildCom children={children} />
       </body>
     </html>
   );
