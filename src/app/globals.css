@@ -234,3 +234,10 @@ input[type="number"]::-webkit-inner-spin-button {
     overflow-x: scroll;
   }
 }
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #2a5f00 !important;
+}
+*::-webkit-scrollbar{
+  display:none;
+}

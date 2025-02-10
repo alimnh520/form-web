@@ -8,7 +8,7 @@ export const metadata = {
   title: "ভূমি উন্নয়ন কর_Dakhila",
   description: "ভূমি উন্নয়ন কর_Dakhila",
   icons: {
-    icon: '/bangladesh-govt-logo.jpg'
+    icon: '/1000059296.png'
   }
 };
 

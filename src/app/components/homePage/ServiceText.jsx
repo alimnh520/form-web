@@ -1,35 +1,139 @@
-import React from 'react'
-import { FaStar } from 'react-icons/fa';
+'use client'
+import Link from "next/link";
+import React, { useState } from "react";
+import { FaPlus } from "react-icons/fa6";
 
 const ServiceText = () => {
+    const [q1, setQ1] = useState(false);
+    const [q2, setQ2] = useState(false);
+    const [q3, setQ3] = useState(false);
+    const [q4, setQ4] = useState(false);
     return (
-        <div className='flex flex-col items-start justify-start space-y-10'>
-            <p className='text-4xl w-1/2 text-start leading-relaxed text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.9)] font-semibold border-b-4 border-b-gray-600 border-dotted sm:w-full sm:text-3xl'>রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট (অনলাইন)</p>
+        <div className="w-full h-auto flex flex-col items-center justify-center gap-y-8 bg-[url('/bg/bg-map.png')] bg-center bg-no-repeat bg-cover">
+            <h1 className="text-4xl font-thin">অনলাইন সংক্রান্ত সেবা</h1>
 
-            <div className="flex flex-col items-start justify-start space-y-5">
-                <p className='flex items-center justify-center text-lg font-bold text-white shadow-[2px_2px_2px_red] py-2 px-5 sm:px-3 sm:justify-start bg-gray-400'>
-                    <span className='-mt-2 text-2xl drop-shadow-[0_0_10px_rgba(0,0,0,0.6)] mr-5 sm:mr-3'><FaStar /> </span>
-                    ই- নামজারি আবেদন
-                </p>
-                <p className='flex items-center justify-center text-lg font-bold text-white shadow-[2px_2px_2px_red] py-2 px-5 sm:px-3 sm:justify-start bg-gray-400'>
-                    <span className='-mt-2 text-2xl drop-shadow-[0_0_10px_rgba(0,0,0,0.6)] mr-5 sm:mr-3'><FaStar /> </span>
-                    ই খতিয়ান উত্তোলন
-                </p>
-                <p className='flex items-center justify-center text-lg font-bold text-white shadow-[2px_2px_2px_red] py-2 px-5 sm:px-3 sm:justify-start bg-gray-400'>
-                    <span className='-mt-2 text-2xl drop-shadow-[0_0_10px_rgba(0,0,0,0.6)] mr-5 sm:mr-3'><FaStar /> </span>
-                    মৌজা ম্যাপ উত্তোলন
-                </p>
-                <p className='flex items-center justify-center text-lg font-bold text-white shadow-[2px_2px_2px_red] py-2 px-5 sm:px-3 sm:justify-start bg-gray-400'>
-                    <span className='-mt-2 text-2xl drop-shadow-[0_0_10px_rgba(0,0,0,0.6)] mr-5 sm:mr-3'><FaStar /> </span>
-                    ভূমি উন্নয়ন কর সার্ভিস
-                </p>
-                <p className='flex items-center justify-center text-lg font-bold text-white shadow-[2px_2px_2px_red] py-2 px-5 sm:px-3 sm:justify-start bg-gray-400'>
-                    <span className='-mt-2 text-2xl drop-shadow-[0_0_10px_rgba(0,0,0,0.6)] mr-5 sm:mr-3'><FaStar /> </span>
-                    এনআইডি/ স্মাট কার্ড উত্তোলন
-                </p>
+            <div className="w-11/12 h-auto grid grid-rows-2 grid-cols-4 gap-8 sm:gap-x-0 sm:grid-cols-1 sm:grid-rows-3 sm:h-auto sm:gap-y-5">
+                <Link href="/components/land-tax3" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-blue-950 top-0"></div>
+                    <div className="size-20 flex items-center justify-center">
+                        <img src="/logos/1732162861.webp" alt="" />
+                    </div>
+                    <h1 className='text-2xl font-semibold'>মিউটেশন</h1>
+
+                </Link>
+                <Link href="/components/land-tax2" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-purple-600 top-0"></div>
+                    <div className="size-20 flex items-center justify-center">
+                        <img src="/logos/1732789801.webp" alt="" />
+                    </div>
+                    <h1 className='text-2xl font-semibold'>ভূমি উন্নয়ন কর</h1>
+
+                </Link>
+                <Link href="/components/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-teal-500 top-0"></div>
+                    <div className="size-20 flex items-center justify-center">
+                        <img src="/logos/1732941934.webp" alt="" />
+                    </div>
+                    <h1 className='text-2xl font-semibold'>ভূমি রেকর্ড ও ম্যাপ</h1>
+
+                </Link>
+
+                <Link href="/components/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-teal-500 top-0"></div>
+                    <div className="size-20 flex items-center justify-center border-[6px] border-[#4072b7] bg-[url('/logos/7af26598c5a44fa496e399a83d5393fcc3ffdca60898bc81.jpg')] bg-cover bg-center">
+                    </div>
+                    <h1 className='text-2xl font-semibold'>জন্মনিবন্ধন সেবা</h1>
+
+                </Link>
+                <Link href="/components/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-teal-500 top-0"></div>
+                    <div className="size-20 flex items-center justify-center border-[6px] border-[#007d4d] bg-[url('/logos/images.png')] bg-cover bg-center">
+                    </div>
+                    <h1 className='text-2xl font-semibold'>NID সংক্রান্ত সেবা</h1>
+
+                </Link>
+                <Link href="/components/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-teal-500 top-0"></div>
+                    <div className="size-20 flex items-center justify-center border-[6px] border-[#365e3c] bg-[url('/logos/BD-1-423x601.webp')] bg-cover bg-center">
+                    </div>
+                    <h1 className='text-2xl font-semibold'>পাসপোর্ট সংক্রান্ত সেবা</h1>
+
+                </Link>
+            </div>
+
+            <Link href="" className="px-10 py-4 bg-green-800 text-white text-lg font-semibold rounded-md mt-3">আরো সেবা</Link>
+
+            <div className="w-full h-auto px-20 flex items-center justify-between mt-10 gap-x-10">
+
+                <div className="w-2/3 flex flex-col gap-y-7 items-center justify-center">
+                    <p className="text-4xl">সচরাচর জিজ্ঞাসা</p>
+                    <div className="h-auto w-full flex flex-col items-center justify-center gap-y-4">
+                        <div className={`w-full bg-green-700 flex flex-col items-center justify-center text-lg text-white font-semibold relative cursor-pointer rounded-md border border-green-700 hover:bg-white transition-all duration-300 hover:text-green-700 ${q1 ? 'h-40' : 'h-16'} overflow-hidden group`} onClick={() => {
+                            setQ1(!q1);
+                            setQ2(false);
+                            setQ3(false);
+                            setQ4(false);
+                        }}>
+                            <div className={`w-full h-16 absolute top-0 flex items-center justify-center ${q1 ? 'shadow-[0px_0px_10px_rgba(0,0,0,0.4)]' : 'shadow-none'}`}>
+                                <p>পাসওয়ার্ড ভুলে গেলে কি নতুন করে রেজিস্ট্রেশন করতে হবে?</p>
+                                <button className={`absolute transition-all duration-300 right-6 text-xl ${q1 ? 'rotate-45' : 'rotate-0'}`}><FaPlus /></button>
+                            </div>
+
+                            <p className="absolute top-20 text-center text-green-700">পাসওয়ার্ড ভুলে গেছেন? অপশনে ক্লিক করে (ওটিপি) যাচাইয়ের মাধ্যমে নতুন পাসওয়ার্ড সেট করে নিতে হবে।</p>
+                        </div>
+                        <div className={`w-full bg-green-700 flex flex-col items-center justify-center text-lg text-white font-semibold relative cursor-pointer rounded-md border border-green-700 hover:bg-white transition-all duration-300 hover:text-green-700 ${q2 ? 'h-40' : 'h-16'} overflow-hidden`} onClick={() => {
+                            setQ1(false);
+                            setQ2(!q2);
+                            setQ3(false);
+                            setQ4(false);
+                        }}>
+                            <div className={`w-full h-16 absolute top-0 flex items-center justify-center ${q2 ? 'shadow-[0px_0px_10px_rgba(0,0,0,0.4)]' : 'shadow-none'}`}>
+                                <p>অনলাইন সেবা হটলাইন নম্বর কোনটি?</p>
+                                <button className={`absolute transition-all duration-300 right-6 text-xl ${q2 ? 'rotate-45' : 'rotate-0'}`}><FaPlus /></button>
+                            </div>
+
+                            <p className="absolute top-20 text-center text-green-700">০১৮৫০৬৮৫০৩৩</p>
+                        </div>
+                        <div className={`w-full bg-green-700 flex flex-col items-center justify-center text-lg text-white font-semibold relative cursor-pointer rounded-md border border-green-700 hover:bg-white transition-all duration-300 hover:text-green-700 ${q3 ? 'h-40' : 'h-16'} overflow-hidden`} onClick={() => {
+                            setQ1(false);
+                            setQ2(false);
+                            setQ3(!q3);
+                            setQ4(false);
+                        }}>
+                            <div className={`w-full h-16 absolute top-0 flex items-center justify-center ${q3 ? 'shadow-[0px_0px_10px_rgba(0,0,0,0.4)]' : 'shadow-none'}`}>
+                                <p>কখন প্রোফাইলের অগ্রগতি ১০০% হবে?</p>
+                                <button className={`absolute transition-all duration-300 right-6 text-xl ${q3 ? 'rotate-45' : 'rotate-0'}`}><FaPlus /></button>
+                            </div>
+
+                            <p className="absolute top-20 text-center text-green-700">প্রোফাইলের সকল ইনফর্মেশন দিয়ে আপডেট করলেই প্রোফাইল অগ্রগতি ১০০% হবে।</p>
+                        </div>
+                        <div className={`w-full bg-green-700 flex flex-col items-center justify-center text-lg text-white font-semibold relative cursor-pointer rounded-md border border-green-700 hover:bg-white transition-all duration-300 hover:text-green-700 ${q4 ? 'h-40' : 'h-16'} overflow-hidden`} onClick={() => {
+                            setQ1(false);
+                            setQ2(false);
+                            setQ3(false);
+                            setQ4(!q4);
+                        }}>
+                            <div className={`w-full h-16 absolute top-0 flex items-center justify-center ${q4 ? 'shadow-[0px_0px_10px_rgba(0,0,0,0.4)]' : 'shadow-none'}`}>
+                                <p>নিবন্ধন করার জন্য কি কোন নির্দিষ্ট সময়সীমা রয়েছে?</p>
+                                <button className={`absolute transition-all duration-300 right-6 text-xl ${q4 ? 'rotate-45' : 'rotate-0'}`}><FaPlus /></button>
+                            </div>
+
+                            <p className="absolute top-20 text-center text-green-700">না, যেকোন সময় অনলাইনে নিবন্ধন করা যাবে।</p>
+                        </div>
+                    </div>
+                    <Link href="" className="px-12 py-4 bg-green-800 text-white text-lg font-semibold rounded-md mt-3">আরো</Link>
+                </div>
+
+                <div className="w-1/3 h-96 flex items-center justify-center">
+                    <img src="/bg/home_faq22.webp" alt="" className="w-full h-full object-cover object-center"/>
+                </div>
+            </div>
+            <div className="w-[110%] h-auto flex flex-col items-center justify-center">
+                <img src="/bg/dhaka_line_2.webp" alt="" className="h-96 w-full object-center"/>
+                <div className="w-full h-7 bg-gradient-to-r from-white via-green-800 to-white"></div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ServiceText
+export default ServiceText;

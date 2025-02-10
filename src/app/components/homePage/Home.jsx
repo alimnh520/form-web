@@ -1,60 +1,52 @@
-'use client'
-import React, { useRef, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Autoplay, Pagination } from 'swiper/modules';
-import ServiceText from './ServiceText';
-import Header from '@/app/layout/Header';
+"use client";
+import React, { useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+import { IoIosMail } from "react-icons/io";
+import ServiceText from "./ServiceText";
 
 const Home = () => {
-    const progressCircle = useRef(null);
-    const progressContent = useRef(null);
-    const onAutoplayTimeLeft = (s, time, progress) => {
-        progressCircle.current.style.setProperty('--progress', 1 - progress);
-        progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
-    };
-
-    const text = "";
-
     return (
-        <div className='w-full h-auto flex flex-col items-start justify-center scroll-smooth relative'>
-            <Header/>
-            <div className="w-full h-[500px] sm:h-auto">
-                <Swiper
-                    spaceBetween={30}
-                    centeredSlides={true}
-                    autoplay={{
-                        delay: 2500,
-                        disableOnInteraction: false,
-                    }}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    modules={[Autoplay, Pagination]}
-                    onAutoplayTimeLeft={onAutoplayTimeLeft}
-                    className="mySwiper w-full h-full"
-                >
-                    <SwiperSlide className="w-full h-full bg-[url('/land-tax/bangladesh-1.png')] bg-cover bg-center p-20 sm:p-5">
-                        <ServiceText text={text}/>
-                    </SwiperSlide>
-                    <SwiperSlide className="w-full h-full bg-[url('/land-tax/bangladesh-foto-adobe-stock-136155386.jpeg')] bg-cover bg-center p-20 sm:p-5">
-                        <ServiceText text={text}/>
-                    </SwiperSlide>
-                    <SwiperSlide className="w-full h-full bg-[url('/land-tax/468550365_1103217718167965_5910529357562950800_n.jpg')] bg-cover bg-center p-20 sm:p-5">
-                        <ServiceText text={text}/>
-                    </SwiperSlide>
-
-                    <div className="autoplay-progress sm:hidden" slot="container-end">
-                        <svg viewBox="0 0 48 48" ref={progressCircle}>
-                            <circle cx="24" cy="24" r="20"></circle>
-                        </svg>
-                        <span ref={progressContent}></span>
+        <div className="h-full w-auto flex flex-col gap-y-10 items-center justify-center px-10">
+            <div className="w-full h-auto flex items-center justify-between relative">
+                <div className="w-1/2 h-96 flex items-center justify-center relative shadow-[0_10px_10px_rgba(0,0,0,0.2)]">
+                    <p className=" absolute w-10/12 z-10 text-3xl font-semibold text-center top-10 text-green-800">
+                        রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট{" "}
+                        <span className="text-red-600">(অনলাইন)</span>
+                    </p>
+                    <Swiper
+                        pagination={true}
+                        slidesPerView={1}
+                        spaceBetween={0}
+                        modules={[Pagination]}
+                        loop={true}
+                        className="w-full h-full"
+                    >
+                        <SwiperSlide className="bg-[url('/land-tax/bangladesh-1.png')] bg-cover bg-center"></SwiperSlide>
+                        <SwiperSlide className="bg-[url('/land-tax/bangladesh-foto-adobe-stock-136155386.jpeg')] bg-cover bg-center"></SwiperSlide>
+                        <SwiperSlide className="bg-[url('/land-tax/468550365_1103217718167965_5910529357562950800_n.jpg')] bg-cover bg-center"></SwiperSlide>
+                    </Swiper>
+                </div>
+                <div className="w-1/2 h-96 relative flex flex-col gap-y-7 items-center pt-10 justify-start">
+                    <p className="text-4xl font-thin">ভূমি সংক্রান্ত সহায়তার জন্য</p>
+                    <p className="text-2xl text-green-700">কল করুন</p>
+                    <p className="text-4xl font-semibold">০১৮৫০৬৮৫০৩৩</p>
+                    <div className="flex mt-10 flex-col items-center justify-center gap-y-5">
+                        <p className="flex items-center justify-center gap-x-3 text-2xl"><span className="text-3xl -mt-1.5"><IoIosMail /></span>অভিযোগ/প্রতিকার ব্যবস্থার জন্য</p>
+                        <p className="text-2xl font-extrabold text-green-950">online@land.gov.bdl.tax</p>
                     </div>
-                </Swiper>
+                    <img
+                        src="/bg/hero_bg_2.webp"
+                        alt=""
+                        className=" absolute w-8/12 bottom-0"
+                    />
+                </div>
             </div>
+            <ServiceText/>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

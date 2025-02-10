@@ -6,12 +6,14 @@ import { usePathname } from 'next/navigation'
 
 const ChildCom = ({ children }) => {
     const pathName = usePathname();
-    const isPathName = '/components/land-form'
+
+    const routePath = /^\/dakhila-print\/\w+$/i.test(pathName);
+
     return (
         <div className='w-full h-screen scroll-smooth'>
-            {isPathName == !pathName && <Header />}
+            {!routePath && <Header />}
             {children}
-            {isPathName == !pathName && <Footer />}
+            {!routePath &&  <Footer />}
         </div>
     )
 }
