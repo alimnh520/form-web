@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
 import ServiceText from './ServiceText';
+import Header from '@/app/layout/Header';
 
 const Home = () => {
     const progressCircle = useRef(null);
@@ -18,6 +19,7 @@ const Home = () => {
 
     return (
         <div className='w-full h-auto flex flex-col items-start justify-center scroll-smooth relative'>
+            <Header/>
             <div className="w-full h-[500px] sm:h-auto">
                 <Swiper
                     spaceBetween={30}

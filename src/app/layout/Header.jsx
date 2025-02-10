@@ -2,7 +2,7 @@ import Calendar from "date-bengali-revised";
 import Link from "next/link";
 import React from "react";
 
-const page = () => {
+const Header = () => {
     const data = new Date();
     let today = new Date();
     let year = today.getFullYear() - 594;
@@ -46,4 +46,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Header;
