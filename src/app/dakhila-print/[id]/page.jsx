@@ -45,7 +45,7 @@ const page = () => {
                             <button className='text-white text-sm absolute top-0 px-3 py-1 shadow-[2px_2px_2px_rgba(0,0,0,0.6)] hover:shadow-[-2px_-2px_2px_rgba(0,0,0,0.6)] bg-blue-800 rounded' onClick={printBtn}>প্রিন্ট</button>
                         </div>
 
-                        <div className={`w-[765px] h-[1250px] mt-10 flex flex-col items-start text-[13.5px] p-4 border-[1.5px] border-dotted border-black text-zinc-800 text- rounded-md bg-white gap-y-[5px]`}>
+                        <div className={`w-[765px] h-[1250px] mt-10 flex flex-col items-start text-[13.5px] p-4 border-[1.5px] border-dotted border-black text-zinc-800 text- rounded-md bg-white gap-y-[5px] relative`}>
                             <div className="w-full flex items-center justify-between">
                                 <p>বাংলাদেশ ফরম নং ১০৭৭ <br /> (সংশোধিত)</p>
                                 <div className="flex flex-col items-end">
@@ -263,7 +263,8 @@ const page = () => {
 
                                 <p className='text-center'> এই দাখিলা ইলেক্ট্রনিকভাবে তৈরি করা হয়েছে, <br /> কোনো স্বাক্ষর প্রয়োজন নেই।</p>
                             </div>
-
+                            <p className='w-[98%] self-center bottom-0 font-medium text-end absolute border-t border-t-black border-dotted'>1/1</p>
+                            
                         </div>
                     </div>
                 )
