@@ -17,7 +17,7 @@ const Home = () => {
     const text = "";
 
     return (
-        <div className='w-full h-screen flex items-start justify-center scroll-smooth relative'>
+        <div className='w-full h-auto flex flex-col items-start justify-center scroll-smooth relative'>
             <div className="w-full h-[500px] sm:h-auto">
                 <Swiper
                     spaceBetween={30}

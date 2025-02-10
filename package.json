@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "cloudinary": "^2.5.1",
+    "date-bengali-revised": "^2.0.2",
     "express": "^4.21.2",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.3",

@@ -1,45 +1,49 @@
-'use client'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
-import { ImMenu } from "react-icons/im";
+import Calendar from "date-bengali-revised";
+import Link from "next/link";
+import React from "react";
 
-const Header = () => {
-    const[showNav, setShowNav] = useState(false);
-    const pathName = usePathname();
-    const [scroll, setScroll] = useState(0);
-    useEffect(() => {
-        window.addEventListener('scroll', () => {
-            setScroll(window.scrollY);
-        });
-    }, []);
+const page = () => {
+    const data = new Date();
+    let today = new Date();
+    let year = today.getFullYear() - 594;
+    console.log('year is : ', year);
+    const option = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long",
+        numberingSystem: "beng",
+    };
 
-    const linkCls = "relative h-full flex items-center justify-center gap-x-1 font-bold before:absolute before:content-[''] before:h-[3px] before:hover:w-full before:bg-red-500 before:bottom-0 before:transition-all before:duration-300 transition-all duration-300 hover:text-red-500 uppercase text-sm"
+    const banglaDate = new Intl.DateTimeFormat("bn-BD", option).format(data);
+    console.log(banglaDate);
+
+    //     const months = [ "বৈশাখ", "জ্যৈষ্ঠ", "আষাঢ়", "শ্রাবণ", "ভাদ্র",  "আশ্বিন", "কার্তিক", "অগ্রহায়ণ", "পৌষ", "মাঘ", "ফাল্গুন", "চৈত্র", ];
+    //     const month = ["১","২","৩","৪","৫","৬","৭","৮","৯","১০","১১","১২","১৩","১৪","১৫","১৬","১৭","১৮","১৯","২০","২১","২২","২৩","২৪","২৫","২৬","২৭","২৮","২৯","৩০","৩১"];
+
+    //     let today = new Date();
+    //     let year = today.getFullYear() - 593;
+    //     let monthIndex = today.getMonth();
+    //     let banglaMonth = months[monthIndex];
+    //     let day = today.getDate();
+    //     console.log(`আজ ${day} ${banglaMonth}, ${year} বঙ্গাব্দ`);
+
+    //   let cal = new Calendar();
+    //   cal.fromGregorian(2025, 2, 10);
+    //   console.log(cal);
+
     return (
-        <div className={`w-full sticky top-0 transition-all duration-300 ${scroll > 5 ? 'h-10' : 'h-16'} flex items-center justify-center bg-transparent scroll-smooth z-50 backdrop-blur-md text-black border-b border-b-gray-500 sm:h-auto sm:relative bg-white`}>
-
-            <div className="w-24 rounded-md h-8 hidden sm:flex items-center justify-between absolute top-5 right-5 z-20 px-2.5 border border-gray-800 shadow-[inset_0_0_5px_rgb(0,0,0)]" onClick={() => setShowNav(!showNav)}>
-                <p className='mt-px'>MENU</p>
-                <ImMenu className='mb-1 text-lg'/>
-            </div>
-
-            <nav className='w-full px-20 h-full flex items-center justify-between sm:px-10 sm:mt-5 sm:flex-col sm:h-fit sm:items-start'>
-                <h1 className='text-2xl'>logo</h1>
-
-                <ul className={`h-full flex items-center justify-center space-x-5 sm:flex-col sm:space-x-0 sm:space-y-4 sm:items-start sm:mt-5 sm:overflow-hidden transition-all duration-300 ${showNav ? 'sm:h-[166px]' : 'sm:h-0'}`}>
-                    <li className={`${linkCls} ${pathName == '/' ? 'before:w-full text-red-500':'before:w-0'}`} onClick={() => setShowNav(!showNav)}><Link href="/">Home</Link></li>
-
-                    <li className={`${linkCls} ${pathName == '/components/services' ? 'before:w-full text-red-500':'before:w-0'}`} onClick={() => setShowNav(!showNav)}><Link href="/components/services">Services</Link></li>
-
-                    <li className={`${linkCls} ${pathName == '/components/form' ? 'before:w-full text-red-500':'before:w-0'}`} onClick={() => setShowNav(!showNav)}><Link href="/components/form">Forms</Link></li>
-
-                    <li className={`${linkCls} ${pathName == '/components/about' ? 'before:w-full text-red-500':'before:w-0'}`} onClick={() => setShowNav(!showNav)}><Link href="/components/about">About us</Link></li>
-
-                    <li className={`${linkCls} ${pathName == '/components/contact' ? 'before:w-full text-red-500':'before:w-0'}`} onClick={() => setShowNav(!showNav)}><Link href="/components/contact">Contact</Link></li>
-                </ul>
+        <div className="w-full h-16 bg-white flex items-center justify-between px-10 py-1.5">
+            <img src="/logos/logo2-1024x259.jpg" alt="" className="h-full" />
+            <div className=""></div>
+            <nav className="flex items-center justify-center gap-x-5">
+                <Link href="">Home</Link>
+                <Link href="">Home</Link>
+                <Link href="">Home</Link>
+                <Link href="">Home</Link>
             </nav>
         </div>
-    )
-}
+    );
+};
 
-export default Header
+export default page;
