@@ -86,7 +86,7 @@ const Header = () => {
         </div>
 
         <nav className="w-full h-[50%] flex items-center justify-end gap-x-5">
-          <Link href="" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300">হোম</Link>
+          <Link href="/" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300">হোম</Link>
           <Link href="" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300">সার্ভিস</Link>
           <Link href="" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300">যোগাযোগ</Link>
           <div className="relative flex items-center justify-center gap-x-2 bg-green-700 text-white px-3 rounded-3xl cursor-pointer group">

@@ -1,43 +1,49 @@
-'use client'
+"use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const page = () => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [user, setUser] = useState({
-    username: '',
-    password: ''
+    username: "",
+    password: "",
   });
 
   const handleChange = (val) => {
-    setUser({...user, [val.target.name]: val.target.value});
-  }
-  const handleSubmit = async() => {
+    setUser({ ...user, [val.target.name]: val.target.value });
+  };
+  const handleSubmit = async () => {
+    setLoading(true);
     try {
-      const response = await fetch ('/api/admin', {
-        method: 'POST',
+      const response = await fetch("/api/admin", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({user})
+        body: JSON.stringify({ user }),
       });
       const data = await response.json();
       if (data.success) {
-         router.push('/dashboard');
+        router.push("/dashboard");
       }
     } catch (error) {
       console.log(error);
     }
     setUser({
-      username: '',
-      password: ''
+      username: "",
+      password: "",
     });
-  }
+  };
 
   return (
     <div className="w-full h-auto flex flex-col items-center justify-start px-20 py-5 cursor-pointer relative">
-      <img src="/bg/login-background.png" alt="" className="w-full absolute -bottom-7"/>
+      <img
+        src="/bg/login-background.png"
+        alt=""
+        className="w-full absolute -bottom-7"
+      />
 
       <div className="w-full h-auto flex flex-col items-center justify-start gap-y-14">
         <div className="h-32 w-[550px] rounded-lg border-2 border-[#dadfd9] bg-[#d2e3d0] p-3">
@@ -47,7 +53,16 @@ const page = () => {
             ০১৮৯৬০৪৭১১৭ <br /> যুবায়ের আহমেদঃ ০১৮৯৬০৪৭১১১
           </p>
         </div>
-        <div className="h-auto w-[450px] border border-gray-300 rounded-lg p-5 flex flex-col items-center justify-start gap-y-5 pb-16 bg-white z-10">
+        <div className="h-auto w-[450px] border border-gray-300 rounded-lg p-5 flex flex-col items-center justify-start gap-y-5 pb-16 bg-white z-10 relative">
+          {loading && (
+            <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2">
+              <img
+                src="/loader/images.png"
+                className="h-20 animate-pulse"
+                alt=""
+              />
+            </div>
+          )}
           <img src="/logos/logo2.jpg" alt="" className="h-16" />
           <p className="text-lg">লগইন করুন</p>
 

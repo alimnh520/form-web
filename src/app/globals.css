@@ -227,13 +227,6 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-@media (max-width: 768px) {
-  body{
-    zoom: 50%;
-    width: 1024px;
-    overflow-x: scroll;
-  }
-}
 .swiper-pagination-bullet-active {
   opacity: 1;
   background: #2a5f00 !important;
