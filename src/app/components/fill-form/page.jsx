@@ -67,6 +67,8 @@ const page = () => {
   const [banglaDate, setBanglaDate] = useState("");
   const [englishDate, setEnglishDate] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isOk, setIsOk] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleSUbmit = async (e) => {
     setLoading(true);
@@ -103,12 +105,44 @@ const page = () => {
       });
       const data = await response.json();
       if (data.message == "form submit successful") {
-        window.location.reload();
+        setLoading(false);
+        setMessage('আবেদন সফল ভাবে জমা হয়েছে!');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (topCrokimNmbr.length > 0 &&
+      moujarNam.length > 0 &&
+      unionNum.length > 0 &&
+      thana.length > 0 &&
+      district.length > 0 &&
+      holdingNmbr.length > 0 &&
+      khatianNmbr.length > 0 &&
+      ownerData.length > 0 &&
+      landData.length > 0 &&
+      totalLand.length > 0 &&
+      loanPlus.length > 0 &&
+      loan.length > 0 &&
+      loanFine.length > 0 &&
+      halDabi.length > 0 &&
+      totalDabi.length > 0 &&
+      totalAdai.length > 0 &&
+      totalAmount.length > 0 &&
+      calanNumber.length > 0 &&
+      year.length > 0 &&
+      banglaDate.length > 0 &&
+      englishDate.length > 0) {
+      setIsOk(true);
+    } else {
+      setIsOk(false);
+    }
+  }, [topCrokimNmbr, moujarNam, unionNum, thana, district, holdingNmbr, khatianNmbr, ownerData, landData, totalLand, loanPlus, loan, loanFine, halDabi, totalDabi, totalAdai, totalLoan, totalAmount, calanNumber, year, banglaDate, englishDate,]);
 
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center space-y-10 px-20 py-10 relative">
@@ -126,6 +160,12 @@ const page = () => {
           </div>
         </div>
       )}
+      {message && (
+        <p className="absolute bottom-60 bg-red-600 px-5 py-2 flex items-center justify-center text-white">
+          {message}
+        </p>
+      )}
+
 
       <div className="w-full h-auto grid grid-cols-2 grid-rows-1 gap-x-5">
         <div className="h-auto flex flex-col items-start justify-center p-4 bg-gray-300 space-y-3">
@@ -503,7 +543,7 @@ const page = () => {
       </div>
 
       <button
-        className="px-10 py-2 self-center bg-blue-600 rounded-md text-white text-lg"
+        className={`px-10 py-2 self-center rounded-md text-white text-lg ${isOk ? 'pointer-events-auto bg-blue-600' : 'pointer-events-none bg-blue-300'}`}
         onClick={handleSUbmit}
       >
         Submit

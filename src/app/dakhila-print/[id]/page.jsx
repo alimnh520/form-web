@@ -39,7 +39,7 @@ const page = () => {
         fetchData ? (
             fetchData.filter((currElm) => currElm._id == params.id).map((elem) => {
                 return (
-                    <div className='w-full flex flex-col items-center justify-center p-4 bg-lime-50' key={elem._id}>
+                    <div className='w-full flex flex-col items-center justify-center p-4 bg-lime-50 sm:h-[300%] sm:justify-start' key={elem._id}>
 
                         <div className={`w-full h-16 ${hidePrint ? 'hidden' : 'flex'} items-center justify-center relative before:absolute before:content-[''] before:w-full before:h-6 before:bg-white before:bottom-0 bg-blue-600 border border-blue-600 rounded-md overflow-hidden`}>
                             <button className='text-white text-sm absolute top-0 px-3 py-1 shadow-[2px_2px_2px_rgba(0,0,0,0.6)] hover:shadow-[-2px_-2px_2px_rgba(0,0,0,0.6)] bg-blue-800 rounded' onClick={printBtn}>প্রিন্ট</button>
@@ -232,7 +232,7 @@ const page = () => {
                                             <td className='w-[8%] text-center border-r-[1.5px] border-r-zinc-200 p-2'>{elem.halDabi}</td>
                                             <td className='w-[8%] text-center border-r-[1.5px] border-r-zinc-200 p-2'>{elem.totalDabi}</td>
                                             <td className='w-[8%] text-center border-r-[1.5px] border-r-zinc-200 p-2'>{elem.totalAdai}</td>
-                                            <td className='w-[10%] text-center border-r-[1.5px] border-r-zinc-200 p-2'>{elem.totalLoan}</td>
+                                            <td className='w-[10%] text-center border-r-[1.5px] border-r-zinc-200 p-2'>০</td>
                                             <td className='w-[6%] text-center'></td>
                                         </tr>
                                     </tbody>

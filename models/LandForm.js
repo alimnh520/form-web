@@ -17,7 +17,7 @@ const FormSchema = new mongoose.Schema({
     halDabi: { type: String, required: true },
     totalDabi: { type: String, required: true },
     totalAdai: { type: String, required: true },
-    totalLoan: { type: String, required: true },
+    totalLoan: { type: String, required: false},
     totalAmount: { type: String, required: true },
     calanNumber: { type: String, required: true },
     year: { type: String, required: true },
