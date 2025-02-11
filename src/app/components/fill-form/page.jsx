@@ -146,8 +146,8 @@ const page = () => {
 
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center space-y-10 px-20 py-10 relative">
-      <h1 className="text-2xl w-full text-center border-b-2 border-b-gray-500 border-dotted font-semibold">
-        Fill the form
+      <h1 className="w-80 text-3xl text-center font-semibold bg-blue-600 text-white rounded-lg py-2 animate-pulse">
+        ভূমি উন্নয়ন দাখিলার আবেদন
       </h1>
 
       {loading && (

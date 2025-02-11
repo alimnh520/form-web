@@ -70,7 +70,7 @@ const page = () => {
           </button>
         </div>
       </div>
-      <h1 className="w-80 text-3xl text-center font-semibold bg-blue-600 text-white rounded-lg py-2">
+      <h1 className="w-80 text-3xl text-center font-semibold bg-blue-600 text-white rounded-lg py-2 animate-pulse">
         ভূমি উন্নয়ন দাখিলা
       </h1>
       {loading && (
