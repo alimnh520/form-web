@@ -39,7 +39,7 @@ const page = () => {
         fetchData ? (
             fetchData.filter((currElm) => currElm._id == params.id).map((elem) => {
                 return (
-                    <div className='w-full flex flex-col items-center justify-center p-4 bg-lime-50 sm:h-[300%] sm:justify-start' key={elem._id}>
+                    <div className='w-full flex flex-col items-center justify-center p-4 bg-lime-50' key={elem._id}>
 
                         <div className={`w-full h-16 ${hidePrint ? 'hidden' : 'flex'} items-center justify-center relative before:absolute before:content-[''] before:w-full before:h-6 before:bg-white before:bottom-0 bg-blue-600 border border-blue-600 rounded-md overflow-hidden`}>
                             <button className='text-white text-sm absolute top-0 px-3 py-1 shadow-[2px_2px_2px_rgba(0,0,0,0.6)] hover:shadow-[-2px_-2px_2px_rgba(0,0,0,0.6)] bg-blue-800 rounded' onClick={printBtn}>প্রিন্ট</button>
@@ -216,7 +216,7 @@ const page = () => {
                                         <tr className='w-full flex items-center justify-center'>
                                             <th className='w-[20%] font-medium border-r-[1.5px] border-r-zinc-200 py-2'>তিন বৎসরের <br /> উর্ধ্বের বকেয়া </th>
                                             <th className='w-[19%] font-medium border-r-[1.5px] border-r-zinc-200 py-2'>গত তিন বৎসরের <br /> বকেয়া</th>
-                                            <th className='w-[20%] font-medium border-r-[1.5px] border-r-zinc-200 py-2'>বকেয়ার জরিমানা ও ক্ষতিপূরণ</th>
+                                            <th className='w-[20%] font-medium border-r-[1.5px] border-r-zinc-200 py-2'>বকেয়ার জরিমানা ও <br /> ক্ষতিপূরণ</th>
                                             <th className='w-[8%] font-medium border-r-[1.5px] border-r-zinc-200 py-2'>হাল <br /> দাবি </th>
                                             <th className='w-[8%] font-medium border-r-[1.5px] border-r-zinc-200 py-2'>মোট <br /> দাবি</th>
                                             <th className='w-[8%] font-medium border-r-[1.5px] border-r-zinc-200 py-2'>মোট <br /> আদায় </th>

@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cloudinary": "^2.5.1",
+    "cookie": "^1.0.2",
     "date-bengali-revised": "^2.0.2",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.3",
     "next": "15.1.4",
+    "next-auth": "^4.24.11",
+    "nodemailer": "^6.10.0",
     "nodemon": "^3.1.9",
     "qrcode": "^1.5.4",
     "qrcode.react": "^4.2.0",

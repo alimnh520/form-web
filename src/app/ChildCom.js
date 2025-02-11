@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 
 const ChildCom = ({ children }) => {
     const pathName = usePathname();
-
     const routePath = /^\/dakhila-print\/\w+$/i.test(pathName);
 
     return (

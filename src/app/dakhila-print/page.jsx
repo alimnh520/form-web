@@ -86,13 +86,13 @@ const page = () => {
                 key={elem._id}
               >
 
-                <p className="flex items-center justify-center h-full border-r border-r-white">
+                <p className="flex items-center justify-center h-full border-r border-r-white px-2">
                   {" "}
                   {elem.topCrokimNmbr}
                 </p>
                 <Link
                   href={`/dakhila-print/${elem._id}`}
-                  className="px-5 py-1 bg-blue-600 text-lg font-semibold text-white border-r border-r-gray-500"
+                  className="px-5 py-1 bg-blue-600 text-lg font-semibold text-white border-r border-r-gray-500 text-center"
                 >
                   See
                 </Link>
