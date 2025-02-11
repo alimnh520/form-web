@@ -26,6 +26,6 @@ export const config = {
     "/dashboard",
     "/dakhila-print",
     "/office",
-    "/components:path*",
+    "/components/fill-form",
   ],
 };
