@@ -12,6 +12,10 @@ export const middleware = (request) => {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
+  if (!token && path == '/components/fill-form') {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
   if (token && path == '/office') {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
