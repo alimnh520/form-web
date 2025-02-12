@@ -17,7 +17,7 @@ const page = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/admin", {
+      const response = await fetch("/api/admin/admin-login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,6 +27,7 @@ const page = () => {
       const data = await response.json();
       if (data.success) {
         router.push("/dashboard");
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);

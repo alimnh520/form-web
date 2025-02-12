@@ -11,7 +11,7 @@ const page = () => {
   useEffect(() => {
     const userData = async () => {
       try {
-        const res = await fetch("/api/form-data", {
+        const res = await fetch("/api/get/form-data", {
           method: "GET",
         });
         const data = await res.json();
@@ -28,7 +28,7 @@ const page = () => {
   const deleteData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/delete-form", {
+      const response = await fetch("/api/delete/delete-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

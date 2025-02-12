@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 export const middleware = (request) => {
   const path = request.nextUrl.pathname;
   const token = request.cookies.get("token");
+  console.log('Your token is : ', token)
 
   if (!token && path == '/dashboard') {
     return NextResponse.redirect(new URL("/office", request.url));

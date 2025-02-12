@@ -11,7 +11,7 @@ const ChildCom = ({ children }) => {
     return (
         <div className='w-full h-screen scroll-smooth'>
             {!routePath && <Header />}
-            {children}
+            <div className='mt-16'>{children}</div>
             {!routePath &&  <Footer />}
         </div>
     )

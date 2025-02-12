@@ -1,5 +1,5 @@
-import connectDb from '../../../../lib/mongodb';
-import LandTax from '../../../../models/LandTax';
+import { connectDb } from "../../../../../../lib/mongodb";
+import LandTax from "../../../../../../models/LandTax";
 
 export async function POST(request) {
     await connectDb();

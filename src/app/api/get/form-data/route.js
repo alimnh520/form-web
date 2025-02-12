@@ -9,7 +9,6 @@ export const GET = async (request) => {
         const dataBase = client.db('test');
         const collection = dataBase.collection('landforms');
         const data = await collection.find({}).toArray();
-
         return NextResponse.json({ message: data, success: true });
 
     } catch (error) {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { connectDb } from "../../../../lib/mongodb";
-import LandForm from "../../../../models/LandForm";
+import LandForm from "../../../../../models/LandForm";
+import { connectDb } from "../../../../../lib/mongodb";
 
 export const POST = async (request) => {
     await connectDb();

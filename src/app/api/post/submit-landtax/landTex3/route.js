@@ -1,7 +1,6 @@
-import { Kablammo } from "next/font/google";
-import { UploadImage } from "../../../../lib/cloudinary/cloud-image";
-import connectDb from "../../../../lib/mongodb"
-import LandTax3 from "../../../../models/LandTax3";
+import { UploadImage } from "../../../../../../lib/cloudinary/cloud-image";
+import { connectDb } from "../../../../../../lib/mongodb";
+import LandTax3 from "../../../../../../models/LandTax3";
 
 export const POST = async (request) => {
     await connectDb();
@@ -24,10 +23,10 @@ export const POST = async (request) => {
             return Response.json({ message: "Fill all the fields" });
             
         } else {
-            const khatianPic = await UploadImage(khatian, "images");
-            const dolilPic = await UploadImage(dolil, "images");
-            const mainPhoto = await UploadImage(photo, "images");
-            const dakhilaPic = await UploadImage(dakhila, "images");
+            const khatianPic = await UploadImage(khatian, "land-tax");
+            const dolilPic = await UploadImage(dolil, "land-tax");
+            const mainPhoto = await UploadImage(photo, "land-tax");
+            const dakhilaPic = await UploadImage(dakhila, "land-tax");
 
             const addDetails = new LandTax3({
                 divisionName: divisionName,

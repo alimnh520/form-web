@@ -14,6 +14,7 @@
     "cookie": "^1.0.2",
     "date-bengali-revised": "^2.0.2",
     "express": "^4.21.2",
+    "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.3",

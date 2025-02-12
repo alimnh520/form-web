@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { connectDb } from "../../../../lib/mongodb";
 import { MongoClient, ObjectId } from "mongodb";
 
 export const POST = async (request) => {

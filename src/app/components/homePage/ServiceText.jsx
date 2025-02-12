@@ -9,28 +9,28 @@ const ServiceText = () => {
     const [q3, setQ3] = useState(false);
     const [q4, setQ4] = useState(false);
     return (
-        <div className="w-full h-auto flex flex-col items-center justify-center gap-y-8 bg-[url('/bg/bg-map.png')] bg-center bg-no-repeat bg-cover">
+        <div className="w-full h-auto flex flex-col items-center justify-center gap-y-8 bg-[url('/bg/bg-map.png')] bg-center bg-no-repeat bg-cover" id="services">
             <h1 className="text-4xl font-thin">অনলাইন সংক্রান্ত সেবা</h1>
 
             <div className="w-11/12 h-auto grid grid-rows-2 grid-cols-4 gap-8 sm:gap-x-0 sm:grid-cols-1 sm:grid-rows-3 sm:h-auto sm:gap-y-5">
-                <Link href="/components/land-tax3" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
-                    <div className=" absolute w-full h-10 rounded-md bg-blue-950 top-0"></div>
+                <Link href="components/services/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-[#59b8a0] top-0"></div>
                     <div className="size-20 flex items-center justify-center">
                         <img src="/logos/1732162861.webp" alt="" />
                     </div>
                     <h1 className='text-2xl font-semibold'>মিউটেশন</h1>
 
                 </Link>
-                <Link href="/components/land-tax2" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
-                    <div className=" absolute w-full h-10 rounded-md bg-purple-600 top-0"></div>
+                <Link href="/components/services/land-tax2" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-[#fcb227] top-0"></div>
                     <div className="size-20 flex items-center justify-center">
                         <img src="/logos/1732789801.webp" alt="" />
                     </div>
                     <h1 className='text-2xl font-semibold'>ভূমি উন্নয়ন কর</h1>
 
                 </Link>
-                <Link href="/components/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
-                    <div className=" absolute w-full h-10 rounded-md bg-teal-500 top-0"></div>
+                <Link href="/components/services/land-tax3" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-[#9cbf3d] top-0"></div>
                     <div className="size-20 flex items-center justify-center">
                         <img src="/logos/1732941934.webp" alt="" />
                     </div>
@@ -38,22 +38,22 @@ const ServiceText = () => {
 
                 </Link>
 
-                <Link href="/components/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
-                    <div className=" absolute w-full h-10 rounded-md bg-teal-500 top-0"></div>
+                <Link href="" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-[#4072b7] top-0"></div>
                     <div className="size-20 flex items-center justify-center border-[6px] border-[#4072b7] bg-[url('/logos/7af26598c5a44fa496e399a83d5393fcc3ffdca60898bc81.jpg')] bg-cover bg-center">
                     </div>
                     <h1 className='text-2xl font-semibold'>জন্মনিবন্ধন সেবা</h1>
 
                 </Link>
-                <Link href="/components/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
-                    <div className=" absolute w-full h-10 rounded-md bg-teal-500 top-0"></div>
+                <Link href="" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-[#007d4d] top-0"></div>
                     <div className="size-20 flex items-center justify-center border-[6px] border-[#007d4d] bg-[url('/logos/images.png')] bg-cover bg-center">
                     </div>
                     <h1 className='text-2xl font-semibold'>NID সংক্রান্ত সেবা</h1>
 
                 </Link>
-                <Link href="/components/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
-                    <div className=" absolute w-full h-10 rounded-md bg-teal-500 top-0"></div>
+                <Link href="" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56">
+                    <div className=" absolute w-full h-10 rounded-md bg-[#365e3c] top-0"></div>
                     <div className="size-20 flex items-center justify-center border-[6px] border-[#365e3c] bg-[url('/logos/BD-1-423x601.webp')] bg-cover bg-center">
                     </div>
                     <h1 className='text-2xl font-semibold'>পাসপোর্ট সংক্রান্ত সেবা</h1>
@@ -61,7 +61,7 @@ const ServiceText = () => {
                 </Link>
             </div>
 
-            <Link href="" className="px-10 py-4 bg-green-800 text-white text-lg font-semibold rounded-md mt-3">আরো সেবা</Link>
+            <Link href="/components/services" className="px-10 py-4 bg-green-800 text-white text-lg font-semibold rounded-md mt-3">আরো সেবা</Link>
 
             <div className="w-full h-auto px-20 flex items-center justify-between mt-10 gap-x-10">
 

@@ -41,10 +41,10 @@ const page = () => {
         getDivision();
         getDistrict();
     }, []);
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch('/api/submit-landTex', {
+        const res = await fetch('/api/post/submit-landtax/landTex', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -161,7 +161,7 @@ const page = () => {
                 <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
                     <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>খতিয়ান নাম্বার <span className='text-red-500 relative top-1 text-lg '>*</span></p>
                     <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
+                        <input type="text" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4' value={khatianName} placeholder='খতিয়ান নাম্বার লিখুন...'
                             onChange={(e) => setKhatianNumber(e.target.value)} />
                     </div>
                 </div>
@@ -169,7 +169,7 @@ const page = () => {
                 <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
                     <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>মোবাইল নাম্বার <span className='text-red-500 relative top-1 text-lg '>*</span></p>
                     <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={mobile} placeholder='মোবাইল নাম্বার লিখুন...'
+                        <input type="text" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={mobile} placeholder='মোবাইল নাম্বার লিখুন...'
                             onChange={(e) => setMobile(e.target.value)} />
                     </div>
                 </div>
