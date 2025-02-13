@@ -45,7 +45,7 @@ const page = () => {
   };
 
   return (
-    <div className="w-full h-screen px-20 flex flex-col items-center justify-center relative gap-y-5">
+    <div className="w-full h-screen px-20 flex flex-col items-center justify-center relative gap-y-5 sm:h-auto sm:px-5 sm:mt-20">
       <div
         className={`w-60 absolute bg-gray-500 border border-gray-700 ${
           deleteBtn ? "flex" : "hidden"
@@ -70,7 +70,7 @@ const page = () => {
           </button>
         </div>
       </div>
-      <h1 className="w-80 text-3xl text-center font-semibold bg-blue-600 text-white rounded-lg py-2 animate-pulse">
+      <h1 className="w-80 text-3xl sm:text-2xl text-center font-semibold bg-blue-600 text-white rounded-lg py-2 animate-pulse">
         ভূমি উন্নয়ন দাখিলা
       </h1>
       {loading && (

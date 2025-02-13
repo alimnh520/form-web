@@ -69,7 +69,7 @@ const page = () => {
             });
             result = await result.json();
             console.log(result);
-            
+
             if (result.message === "Image uploaded successfully") {
                 setTimeout(() => {
                     setLoader(false);
@@ -77,6 +77,7 @@ const page = () => {
                 }, 1000);
                 setTimeout(() => {
                     setSubmit(false);
+                    window.location.reload();
                 }, 3000);
             } else {
                 setMessage('Fill all the fields');
@@ -101,13 +102,15 @@ const page = () => {
     return (
         <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-10 sm:justify-start sm:py-5 sm:h-auto'>
 
-            <Animation loader={loader} />
-
             {submit && <p className=' absolute text-lg top-1/2 -translate-y-1/2 bg-red-500 px-10 py-2 text-white rounded-md z-20'>আবেদনটি জমা হয়েছে</p>}
 
             <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খারিজ আবেদন</h1>
 
-            <form onSubmit={handleSubmit} className='w-10/12 sm:w-full space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:grid-cols-1 sm:grid-rows-none'>
+            <form onSubmit={handleSubmit} className='w-10/12 sm:w-full space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:grid-cols-1 sm:grid-rows-none relative'>
+
+                <div className=" absolute left-1/2 -translate-x-1/2">
+                    <Animation loader={loader} />
+                </div>
 
                 <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12 mt-6'>
 

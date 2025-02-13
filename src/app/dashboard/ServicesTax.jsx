@@ -3,8 +3,8 @@ import React from 'react'
 
 const ServicesTax = ({ img, tax, clr, url }) => {
     return (
-        <div className='h-full w-full'>
-            <Link href={url} className="h-full w-full shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-end pb-3 relative space-y-3">
+        <div className='h-full w-full sm:h-52 sm:justify-end sm:pb-2'>
+            <Link href={url} className="h-full w-full shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-end pb-3 sm:pb-2 relative space-y-3">
                 <div className={`absolute w-full h-10 rounded-md bg-[${clr}] top-0`}></div>
                 <div className="size-20 flex items-center justify-center">
                     {
@@ -22,7 +22,7 @@ const ServicesTax = ({ img, tax, clr, url }) => {
                     <img src={img} alt="" />
 
                 </div>
-                <h1 className='text-2xl font-semibold'>{tax}</h1>
+                <h1 className='text-2xl font-semibold sm:text-lg sm:text-center'>{tax}</h1>
 
             </Link>
         </div>

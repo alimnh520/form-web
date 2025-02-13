@@ -43,18 +43,18 @@ const page = () => {
 
 
     return (
-        <div className='w-full h-auto flex flex-col items-center justify-start p-5 gap-y-12'>
-            <div className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56 w-96">
+        <div className='w-full h-auto flex flex-col items-center justify-start p-5 gap-y-12 sm:gap-y-5'>
+            <div className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:space-y-2 sm:h-48 h-56 w-96 sm:w-72 sm:justify-end">
                 <div className=" absolute w-full h-10 rounded-md bg-[#fcb227] top-0"></div>
                 <div className="size-20 flex items-center justify-center">
                     <img src="/logos/1732789801.webp" alt="" />
                 </div>
-                <h1 className='text-2xl font-semibold'>ভূমি উন্নয়ন কর</h1>
+                <h1 className='text-2xl font-semibold sm:text-2xl sm:py-3'>ভূমি উন্নয়ন কর</h1>
             </div>
 
             <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খতিয়ান অনুসন্ধান করুন</h1>
 
-            <div className="flex flex-col items-center justify-center gap-y-5 mt-10 relative">
+            <div className="flex flex-col items-center justify-center gap-y-5 mt-10 relative sm:mt-5 sm:gap-y-4 sm:justify-start">
                 {
                     isDelete && (
                         <div className="w-60 h-28 bg-gray-500 border border-blue-600 rounded-md absolute z-20 flex items-center justify-center gap-x-5">
@@ -80,15 +80,15 @@ const page = () => {
                 {
                     user ? user.map((elem) => {
                         return (
-                            <div className="flex items-center justify-center gap-x-5" key={elem._id}>
+                            <div className="flex items-center justify-center gap-x-5 sm:gap-x-3" key={elem._id}>
                                 <p className="flex items-center justify-center h-full border border-gray-500 rounded-lg w-28 py-1">
                                     {elem.mobile}
                                 </p>
-                                <Link href={`/dashboard/online-service/land-tax/${elem._id}`} className="px-5 py-1 bg-blue-600 text-lg rounded-lg font-semibold text-white">
+                                <Link href={`/dashboard/online-service/land-tax/${elem._id}`} className="px-5 py-1 bg-blue-600 text-lg rounded-lg font-semibold text-white sm:text-sm sm:px-2 sm:py-2">
                                     See details
                                 </Link>
 
-                                <button className="px-5 py-1 bg-red-600 text-lg rounded-lg font-semibold text-white" onClick={() => {
+                                <button className="px-5 py-1 bg-red-600 text-lg rounded-lg font-semibold text-white sm:text-sm sm:px-2 sm:py-2" onClick={() => {
                                     setDelete(true);
                                     setUserId(elem._id);
                                 }

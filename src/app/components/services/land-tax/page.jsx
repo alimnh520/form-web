@@ -41,7 +41,7 @@ const page = () => {
         getDivision();
         getDistrict();
     }, []);
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const res = await fetch('/api/post/submit-landtax/landTex', {
@@ -53,7 +53,6 @@ const page = () => {
         });
         setLoader(true);
         const data = await res.json();
-        console.log(data);
 
         if (res.ok) {
             setTimeout(() => {
@@ -62,6 +61,7 @@ const page = () => {
             }, 1000);
             setTimeout(() => {
                 setSubmit(false);
+                window.location.reload();
             }, 3000);
         } else {
             setMessage('Error saving user');
@@ -79,15 +79,17 @@ const page = () => {
     };
 
     return (
-        <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-10 sm:justify-start sm:pt-5'>
-
-            <Animation loader={loader} />
+        <div className='w-full h-screen flex flex-col items-center bg-white text-black justify-center relative px-20 sm:px-10 sm:justify-start sm:pt-5 sm:h-auto'>
 
             {submit && <p className=' absolute text-lg top-1/2 -translate-y-1/2 bg-red-500 px-10 py-2 text-white rounded-md z-20'>আবেদনটি জমা হয়েছে</p>}
 
             <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খতিয়ান অনুসন্ধান করুন</h1>
 
-            <form onSubmit={handleSubmit} className='w-10/12 sm:w-full space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:grid-cols-1 sm:grid-rows-none'>
+            <form onSubmit={handleSubmit} className='w-10/12 sm:w-full space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:grid-cols-1 sm:grid-rows-none relative'>
+
+                <div className=" absolute left-1/2 -translate-x-1/2">
+                    <Animation loader={loader} />
+                </div>
 
                 <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12 mt-6'>
 

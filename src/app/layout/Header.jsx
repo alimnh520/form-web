@@ -23,17 +23,19 @@ const Header = () => {
     userToken();
   }, []);
   const logoutPage = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("/api/admin/admin-logout", { method: "POST" });
-      const data = await response.json();
-      console.log(data);
-      if (data.success) {
-        setLoading(false);
-        window.location.reload();
+    if (token) {
+      setLoading(true);
+      try {
+        const response = await fetch("/api/admin/admin-logout", { method: "POST" });
+        const data = await response.json();
+        console.log(data);
+        if (data.success) {
+          setLoading(false);
+          window.location.reload();
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -51,7 +53,6 @@ const Header = () => {
   const banglaDate = new Intl.DateTimeFormat("bn-BD", option).format(data);
   const engDate = new Date().toLocaleDateString();
   const cutDate = engDate.split('/');
-  console.log(cutDate[0])
   const months = [
     "বৈশাখ",
     "জ্যৈষ্ঠ",
@@ -103,7 +104,6 @@ const Header = () => {
   let monthIndex = today.getMonth();
   let banglaMonth = months[monthIndex];
   let day = today.getDate();
-
   let cal = new Calendar();
   cal.fromGregorian(2025, 2, 10);
 
@@ -112,7 +112,7 @@ const Header = () => {
 
       {
         loading && (
-          <div className="flex items-center justify-center absolute top-96 z-30 left-1/2 -translate-x-1/2">
+          <div className="flex items-center justify-center absolute top-96 left-1/2 -translate-x-1/2 z-20 bg-white">
             <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
           </div>
         )
@@ -127,7 +127,7 @@ const Header = () => {
         </div>
 
         <div className={`absolute hidden size-10 p-2 bg-green-700 right-5 top-1 items-center justify-between cursor-pointer flex-col sm:flex`} onClick={() => setHideMenu(!hideMenu)}>
-          <div className={`w-full transition-all duration-300 h-1 bg-white relative ${hideMenu ? 'rotate-45 top-[10px]':'rotate-0 top-0'}`}></div>
+          <div className={`w-full transition-all duration-300 h-1 bg-white relative ${hideMenu ? 'rotate-45 top-[10px]' : 'rotate-0 top-0'}`}></div>
           <div className={`transition-all duration-300 h-1 bg-white ${hideMenu ? 'w-0' : 'w-full'}`}></div>
           <div className={`w-full transition-all duration-300 h-1 bg-white relative ${hideMenu ? '-rotate-45 bottom-[10px]' : '-rotate-0 bottom-0'}`}></div>
         </div>
@@ -138,7 +138,7 @@ const Header = () => {
           <Link href="" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>যোগাযোগ</Link>
           <div className="relative flex items-center justify-center gap-x-2 bg-green-700 text-white px-3 rounded-3xl cursor-pointer group">
             <p className="mt-0.5" onClick={logoutPage}>{token ? 'লগআউট' : 'লগইন'}</p>
-            <IoIosArrowDropdownCircle className="text-xl"/>
+            <IoIosArrowDropdownCircle className="text-xl" />
             <div className={`hidden flex-col items-start justify-center space-y-2 absolute ${token ? '-bottom-[62px] sm:left-28' : '-bottom-[100px]  sm:left-24'} shadow-2xl bg-white text-green-700 py-4 rounded-md px-1.5 group-hover:flex sm:-top-1 sm:flex-row sm:h-fit sm:items-center sm:space-y-0 sm:py-0 sm:px-0 sm:gap-x-2`}>
               {
                 !token && (

@@ -41,7 +41,7 @@ const page = () => {
             .map((elem) => {
                 return (
                     <div
-                        className="w-full -mt-16 flex flex-col items-center justify-center p-4 bg-lime-50 sm:overflow-x-scroll"
+                        className="w-full -mt-16 flex flex-col items-center justify-center p-4 bg-lime-50 dakhila"
                         key={elem._id}
                     >
                         <div

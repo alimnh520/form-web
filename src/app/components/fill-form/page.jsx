@@ -145,7 +145,7 @@ const page = () => {
   }, [topCrokimNmbr, moujarNam, unionNum, thana, district, holdingNmbr, khatianNmbr, ownerData, landData, totalLand, loanPlus, loan, loanFine, halDabi, totalDabi, totalAdai, totalLoan, totalAmount, calanNumber, year, banglaDate, englishDate,]);
 
   return (
-    <div className="w-full h-auto flex flex-col items-center justify-center space-y-10 px-20 py-10 relative">
+    <div className="w-full h-auto flex flex-col items-center justify-center space-y-10 px-20 py-10 relative sm:px-5 dakhila">
       <h1 className="px-16 text-3xl text-center font-semibold bg-blue-600 text-white rounded-lg py-2 animate-pulse">
         ভূমি উন্নয়ন দাখিলার আবেদন
       </h1>
