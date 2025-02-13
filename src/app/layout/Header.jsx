@@ -119,16 +119,16 @@ const Header = () => {
       }
 
       <div className="w-2/12 h-full py-2.5 sm:w-full sm:flex sm:items-center sm:justify-start sm:py-1">
-        <img src="/logos/logo2.jpg" alt="" className="h-full sm:h-auto sm:w-36" />
+        <img src="/logos/logo2.jpg" alt="" className="h-full sm:h-auto sm:w-40" />
       </div>
       <div className="w-[85%] h-full flex flex-col items-center justify-between sm:w-full">
         <div className="w-full h-[50%] bg-gradient-to-l text-white from-white via-green-700 to-white flex items-center justify-center">
           <p>{banglaDate}</p>
         </div>
 
-        <div className={`absolute hidden size-10 p-2 bg-green-700 right-5 top-0.5 items-center justify-between cursor-pointer flex-col sm:flex `} onClick={() => setHideMenu(!hideMenu)}>
+        <div className={`absolute hidden size-10 p-2 bg-green-700 right-5 top-1 items-center justify-between cursor-pointer flex-col sm:flex`} onClick={() => setHideMenu(!hideMenu)}>
           <div className={`w-full transition-all duration-300 h-1 bg-white relative ${hideMenu ? 'rotate-45 top-[10px]':'rotate-0 top-0'}`}></div>
-          <div className={`w-full transition-all duration-300 h-1 bg-white ${hideMenu ? 'w-0' : 'w-full'}`}></div>
+          <div className={`transition-all duration-300 h-1 bg-white ${hideMenu ? 'w-0' : 'w-full'}`}></div>
           <div className={`w-full transition-all duration-300 h-1 bg-white relative ${hideMenu ? '-rotate-45 bottom-[10px]' : '-rotate-0 bottom-0'}`}></div>
         </div>
 
