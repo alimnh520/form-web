@@ -7,12 +7,14 @@ import { usePathname } from 'next/navigation'
 const ChildCom = ({ children }) => {
     const pathName = usePathname();
     const routePath = /^\/dakhila-print\/\w+$/i.test(pathName);
+    const hiddenPath = ['/office','/user/registration'];
+    const setHiddenPath = hiddenPath.includes(pathName);
 
     return (
         <div className='w-full h-screen scroll-smooth'>
-            {!routePath && <Header />}
+            {(!routePath && !setHiddenPath) && <Header />}
             <div className='mt-16'>{children}</div>
-            {!routePath &&  <Footer />}
+            {(!routePath && !setHiddenPath) &&  <Footer />}
         </div>
     )
 }

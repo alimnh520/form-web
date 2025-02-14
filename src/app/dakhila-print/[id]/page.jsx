@@ -17,6 +17,7 @@ const page = () => {
     };
 
     useEffect(() => {
+        document.title = 'ভূমি উন্নয়ন কর_Dakhila'
         const userData = async () => {
             try {
                 const res = await fetch("/api/get/form-data", {

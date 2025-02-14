@@ -10,18 +10,17 @@ export const POST = async (request) => {
     await client.connect();
     const db = client.db('test');
     const collection = db.collection('admin');
+    const user = await collection.find({}).toArray();
     try {
         const reqBody = await request.json();
-        const data = reqBody.user;
-        const username = data.username;
-        const password = data.password;
-        const userdata = await collection.findOne({username});
-        const comparePass = await bcrypt.compare(password, userdata.password);
-        console.log(comparePass);
+        const {username,password} = reqBody.user;
 
-        if (!userdata) {
+        if (user[0].username !== username) {
             return NextResponse.json({message: "User not found", success: false});
         }
+
+        const userdata = await collection.findOne({username});
+        const comparePass = await bcrypt.compare(password, userdata.password);
 
         if (!comparePass) {
             return NextResponse.json({message: "Password is wrong", success: false});

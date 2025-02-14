@@ -1,14 +1,19 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const page = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [message, setMessage] = useState('')
   const [user, setUser] = useState({
     username: "",
     password: "",
+  });
+
+  useEffect(() => {
+    document.title = 'লগইন ইউজার'
   });
 
   const handleChange = (val) => {
@@ -25,7 +30,15 @@ const page = () => {
         body: JSON.stringify({ user }),
       });
       const data = await response.json();
+      if (data.message) {
+        setLoading(false);
+        setMessage(data.message);
+        setTimeout(() => {
+          setMessage('');
+        }, 2000);
+      }
       if (data.success) {
+        setLoading(false);
         router.push("/dashboard");
         window.location.reload();
       }
@@ -64,6 +77,13 @@ const page = () => {
               />
             </div>
           )}
+
+          {
+            message && (
+              <p className=" absolute top-1/2 -translate-y-1/2 px-8 py-2 bg-red-500 text-white text-lg font-semibold z-20">{message}</p>
+            )
+          }
+
           <img src="/logos/logo2.jpg" alt="" className="h-16" />
           <p className="text-lg">লগইন করুন</p>
 

@@ -7,8 +7,6 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
 const page = () => {
-  
-  
 
   const router = useRouter();
   const [loading, setLoading] = useState(false);
