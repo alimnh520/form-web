@@ -86,7 +86,6 @@ const page = () => {
                 }, 1500);
                 setLoader(false);
             }
-
         } catch (error) {
             console.log(error);
         }

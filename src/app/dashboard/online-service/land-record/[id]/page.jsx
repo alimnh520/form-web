@@ -20,6 +20,22 @@ const page = () => {
         childData();
     }, []);
 
+    const handleDownload = async(url, name) => {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `${name}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className='w-full h-auto flex flex-col items-center justify-start p-10 gap-y-10 sm:gap-y-5'>
             <div href="/components/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:space-y-2 sm:h-48 h-56 w-96 sm:w-72 sm:justify-end">
@@ -42,6 +58,7 @@ const page = () => {
                                             <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">বিভাগ</th>
                                             <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">জেলা</th>
                                             <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">উপজেলা</th>
+                                            <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">মৌজা</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -49,28 +66,47 @@ const page = () => {
                                             <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.divisionName}</td>
                                             <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.districtName}</td>
                                             <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.upazilaName}</td>
+                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.mouzaName}</td>
                                         </tr>
                                     </tbody>
                                     <thead className="">
                                         <tr className="bg-gray-200 border border-gray-400">
-                                            <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">মৌজা</th>
                                             <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">খতিয়ান নাম</th>
+                                            <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">মোবাইল</th>
+                                            <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">দাখিলা</th>
+                                            <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">দলিল</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr className="border-l border-l-gray-400 border-r border-r-gray-400 border-b border-b-gray-400">
-                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.mouzaName}</td>
                                             <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.khatianName}</td>
+                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">0{currElm.mobile}</td>
+                                            <td className="text-center py-2 px-2 border-r border-r-gray-400 space-x-3">
+                                                <a href={currElm.dakhila} className='text-red-500 underline decoration-red-500'>See</a>
+                                                <button className='text-green-700' onClick={() => handleDownload(currElm.dakhila, 'dakhila')}>Download</button>
+                                            </td>
+                                            <td className="text-center py-2 px-2 border-r border-r-gray-400 space-x-3">
+                                                <a href={currElm.dolil} className='text-red-500 underline decoration-red-500'>See</a>
+                                                <button className='text-green-700' onClick={() => handleDownload(currElm.dolil, 'dolil')}>Download</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                     <thead>
                                         <tr className="bg-gray-200 border border-gray-400">
-                                            <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">মোবাইল</th>
+                                            <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">খতিয়ান</th>
+                                            <th className="px-10 sm:px-2 py-3 border-r border-r-gray-400">ছবি</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr className="border-l border-l-gray-400 border-r border-r-gray-400 border-b border-b-gray-400">
-                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">0{currElm.mobile}</td>
+                                            <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
+                                                <a href={currElm.khatian} className='text-red-500 underline decoration-red-500'>See</a>
+                                                <button className='text-green-700' onClick={() => handleDownload(currElm.khatian, 'khatian')}>Download</button>
+                                            </td>
+                                            <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
+                                                <a href={currElm.photo} className='text-red-500 underline decoration-red-500'>See</a>
+                                                <button className='text-green-700' onClick={() => handleDownload(currElm.photo, 'photo')}>Download</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -119,11 +155,13 @@ const page = () => {
                                     </thead>
                                     <tbody>
                                         <tr className="border-l border-l-gray-400 border-r border-r-gray-400 border-b border-b-gray-400">
-                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">
-                                                <a href={currElm.dakhila}>See</a>
+                                            <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
+                                                <a href={currElm.dakhila} className='text-red-500 underline decoration-red-500'>See</a>
+                                                <button className='text-green-700' onClick={() => handleDownload(currElm.dakhila, 'dakhila')}>Download</button>
                                             </td>
-                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">
-                                                <a href={currElm.dolil}>See</a>
+                                            <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
+                                                <a href={currElm.dolil} className='text-red-500 underline decoration-red-500'>See</a>
+                                                <button className='text-green-700' onClick={() => handleDownload(currElm.dolil, 'dolil')}>Download</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -135,11 +173,13 @@ const page = () => {
                                     </thead>
                                     <tbody>
                                         <tr className="border-l border-l-gray-400 border-r border-r-gray-400 border-b border-b-gray-400">
-                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">
-                                                <a href={currElm.khatian}>See</a>
+                                            <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
+                                                <a href={currElm.khatian} className='text-red-500 underline decoration-red-500'>See</a>
+                                                <button className='text-green-700' onClick={() => handleDownload(currElm.khatian, 'khatian')}>Download</button>
                                             </td>
-                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">
-                                                <a href={currElm.photo}>See</a>
+                                            <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
+                                                <a href={currElm.photo} className='text-red-500 underline decoration-red-500'>See</a>
+                                                <button className='text-green-700' onClick={() => handleDownload(currElm.photo, 'photo')}>Download</button>
                                             </td>
                                         </tr>
                                     </tbody>

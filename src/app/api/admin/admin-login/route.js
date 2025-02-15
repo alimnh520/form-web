@@ -33,6 +33,7 @@ export const POST = async (request) => {
             httpOnly: true,
             source: process.env.NODE_ENV,
             maxAge: 24*60*60*1000,
+            sameSite: 'Strict',
             path: '/'
         });
         return response
