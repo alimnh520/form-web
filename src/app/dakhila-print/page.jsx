@@ -45,7 +45,7 @@ const page = () => {
   };
 
   return (
-    <div className="w-full h-screen px-20 flex flex-col items-center justify-center relative gap-y-5 sm:h-auto sm:px-5 sm:mt-20">
+    <div className="w-full h-screen px-20 flex flex-col items-center justify-center relative gap-y-5 sm:h-auto sm:px-2 sm:mt-20">
       <div
         className={`w-60 absolute bg-gray-500 border border-gray-700 ${
           deleteBtn ? "flex" : "hidden"
@@ -70,7 +70,7 @@ const page = () => {
           </button>
         </div>
       </div>
-      <h1 className="w-80 text-3xl sm:text-2xl text-center font-semibold bg-blue-600 text-white rounded-lg py-2 animate-pulse">
+      <h1 className="w-[415px] text-3xl sm:text-2xl text-center font-semibold bg-blue-600 text-white rounded-lg py-2 mt-5 animate-pulse sm:w-80">
         ভূমি উন্নয়ন দাখিলা
       </h1>
       {loading && (
@@ -83,26 +83,32 @@ const page = () => {
           </div>
         </div>
       )}
-      <div className="flex flex-col items-center justify-between space-y-5">
+      <div className="flex flex-col items-center justify-between space-y-5 h-screen w-full overflow-y-scroll">
         {userData ? (
           userData.map((elem) => {
             return (
               <div
-                className="w-80 flex items-center justify-between relative"
+                className="w-[415px] flex items-center justify-between relative sm:w-80 sm:gap-x-2 sm:justify-center"
                 key={elem._id}
               >
-                <p className="flex items-center justify-center h-full border border-gray-500 rounded-lg w-28 py-1">
+                <p className="flex items-center justify-center h-full border border-gray-500 rounded-lg w-28 py-1 sm:w-24">
                   {elem.khatianNmbr}
                 </p>
-                <div className="flex items-center justify-center gap-x-5">
+                <div className="flex items-center justify-center gap-x-5 sm:gap-x-2">
                   <Link
                     href={`/dakhila-print/${elem._id}`}
-                    className="px-5 py-1 bg-blue-600 text-lg rounded-lg font-semibold text-white text-center"
+                    className="px-5 py-1 bg-blue-600 text-lg rounded-lg font-semibold text-white text-center sm:px-3"
                   >
                     See
                   </Link>
+                  <Link
+                    href={`/dakhila-print/edit/${elem._id}`}
+                    className="px-5 py-1 bg-blue-600 text-lg rounded-lg font-semibold text-white text-center sm:px-3"
+                  >
+                    Edit
+                  </Link>
                   <button
-                    className="px-5 py-1 bg-red-600 text-lg rounded-lg font-semibold text-white"
+                    className="px-5 py-1 bg-red-600 text-lg rounded-lg font-semibold text-white sm:px-3"
                     onClick={() => {
                       setDeleteBtn(true);
                       setUserId(elem._id);
