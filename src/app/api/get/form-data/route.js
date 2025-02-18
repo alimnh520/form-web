@@ -1,13 +1,10 @@
-import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
+import { dbConnection } from "../../../../../lib/connectDB";
 
 export const GET = async (request) => {
     try {
-        const uri = process.env.MONGODB_URI
-        const client = new MongoClient(uri);
-        await client.connect();
-        const dataBase = client.db('test');
-        const collection = dataBase.collection('landforms');
+         const db = await dbConnection();
+        const collection = db.collection('landforms');
         const data = await collection.find({}).toArray();
         return NextResponse.json({ message: data, success: true });
 

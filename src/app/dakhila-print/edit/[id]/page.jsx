@@ -59,10 +59,10 @@ const page = () => {
         });
     };
 
-    console.log(ownerData.length)
+    const [OwnerDeleteLoading, setOwnerDeleteLoading] = useState(false);
+    const [LandDeleteLoading, setLandDeleteLoading] = useState(false);
 
     const deleteHandleChange = async (id, type) => {
-        // setLoading(true);
         if (ownerData.length > 0 && type === 'owner') {
             setOwnerData(ownerData.slice(0, ownerData.length - 1));
             return
@@ -73,6 +73,12 @@ const page = () => {
         }
 
         if (ownerData.length === 0 && landData.length === 0) {
+            if (type === 'owner') {
+                setOwnerDeleteLoading(true);
+            }
+            if (type === 'land') {
+                setLandDeleteLoading(true);
+            }
             try {
                 const response = await fetch('/api/get/form-data/edit-form', {
                     method: 'POST',
@@ -84,7 +90,8 @@ const page = () => {
                 const data = await response.json();
                 setMessage(data.message);
                 if (data.success) {
-                    setLoading(false);
+                    setLandDeleteLoading(false);
+                    setOwnerDeleteLoading(false);
                     window.location.reload();
                 }
             } catch (error) {
@@ -92,6 +99,8 @@ const page = () => {
             }
         }
     };
+
+    fetchData && matchId.map((elem) => console.log(elem))
 
 
     const [totalLand, setTotalLand] = useState("");
@@ -119,7 +128,7 @@ const page = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id, ownerData, landData })
+                body: JSON.stringify({ id, ownerData, landData, topCrokimNmbr, unionNum, moujarNam, thana, district, holdingNmbr, khatianNmbr, totalLand, loanPlus, loan, loanFine, halDabi, totalDabi, totalAdai, totalLoan, totalAmount, year, calanNumber, banglaDate, englishDate})
             });
             const data = await response.json();
             setMessage(data.message);
@@ -148,8 +157,7 @@ const page = () => {
     }, []);
 
 
-
-    const send = [topCrokimNmbr,unionNum,moujarNam,thana,district,holdingNmbr,khatianNmbr,totalLand,loanPlus,loan,loanFine,halDabi,totalDabi,totalAdai,totalLoan,totalAmount,year,calanNumber,banglaDate,englishDate]
+    const send = [topCrokimNmbr, unionNum, moujarNam, thana, district, holdingNmbr, khatianNmbr, totalLand, loanPlus, loan, loanFine, halDabi, totalDabi, totalAdai, totalLoan, totalAmount, year, calanNumber, banglaDate, englishDate];
 
     return (
         <div className="w-full h-auto flex flex-col items-center justify-center space-y-10 px-20 py-10 relative sm:px-5 dakhila">
@@ -265,7 +273,15 @@ const page = () => {
                         />
                     </div>
 
-                    <div className="w-full flex items-center justify-center space-x-4">
+                    <div className="w-full flex items-center justify-center space-x-4 relative">
+                        {
+                            OwnerDeleteLoading && (
+                                <div className="w-full h-60 flex items-center justify-center absolute
+                                 z-20">
+                                    <img src="/loader/images.png" className=" animate-pulse" alt="" />
+                                </div>
+                            )
+                        }
                         <button
                             className={`px-5 py-2 text-sm ${!ownerDetails.ownerCromik || !ownerDetails.ownerName || !ownerDetails.ownerProperty ? ' bg-blue-300 pointer-events-none' : ' bg-blue-600 pointer-events-auto'} text-white rounded-md`}
                             onClick={addOwner}
@@ -323,7 +339,15 @@ const page = () => {
                         />
                     </div>
 
-                    <div className="w-full flex items-center justify-center space-x-4">
+                    <div className="w-full flex items-center justify-center space-x-4 relative">
+                        {
+                            LandDeleteLoading && (
+                                <div className="w-full h-60 flex items-center justify-center absolute
+                                 z-20">
+                                    <img src="/loader/images.png" className=" animate-pulse" alt="" />
+                                </div>
+                            )
+                        }
                         <button
                             className={`px-5 py-2 text-sm ${!landDetails.landCromik || !landDetails.dagNum || !landDetails.landClass || !landDetails.landSize ? ' bg-blue-300 pointer-events-none' : ' bg-blue-600 pointer-events-auto'} text-white rounded-md`}
                             onClick={addLand}

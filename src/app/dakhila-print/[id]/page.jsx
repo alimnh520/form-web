@@ -171,10 +171,7 @@ const page = () => {
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div
-                                        className={`w-1/2 ${elem.ownerData.length >= 2 ? "flex" : "hidden"
-                                            } items-center justify-center`}
-                                    >
+                                    <div className={`w-1/2 ${elem.ownerData.length >= 2 ? "flex" : "hidden"} items-center justify-center`}>
                                         <table className="w-full mt-3 border-t-[1.5px] border-t-black border-l-[1.5px] border-l-black border-r-[1.5px] border-r-black border-dotted flex flex-col items-center justify-center">
                                             <thead className="w-full border-b-[1.5px] border-dotted border-b-black">
                                                 <tr className="w-full flex items-center justify-center">
@@ -192,7 +189,7 @@ const page = () => {
                                             <tbody className="w-full">
                                                 {elem.ownerData
                                                     .filter((elem, index) => index % 2 === 1)
-                                                    .map((elem) => {
+                                                    .map((elem,index) => {
                                                         return (
                                                             <tr
                                                                 className="w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black"
@@ -222,15 +219,12 @@ const page = () => {
                                 </p>
 
                                 <div className="w-full flex items-start justify-between space-x-3 mt-3 text-[12px]">
-                                    <div
-                                        className={`${elem.landData.length < 2 ? "w-full" : "w-1/2"
-                                            } flex items-center justify-center`}
-                                    >
+                                    <div className={`w-1/2 ${elem.landData.length > 1 ? "flex " : "hidden"} items-center justify-center`}>
                                         <table className="w-full border-dotted border-t-[1.5px] border-t-black border-l-[1.5px] border-l-black border-r-[1.5px] border-r-black flex flex-col items-center justify-center">
                                             <thead className="w-full border-b-[1.5px] border-dotted border-b-black">
                                                 <tr className="w-full flex items-center justify-center">
                                                     <th className="w-[15%] border-r-[1.5px] border-dotted border-r-black font-semibold">
-                                                        ক্রম{" "}
+                                                        ক্রম
                                                     </th>
                                                     <th className="w-[20%] border-r-[1.5px] border-dotted border-r-black font-semibold">
                                                         দাগ নং
@@ -244,13 +238,10 @@ const page = () => {
                                                 </tr>
                                             </thead>
                                             <tbody className="w-full">
-                                                {elem.landData.length < 2 &&
-                                                    elem.landData.map((elem, index) => {
+                                                {
+                                                    elem.landData.slice(0, Math.ceil(elem.landData.length / 2)).map((elem, index) => {
                                                         return (
-                                                            <tr
-                                                                className="w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black"
-                                                                key={index}
-                                                            >
+                                                            <tr className="w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black" key={index}>
                                                                 <td className="w-[15%] border-r-[1.5px] border-dotted border-r-black text-center">
                                                                     {elem.landCromik}
                                                                 </td>
@@ -264,38 +255,55 @@ const page = () => {
                                                                     {elem.landSize}
                                                                 </td>
                                                             </tr>
-                                                        );
-                                                    })}
-                                                {elem.landData
-                                                    .slice(0, elem.landData.length / 2)
-                                                    .map((elem, index) => {
-                                                        return (
-                                                            <tr
-                                                                className="w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black"
-                                                                key={index}
-                                                            >
-                                                                <td className="w-[15%] border-r-[1.5px] border-dotted border-r-black text-center">
-                                                                    {elem.landCromik}
-                                                                </td>
-                                                                <td className="w-[20%] border-r-[1.5px] border-dotted border-r-black px-0.5">
-                                                                    {elem.dagNum}
-                                                                </td>
-                                                                <td className="w-[25%] border-r-[1.5px] border-dotted border-r-black px-0.5">
-                                                                    {elem.landClass}
-                                                                </td>
-                                                                <td className="w-[40%] px-0.5">
-                                                                    {elem.landSize}
-                                                                </td>
-                                                            </tr>
-                                                        );
-                                                    })}
+                                                        )
+                                                    })
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div
-                                        className={`w-1/2 ${elem.landData.length < 2 ? "hidden" : "flex"
-                                            } items-center justify-center`}
-                                    >
+                                    <div className={`w-1/2 ${elem.landData.length > 1 ? "flex " : "hidden"} items-center justify-center`}>
+                                        <table className="w-full border-dotted border-t-[1.5px] border-t-black border-l-[1.5px] border-l-black border-r-[1.5px] border-r-black flex flex-col items-center justify-center">
+                                            <thead className="w-full border-b-[1.5px] border-dotted border-b-black">
+                                                <tr className="w-full flex items-center justify-center">
+                                                    <th className="w-[15%] border-r-[1.5px] border-dotted border-r-black font-semibold">
+                                                        ক্রম
+                                                    </th>
+                                                    <th className="w-[20%] border-r-[1.5px] border-dotted border-r-black font-semibold">
+                                                        দাগ নং
+                                                    </th>
+                                                    <th className="w-[25%] border-r-[1.5px] border-dotted border-r-black font-semibold">
+                                                        জমির শ্রেণি
+                                                    </th>
+                                                    <th className="w-[40%] font-semibold">
+                                                        জমির পরিমাণ (শতাংশ)
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="w-full">
+                                                {
+                                                    elem.landData.slice(Math.ceil(elem.landData.length / 2), elem.landData.length).map((elem, index) => {
+                                                        return (
+                                                            <tr className="w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black" key={index}>
+                                                                <td className="w-[15%] border-r-[1.5px] border-dotted border-r-black text-center">
+                                                                    {elem.landCromik}
+                                                                </td>
+                                                                <td className="w-[20%] border-r-[1.5px] border-dotted border-r-black px-0.5">
+                                                                    {elem.dagNum}
+                                                                </td>
+                                                                <td className="w-[25%] border-r-[1.5px] border-dotted border-r-black px-0.5">
+                                                                    {elem.landClass}
+                                                                </td>
+                                                                <td className="w-[40%] px-0.5">
+                                                                    {elem.landSize}
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div className={`w-full ${elem.landData.length < 2 ? "flex" : "hidden"} items-center justify-center`}>
                                         <table className="w-full border-dotted border-t-[1.5px] border-t-black border-l-[1.5px] border-l-black border-r-[1.5px] border-r-black flex flex-col items-center justify-center">
                                             <thead className="w-full border-b-[1.5px] border-dotted border-b-black">
                                                 <tr className="w-full flex items-center justify-center">
@@ -314,12 +322,7 @@ const page = () => {
                                                 </tr>
                                             </thead>
                                             <tbody className="w-full">
-                                                {elem.landData
-                                                    .slice(
-                                                        elem.landData.length / 2,
-                                                        elem.landData.length - 1
-                                                    )
-                                                    .map((elem, index) => {
+                                                {elem.landData.map((elem, index) => {
                                                         return (
                                                             <tr
                                                                 className="w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black"
