@@ -35,7 +35,7 @@ const page = () => {
                 {
                     userData ? userData.filter((id) => params.id === id._id).map((currElm) => {
                         return (
-                            <div className="flex flex-col items-start justify-center w-full" key={currElm._id}>
+                            <div className="flex flex-col items-center justify-center w-full" key={currElm._id}>
                                 <table className="table-fixed sm:hidden">
                                     <thead>
                                         <tr className="bg-gray-200 border border-gray-400">

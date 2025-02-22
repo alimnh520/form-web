@@ -75,7 +75,7 @@ const page = () => {
                                     <tbody>
                                         <tr className="border-l border-l-gray-400 border-r border-r-gray-400 border-b border-b-gray-400">
                                             <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.dobNum.slice(0, 10)}</td>
-                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">0{currElm.mobile}</td>
+                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.mobile}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -125,7 +125,7 @@ const page = () => {
                                     <tbody>
                                         <tr className="border-l border-l-gray-400 border-r border-r-gray-400 border-b border-b-gray-400">
                                             <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.dobNum.slice(0, 10)}</td>
-                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">0{currElm.mobile}</td>
+                                            <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.mobile}</td>
                                         </tr>
                                     </tbody>
                                 </table>

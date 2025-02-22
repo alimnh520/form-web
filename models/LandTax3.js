@@ -11,6 +11,7 @@ const LandSchema3 = new mongoose.Schema({
     dolil: { type: String, required: true },
     photo: { type: String, required: true },
     dakhila: { type: String, required: true },
+    imgId: { type: [String], default: [] },
 });
 
 export default mongoose.models.LandTax3 || mongoose.model('LandTax3', LandSchema3);

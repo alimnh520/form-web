@@ -30,6 +30,7 @@ const page = () => {
         body: JSON.stringify({ user }),
       });
       const data = await response.json();
+      console.log(data)
       if (data.message) {
         setLoading(false);
         setMessage(data.message);

@@ -68,9 +68,8 @@ const page = () => {
                 body: formData
             });
             result = await result.json();
-            console.log(result);
 
-            if (result.message === "Image uploaded successfully") {
+            if (result.success) {
                 setTimeout(() => {
                     setLoader(false);
                     setSubmit(true);
@@ -107,7 +106,7 @@ const page = () => {
 
             <form onSubmit={handleSubmit} className='w-10/12 sm:w-full space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:grid-cols-1 sm:grid-rows-none relative'>
 
-                <div className=" absolute left-1/2 -translate-x-1/2">
+                <div className=" absolute left-1/2 -translate-x-1/2 z-20">
                     <Animation loader={loader} />
                 </div>
 

@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 export const middleware = (request) => {
   const path = request.nextUrl.pathname;
   const token = request.cookies.get("token");
-  // console.log('Your token is : ', token)
 
   if (!token && path == "/components/fill-form") {
     return NextResponse.redirect(new URL("/", request.url));

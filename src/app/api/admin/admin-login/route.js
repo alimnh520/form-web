@@ -2,7 +2,6 @@ import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server"
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { cookies } from "next/headers";
 
 export const POST = async (request) => {
     const uri = process.env.MONGODB_URI
@@ -10,35 +9,35 @@ export const POST = async (request) => {
     await client.connect();
     const db = client.db('test');
     const collection = db.collection('admin');
-    const user = await collection.find({}).toArray();
+
     try {
         const reqBody = await request.json();
         const {username,password} = reqBody.user;
+        const data = await collection.findOne({username});
 
-        if (user[0].username !== username) {
+        if (!data) {
             return NextResponse.json({message: "User not found", success: false});
         }
 
-        const userdata = await collection.findOne({username});
-        const comparePass = await bcrypt.compare(password, userdata.password);
+        const comparePass = await bcrypt.compare(password, data.password);
 
         if (!comparePass) {
             return NextResponse.json({message: "Password is wrong", success: false});
         }
 
-        const token = await jwt.sign({userId: userdata._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+        const token = jwt.sign({userId: data._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
 
-        const response = NextResponse.json({message: 'Success to login', success: true});
+        const response = NextResponse.json({message: 'Login successful', success: true});
         response.cookies.set('token', token, {
             httpOnly: true,
-            source: process.env.NODE_ENV,
+            source: process.env.NODE_ENV === "production",
             maxAge: 24*60*60*1000,
-            sameSite: 'Strict',
+            sameSite: "strict",
             path: '/'
         });
         return response
 
     } catch (error) {
-        return NextResponse.json({message: "The error is : ", error});
+        return NextResponse.json({message: "Failed to login"});
     }
 }
