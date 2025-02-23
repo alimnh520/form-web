@@ -41,10 +41,10 @@ export const POST = async (request) => {
             imgId: [khatianPic.public_id, dolilPic.public_id, mainPhoto.public_id, dakhilaPic.public_id]
         });
         await addDetails.save();
-        return Response.json({ message: "Image uploaded successfully" });
+        return Response.json({ message: "Image uploaded successfully", success: true });
 
     } catch (error) {
         console.log(error);
-        return Response.json({ message: "Image upload failed" });
+        return Response.json({ message: "Image upload failed", success: false });
     }
 }
