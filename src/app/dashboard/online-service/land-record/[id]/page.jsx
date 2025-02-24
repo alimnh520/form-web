@@ -82,12 +82,12 @@ const page = () => {
                                             <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">{currElm.khatianName}</td>
                                             <td className="text-center py-2 px-10 sm:px-2 border-r border-r-gray-400">0{currElm.mobile}</td>
                                             <td className="text-center py-2 px-2 border-r border-r-gray-400 space-x-3">
-                                                <a href={currElm.dakhila} className='text-red-500 underline decoration-red-500'>See</a>
-                                                <button className='text-green-700' onClick={() => handleDownload(currElm.dakhila, `${currElm.mobile}-dakhila`)}>Download</button>
+                                                <a href={currElm.dakhila} target='blank' className='bg-red-500 text-white px-2 rounded-md py-0.5'>See</a>
+                                                <button className='bg-green-700 rounded-md text-white px-2 py-0.5' onClick={() => handleDownload(currElm.dakhila, `${currElm.mobile}-dakhila`)}>Download</button>
                                             </td>
                                             <td className="text-center py-2 px-2 border-r border-r-gray-400 space-x-3">
-                                                <a href={currElm.dolil} className='text-red-500 underline decoration-red-500'>See</a>
-                                                <button className='text-green-700' onClick={() => handleDownload(currElm.dolil, `${currElm.mobile}-dolil`)}>Download</button>
+                                                <a href={currElm.dolil} target='blank' className='bg-red-500 text-white px-2 rounded-md py-0.5'>See</a>
+                                                <button className='bg-green-700 rounded-md text-white px-2 py-0.5' onClick={() => handleDownload(currElm.dolil, `${currElm.mobile}-dolil`)}>Download</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -100,12 +100,12 @@ const page = () => {
                                     <tbody>
                                         <tr className="border-l border-l-gray-400 border-r border-r-gray-400 border-b border-b-gray-400">
                                             <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
-                                                <a href={currElm.khatian} className='text-red-500 underline decoration-red-500'>See</a>
-                                                <button className='text-green-700' onClick={() => handleDownload(currElm.khatian, `${currElm.mobile}-khatian`)}>Download</button>
+                                                <a href={currElm.khatian} target='blank' className='bg-red-500 text-white px-2 rounded-md py-0.5'>See</a>
+                                                <button className='bg-green-700 rounded-md text-white px-2 py-0.5' onClick={() => handleDownload(currElm.khatian, `${currElm.mobile}-khatian`)}>Download</button>
                                             </td>
                                             <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
-                                                <a href={currElm.photo} className='text-red-500 underline decoration-red-500'>See</a>
-                                                <button className='text-green-700' onClick={() => handleDownload(currElm.photo, `${currElm.mobile}-photo`)}>Download</button>
+                                                <a href={currElm.photo} target='blank' className='bg-red-500 text-white px-2 rounded-md py-0.5'>See</a>
+                                                <button className='bg-green-700 rounded-md text-white px-2 py-0.5' onClick={() => handleDownload(currElm.photo, `${currElm.mobile}-photo`)}>Download</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -156,12 +156,12 @@ const page = () => {
                                     <tbody>
                                         <tr className="border-l border-l-gray-400 border-r border-r-gray-400 border-b border-b-gray-400">
                                             <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
-                                                <a href={currElm.dakhila} className='text-red-500 underline decoration-red-500'>See</a>
-                                                <button className='text-green-700' onClick={() => handleDownload(currElm.dakhila, `${currElm.mobile}-dakhila`)}>Download</button>
+                                                <a href={currElm.dakhila} target='blank' className='bg-red-500 text-white px-2 rounded-md py-0.5'>See</a>
+                                                <button className='bg-green-700 rounded-md text-white px-2 py-0.5' onClick={() => handleDownload(currElm.dakhila, `${currElm.mobile}-dakhila`)}>Download</button>
                                             </td>
                                             <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
-                                                <a href={currElm.dolil} className='text-red-500 underline decoration-red-500'>See</a>
-                                                <button className='text-green-700' onClick={() => handleDownload(currElm.dolil, `${currElm.mobile}-dolil`)}>Download</button>
+                                                <a href={currElm.dolil} target='blank' className='bg-red-500 text-white px-2 rounded-md py-0.5'>See</a>
+                                                <button className='bg-green-700 rounded-md text-white px-2 py-0.5' onClick={() => handleDownload(currElm.dolil, `${currElm.mobile}-dolil`)}>Download</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -174,12 +174,12 @@ const page = () => {
                                     <tbody>
                                         <tr className="border-l border-l-gray-400 border-r border-r-gray-400 border-b border-b-gray-400">
                                             <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
-                                                <a href={currElm.khatian} className='text-red-500 underline decoration-red-500'>See</a>
-                                                <button className='text-green-700' onClick={() => handleDownload(currElm.khatian, `${currElm.mobile}-khatian`)}>Download</button>
+                                                <a href={currElm.khatian} target='blank' className='bg-red-500 text-white px-2 rounded-md py-0.5'>See</a>
+                                                <button className='bg-green-700 rounded-md text-white px-2 py-0.5' onClick={() => handleDownload(currElm.khatian, `${currElm.mobile}-khatian`)}>Download</button>
                                             </td>
                                             <td className="text-center py-2 px-2 space-x-3 border-r border-r-gray-400">
-                                                <a href={currElm.photo} className='text-red-500 underline decoration-red-500'>See</a>
-                                                <button className='text-green-700' onClick={() => handleDownload(currElm.photo, `${currElm.mobile}-photo`)}>Download</button>
+                                                <a href={currElm.photo} target='blank' className='bg-red-500 text-white px-2 rounded-md py-0.5'>See</a>
+                                                <button className='bg-green-700 rounded-md text-white px-2 py-0.5' onClick={() => handleDownload(currElm.photo, `${currElm.mobile}-photo`)}>Download</button>
                                             </td>
                                         </tr>
                                     </tbody>
