@@ -1,5 +1,5 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { QRCodeCanvas } from "qrcode.react";
 import React, { useEffect, useState } from "react";
 
@@ -34,6 +34,13 @@ const page = () => {
         userData();
     }, []);
 
+    const pathName = usePathname();
+    const routePath = /^\/dakhila-print\/\w+$/i.test(pathName);
+
+    if (routePath) {
+        document.body.style.backgroundColor = 'rgb(247 254 231)'
+    }
+
     const url = `https://ldtax.gov.bdl.tax/dakhila-print/${params.id}`;
 
     return fetchData ? (
@@ -42,7 +49,7 @@ const page = () => {
             .map((elem) => {
                 return (
                     <div
-                        className="w-full -mt-16 flex flex-col items-center justify-center p-4 bg-lime-50 sm:bg-white dakhila"
+                        className="w-full -mt-16 flex flex-col items-center justify-center p-4 bg-lime-50 dakhila"
                         key={elem._id}
                     >
                         <div
@@ -189,7 +196,7 @@ const page = () => {
                                             <tbody className="w-full">
                                                 {elem.ownerData
                                                     .filter((elem, index) => index % 2 === 1)
-                                                    .map((elem,index) => {
+                                                    .map((elem, index) => {
                                                         return (
                                                             <tr
                                                                 className="w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black"
@@ -323,26 +330,26 @@ const page = () => {
                                             </thead>
                                             <tbody className="w-full">
                                                 {elem.landData.map((elem, index) => {
-                                                        return (
-                                                            <tr
-                                                                className="w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black"
-                                                                key={index}
-                                                            >
-                                                                <td className="w-[15%] border-r-[1.5px] border-dotted border-r-black text-center">
-                                                                    {elem.landCromik}
-                                                                </td>
-                                                                <td className="w-[20%] border-r-[1.5px] border-dotted border-r-black px-0.5">
-                                                                    {elem.dagNum}
-                                                                </td>
-                                                                <td className="w-[25%] border-r-[1.5px] border-dotted border-r-black px-0.5">
-                                                                    {elem.landClass}
-                                                                </td>
-                                                                <td className="w-[40%] px-0.5">
-                                                                    {elem.landSize}
-                                                                </td>
-                                                            </tr>
-                                                        );
-                                                    })}
+                                                    return (
+                                                        <tr
+                                                            className="w-full flex items-center justify-center border-dotted border-b-[1.5px] border-b-black"
+                                                            key={index}
+                                                        >
+                                                            <td className="w-[15%] border-r-[1.5px] border-dotted border-r-black text-center">
+                                                                {elem.landCromik}
+                                                            </td>
+                                                            <td className="w-[20%] border-r-[1.5px] border-dotted border-r-black px-0.5">
+                                                                {elem.dagNum}
+                                                            </td>
+                                                            <td className="w-[25%] border-r-[1.5px] border-dotted border-r-black px-0.5">
+                                                                {elem.landClass}
+                                                            </td>
+                                                            <td className="w-[40%] px-0.5">
+                                                                {elem.landSize}
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                })}
                                             </tbody>
                                         </table>
                                     </div>

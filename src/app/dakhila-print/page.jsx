@@ -45,7 +45,7 @@ const page = () => {
   };
 
   return (
-    <div className="w-full h-screen px-20 flex flex-col items-center justify-center relative gap-y-5 sm:h-auto sm:px-2 sm:mt-20">
+    <div className="w-full h-screen px-20 flex flex-col items-center justify-center relative gap-y-5 sm:h-auto sm:px-2 sm:mt-20 bg-white">
       <div
         className={`w-60 absolute bg-gray-500 border border-gray-700 ${
           deleteBtn ? "flex" : "hidden"

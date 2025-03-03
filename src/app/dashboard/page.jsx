@@ -45,6 +45,7 @@ const page = () => {
             <ServicesTax url="hello" clr="#4072b7" img="img1" tax="জন্মনিবন্ধন সেবা" />
             <ServicesTax url="hello" clr="#007d4d" img="img2" tax="NID সংক্রান্ত সেবা" />
             <ServicesTax url="hello" clr="#365e3c" img="img3" tax="পাসপোর্ট সংক্রান্ত সেবা" />
+            <ServicesTax url="https://pcc.police.gov.bdl.tax/ords/f?p=500:50:::NO::P50_TOKEN_ID:1CHABXH" clr="#4072b7" img="/logos/349-3492563_client6-bangladesh-police-logo-png-transparent-png.png" tax="পুলিশ ক্লিয়ারেন্স" />
           </div>
           <div className="flex flex-col items-center justify-start mt-4 gap-y-5">
             <h1 className="text-4xl font-thin sm:text-2xl">ভূমি উন্নয়ন দাখিলার আবেদন</h1>
