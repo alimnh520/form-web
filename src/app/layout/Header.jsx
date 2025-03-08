@@ -38,7 +38,25 @@ const Header = () => {
     }
   };
 
-  let today = new Date();
+  let date = new Date();
+
+  const monthsInBangla = [
+    'বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ', 'ভাদ্র', 'আশ্বিন',
+    'কার্তিক', 'অগ্রহায়ণ', 'পৌষ', 'মাঘ', 'ফাল্গুন', 'চৈত্র'
+  ];
+
+  const banglaNumberDate = ['১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', '১০', '১১', '১২', '১৩', '১৪', '১৫', '১৬', '১৭', '১৮', '১৯', '২০', '২১', '২২', '২৩', '২৪', '২৫', '২৬', '২৭', '২৮', '২৯', '৩০', '৩১'];
+
+  // get bangla year
+  const banglaYear = (date.getFullYear() - 594).toString().split('');
+  const getYear = `${banglaNumberDate[banglaYear[0] - 1]}${banglaNumberDate[banglaYear[1] - 1]}${banglaNumberDate[banglaYear[2] - 1]}${banglaNumberDate[banglaYear[3] - 1]}`
+
+  // get bangla date
+  const day = banglaNumberDate[date.getDate() + (date.getDate() > 16 ? -17 : 14)];
+
+  // get bangla month
+  const month = monthsInBangla[date.getMonth() + (date.getMonth() > 3 ? date.getMonth() - 6 : date.getMonth() + 6)];
+  
   const option = {
     year: "numeric",
     month: "long",
@@ -46,20 +64,9 @@ const Header = () => {
     weekday: "long",
     numberingSystem: "beng",
   };
-  const banglaDate = new Intl.DateTimeFormat("bn-BD", option).format(today);
+  const banglaDate = new Intl.DateTimeFormat("bn-BD", option).format(date);
 
-  const monthsInBangla = [
-    'বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ', 'ভাদ্র', 'আশ্বিন',
-    'কার্তিক', 'অগ্রহায়ণ', 'পৌষ', 'মাঘ', 'ফাল্গুন', 'চৈত্র'
-  ];
-  
-  const banglaNumberDate = ['১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', '১০','১১','১২','১৩','১৪','১৫','১৬','১৭','১৮','১৯','২০','২১','২২','২৩','২৪','২৫','২৬','২৭','২৮','২৯','৩০','৩১'];
-
-  const date = new Date();
-
-  const day = banglaNumberDate[date.getDate() + (date.getDate() > 16 ? date.getDate() - 7 : date.getDate() + 7)];
-
-  const month = monthsInBangla[date.getMonth() + (date.getMonth() > 3 ? date.getMonth() - 6 : date.getMonth() + 6) ];
+  const splitDate = banglaDate.split(',');
 
   return (
     <div className="w-full h-16 bg-white flex items-center justify-between px-10 shadow-2xl fixed top-0 z-40 sm:px-5 sm:h-auto sm:flex-col">
@@ -76,8 +83,10 @@ const Header = () => {
         <img src="/logos/logo2.jpg" alt="" className="h-full sm:h-auto sm:w-40" />
       </div>
       <div className="w-[85%] h-full flex flex-col items-center justify-between sm:w-full">
-        <div className="w-full h-[50%] bg-gradient-to-l text-white from-white via-green-700 to-white flex items-center justify-center">
-          <p>{banglaDate} - {day}{banglaNumberDate.length > 19 ? 'শে' : 'ই'} {month}</p>
+        <div className="w-full h-[50%] bg-gradient-to-l text-white from-white via-green-700 to-white flex items-center justify-center text-sm font-[500]">
+
+          <p>{splitDate[0]} {day} {month} {getYear},{splitDate[1]}{splitDate[2]}</p>
+
         </div>
 
         <div className={`absolute hidden size-10 p-2 bg-green-700 right-5 top-1 items-center justify-between cursor-pointer flex-col sm:flex`} onClick={() => setHideMenu(!hideMenu)}>
