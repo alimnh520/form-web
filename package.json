@@ -10,12 +10,16 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.5.1",
+    "clsx": "^2.1.1",
     "cookie": "^1.0.2",
     "date-bengali-revised": "^2.0.2",
     "express": "^4.21.2",
+    "input-otp": "^1.4.2",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.479.0",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.3",
     "next": "15.1.4",
@@ -27,7 +31,9 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
-    "swiper": "^11.2.1"
+    "swiper": "^11.2.1",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "postcss": "^8",

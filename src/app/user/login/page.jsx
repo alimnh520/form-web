@@ -3,6 +3,8 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import { RiRefreshLine } from "react-icons/ri";
 import { BsQuestion } from "react-icons/bs";
+import { BsFillEyeFill } from "react-icons/bs";
+import { BsFillEyeSlashFill } from "react-icons/bs";
 import Link from 'next/link';
 
 const page = () => {
@@ -18,6 +20,7 @@ const page = () => {
     const [changeCode, setChangeCode] = useState(0);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [eyes, setEyes] = useState(false);
     const router = useRouter();
 
     const [user, setUser] = useState({
@@ -163,7 +166,7 @@ const page = () => {
                 }
 
                 <img src="/logos/logo.png" alt="" className="h-12" />
-                <p>নতুন একাউন্ট তৈরি করুন</p>
+                <p>লগইন করুন</p>
                 <p className="w-full py-2 text-center bg-zinc-300 rounded-md">
                     উদ্যোক্তা
                 </p>
@@ -177,11 +180,6 @@ const page = () => {
                         <input type="radio" name="select" id="email" value="email" onChange={(e) => setValue(e.target.value)} />
                         <label htmlFor="email" className='mt-1 cursor-pointer' onClick={() => setChecked(false)}>ইমেইল</label>
                     </div>
-                </div>
-                <div className="w-full h-10 border border-gray-300 rounded-md bg-gray-100 relative flex items-center justify-start px-4 mt-2">
-                    <p className={`text-[13px] relative text-gray-500 transition-all duration-300 ${nameLabel ? '-top-5 z-20 bg-white' : 'top-0'}`}>আপনার নাম (ইংরেজিতে)</p>
-                    <input type="text" className='w-full h-full left-0 px-4 absolute outline-none rounded-md bg-transparent z-10 focus:outline-[3px] focus:outline-blue-200 focus:border-[3px] focus:border-blue-300 outline-offset-0 transition-all duration-100' name='username' onChange={handleChange} onBlur={nameBlur} onFocus={nameFocus} />
-                    <div className="absolute right-3 bg-zinc-400 rounded-full text-gray-600 text-xl p-1.5 cursor-pointer z-10"><BsQuestion /></div>
                 </div>
 
                 {
@@ -206,6 +204,17 @@ const page = () => {
                         </div>
                     )
                 }
+
+                <div className="w-full h-10 border border-gray-300 rounded-md bg-gray-100 relative flex items-center justify-start px-4 mt-2">
+                    <p className={`text-[13px] relative text-gray-500 transition-all duration-300 ${nameLabel ? '-top-5 z-20 bg-white' : 'top-0'}`}>পাসওয়ার্ড</p>
+                    <input type={eyes ? 'text' : 'password'} className='w-full h-full left-0 px-4 absolute outline-none rounded-md bg-transparent z-10 focus:outline-[3px] focus:outline-blue-200 focus:border-[3px] focus:border-blue-300 outline-offset-0 transition-all duration-100' name='username' onChange={handleChange} onBlur={nameBlur} onFocus={nameFocus} />
+
+                    <div className="absolute right-14 text-gray-600 text-xl cursor-pointer z-10" onClick={() => setEyes(!eyes)}>{eyes ? <BsFillEyeFill /> : <BsFillEyeSlashFill />}</div>
+
+                    <div className="absolute right-3 bg-zinc-400 rounded-full text-gray-600 text-xl p-1.5 cursor-pointer z-10"><BsQuestion /></div>
+
+                </div>
+
                 <div className="w-full h-10 flex items-center justify-between mt-4  gap-x-2">
                     <div className="w-9/12 h-full border border-gray-300 rounded-md bg-gray-100 relative flex items-center justify-center tracking-[20px] sm:tracking-[15px] text-lg font-medium">
                         <p>{verifyCode}</p>
@@ -223,12 +232,14 @@ const page = () => {
                     <input type="text" className='w-full h-full left-0 px-4 absolute outline-none rounded-md bg-transparent z-10 focus:outline-[3px] focus:outline-blue-200 focus:border-[3px] focus:border-blue-300 outline-offset-0 transition-all duration-100' value={verifyLetter} onChange={(e) => setVerifyLetter(e.target.value)} onBlur={verifyBlur} onFocus={verifyFocus} />
                 </div>
 
-                <button onClick={handleSubmit} className={`w-full py-2 border border-green-900 rounded-md bg-green-800 text-white mt-7 `}>সাবমিট করুন</button>
+                <Link href="" className='hover:underline decoration-blue-600 self-start ml-5 hover:text-blue-600 mt-3 text-[13px]'>পাসওয়ার্ড ভুলে গেছেন?</Link>
 
-                <p className='text-sm mt-3'>আগেই একাউন্ট করেছেন? <Link href="/user/login" className='underline decoration-blue-600 text-blue-600'>লগইন করুন</Link></p>
+                <button onClick={handleSubmit} className={`w-full py-2 border border-green-900 rounded-md bg-green-800 text-white mt-3`}>লগইন করুন</button>
+
+                <p className='text-sm mt-3'>একাউন্ট নেই? <Link href="/user/registration" className='underline decoration-blue-600 text-blue-600'>রেজিস্ট্রেশন করুন</Link></p>
 
             </div>
-        </div>
+        </div >
     )
 }
 
