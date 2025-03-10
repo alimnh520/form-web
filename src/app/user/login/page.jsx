@@ -122,7 +122,7 @@ const page = () => {
         }
         setLoading(true);
         try {
-            const response = await fetch('/api/user/sign-up', {
+            const response = await fetch('/api/user/user-login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -148,15 +148,6 @@ const page = () => {
     return (
         <div className="w-full h-screen flex items-start justify-center bg-[url('/bg/lsg-image.webp')] bg-center bg-cover -mt-16">
             <div className="w-[400px] h-auto bg-white p-7 flex flex-col items-center justify-start mt-4 gap-y-2 relative sm:w-80 sm:bg-[rgba(255,255,255,0.5)]">
-
-                {
-                    message && (
-                        <p className="px-4 py-2 bg-red-500 text-white absolute top-1/2 -translate-y-1/2 z-30">
-                            {message}
-                        </p>
-
-                    )
-                }
                 {
                     loading && (
                         <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 z-30 bg-white">
@@ -233,6 +224,15 @@ const page = () => {
                 </div>
 
                 <Link href="" className='hover:underline decoration-blue-600 self-start ml-5 hover:text-blue-600 mt-3 text-[13px]'>পাসওয়ার্ড ভুলে গেছেন?</Link>
+
+                {
+                    message && (
+                        <p className="w-full px-4 py-1.5 bg-[rgba(239,68,68,0.5)] text-white z-30 text-center">
+                            {message}
+                        </p>
+
+                    )
+                }
 
                 <button onClick={handleSubmit} className={`w-full py-2 border border-green-900 rounded-md bg-green-800 text-white mt-3`}>লগইন করুন</button>
 

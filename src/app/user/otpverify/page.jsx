@@ -11,6 +11,7 @@ import {
 const page = () => {
     const [otp, setOtp] = useState('');
     const [timer, setTimer] = useState(2 * 60);
+    const [loading, setLoading] = useState(false);
 
     // timer
     useEffect(() => {
@@ -27,29 +28,63 @@ const page = () => {
     const second = timer % 60;
 
     const resendCode = async () => {
-        setTimer(2 * 60);
+        setLoading(true);
+        try {
+            const response = await fetch('/api/user/verify/resend', { method: 'GET' });
+            setLoading(false);
+            const data = await response.json();
+            console.log(data);
+            if (data.success) {
+                setTimer(2 * 60);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const submitOtp = async () => {
-        console.log(otp)
+        setLoading(true);
+        try {
+            const response = await fetch('/api/user/verify/verify-user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ verifyOtp: otp })
+            });
+            setLoading(false);
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
     return (
         <div className="w-full h-screen flex items-center justify-center bg-[url('/bg/lsg-image.webp')] bg-center bg-cover -mt-16">
             <div className="w-[400px] h-[360px] -mt-16 bg-white p-7 flex flex-col items-center justify-start gap-y-2 relative sm:w-80 sm:bg-[rgba(255,255,255,0.5)]">
+
+                {
+                    loading && (
+                        <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 z-30 bg-white">
+                            <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
+                        </div>
+                    )
+                }
+
                 <img src="/logos/logo.png" alt="" className="h-[50px] " />
                 <p className='text-2xl'>OTP নাম্বার নিশ্চিত করুন</p>
                 <p className='text-center text-gray-600 text-sm py-2'>আপনার মোবাইল/ইমেইলে পাঠানো ৬ সংখ্যার কোডটি <br /> লিখুন।</p>
 
                 <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS} value={otp} onChange={(e) => setOtp(e)}>
                     <InputOTPGroup className='flex gap-x-2'>
-                        <InputOTPSlot className='rounded-md focus:ring-0 focus:border-none focus:outline-none' index={0} />
-                        <InputOTPSlot className='rounded-md' index={1} />
-                        <InputOTPSlot className='rounded-md' index={2} />
-                        <InputOTPSlot className='rounded-md' index={3} />
-                        <InputOTPSlot className='rounded-md' index={4} />
-                        <InputOTPSlot className='rounded-md' index={5} />
+                        <InputOTPSlot className='rounded-md text-xl font-semibold' index={0} />
+                        <InputOTPSlot className='rounded-md text-xl font-semibold' index={1} />
+                        <InputOTPSlot className='rounded-md text-xl font-semibold' index={2} />
+                        <InputOTPSlot className='rounded-md text-xl font-semibold' index={3} />
+                        <InputOTPSlot className='rounded-md text-xl font-semibold' index={4} />
+                        <InputOTPSlot className='rounded-md text-xl font-semibold' index={5} />
                     </InputOTPGroup>
                 </InputOTP>
 

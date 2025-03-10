@@ -111,7 +111,7 @@ const page = () => {
         }
 
         if (verifyCode !== verifyLetter) {
-            setMessage('ভেরিফিকেশন কোড ভুল');
+            setMessage('ছবিতে প্রদর্শিত কোডটি প্রদান করুন');
             setTimeout(() => {
                 setMessage('')
             }, 2000);
@@ -131,7 +131,7 @@ const page = () => {
             if (data.success) {
                 setLoading(false)
                 setMessage(data.message);
-                router.push('/');
+                router.push('/user/otpverify');
                 setTimeout(() => {
                     setMessage('');
                 }, 2000);
@@ -146,14 +146,6 @@ const page = () => {
         <div className="w-full h-screen flex items-start justify-center bg-[url('/bg/lsg-image.webp')] bg-center bg-cover -mt-16">
             <div className="w-[400px] h-auto bg-white p-7 flex flex-col items-center justify-start mt-4 gap-y-2 relative sm:w-80 sm:bg-[rgba(255,255,255,0.5)]">
 
-                {
-                    message && (
-                        <p className="px-4 py-2 bg-red-500 text-white absolute top-1/2 -translate-y-1/2 z-30">
-                            {message}
-                        </p>
-
-                    )
-                }
                 {
                     loading && (
                         <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 z-30 bg-white">
@@ -223,7 +215,16 @@ const page = () => {
                     <input type="text" className='w-full h-full left-0 px-4 absolute outline-none rounded-md bg-transparent z-10 focus:outline-[3px] focus:outline-blue-200 focus:border-[3px] focus:border-blue-300 outline-offset-0 transition-all duration-100' value={verifyLetter} onChange={(e) => setVerifyLetter(e.target.value)} onBlur={verifyBlur} onFocus={verifyFocus} />
                 </div>
 
-                <button onClick={handleSubmit} className={`w-full py-2 border border-green-900 rounded-md bg-green-800 text-white mt-7 `}>সাবমিট করুন</button>
+                {
+                    message && (
+                        <p className="w-full px-4 py-1.5 bg-[rgba(239,68,68,0.5)] text-white z-30 text-center">
+                            {message}
+                        </p>
+
+                    )
+                }
+
+                <button onClick={handleSubmit} className={`w-full py-2 border border-green-900 rounded-md bg-green-800 text-white mt-4`}>সাবমিট করুন</button>
 
                 <p className='text-sm mt-3'>আগেই একাউন্ট করেছেন? <Link href="/user/login" className='underline decoration-blue-600 text-blue-600'>লগইন করুন</Link></p>
 

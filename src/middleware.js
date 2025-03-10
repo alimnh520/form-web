@@ -3,7 +3,13 @@ import { NextResponse } from "next/server";
 export const middleware = (request) => {
   const path = request.nextUrl.pathname;
   const token = request.cookies.get("token");
+  const verify = request.cookies.get("otp");
 
+  if (!verify && path == "/user/otpverify") {
+    return NextResponse.redirect(new URL("/user/registration", request.url));
+  }
+
+  // admin 
   if (!token && path == "/components/fill-form") {
     return NextResponse.redirect(new URL("/", request.url));
   }
@@ -19,6 +25,8 @@ export const middleware = (request) => {
   if (token && path == '/office') {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
+
+
 };
 
 export const config = {
@@ -26,6 +34,7 @@ export const config = {
     "/components/fill-form",
     "/dakhila-print",
     "/dashboard/:path*",
-    "/office"
+    "/office",
+    "/user/otpverify"
   ],
 };
