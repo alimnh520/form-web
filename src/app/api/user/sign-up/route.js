@@ -27,7 +27,7 @@ export const POST = async (request) => {
                 username,
                 mobile,
             });
-            await saveUser.save();
+            // await saveUser.save();
 
             const response = NextResponse.json({ message: 'User sign up successfully', success: true });
 

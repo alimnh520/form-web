@@ -7,11 +7,13 @@ import {
     InputOTPGroup,
     InputOTPSlot,
 } from "@/components/ui/input-otp"
+import { useRouter } from 'next/navigation'
 
 const page = () => {
     const [otp, setOtp] = useState('');
     const [timer, setTimer] = useState(2 * 60);
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     // timer
     useEffect(() => {
@@ -54,7 +56,9 @@ const page = () => {
             });
             setLoading(false);
             const data = await response.json();
-            console.log(data);
+            if (data.success) {
+                router.push('/passwordset');
+            }
         } catch (error) {
             console.log(error)
         }
