@@ -13,6 +13,7 @@ const page = () => {
     const [otp, setOtp] = useState('');
     const [timer, setTimer] = useState(2 * 60);
     const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState('');
     const router = useRouter();
 
     // timer
@@ -35,7 +36,10 @@ const page = () => {
             const response = await fetch('/api/user/verify/resend', { method: 'GET' });
             setLoading(false);
             const data = await response.json();
-            console.log(data);
+            setMessage(data.message);
+            setTimeout(() => {
+                setMessage('');
+            }, 2000);
             if (data.success) {
                 setTimer(2 * 60);
             }
@@ -56,8 +60,12 @@ const page = () => {
             });
             setLoading(false);
             const data = await response.json();
+            setMessage(data.message);
+            setTimeout(() => {
+                setMessage('');
+            }, 2000);
             if (data.success) {
-                router.push('/passwordset');
+                router.push('/user/passwordset');
             }
         } catch (error) {
             console.log(error)
@@ -67,7 +75,7 @@ const page = () => {
 
     return (
         <div className="w-full h-screen flex items-center justify-center bg-[url('/bg/lsg-image.webp')] bg-center bg-cover -mt-16">
-            <div className="w-[400px] h-[360px] -mt-16 bg-white p-7 flex flex-col items-center justify-start gap-y-2 relative sm:w-80 sm:bg-[rgba(255,255,255,0.5)]">
+            <div className="w-[400px] h-auto -mt-16 bg-white p-7 flex flex-col items-center justify-start gap-y-2 relative sm:w-80 sm:bg-[rgba(255,255,255,0.5)]">
 
                 {
                     loading && (
@@ -91,6 +99,15 @@ const page = () => {
                         <InputOTPSlot className='rounded-md text-xl font-semibold' index={5} />
                     </InputOTPGroup>
                 </InputOTP>
+
+                {
+                    message && (
+                        <p className="w-full px-4 py-1.5 bg-[rgba(239,68,68,0.5)] text-white z-30 text-center">
+                            {message}
+                        </p>
+
+                    )
+                }
 
                 <div className="w-full flex items-center justify-between mt-5">
                     <button className='font-semibold underline decoration-green-800 text-green-800'>পিছনে</button>

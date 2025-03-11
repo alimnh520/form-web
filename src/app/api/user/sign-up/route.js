@@ -27,7 +27,7 @@ export const POST = async (request) => {
                 username,
                 mobile,
             });
-            // await saveUser.save();
+            await saveUser.save();
 
             const response = NextResponse.json({ message: 'User sign up successfully', success: true });
 
@@ -60,7 +60,7 @@ export const POST = async (request) => {
                 username,
                 email,
             });
-            // await saveUser.save();
+            await saveUser.save();
             await sendEmail({ email, otp });
 
             const response = NextResponse.json({ message: 'User sign up successfully', success: true });

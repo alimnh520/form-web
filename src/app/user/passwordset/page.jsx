@@ -1,4 +1,5 @@
 'use client'
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { BsFillEyeFill, BsFillEyeSlashFill, BsQuestion } from 'react-icons/bs';
 
@@ -8,6 +9,9 @@ const page = () => {
     const [passLabel, setPassLabel] = useState(false);
     const [confirmPassLabel, setConfirmPassLabel] = useState(false);
     const [passValid, setPassValid] = useState(false);
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const [userPass, setUserPass] = useState({
         password: '',
@@ -57,10 +61,42 @@ const page = () => {
         }
     }, [userPass.password]);
 
+    const savePassword = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch('/api/user/passwordset', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: userPass.password })
+            });
+            setLoading(false);
+            const data = await response.json();
+            setMessage(data.message);
+            setTimeout(() => {
+                setMessage('');
+            }, 2000);
+            if (data.success) {
+                router.push('/user/landing');
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     return (
         <div className="w-full h-screen flex items-center justify-center bg-[url('/bg/lsg-image.webp')] bg-center bg-cover -mt-16">
             <div className="w-[400px] h-auto -mt-16 bg-white p-7 flex flex-col items-center justify-start gap-y-2 relative sm:w-80 sm:bg-[rgba(255,255,255,0.5)]">
+
+
+                {
+                    loading && (
+                        <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 z-30 bg-white">
+                            <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
+                        </div>
+                    )
+                }
+
                 <img src="/logos/logo.png" alt="" className="h-[50px] " />
                 <p className='text-2xl'>পাসওয়ার্ড সেট করুন</p>
 
@@ -83,7 +119,7 @@ const page = () => {
 
                 <p className='text-[13px] text-zinc-600'>একই পাসওয়ার্ড ২য় বার লিখে নিশ্চিত করুন।</p>
 
-                <p className='text-sm mt-2 text-red-500'>{(!passValid && (userPass.password !== userPass.confirmPass) && confirmPassLabel) && 'উভয় পাসওয়ার্ড একই নয় ।'}</p>
+                <p className='text-sm mt-2 text-red-500'>{((userPass.password !== userPass.confirmPass) && confirmPassLabel) && 'উভয় পাসওয়ার্ড একই নয় ।'}</p>
 
                 <div className="flex flex-col items-start justify-start text-[13px] self-start mt-2">
                     <p className={`${checkValid[0] ? 'text-green-600' : 'text-red-600'}`}>পাসওয়ার্ড সর্বনিম্ন ৮ ডিজিটের হতে হবে ।</p>
@@ -93,7 +129,16 @@ const page = () => {
                     <p className={`${checkValid[4] ? 'text-green-600' : 'text-red-600'}`}>পাসওয়ার্ডে অন্তত একটি বিশেষ অক্ষর থাকতে হবে ।</p>
                 </div>
 
-                <button className={`w-full py-2 border rounded-md ${(passValid && (userPass.password === userPass.confirmPass)) ? 'bg-[rgba(22,101,52,1)] border-[rgba(20,83,45,1)] pointer-events-auto' : 'bg-[rgba(22,101,52,0.4)] border-[rgba(20,83,45,0.4)] pointer-events-none'} text-white mt-3`}>পাসওয়ার্ড হালনাগাদ করুন</button>
+                {
+                    message && (
+                        <p className="w-full px-4 py-1.5 bg-[rgba(239,68,68,0.5)] text-white z-30 text-center">
+                            {message}
+                        </p>
+
+                    )
+                }
+
+                <button className={`w-full py-2 border rounded-md ${(passValid && (userPass.password === userPass.confirmPass)) ? 'bg-[rgba(22,101,52,1)] border-[rgba(20,83,45,1)] pointer-events-auto' : 'bg-[rgba(22,101,52,0.4)] border-[rgba(20,83,45,0.4)] pointer-events-none'} text-white mt-3`} onClick={savePassword}>পাসওয়ার্ড হালনাগাদ করুন</button>
 
             </div>
         </div>

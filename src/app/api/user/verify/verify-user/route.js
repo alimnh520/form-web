@@ -24,28 +24,36 @@ export const POST = async (request) => {
                 return NextResponse.json({ message: 'invalid otp', success: false });
             }
 
-            if (userMail) {
-                await collection.findOneAndUpdate({ email:userMail }, {
-                    $set: {
-                        isVerified: true
-                    }
-                });
-            }
+            if (verifyOtp === otp) {
+                if (userMail) {
+                    await collection.findOneAndUpdate({ email: userMail }, {
+                        $set: {
+                            isVerified: true
+                        }
+                    });
+                }
 
-            if (userMobile) {
-                await collection.findOneAndUpdate({mobile:userMobile}, {
-                    $set: {
-                        isVerified: true
-                    }
+                if (userMobile) {
+                    await collection.findOneAndUpdate({ mobile: userMobile }, {
+                        $set: {
+                            isVerified: true
+                        }
+                    });
+                }
+
+                const response = NextResponse.json({ message: 'verify successful', success: true });
+
+                response.cookies.set('password', 'true', {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",
+                    sameSite: 'strict',
+                    path: '/'
                 });
+
+                response.cookies.delete('otp');
+
+                return response;
             }
-            
-            const response = NextResponse.json({ message: 'verify successful', success: true });
-            userMobile && response.cookies.delete('mobile');
-            userMail && response.cookies.delete('email');
-            response.cookies.delete('otp');
-            response.cookies.delete('verify');
-            return response;
         }
     } catch (error) {
         return NextResponse.json({ message: 'আবার OTP পাঠান', success: false });

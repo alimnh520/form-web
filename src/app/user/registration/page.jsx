@@ -131,10 +131,10 @@ const page = () => {
             if (data.success) {
                 setLoading(false)
                 setMessage(data.message);
-                router.push('/user/otpverify');
                 setTimeout(() => {
                     setMessage('');
                 }, 2000);
+                router.push('/user/otpverify');
             }
         } catch (error) {
             console.log(error);
