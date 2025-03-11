@@ -88,16 +88,9 @@ const page = () => {
     //submit details
 
     const handleSubmit = async () => {
-        if (user.username === '') {
-            setMessage('আপনার নাম প্রদান করুন');
-            setTimeout(() => {
-                setMessage('');
-            }, 2000);
-            return
-        }
         if (checked) {
             if (user.mobile.length > 10 || user.mobile.length < 10) {
-                setMessage('১০ কোডের নাম্বার দিন');
+                setMessage('আপনার নাম্বার প্রদান করুন');
                 setTimeout(() => {
                     setMessage('')
                 }, 2000);
@@ -112,9 +105,16 @@ const page = () => {
                 return
             }
         }
+        if (user.username === '') {
+            setMessage('আপনার পাসওয়ার্ড প্রদান করুন');
+            setTimeout(() => {
+                setMessage('');
+            }, 2000);
+            return
+        }
 
         if (verifyCode !== verifyLetter) {
-            setMessage('ভেরিফিকেশন কোড ভুল');
+            setMessage('ছবিতে প্রদর্শিত কোডটি প্রদান করুন');
             setTimeout(() => {
                 setMessage('')
             }, 2000);
@@ -129,15 +129,16 @@ const page = () => {
                 },
                 body: JSON.stringify({ user, type: checked })
             });
+            setLoading(false);
             const data = await response.json();
-            console.log(data);
-            if (data.success) {
-                setLoading(false)
-                setMessage(data.message);
-                router.push('/');
-                setTimeout(() => {
-                    setMessage('');
-                }, 2000);
+            setMessage(data.message);
+            setTimeout(() => {
+                setMessage('');
+            }, 2000);
+            if (data.success === true) {
+                router.push('/user/landing');
+            } else if (data.success === 'verify') {
+                router.push('/user/otpverify');
             }
         } catch (error) {
             console.log(error);

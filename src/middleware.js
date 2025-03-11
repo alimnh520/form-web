@@ -25,7 +25,7 @@ export const middleware = async (request) => {
     return NextResponse.redirect(new URL("/user/registration", request.url));
   }
 
-  if (profile && path === "/user/registration") {
+  if (profile && (path === "/user/registration" || path === "/user/login")) {
     return NextResponse.redirect(new URL("/user/landing", request.url));
   }
 
@@ -57,7 +57,8 @@ export const config = {
     "/user/otpverify",
     "/user/passwordset",
     "/user/landing",
-    "/user/registration"
+    "/user/registration",
+    "/user/login"
   ],
   runtime: "nodejs"
 };

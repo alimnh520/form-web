@@ -72,6 +72,7 @@ const page = () => {
             setLoading(false);
             const data = await response.json();
             setMessage(data.message);
+            setLoading(true);
             setTimeout(() => {
                 setMessage('');
             }, 2000);
