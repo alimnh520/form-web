@@ -75,7 +75,7 @@ const page = () => {
 
     return (
         <div className="w-full h-screen flex items-center justify-center bg-[url('/bg/lsg-image.webp')] bg-center bg-cover -mt-16">
-            <div className="w-[400px] h-auto -mt-16 bg-white p-7 flex flex-col items-center justify-start gap-y-2 relative sm:w-80 sm:bg-[rgba(255,255,255,0.5)]">
+            <div className="w-[360px] h-auto -mt-16 bg-white p-7 flex flex-col items-center justify-start gap-y-2 relative sm:w-80 sm:bg-[rgba(255,255,255,0.5)]">
 
                 {
                     loading && (
@@ -87,7 +87,7 @@ const page = () => {
 
                 <img src="/logos/logo.png" alt="" className="h-[50px] " />
                 <p className='text-2xl'>OTP নাম্বার নিশ্চিত করুন</p>
-                <p className='text-center text-gray-600 text-sm py-2'>আপনার মোবাইল/ইমেইলে পাঠানো ৬ সংখ্যার কোডটি <br /> লিখুন।</p>
+                <p className='text-center text-gray-600 text-sm py-2'>আপনার মোবাইল/ইমেইলে পাঠানো ৬ সংখ্যার কোডটি লিখুন।</p>
 
                 <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS} value={otp} onChange={(e) => setOtp(e)}>
                     <InputOTPGroup className='flex gap-x-2'>

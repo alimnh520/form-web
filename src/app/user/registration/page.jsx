@@ -127,13 +127,13 @@ const page = () => {
                 body: JSON.stringify({ user, type: checked })
             });
             const data = await response.json();
-            console.log(data);
+            setLoading(false);
+            setMessage(data.message);
+            setTimeout(() => {
+                setMessage('');
+            }, 2000);
             if (data.success) {
-                setLoading(false)
-                setMessage(data.message);
-                setTimeout(() => {
-                    setMessage('');
-                }, 2000);
+                setLoading(true);
                 router.push('/user/otpverify');
             }
         } catch (error) {
