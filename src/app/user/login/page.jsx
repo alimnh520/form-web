@@ -135,10 +135,8 @@ const page = () => {
             setTimeout(() => {
                 setMessage('');
             }, 2000);
-            if (data.success === true) {
+            if (data.success) {
                 router.push('/user/landing');
-            } else if (data.success === 'verify') {
-                router.push('/user/otpverify');
             }
         } catch (error) {
             console.log(error);
@@ -224,7 +222,7 @@ const page = () => {
                     <input type="text" className='w-full h-full left-0 px-4 absolute outline-none rounded-md bg-transparent z-10 focus:outline-[3px] focus:outline-blue-200 focus:border-[3px] focus:border-blue-300 outline-offset-0 transition-all duration-100' value={verifyLetter} onChange={(e) => setVerifyLetter(e.target.value)} onBlur={verifyBlur} onFocus={verifyFocus} />
                 </div>
 
-                <Link href="" className='hover:underline decoration-blue-600 self-start ml-5 hover:text-blue-600 mt-3 text-[13px]'>পাসওয়ার্ড ভুলে গেছেন?</Link>
+                <Link href="/user/forget" className='hover:underline decoration-blue-600 self-start ml-5 hover:text-blue-600 mt-3 text-[13px]'>পাসওয়ার্ড ভুলে গেছেন?</Link>
 
                 {
                     message && (

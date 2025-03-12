@@ -21,7 +21,7 @@ export const POST = async (request) => {
             const { otp } = jwt.verify(otpCode, process.env.JWT_SECRET);
 
             if (verifyOtp !== otp) {
-                return NextResponse.json({ message: 'invalid otp', success: false });
+                return NextResponse.json({ message: 'OTP সঠিক নয় ।', success: false });
             }
 
             if (verifyOtp === otp) {

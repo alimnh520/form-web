@@ -14,13 +14,21 @@ export const POST = async (request) => {
         const { username, email, mobile } = data.user;
 
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        console.log(otp);
         const hashedOtp = jwt.sign({ otp }, process.env.JWT_SECRET, { expiresIn: '2m' });
 
         if (type) {
-            const user = await collection.findOne({mobile});
+            const user = await collection.findOne({ mobile });
+
             if (user) {
-                return NextResponse.json({ message: 'User already exits', success: false });
+                if (!user.password || !user.isVerified) {
+                    await collection.deleteMany({ mobile });
+                }
+            }
+
+            if (user) {
+                if (user.password && user.isVerified) {
+                    return NextResponse.json({ message: 'User already exits', success: false });
+                }
             }
 
             const saveUser = new UserProfile({
@@ -51,9 +59,18 @@ export const POST = async (request) => {
 
         if (!type) {
 
-            const user = await collection.findOne({email});
+            const user = await collection.findOne({ email });
+
             if (user) {
-                return NextResponse.json({ message: 'User already exits', success: false });
+                if (!user.password || !user.isVerified) {
+                    await collection.deleteMany({ email });
+                }
+            }
+
+            if (user) {
+                if (user.password && user.isVerified) {
+                    return NextResponse.json({ message: 'User already exits', success: false });
+                }
             }
 
             const saveUser = new UserProfile({
