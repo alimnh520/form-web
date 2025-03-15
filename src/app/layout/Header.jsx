@@ -52,10 +52,10 @@ const Header = () => {
   const getYear = `${banglaNumberDate[banglaYear[0] - 1]}${banglaNumberDate[banglaYear[1] - 1]}${banglaNumberDate[banglaYear[2] - 1]}${banglaNumberDate[banglaYear[3] - 1]}`
 
   // get bangla date
-  const day = banglaNumberDate[date.getDate() + (date.getDate() > 16 ? -17 : 14)];
+  const day = banglaNumberDate[date.getDate() + (date.getDate() > 14 ? -15 : 15)];
 
   // get bangla month
-  const month = monthsInBangla[date.getMonth() + (date.getMonth() > 3 ? date.getMonth() - 6 : date.getMonth() + 6)];
+  const month = monthsInBangla[date.getDate() > 14 ? (date.getMonth() > 1 && date.getMonth() + 9) : date.getMonth() + 8];
   
   const option = {
     year: "numeric",
