@@ -84,14 +84,14 @@ export const POST = async (request) => {
 
             response.cookies.set('email', email, {
                 httpOnly: true,
-                source: process.env.NODE_ENV === "production",
+                secure: process.env.NODE_ENV === "production",
                 sameSite: "strict",
                 path: '/'
             });
 
             response.cookies.set('otp', hashedOtp, {
                 httpOnly: true,
-                source: process.env.NODE_ENV === "production",
+                secure: process.env.NODE_ENV === "production",
                 sameSite: "strict",
                 maxAge: 2 * 60 * 1000,
                 path: '/'

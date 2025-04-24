@@ -12,7 +12,7 @@ export const middleware = async (request) => {
   const verify = request.cookies.get("otp")?.value;
   const password = request.cookies.get("password")?.value;
   const profile = request.cookies.get("profile")?.value;
-
+ 
   if (!verify && path === "/user/otpverify") {
     return NextResponse.redirect(new URL("/user/registration", request.url));
   }
@@ -33,7 +33,6 @@ export const middleware = async (request) => {
   if (!token && path === "/components/fill-form") {
     return NextResponse.redirect(new URL("/", request.url));
   }
-
 
   if (!token && path === "/dakhila-print") {
     return NextResponse.redirect(new URL("/", request.url));
