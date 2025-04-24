@@ -1,4 +1,6 @@
 "use client";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -14,12 +16,18 @@ const page = () => {
   const [newImage, setNewImage] = useState(false);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
   const [profile, setProfile] = useState(false);
 
   const [isUddokta, setUddokta] = useState(false);
   const [prosason, setProsason] = useState(false);
   const [loginUser, setLoginUser] = useState('');
 
+  if (message) {
+    setTimeout(() => {
+      setMessage('');
+    }, 1500);
+  }
   useEffect(() => {
     async function userLogin() {
       try {
@@ -33,6 +41,25 @@ const page = () => {
     userLogin();
   }, []);
 
+  const userDelete = async (userId) => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/user-delete', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId })
+      });
+      const data = await res.json();
+      setLoading(false);
+      setMessage(data.message);
+      if (data.success) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative">
 
@@ -42,29 +69,83 @@ const page = () => {
 
       <div className="h-full w-full flex items-center justify-between gap-x-5 sm:items-start sm:relative">
 
-        <div className="hidden sm:block absolute left-2 top-[16px] text-green-700 text-3xl cursor-pointer" onClick={() => setProfile(true)}>
+        <div className="hidden sm:block absolute left-2 top-[16px] text-green-700 text-3xl cursor-pointer z-10" onClick={() => setProfile(true)}>
           <FaUserCircle />
         </div>
 
         <div className={`w-1/4 h-screen flex items-center justify-start sm:absolute sm:z-10 transition-all duration-300 ${profile ? 'sm:left-0' : 'sm:-left-full'} sm:w-full`}>
-          <div className="bg-white border-r-2 w-full flex flex-col items-center p-5 gap-y-5 sm:w-7/12 h-full shadow-[4px_0px_8px_rgba(0,0,0,0.5)]">
-            <div className="size-40 rounded-full bg-green-600 self-center"></div>
-            <h1>Name</h1>
+
+          {
+            loading && (
+              <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
+              </div>
+            )
+          }
+          {
+            message && (
+              <p className="w-80 px-4 py-1.5 bg-[rgba(239,68,68,0.5)] text-white z-30 text-center flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
+                {message}
+              </p>
+
+            )
+          }
+
+          <div className="bg-white border-r-2 w-full flex flex-col items-center p-5 gap-y-5 sm:w-10/12 h-full shadow-[4px_0px_8px_rgba(0,0,0,0.5)]">
+
+            {/* set new image */}
+
+            <div className="size-40 rounded-full bg-green-600 self-center relative">
+              <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => setImage(!image)}>
+                <FaEdit />
+              </button>
+            </div>
+            {
+              image && (
+                <div className="flex items-center justify-center">
+                  <input type="file" className="outline-none border border-gray-400 px-4 py-1.5" />
+                  <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700">set</button>
+                </div>
+              )
+            }
+
+            {/* set new name */}
+
+            <div className="flex items-center justify-center gap-x-2">
+              <p className="text-2xl font-semibold">Razim</p>
+              <button className="text-lg text-white bg-red-700 rounded-full p-1.5" onClick={() => setName(!name)}>
+                <FaEdit />
+              </button>
+            </div>
+            {
+              name && (
+                <div className="flex items-center justify-center">
+                  <input type="text" className="outline-none border border-gray-400 px-4 py-1.5" />
+                  <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700">set</button>
+                </div>
+              )
+            }
+
+            {/* options */}
+
             <div className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative" onClick={() => {
               setUddokta(!isUddokta);
               setProsason(false);
             }}>
-              <p className="text-3xl font-semibold mt-2">উদ্যোক্তা</p>
+              <p className="text-3xl sm:text-xl font-semibold mt-2">উদ্যোক্তা</p>
               <span className={`absolute right-5 ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span>
             </div>
+
             <div className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative" onClick={() => {
               setUddokta(false);
               setProsason(!prosason);
             }}>
-              <p className="text-3xl font-semibold mt-2">প্রশাসনিক</p>
+              <p className="text-3xl sm:text-xl font-semibold mt-2">প্রশাসনিক</p>
               <span className={`absolute right-5 ${prosason ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span>
             </div>
           </div>
+
+
           <div className="bg-gray-400 opacity-80 relative hidden sm:block w-5/12 h-full" onClick={() => setProfile(false)}>
             <div className="hidden sm:block absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setProfile(false)}>
               <IoClose />
@@ -76,7 +157,10 @@ const page = () => {
 
           {
             isUddokta && (
-              <div className="w-10/12 left-0 top-1/2 -translate-y-1/2 h-96 bg-white rounded absolute z-20">
+              <div className="w-[450px] sm:w-80 left-0 top-1/2 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1/2 h-auto bg-white border border-red-400 rounded absolute z-20 flex flex-col p-5 items-center">
+                <div className="absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setUddokta(false)}>
+                  <IoClose />
+                </div>
 
               </div>
             )
@@ -84,7 +168,11 @@ const page = () => {
           {
             prosason &&
             (
-              <div className="w-96 left-0 top-1/2 -translate-y-1/2 h-auto bg-white border border-red-400 rounded absolute z-20 flex flex-col p-5 items-center">
+              <div className="w-[450px] sm:w-80 left-0 top-1/2 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1/2 h-auto bg-white border border-red-400 rounded absolute z-20 flex flex-col p-5 items-center">
+                <div className="absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setProsason(false)}>
+                  <IoClose />
+                </div>
+
                 <p className="w-10/12 border-b text-center pb-1.5 border-b-gray-300 text-xl font-semibold">প্রশাসনিক তথ্য</p>
                 <div className="w-full grid grid-cols-2 text-lg font-semibold mt-3 border-b border-b-gray-300">
                   <p>Username</p>
@@ -104,9 +192,10 @@ const page = () => {
                   loginUser ? (
                     loginUser.slice().reverse().map((elem) => {
                       return (
-                        <div className="w-full grid grid-cols-2 border-b border-b-gray-300" key={elem._id}>
-                          <p className="py-0.5">{elem.username}</p>
-                          <p className="py-0.5">{elem.password}</p>
+                        <div className="w-full grid grid-cols-2 border-b border-b-gray-300 relative" key={elem._id}>
+                          <button className="absolute right-1 top-1/2 -translate-y-1/2 text-lg" onClick={() => userDelete(elem._id)}><MdDeleteForever /></button>
+                          <p className="py-1">{elem.username}</p>
+                          <p className="py-1">{elem.password}</p>
                         </div>
                       )
                     })
