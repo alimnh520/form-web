@@ -30,13 +30,6 @@ export const POST = async (request) => {
 
         const response = NextResponse.json({ message: 'Password set successfully', success: true });
         
-        response.cookies.set('profile', userMobile ? userMobile : userMail, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: 'strict',
-            maxAge: 30 * 24 * 60 * 60
-        });
-        
         userMobile && response.cookies.delete('mobile');
         userMail && response.cookies.delete('email');
         response.cookies.delete('password');

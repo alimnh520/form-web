@@ -26,6 +26,8 @@ const page = () => {
   const [dcrPayment, setDcrPayment] = useState(false);
   const [loginUser, setLoginUser] = useState('');
   const [dcrData, setDcrData] = useState('');
+  const [uddoktaData, setUddoktaData] = useState('');
+  const [deleteUddokta, setDeleteUddokta] = useState(false);
 
   if (message) {
     setTimeout(() => {
@@ -55,6 +57,17 @@ const page = () => {
       }
     }
     handleDcrData();
+
+    async function handleUddokta() {
+      try {
+        const res = await fetch('/api/user/uddokta', { method: 'GET' });
+        const data = await res.json();
+        setUddoktaData(data.message);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    handleUddokta();
   }, []);
 
   const userDelete = async (userId) => {
@@ -83,6 +96,45 @@ const page = () => {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, type })
+      });
+      const data = await res.json();
+      setLoading(false);
+      setMessage(data.message);
+      if (data.success) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleAcceptUddokta = async (id, type) => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/user/uddokta', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, type })
+      });
+      const data = await res.json();
+      setLoading(false);
+      setMessage(data.message);
+      if (data.success) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const [uddoktaId, setUddoktaId] = useState('');
+  const handleDeleteUddokta = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/user/del-uddokta', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: uddoktaId })
       });
       const data = await res.json();
       setLoading(false);
@@ -205,6 +257,74 @@ const page = () => {
                 <div className="absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setUddokta(false)}>
                   <IoClose />
                 </div>
+                <div className="w-full h-auto flex flex-col items-center gap-y-5 sm:overflow-x-scroll sm:items-start">
+                  <h1 className="text-xl font-bold self-center">উদ্যোক্তা একাউন্ট</h1>
+                  <div className="w-full gap-x-1 grid grid-cols-6 bg-green-600 text-white font-bold">
+                    <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
+                    <p className="text-center border-r py-3">ইউজার নেম</p>
+                    <p className="text-center border-r py-3">ইমেইল</p>
+                    <p className="text-center border-r py-3">মোবাইল</p>
+                    <p className="text-center border-r py-3">স্টাটাস</p>
+                    <p className="text-center border-r py-3">ঠিকানা</p>
+                  </div>
+                </div>
+                {
+                  uddoktaData ? (
+                    uddoktaData.slice().reverse().map((elem, index) => {
+                      return (
+                        <div className="w-full flex flex-col relative" key={elem._id}>
+                          {
+                            deleteUddokta && (
+                              <div className="w-60 h-28 bg-gray-500 border border-blue-600 rounded-md absolute z-20 flex items-center justify-center gap-x-5 top-1/2 -translate-y-1/2">
+                                <button className="px-5 py-1 bg-red-600 text-lg rounded-lg font-semibold text-white" onClick={() => {
+                                  handleDeleteUddokta();
+                                  setDeleteUddokta(false);
+                                }}>
+                                  delete
+                                </button>
+                                <button className="px-5 py-1 bg-blue-600 text-lg rounded-lg font-semibold text-white" onClick={() => setDeleteUddokta(false)}>
+                                  cancel
+                                </button>
+                              </div>
+                            )
+                          }
+                          <div className="w-full grid grid-cols-6">
+                            <p className="text-center border-r overflow-x-scroll border-l border-b py-3">{index + 1}</p>
+                            <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.username}</p>
+                            <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.email}</p>
+                            <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.mobile}</p>
+                            {
+                              elem.status !== 'pending' && (
+                                <div className={`text-center border-r border-b grid grid-cols-2 gap-x-px ${elem.status === 'accept' ? 'text-green-700' : 'text-red-600'}`}>
+                                  <p className="py-3">{elem.status}</p>
+                                  <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                    setDeleteUddokta(true);
+                                    setUddoktaId(elem._id);
+                                  }}><MdDeleteForever /></button>
+                                </div>
+                              )
+                            }
+                            {
+                              elem.status === 'pending' && (
+                                <div className="text-center border-r border-b grid grid-cols-2 gap-x-px">
+                                  <button className="bg-green-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                    handleAcceptUddokta(elem._id, 'accept');
+                                  }}><IoCheckmarkSharp /></button>
+                                  <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                    handleAcceptUddokta(elem._id, 'cancel');
+                                  }}><RxCross2 /></button>
+                                </div>
+                              )
+                            }
+                            <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.address}</p>
+                          </div>
+                        </div>
+                      )
+                    }
+                    )) : (
+                    <p>Loading...</p>
+                  )
+                }
               </div>
             )
           }

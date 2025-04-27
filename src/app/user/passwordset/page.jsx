@@ -77,7 +77,7 @@ const page = () => {
                 setMessage('');
             }, 2000);
             if (data.success) {
-                router.push('/user/landing');
+                router.push('/user/approve');
             }
         } catch (error) {
             console.log(error)

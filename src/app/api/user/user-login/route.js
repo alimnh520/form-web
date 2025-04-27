@@ -78,6 +78,10 @@ export const POST = async (request) => {
                 return NextResponse.json({ message: 'Invalid password', success: false });
             }
 
+            if (user.status === 'pending') {
+                return NextResponse.json({ message: 'Waiting for approve', success: false });
+            }
+
             // success password
             if (checkPass) {
                 const response = NextResponse.json({ message: 'Login successful', success: true });
