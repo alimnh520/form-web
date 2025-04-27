@@ -135,6 +135,9 @@ const page = () => {
             setTimeout(() => {
                 setMessage('');
             }, 2000);
+            if (data.type === 'pending') {
+                router.push('/user/approve');
+            }
             if (data.success) {
                 router.push('/user/landing');
             }

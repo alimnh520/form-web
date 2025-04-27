@@ -79,7 +79,7 @@ export const POST = async (request) => {
             }
 
             if (user.status === 'pending') {
-                return NextResponse.json({ message: 'Waiting for approve', success: false });
+                return NextResponse.json({ message: 'Waiting for approve', type: 'pending', success: false });
             }
 
             // success password
