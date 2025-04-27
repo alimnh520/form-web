@@ -8,7 +8,7 @@ const page = () => {
             <div className="w-full h-80 flex flex-col space-y-5 items-center justify-center sm:h-auto sm:justify-start sm:mt-5">
                 <h1 className='text-4xl font-semibold sm:text-2xl sm:text-center'>ভূমি সংক্রান্ত সেবা</h1>
                 <div className="w-11/12 h-auto grid grid-rows-2 grid-cols-4 gap-8 sm:gap-4 sm:grid-cols-2 sm:grid-rows-3 sm:h-auto sm:gap-y-5">
-                    <Link href="/components/services/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56 sm:space-y-3 sm:justify-end sm:pb-4">
+                    <Link href="/components/services/land-tax3" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56 sm:space-y-3 sm:justify-end sm:pb-4">
                         <div className=" absolute w-full h-10 rounded-md bg-[#59b8a0] top-0"></div>
                         <div className="size-20 flex items-center justify-center">
                             <img src="/logos/1732162861.webp" alt="" />
@@ -24,7 +24,7 @@ const page = () => {
                         <h1 className='text-2xl sm:text-lg sm:text-center font-semibold'>ভূমি উন্নয়ন কর</h1>
 
                     </Link>
-                    <Link href="/components/services/land-tax3" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56 sm:space-y-3 sm:justify-end">
+                    <Link href="/components/services/land-tax" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56 sm:space-y-3 sm:justify-end">
                         <div className=" absolute w-full h-10 rounded-md bg-[#9cbf3d] top-0"></div>
                         <div className="size-20 flex items-center justify-center">
                             <img src="/logos/1732941934.webp" alt="" />

@@ -23,6 +23,12 @@ const page = () => {
   const [message, setMessage] = useState("");
   const router = useRouter();
 
+  if (message) {
+    setTimeout(() => {
+      setMessage('');
+    }, 1500);
+  }
+
   useEffect(() => {
     async function getDistrict() {
       try {
@@ -52,6 +58,12 @@ const page = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (khatian || dolil || photo || dakhila) {
+      if ((khatian.size / 1048576) > 4 || (dolil.size / 1048576) > 4 || (photo.size / 1048576) > 4 || (dakhila.size / 1048576) > 4) {
+        setMessage('File size is too large');
+        return
+      }
+    }
     setLoader(true);
     const formData = new FormData();
     formData.append("divisionName", divisionName);

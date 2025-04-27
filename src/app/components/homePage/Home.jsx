@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -8,6 +8,22 @@ import { IoIosMail } from "react-icons/io";
 import ServiceText from "./ServiceText";
 
 const Home = () => {
+
+    // useEffect(() => {
+    //     async function userData() {
+    //         const data = await fetch("https://gateway.dlrms.land.gov.bd/core-api/api/public/upazilas?ROW_STATUS=1", {
+    //             method: "GET",
+    //             headers: {
+    //                 "accept": "application/json",
+    //                 "authorization": "CeLXPBxf57slkbu7sphGuQ8oyasOwuOO",
+    //                 "user-token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJMU0cteGZlLU1ZWGQ2T0NjNHNtSkFrLTIwMjQxMTIwLUxJVkUiLCJqdGkiOiIwZTIzYzQ4YTM4MzcyYWM2ZTI5MTdhODMzYjdlNWVhYWU3MzZmOTNiYTI0YTU1M2E5MzM0OTU2Zjk1MGY2YzZkYmE3YzM5ZTZkYWU5ODZiYSIsImlhdCI6MTc0NTUwNTAxMC42NzQ5NDEsIm5iZiI6MTc0NTUwNTAxMC42NzQ5NDQsImV4cCI6MTc0NTUwODU1MC42MjczMjIsInN1YiI6IjI5OTM0NjMiLCJzY29wZXMiOlsidmlldy11c2VyIl19.UGgTwvhkEAgy5_DczXBq-n5yQqWK_svfKRPlYj6mW7JcZk4ReB7E3zTMBngGzgwU44orr8YhjiEImEsHvLAY-EbibN6QJzp5RMli06nlbbEnlZMdTb0RKPuUu3tRyZd9vaTUxqllHAoqrhrsP0tQT0NNj27rU2Tzz5Ots8KduhFpBrd52tCzrAzLNIn-oUsnA1adEUoqla2O1o46tr75E2xLB246ZbGMoIPcyxLYMa6RqapNjHw-QDHE_HkjfrLH1JmiZBL3nhQu8r9coJ1xiUxK93ijf0gcIWNQ59oD5d-T37SJ7nZiAphYSe09g8TEY1sDeayWy7pyTdWeRQUq3KnlhLM5ZQa0XjzHOhKEEuK4fQVb69ii3KUjbjH9OuVCDP7QxT3lC0afYdHdyWXd5w--CrYymMaF_yfe1YOkkN9jCKE1KyVlyOYRN5yav2iPz0HMSGlxalKypmnOMpCA45sNpj4sk9Aywq14KmG8YzFvWACWDYw6b2AhVsi3-KyKWvOEye4dBmwPWlaMGXjiMIvZ5z9Mp0AKAfhNPUUlRLY5rIJoaxkbCQ0URv8gKV-CVh3Qg9kd4I4jr4JhqIeMUQORatciCKHXodB0M_1hxHFO6a88hP72qiX6YO5j3ONd6lXB2FxN9kevKcIJrtqU0epV1bQvLJ3HvgQd7zfyshY" 
+    //             }
+    //         })
+    //         console.log(data);
+    //     }
+    //     userData();
+    // })
+
     return (
         <div className="h-full w-auto flex flex-col gap-y-10 items-center justify-center px-10 sm:px-0">
             <div className="w-full h-auto flex items-center justify-between relative sm:flex-col sm:justify-center">
@@ -44,7 +60,7 @@ const Home = () => {
                     />
                 </div>
             </div>
-            <ServiceText/>
+            <ServiceText />
         </div>
     );
 };

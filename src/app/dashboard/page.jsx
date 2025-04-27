@@ -21,13 +21,16 @@ const page = () => {
 
   const [isUddokta, setUddokta] = useState(false);
   const [prosason, setProsason] = useState(false);
+  const [dcrPayment, setDcrPayment] = useState(false);
   const [loginUser, setLoginUser] = useState('');
+  const [dcrData, setDcrData] = useState('');
 
   if (message) {
     setTimeout(() => {
       setMessage('');
     }, 1500);
   }
+
   useEffect(() => {
     async function userLogin() {
       try {
@@ -39,6 +42,17 @@ const page = () => {
       }
     }
     userLogin();
+
+    async function handleDcrData() {
+      try {
+        const res = await fetch('/api/user/submit-data/dcr-payment', { method: 'GET' });
+        const data = await res.json();
+        setDcrData(data.message);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    handleDcrData();
   }, []);
 
   const userDelete = async (userId) => {
@@ -91,7 +105,7 @@ const page = () => {
             )
           }
 
-          <div className="bg-white border-r-2 w-full flex flex-col items-center p-5 gap-y-5 sm:w-10/12 h-full shadow-[4px_0px_8px_rgba(0,0,0,0.5)]">
+          <div className="bg-white border-r-2 w-full flex flex-col items-center p-5 gap-y-5 h-full shadow-[4px_0px_8px_rgba(0,0,0,0.5)]">
 
             {/* set new image */}
 
@@ -130,26 +144,35 @@ const page = () => {
 
             <div className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative" onClick={() => {
               setUddokta(!isUddokta);
+              setDcrPayment(false);
               setProsason(false);
             }}>
-              <p className="text-3xl sm:text-xl font-semibold mt-2">উদ্যোক্তা</p>
+              <p className="text-xl sm:text-xl font-semibold mt-2">উদ্যোক্তা</p>
               <span className={`absolute right-5 ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span>
             </div>
 
             <div className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative" onClick={() => {
               setUddokta(false);
+              setDcrPayment(false);
               setProsason(!prosason);
             }}>
-              <p className="text-3xl sm:text-xl font-semibold mt-2">প্রশাসনিক</p>
+              <p className="text-xl sm:text-xl font-semibold mt-2">প্রশাসনিক</p>
+              <span className={`absolute right-5 ${prosason ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span>
+            </div>
+
+            <div className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative" onClick={() => {
+              setUddokta(false);
+              setProsason(false);
+              setDcrPayment(!dcrPayment);
+            }}>
+              <p className="text-xl sm:text-xl font-semibold mt-2">ডি,সি,আর পেমেন্ট</p>
               <span className={`absolute right-5 ${prosason ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span>
             </div>
           </div>
 
 
-          <div className="bg-gray-400 opacity-80 relative hidden sm:block w-5/12 h-full" onClick={() => setProfile(false)}>
-            <div className="hidden sm:block absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setProfile(false)}>
-              <IoClose />
-            </div>
+          <div className="hidden sm:block absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setProfile(false)}>
+            <IoClose />
           </div>
         </div>
 
@@ -157,18 +180,61 @@ const page = () => {
 
           {
             isUddokta && (
-              <div className="w-[450px] sm:w-80 left-0 top-1/2 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1/2 h-auto bg-white border border-red-400 rounded absolute z-20 flex flex-col p-5 items-center">
+              <div className="w-full h-full sm:w-80 sm:h-auto left-0 top-1/2 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1/2  bg-white border border-red-400 rounded absolute z-20 flex flex-col p-5 items-center">
                 <div className="absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setUddokta(false)}>
                   <IoClose />
                 </div>
-
               </div>
             )
           }
+
+          {
+            dcrPayment && (
+              <div className="w-full h-full sm:w-80 sm:h-auto left-0 top-1/2 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1/2  bg-white border border-red-400 rounded absolute z-20 flex flex-col p-5 items-center">
+                <div className="absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setDcrPayment(false)}>
+                  <IoClose />
+                </div>
+                <div className="w-full h-auto flex flex-col items-center gap-y-5 sm:overflow-x-scroll sm:items-start">
+                  <h1 className="text-xl font-bold self-center">ডি,সি,আর পেমেন্ট</h1>
+                  <div className="w-full h-auto flex flex-col sm:w-[1200px]">
+                    <div className="w-full gap-x-1 grid grid-cols-7 bg-green-600 text-white font-bold">
+                      <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
+                      <p className="text-center border-r py-3">নাম</p>
+                      <p className="text-center border-r py-3">বিভাগ</p>
+                      <p className="text-center border-r py-3">ডি,সি,আর পেমেন্ট</p>
+                      <p className="text-center border-r py-3">তথ্যের ধরণ</p>
+                      <p className="text-center border-r py-3">স্টাটাস</p>
+                      <p className="text-center border-r py-3">অ্যাকশন</p>
+                    </div>
+                    {
+                      dcrData ? (
+                        dcrData.slice().reverse().map((elem, index) => {
+                          return (
+                            <div className="w-full flex flex-col" key={elem._id}>
+                              <div className="w-full grid grid-cols-7">
+                                <p className="text-center border-r border-l border-b py-3">{index + 1}</p>
+                                <p className="text-center border-r border-b py-3">{elem.username}</p>
+                                <p className="text-center border-r border-b py-3">{elem.divisionName}</p>
+                                <p className="text-center border-r border-b py-3">{elem.dcrPayment}</p>
+                                <p className="text-center border-r border-b py-3">ডি,সি,আর পেমেন্ট</p>
+                                <p className="text-center border-r border-b py-3">{elem.status}</p>
+                                <p className="text-center border-r border-b py-3">{elem.action}</p>
+                              </div>
+                            </div>
+                          )
+                        })
+                      ) : <p>Loading...</p>
+                    }
+                  </div>
+                </div>
+              </div>
+            )
+          }
+
           {
             prosason &&
             (
-              <div className="w-[450px] sm:w-80 left-0 top-1/2 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1/2 h-auto bg-white border border-red-400 rounded absolute z-20 flex flex-col p-5 items-center">
+              <div className="w-full h-full sm:w-80 sm:h-auto left-0 top-1/2 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1/2  bg-white border border-red-400 rounded absolute z-20 flex flex-col p-5 items-center">
                 <div className="absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setProsason(false)}>
                   <IoClose />
                 </div>
@@ -192,10 +258,10 @@ const page = () => {
                   loginUser ? (
                     loginUser.slice().reverse().map((elem) => {
                       return (
-                        <div className="w-full grid grid-cols-2 border-b border-b-gray-300 relative" key={elem._id}>
+                        <div className="w-full grid grid-cols-2 gap-x-2 border-b border-b-gray-300 relative" key={elem._id}>
                           <button className="absolute right-1 top-1/2 -translate-y-1/2 text-lg" onClick={() => userDelete(elem._id)}><MdDeleteForever /></button>
-                          <p className="py-1">{elem.username}</p>
-                          <p className="py-1">{elem.password}</p>
+                          <p className="py-1 overflow-x-scroll">{elem.username}</p>
+                          <p className="py-1 overflow-x-scroll">{elem.password}</p>
                         </div>
                       )
                     })
@@ -204,6 +270,7 @@ const page = () => {
               </div>
             )
           }
+
 
           <h1 className="text-4xl sm:text-2xl font-thin">অনলাইন সংক্রান্ত সেবা</h1>
           <div className="w-full h-2/3 grid grid-cols-4 grid-rows-2 gap-3 sm:grid-cols-2 sm:grid-rows-3">
