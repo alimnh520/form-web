@@ -1,4 +1,6 @@
 "use client";
+import { RxCross2 } from "react-icons/rx";
+import { IoCheckmarkSharp } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
@@ -71,6 +73,25 @@ const page = () => {
       }
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  const handleDcrStatus = async (id, type) => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/user/submit-data/dcr-accept', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, type })
+      });
+      const data = await res.json();
+      setLoading(false);
+      setMessage(data.message);
+      if (data.success) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -217,8 +238,28 @@ const page = () => {
                                 <p className="text-center border-r border-b py-3">{elem.divisionName}</p>
                                 <p className="text-center border-r border-b py-3">{elem.dcrPayment}</p>
                                 <p className="text-center border-r border-b py-3">ডি,সি,আর পেমেন্ট</p>
-                                <p className="text-center border-r border-b py-3">{elem.status}</p>
-                                <p className="text-center border-r border-b py-3">{elem.action}</p>
+                                {
+                                  elem.status !== 'pending' && (
+                                    <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3`}>{elem.status}</p>
+                                  )
+                                }
+                                {
+                                  elem.status === 'pending' && (
+                                    <div className="text-center border-r border-b grid grid-cols-2 gap-x-px">
+                                      <button className="bg-green-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                        handleDcrStatus(elem._id, 'accept');
+                                      }}><IoCheckmarkSharp /></button>
+                                      <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                        handleDcrStatus(elem._id, 'cancel');
+                                      }}><RxCross2 /></button>
+                                    </div>
+                                  )
+                                }
+                                <div className="text-center border-r border-b py-3 relative group">
+                                  <div className="absolute w-full h-20 bg-red-600 top-12 hidden group-hover:grid grid-cols-1 grid-rows-3">
+
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           )

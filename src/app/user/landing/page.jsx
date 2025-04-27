@@ -118,10 +118,10 @@ const page = () => {
     return (
         <div className="w-full h-auto flex flex-col bg-center bg-cover -mt-16 bg-[#eff9f1] ">
 
-            <div className="w-full h-20 bg-white px-20 flex justify-between items-center shadow-[0_2px_10px_rgba(0,0,0,0.1)] z-10">
+            <div className="w-full h-20 bg-white px-20 flex justify-between items-center shadow-[0_2px_10px_rgba(0,0,0,0.1)] z-10 sm:px-5 sm:h-auto sm:flex-col sm:justify-center sm:py-2">
                 <h1 className="text-xl font-bold drop-shadow-[0_0_5px_rgba(0,0,0,0.5)] ">অনলাইন সংক্রান্ত সেবা</h1>
-                <div className="flex items-center justify-center gap-x-3 text-green-600">
-                    <Link href='/' className="text-4xl">
+                <div className="flex items-center justify-center gap-x-3 text-green-600 sm:w-full">
+                    <Link href='/' className="text-4xl justify-self-start">
                         <IoMdHome />
                     </Link>
                     {
@@ -161,7 +161,7 @@ const page = () => {
 
                 </button>
 
-                <div className={`h-full relative sm:absolute sm:w-full ${profile ? 'sm:left-0' : 'sm:-left-full'} ${hideMenu ? 'w-0 overflow-hidden px-0' : 'w-3/12'} transition-all duration-300 bg-white flex flex-col px-10 pt-5 items-start gap-y-5`}>
+                <div className={`h-full relative sm:absolute sm:w-full ${profile ? 'sm:left-0' : 'sm:-left-full'} ${hideMenu ? 'w-0 overflow-hidden px-0' : 'w-3/12 px-10'} transition-all duration-300 bg-white flex flex-col pt-5 items-start gap-y-5`}>
                     <div className="size-40 rounded-full bg-green-600 self-center relative">
                         <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => setImage(!image)}>
                             <FaEdit />
@@ -272,7 +272,7 @@ const page = () => {
                                                                 <p className="text-center border-r border-b py-3">{elem.divisionName}</p>
                                                                 <p className="text-center border-r border-b py-3">{elem.dcrPayment}</p>
                                                                 <p className="text-center border-r border-b py-3">ডি,সি,আর পেমেন্ট</p>
-                                                                <p className="text-center border-r border-b py-3">{elem.status}</p>
+                                                                <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700':'text-red-600'} py-3`}>{elem.status}</p>
                                                                 <p className="text-center border-r border-b py-3">{elem.action}</p>
                                                             </div>
                                                         </div>
