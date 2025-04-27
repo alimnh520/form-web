@@ -257,6 +257,23 @@ const page = () => {
                 <div className="absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setUddokta(false)}>
                   <IoClose />
                 </div>
+
+                {
+                  deleteUddokta && (
+                    <div className="w-60 h-28 bg-gray-500 border border-blue-600 rounded-md absolute z-20 flex items-center justify-center gap-x-5 top-1/2 -translate-y-1/2">
+                      <button className="px-5 py-1 bg-red-600 text-lg rounded-lg font-semibold text-white" onClick={() => {
+                        handleDeleteUddokta();
+                        setDeleteUddokta(false);
+                      }}>
+                        delete
+                      </button>
+                      <button className="px-5 py-1 bg-blue-600 text-lg rounded-lg font-semibold text-white" onClick={() => setDeleteUddokta(false)}>
+                        cancel
+                      </button>
+                    </div>
+                  )
+                }
+
                 <div className="w-full h-auto flex flex-col items-center gap-y-5 sm:overflow-x-scroll sm:items-start">
                   <h1 className="text-xl font-bold self-center">উদ্যোক্তা একাউন্ট</h1>
                   <div className="w-full gap-x-1 grid grid-cols-6 bg-green-600 text-white font-bold">
@@ -273,21 +290,6 @@ const page = () => {
                     uddoktaData.slice().reverse().map((elem, index) => {
                       return (
                         <div className="w-full flex flex-col relative" key={elem._id}>
-                          {
-                            deleteUddokta && (
-                              <div className="w-60 h-28 bg-gray-500 border border-blue-600 rounded-md absolute z-20 flex items-center justify-center gap-x-5 top-1/2 -translate-y-1/2">
-                                <button className="px-5 py-1 bg-red-600 text-lg rounded-lg font-semibold text-white" onClick={() => {
-                                  handleDeleteUddokta();
-                                  setDeleteUddokta(false);
-                                }}>
-                                  delete
-                                </button>
-                                <button className="px-5 py-1 bg-blue-600 text-lg rounded-lg font-semibold text-white" onClick={() => setDeleteUddokta(false)}>
-                                  cancel
-                                </button>
-                              </div>
-                            )
-                          }
                           <div className="w-full grid grid-cols-6">
                             <p className="text-center border-r overflow-x-scroll border-l border-b py-3">{index + 1}</p>
                             <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.username}</p>
