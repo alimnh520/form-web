@@ -147,6 +147,21 @@ const page = () => {
     }
   }
 
+
+  const logoutPage = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/admin/admin-logout", { method: "POST" });
+      const data = await response.json();
+      if (data.success) {
+        setLoading(false);
+        router.push('/')
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative">
 

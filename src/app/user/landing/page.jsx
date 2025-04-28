@@ -1,4 +1,5 @@
 'use client'
+import { IoMdLogOut } from "react-icons/io";
 import { HiOutlineCurrencyBangladeshi } from "react-icons/hi";
 import { LuMenu } from "react-icons/lu";
 import { FaUserCircle } from "react-icons/fa";
@@ -115,6 +116,25 @@ const page = () => {
         handleDcrData();
     }, []);
 
+    const handleLogout = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch('/api/user/logout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: user.email })
+            });
+            setLoading(false);
+            const data = await res.json();
+            setMessage(data.message);
+            if (data.success) {
+                router.push('/');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="w-full h-auto flex flex-col bg-center bg-cover -mt-16 bg-[#eff9f1] ">
 
@@ -135,6 +155,9 @@ const page = () => {
                             )
                         )
                     }
+                    <button className="text-4xl justify-self-start" onClick={handleLogout}>
+                        <IoMdLogOut />
+                    </button>
                     <p className="text-black flex items-center justify-center gap-x-0.5 text-2xl mt-1.5 pl-5">{user && user.balance}<span className="-mt-1"><HiOutlineCurrencyBangladeshi /></span></p>
                 </div>
             </div>
@@ -267,12 +290,12 @@ const page = () => {
                                                     return (
                                                         <div className="w-full flex flex-col" key={elem._id}>
                                                             <div className="w-full grid grid-cols-7">
-                                                                <p className="text-center border-r border-l border-b py-3">{index+1}</p>
+                                                                <p className="text-center border-r border-l border-b py-3">{index + 1}</p>
                                                                 <p className="text-center border-r border-b py-3">{elem.username}</p>
                                                                 <p className="text-center border-r border-b py-3">{elem.divisionName}</p>
                                                                 <p className="text-center border-r border-b py-3">{elem.dcrPayment}</p>
                                                                 <p className="text-center border-r border-b py-3">ডি,সি,আর পেমেন্ট</p>
-                                                                <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700':'text-red-600'} py-3`}>{elem.status}</p>
+                                                                <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3`}>{elem.status}</p>
                                                                 <p className="text-center border-r border-b py-3">{elem.action}</p>
                                                             </div>
                                                         </div>

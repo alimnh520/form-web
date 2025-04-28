@@ -42,7 +42,7 @@ export const POST = async (request) => {
             }
             const currentTime = Date.now();
             if (user.isLogged && user.loggedExpire > currentTime) {
-                return NextResponse.json({ message: 'User already login', type: 'pending', success: false });
+                return NextResponse.json({ message: 'User already login', success: false });
             }
 
             // success password
@@ -97,7 +97,7 @@ export const POST = async (request) => {
             }
             const currentTime = Date.now();
             if (user.isLogged && user.loggedExpire > currentTime) {
-                return NextResponse.json({ message: 'User already login', type: 'pending', success: false });
+                return NextResponse.json({ message: 'User already login', success: false });
             }
 
             // success password

@@ -1,6 +1,5 @@
 'use client'
-import Calendar from "date-bengali-revised";
-import { IoIosArrowDropdownCircle } from "react-icons/io";
+import { IoIosArrowDropdownCircle, IoMdLogOut } from "react-icons/io";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -10,31 +9,34 @@ const Header = () => {
   const [token, setToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [hideMenu, setHideMenu] = useState(false);
+
   useEffect(() => {
     const userToken = async () => {
       try {
-        const response = await fetch('/api/admin/active-token', { method: 'GET' });
+        const response = await fetch('/api/admin/admin-data', { method: 'GET' });
         const data = await response.json();
-        setToken(data.message);
+        if (data.success) {
+          setToken(data.message);
+        }
       } catch (error) {
         console.log(error);
       }
     }
     userToken();
   }, []);
+
+
   const logoutPage = async () => {
-    if (token) {
-      setLoading(true);
-      try {
-        const response = await fetch("/api/admin/admin-logout", { method: "POST" });
-        const data = await response.json();
-        if (data.success) {
-          setLoading(false);
-          window.location.reload();
-        }
-      } catch (error) {
-        console.log(error);
+    setLoading(true);
+    try {
+      const response = await fetch("/api/admin/admin-logout", { method: "POST" });
+      const data = await response.json();
+      if (data.success) {
+        setLoading(false);
+        window.location.reload();
       }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -48,7 +50,7 @@ const Header = () => {
   const banglaNumberDate = ['১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', '১০', '১১', '১২', '১৩', '১৪', '১৫', '১৬', '১৭', '১৮', '১৯', '২০', '২১', '২২', '২৩', '২৪', '২৫', '২৬', '২৭', '২৮', '২৯', '৩০', '৩১'];
 
   // get bangla year
-  const banglaYear = (date.getFullYear() - 594).toString().split('');
+  const banglaYear = (date.getFullYear() - 593).toString().split('');
   const getYear = `${banglaNumberDate[banglaYear[0] - 1]}${banglaNumberDate[banglaYear[1] - 1]}${banglaNumberDate[banglaYear[2] - 1]}${banglaNumberDate[banglaYear[3] - 1]}`
 
   // get bangla date
@@ -56,7 +58,7 @@ const Header = () => {
 
   // get bangla month
   const month = monthsInBangla[date.getDate() > 14 ? (date.getMonth() > 1 && date.getMonth() + 9) : date.getMonth() + 8];
-  
+
   const option = {
     year: "numeric",
     month: "long",
@@ -99,15 +101,18 @@ const Header = () => {
           <Link href="/" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>হোম</Link>
           <Link href="/components/services" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>সার্ভিস</Link>
           <Link href="" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>যোগাযোগ</Link>
+          {
+            token && (
+              <button className="text-xl bg-green-700 text-white rounded-full p-0.5 font-medium px-2 py-0.5 hover:text-green-700 hover:bg-transparent transition-all duration-300" onClick={logoutPage}>
+                <IoMdLogOut />
+              </button>
+            )
+          }
           <div className="relative flex items-center justify-center gap-x-2 bg-green-700 text-white px-3 rounded-3xl cursor-pointer group">
-            <p className="mt-0.5" onClick={logoutPage}>{token ? 'লগআউট' : 'লগইন'}</p>
+            <p className="mt-0.5">{token ? 'ইউজার' : 'লগইন'}</p>
             <IoIosArrowDropdownCircle className="text-xl" />
-            <div className={`hidden flex-col items-start justify-center space-y-2 absolute ${token ? '-bottom-[62px] sm:left-28' : '-bottom-[100px]  sm:left-24'} shadow-2xl bg-white text-green-700 py-4 rounded-md px-1.5 group-hover:flex sm:-top-1 sm:flex-row sm:h-fit sm:items-center sm:space-y-0 sm:py-0 sm:px-0 sm:gap-x-2`}>
-              {
-                !token && (
-                  <Link href="/user/registration" className='w-full px-2 py-0.5 border border-green-700 rounded-md hover:text-white hover:bg-green-700 transition-all duration-300' onClick={() => setHideMenu(!hideMenu)}>উদ্যোক্তা</Link>
-                )
-              }
+            <div className={`hidden flex-col items-start justify-center space-y-2 absolute  -bottom-[100px] sm:left-24 shadow-2xl bg-white text-green-700 py-4 rounded-md px-1.5 group-hover:flex sm:-top-1 sm:flex-row sm:h-fit sm:items-center sm:space-y-0 sm:py-0 sm:px-0 sm:gap-x-2`}>
+              <Link href="/user/registration" className='w-full px-2 py-0.5 border border-green-700 rounded-md hover:text-white hover:bg-green-700 transition-all duration-300' onClick={() => setHideMenu(!hideMenu)}>উদ্যোক্তা</Link>
               <Link href="/office" className='w-full px-2 py-0.5 border border-green-700 rounded-md hover:text-white hover:bg-green-700 transition-all duration-300' onClick={() => setHideMenu(!hideMenu)}>{token ? 'ড্যাসবোর্ড' : 'প্রশাসনিক'}</Link>
             </div>
           </div>
