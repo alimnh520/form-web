@@ -3,12 +3,12 @@ import { dbConnection } from "../../../../../lib/connectDB";
 
 export const POST = async (request) => {
     try {
-        const { email, newName } = await request.json();
-        if (!newName || ! email) {
+        const { username, newName } = await request.json();
+        if (!newName || !username) {
             return NextResponse.json({ message: 'select a name', success: false });
         }
-        const collection = (await dbConnection()).collection('userprofiles');
-        await collection.findOneAndUpdate({ email }, {
+        const collection = (await dbConnection()).collection('admin');
+        await collection.findOneAndUpdate({ username }, {
             $set: {
                 username: newName
             }

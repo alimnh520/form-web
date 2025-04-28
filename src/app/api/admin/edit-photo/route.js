@@ -6,18 +6,18 @@ import cloudinary from "../../../../../lib/cloudinary/cloud-config";
 export const POST = async (request) => {
     try {
         const formData = await request.formData();
-        const email = formData.get('email');
+        const username = formData.get('username');
         const newImage = formData.get('newImage');
         const public_url = formData.get('public_url');
 
-        if (!newImage || !email) {
+        if (!newImage || !username) {
             return NextResponse.json({ message: 'select a photo', success: false });
         }
-        const collection = (await dbConnection()).collection('userprofiles');
+        const collection = (await dbConnection()).collection('admin');
         public_url && await cloudinary.uploader.destroy(public_url.toString());
         const setImg = await UploadImage(newImage, "user");
 
-        await collection.findOneAndUpdate({ email }, {
+        await collection.findOneAndUpdate({ username }, {
             $set: {
                 image_url: setImg.secure_url,
                 public_url: setImg.public_id

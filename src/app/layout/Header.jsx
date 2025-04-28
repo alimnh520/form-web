@@ -25,7 +25,6 @@ const Header = () => {
     userToken();
   }, []);
 
-
   const logoutPage = async () => {
     setLoading(true);
     try {
@@ -97,13 +96,13 @@ const Header = () => {
           <div className={`w-full transition-all duration-300 h-1 bg-white relative ${hideMenu ? '-rotate-45 bottom-[10px]' : '-rotate-0 bottom-0'}`}></div>
         </div>
 
-        <nav className={`w-full h-[50%] flex items-center justify-end gap-x-5 sm:flex-col sm:items-start sm:gap-y-3 sm:justify-center transition-all duration-300 sm:overflow-hidden ${hideMenu ? ' sm:h-44' : ' sm:h-0'}`}>
+        <nav className={`w-full h-[50%] flex items-center justify-end gap-x-5 sm:flex-col sm:items-start sm:gap-y-3 sm:justify-center transition-all duration-300 sm:overflow-hidden ${hideMenu ? ' sm:h-56' : ' sm:h-0'}`}>
           <Link href="/" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>হোম</Link>
           <Link href="/components/services" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>সার্ভিস</Link>
           <Link href="" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>যোগাযোগ</Link>
           {
             token && (
-              <button className="text-xl bg-green-700 text-white rounded-full p-0.5 font-medium px-2 py-0.5 hover:text-green-700 hover:bg-transparent transition-all duration-300" onClick={logoutPage}>
+              <button className="text-xl bg-green-700 text-white rounded-full p-0.5 font-medium px-2 py-0.5 hover:text-green-700 hover:bg-transparent transition-all duration-300 sm:ml-5" onClick={logoutPage}>
                 <IoMdLogOut />
               </button>
             )
@@ -111,7 +110,7 @@ const Header = () => {
           <div className="relative flex items-center justify-center gap-x-2 bg-green-700 text-white px-3 rounded-3xl cursor-pointer group">
             <p className="mt-0.5">{token ? 'ইউজার' : 'লগইন'}</p>
             <IoIosArrowDropdownCircle className="text-xl" />
-            <div className={`hidden flex-col items-start justify-center space-y-2 absolute  -bottom-[100px] sm:left-24 shadow-2xl bg-white text-green-700 py-4 rounded-md px-1.5 group-hover:flex sm:-top-1 sm:flex-row sm:h-fit sm:items-center sm:space-y-0 sm:py-0 sm:px-0 sm:gap-x-2`}>
+            <div className={`hidden flex-col items-start justify-center space-y-2 absolute  -bottom-[100px] sm:left-24 shadow-2xl bg-white text-green-700 py-4 rounded-md px-1.5 group-hover:flex sm:-top-1 sm:flex-row sm:h-fit sm:items-center sm:space-y-0 sm:py-0 sm:px-0 sm:mt-0.5 sm:gap-x-2`}>
               <Link href="/user/registration" className='w-full px-2 py-0.5 border border-green-700 rounded-md hover:text-white hover:bg-green-700 transition-all duration-300' onClick={() => setHideMenu(!hideMenu)}>উদ্যোক্তা</Link>
               <Link href="/office" className='w-full px-2 py-0.5 border border-green-700 rounded-md hover:text-white hover:bg-green-700 transition-all duration-300' onClick={() => setHideMenu(!hideMenu)}>{token ? 'ড্যাসবোর্ড' : 'প্রশাসনিক'}</Link>
             </div>

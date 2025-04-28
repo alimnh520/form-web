@@ -5,17 +5,19 @@ import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ServicesTax from "./ServicesTax";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { UserProvider } from "../ChildCom";
 
 const page = () => {
   const [name, setName] = useState(false);
-  const [newName, setNewName] = useState(false);
+  const [newName, setNewName] = useState('');
   const [image, setImage] = useState(false);
-  const [newImage, setNewImage] = useState(false);
+  const [newImage, setNewImage] = useState(null);
+  const [displayImage, setDisplayImage] = useState('');
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -28,6 +30,8 @@ const page = () => {
   const [dcrData, setDcrData] = useState('');
   const [uddoktaData, setUddoktaData] = useState('');
   const [deleteUddokta, setDeleteUddokta] = useState(false);
+
+  const { admin } = useContext(UserProvider);
 
   if (message) {
     setTimeout(() => {
@@ -57,7 +61,6 @@ const page = () => {
       }
     }
     handleDcrData();
-
     async function handleUddokta() {
       try {
         const res = await fetch('/api/user/uddokta', { method: 'GET' });
@@ -162,6 +165,54 @@ const page = () => {
     }
   };
 
+  const handleNameEdit = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/edit-name', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: admin.username, newName })
+      });
+      setLoading(false);
+      const data = await res.json();
+      setMessage(data.message);
+      if (data.success) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleEditPhoto = async () => {
+    if (newImage) {
+      if ((newImage.size / 1048576) > 3) {
+        setMessage('File size is too large');
+        return
+      }
+    }
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append('username', admin.username);
+      formData.append('newImage', newImage);
+      formData.append('public_url', admin.public_url);
+      const res = await fetch('/api/admin/edit-photo', {
+        method: 'POST',
+        body: formData
+      });
+      setLoading(false);
+      const data = await res.json();
+      setMessage(data.message);
+      if (data.success) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   return (
     <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative">
 
@@ -197,16 +248,27 @@ const page = () => {
 
             {/* set new image */}
 
-            <div className="size-40 rounded-full bg-green-600 self-center relative">
+            <div className="size-40 rounded-full self-center relative">
               <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => setImage(!image)}>
                 <FaEdit />
               </button>
+
+              {
+                displayImage ? (
+                  <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                ) : (
+                  <img src={admin.image_url ? admin.image_url : '/user/user-icon-on-transparent-background-free-png.webp'} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                )
+              }
             </div>
             {
               image && (
-                <div className="flex items-center justify-center">
-                  <input type="file" className="outline-none border border-gray-400 px-4 py-1.5" />
-                  <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700">set</button>
+                <div className="flex items-center justify-center gap-x-3">
+                  <input type="file" className="outline-none border border-gray-400 px-4 py-1 w-52 rounded-xl" onChange={(e) => {
+                    setNewImage(e.target.files[0]);
+                    setDisplayImage(URL.createObjectURL(e.target.files[0]));
+                  }} />
+                  <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleEditPhoto}>set</button>
                 </div>
               )
             }
@@ -214,7 +276,7 @@ const page = () => {
             {/* set new name */}
 
             <div className="flex items-center justify-center gap-x-2">
-              <p className="text-2xl font-semibold">Razim</p>
+              <p className="text-2xl font-semibold">{admin ? admin.username : 'loading...'}</p>
               <button className="text-lg text-white bg-red-700 rounded-full p-1.5" onClick={() => setName(!name)}>
                 <FaEdit />
               </button>
@@ -222,8 +284,8 @@ const page = () => {
             {
               name && (
                 <div className="flex items-center justify-center">
-                  <input type="text" className="outline-none border border-gray-400 px-4 py-1.5" />
-                  <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700">set</button>
+                  <input type="text" className="outline-none border border-gray-400 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
+                  <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNameEdit}>set</button>
                 </div>
               )
             }
@@ -449,12 +511,11 @@ const page = () => {
             )
           }
 
-
           <h1 className="text-4xl sm:text-2xl font-thin">অনলাইন সংক্রান্ত সেবা</h1>
           <div className="w-full h-2/3 grid grid-cols-4 grid-rows-2 gap-3 sm:grid-cols-2 sm:grid-rows-3">
-            <ServicesTax url="/dashboard/online-service/mutation" clr="#59b8a0" img="/logos/1732162861.webp" tax="মিউটেশন" />
+            <ServicesTax url="/dashboard/online-service/land-record" clr="#59b8a0" img="/logos/1732162861.webp" tax="মিউটেশন" />
             <ServicesTax url="/dashboard/online-service/land-tax" clr="#fcb227" img="/logos/1732789801.webp" tax="ভূমি উন্নয়ন কর" />
-            <ServicesTax url="/dashboard/online-service/land-record" clr="#9cbf3d" img="/logos/1732941934.webp" tax="ভূমি রেকর্ড ও ম্যাপ" />
+            <ServicesTax url="/dashboard/online-service/mutation" clr="#9cbf3d" img="/logos/1732941934.webp" tax="ভূমি রেকর্ড ও ম্যাপ" />
             <ServicesTax url="hello" clr="#4072b7" img="img1" tax="জন্মনিবন্ধন সেবা" />
             <ServicesTax url="hello" clr="#007d4d" img="img2" tax="NID সংক্রান্ত সেবা" />
             <ServicesTax url="hello" clr="#365e3c" img="img3" tax="পাসপোর্ট সংক্রান্ত সেবা" />

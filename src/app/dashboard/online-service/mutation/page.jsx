@@ -43,13 +43,6 @@ const page = () => {
 
     return (
         <div className='w-full h-auto flex flex-col items-center justify-start p-5 gap-y-12 sm:gap-y-5'>
-            <div href="/components/land-tax3" className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-48 h-56 w-96 sm:w-72 sm:justify-end sm:pb-3">
-                <div className=" absolute w-full h-10 rounded-md bg-[#59b8a0] top-0"></div>
-                <div className="size-20 flex items-center justify-center">
-                    <img src="/logos/1732162861.webp" alt="" />
-                </div>
-                <h1 className='text-2xl font-semibold'>মিউটেশন</h1>
-            </div>
             <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl sm:py-3'>খতিয়ান অনুসন্ধান করুন</h1>
 
             <div className="flex flex-col items-center justify-center gap-y-5 mt-10 relative sm:mt-5 sm:gap-y-4 sm:justify-start">

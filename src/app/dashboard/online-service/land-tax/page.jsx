@@ -44,13 +44,6 @@ const page = () => {
 
     return (
         <div className='w-full h-auto flex flex-col items-center justify-start p-5 gap-y-12 sm:gap-y-5'>
-            <div className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:space-y-2 sm:h-48 h-56 w-96 sm:w-72 sm:justify-end">
-                <div className=" absolute w-full h-10 rounded-md bg-[#fcb227] top-0"></div>
-                <div className="size-20 flex items-center justify-center">
-                    <img src="/logos/1732789801.webp" alt="" />
-                </div>
-                <h1 className='text-2xl font-semibold sm:text-2xl sm:py-3'>ভূমি উন্নয়ন কর</h1>
-            </div>
 
             <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খতিয়ান অনুসন্ধান করুন</h1>
 

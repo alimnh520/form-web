@@ -13,11 +13,12 @@ import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 
 const page = () => {
     const router = useRouter();
-    const user = useContext(UserProvider);
+    const { user } = useContext(UserProvider);
     const [name, setName] = useState(false);
     const [newName, setNewName] = useState('');
     const [image, setImage] = useState(false);
     const [newImage, setNewImage] = useState('');
+    const [displayImage, setDisplayImage] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [profile, setProfile] = useState(false);
@@ -34,18 +35,6 @@ const page = () => {
         }, 1500);
     }
 
-    useEffect(() => {
-        async function getDivision() {
-            try {
-                const response = await fetch("https://bdapi.vercel.app/api/v.1/division");
-                const result = await response.json();
-                setDivision(result.data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        }
-        getDivision();
-    }, [])
 
     const handleNameEdit = async () => {
         setLoading(true);
@@ -66,13 +55,22 @@ const page = () => {
         }
     }
 
-    const handleNamePhoto = async () => {
+    const handleEditPhoto = async () => {
+        if (newImage) {
+            if ((newImage.size / 1048576) > 3) {
+                setMessage('File size is too large');
+                return
+            }
+        }
         setLoading(true);
         try {
-            const res = await fetch('/api/user/editname', {
+            const formData = new FormData();
+            formData.append('email', user.email);
+            formData.append('newImage', newImage);
+            formData.append('public_url', user.public_url);
+            const res = await fetch('/api/user/editphoto', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: user.email, newImage })
+                body: formData
             });
             setLoading(false);
             const data = await res.json();
@@ -103,7 +101,23 @@ const page = () => {
             console.log(error);
         }
     }
+
+    // const imageUrl = URL.createObjectURL(newImage);
+    // setDisplayImage(imageUrl);
+
     useEffect(() => {
+
+        async function getDivision() {
+            try {
+                const response = await fetch("https://bdapi.vercel.app/api/v.1/division");
+                const result = await response.json();
+                setDivision(result.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        getDivision();
+
         async function handleDcrData() {
             try {
                 const res = await fetch('/api/user/submit-data/dcr-payment', { method: 'GET' });
@@ -147,7 +161,7 @@ const page = () => {
                     {
                         user && (
                             user.image_url ? (
-                                <img src={user.image_url} alt="" />
+                                <img src={user.image_url} alt="" className="size-8 rounded-full object-cover object-center mt-0.5"/>
                             ) : (
                                 <span className="text-3xl">
                                     <FaUserCircle />
@@ -185,17 +199,27 @@ const page = () => {
                 </button>
 
                 <div className={`h-full relative sm:absolute sm:w-full ${profile ? 'sm:left-0' : 'sm:-left-full'} ${hideMenu ? 'w-0 overflow-hidden px-0' : 'w-3/12 px-10'} transition-all duration-300 bg-white flex flex-col pt-5 items-start gap-y-5`}>
-                    <div className="size-40 rounded-full bg-green-600 self-center relative">
+                    <div className="size-40 rounded-full self-center relative">
                         <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => setImage(!image)}>
                             <FaEdit />
                         </button>
+                        {
+                            displayImage ? (
+                                <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                            ) : (
+                                <img src={user.image_url ? user.image_url : '/user/user-icon-on-transparent-background-free-png.webp'} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                            )
+                        }
                     </div>
 
                     {
                         image && (
                             <div className="flex items-center justify-center gap-x-3">
-                                <input type="file" className="outline-none border border-gray-400 px-4 py-1 w-52 rounded-xl" onChange={(e) => setNewImage(e.target.files[0])} />
-                                <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNamePhoto}>set</button>
+                                <input type="file" className="outline-none border border-gray-400 px-4 py-1 w-52 rounded-xl" onChange={(e) => {
+                                    setNewImage(e.target.files[0]);
+                                    setDisplayImage(URL.createObjectURL(e.target.files[0]));
+                                }} />
+                                <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleEditPhoto}>set</button>
                             </div>
                         )
                     }

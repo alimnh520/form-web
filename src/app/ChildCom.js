@@ -8,6 +8,7 @@ export const UserProvider = createContext();
 
 const ChildCom = ({ children }) => {
     const [user, setUser] = useState('');
+    const [admin, setAdmin] = useState('');
     const pathName = usePathname();
     const routePath = /^\/dakhila-print\/\w+$/i.test(pathName) || /^\/user\/\w+$/i.test(pathName);
     const hiddenPath = ['/office'];
@@ -26,10 +27,23 @@ const ChildCom = ({ children }) => {
             }
         }
         userData();
+
+        async function adminData(params) {
+            try {
+                const res = await fetch('/api/admin/admin-data', { method: 'GET' });
+                const data = await res.json();
+                if (data.success) {
+                    setAdmin(data.message);
+                } else setAdmin('');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        adminData();
     }, []);
 
     return (
-        <UserProvider className='w-full h-screen scroll-smooth' value={user}>
+        <UserProvider className='w-full h-screen scroll-smooth' value={{user, admin}} >
             {(!routePath && !setHiddenPath) && <Header />}
             <div className='mt-16'>{children}</div>
             {(!routePath && !setHiddenPath) && <Footer />}
