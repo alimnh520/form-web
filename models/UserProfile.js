@@ -13,6 +13,8 @@ const UserSchema = new mongoose.Schema({
     cookies: { type: String, required: false },
     balance: { type: Number, default: 0 },
     status: { type: String, default: 'pending' },
+    isLogged: { type: Boolean, default: false },
+    loggedExpire: { type: String, required: false }
 });
 
 export default mongoose.models.UserProfile || mongoose.model('UserProfile', UserSchema);

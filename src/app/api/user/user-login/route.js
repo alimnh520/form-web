@@ -37,8 +37,22 @@ export const POST = async (request) => {
                 return NextResponse.json({ message: 'Invalid password', success: false });
             }
 
+            if (user.status === 'pending') {
+                return NextResponse.json({ message: 'Waiting for approve', type: 'pending', success: false });
+            }
+            const currentTime = Date.now();
+            if (user.isLogged && user.loggedExpire > currentTime) {
+                return NextResponse.json({ message: 'User already login', type: 'pending', success: false });
+            }
+
             // success password
             if (checkPass) {
+                await collection.findOneAndUpdate({ mobile }, {
+                    $set: {
+                        isLogged: true,
+                        loggedExpire: Date.now() + 30 * 24 * 60 * 60 * 1000
+                    }
+                });
                 const response = NextResponse.json({ message: 'Login successful', success: true });
                 response.cookies.set('profile', mobile, {
                     httpOnly: true,
@@ -81,15 +95,26 @@ export const POST = async (request) => {
             if (user.status === 'pending') {
                 return NextResponse.json({ message: 'Waiting for approve', type: 'pending', success: false });
             }
+            const currentTime = Date.now();
+            if (user.isLogged && user.loggedExpire > currentTime) {
+                return NextResponse.json({ message: 'User already login', type: 'pending', success: false });
+            }
 
             // success password
             if (checkPass) {
+                await collection.findOneAndUpdate({ email }, {
+                    $set: {
+                        isLogged: true,
+                        loggedExpire: Date.now() + 30 * 24 * 60 * 60 * 1000
+                    }
+                });
+
                 const response = NextResponse.json({ message: 'Login successful', success: true });
                 response.cookies.set('profile', email, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
                     sameSite: 'strict',
-                    maxAge: 30 * 24 * 60 * 60
+                    maxAge: 30 * 24 * 60 * 60 * 1000
                 });
                 return response
             }
