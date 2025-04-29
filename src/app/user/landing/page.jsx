@@ -57,7 +57,7 @@ const page = () => {
     const handleNameEdit = async () => {
         setLoading(true);
         try {
-            const res = await fetch('/api/user/editname', {
+            const res = await fetch('/api/user/edit-data/editname', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: user.email, newName })
@@ -86,7 +86,7 @@ const page = () => {
             formData.append('email', user.email);
             formData.append('newImage', newImage);
             formData.append('public_url', user.public_url);
-            const res = await fetch('/api/user/editphoto', {
+            const res = await fetch('/api/user/edit-data/editphoto', {
                 method: 'POST',
                 body: formData
             });

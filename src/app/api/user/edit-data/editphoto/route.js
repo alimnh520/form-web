@@ -3,6 +3,7 @@ import { dbConnection } from "../../../../../../lib/connectDB";
 import { UploadImage } from "../../../../../../lib/cloudinary/cloud-image";
 import cloudinary from "../../../../../../lib/cloudinary/cloud-config";
 
+
 export const POST = async (request) => {
     try {
         const formData = await request.formData();

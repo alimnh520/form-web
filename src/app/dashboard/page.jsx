@@ -132,10 +132,11 @@ const page = () => {
   }
 
   const [uddoktaId, setUddoktaId] = useState('');
+  
   const handleDeleteUddokta = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/admin/del-data/del-uddokta', {
+      const res = await fetch('/api/admin/del-data/del-uddokta', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id:uddoktaId })

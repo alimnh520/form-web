@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { dbConnection } from "../../../../../../lib/connectDB";
 import { ObjectId } from "mongodb";
+import { dbConnection } from "../../../../../../lib/connectDB";
 
 export const GET = async () => {
     try {
