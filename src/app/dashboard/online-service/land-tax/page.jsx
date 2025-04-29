@@ -45,7 +45,7 @@ const page = () => {
     return (
         <div className='w-full h-auto flex flex-col items-center justify-start p-5 gap-y-12 sm:gap-y-5'>
 
-            <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>খতিয়ান অনুসন্ধান করুন</h1>
+            <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>ভূমি উন্নয়ন কর</h1>
 
             <div className="flex flex-col items-center justify-center gap-y-5 mt-10 relative sm:mt-5 sm:gap-y-4 sm:justify-start">
                 {

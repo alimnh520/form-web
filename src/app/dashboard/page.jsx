@@ -61,9 +61,10 @@ const page = () => {
       }
     }
     handleDcrData();
+
     async function handleUddokta() {
       try {
-        const res = await fetch('/api/user/uddokta', { method: 'GET' });
+        const res = await fetch('/api/user/edit-data/uddokta', { method: 'GET' });
         const data = await res.json();
         setUddoktaData(data.message);
       } catch (error) {
@@ -76,7 +77,7 @@ const page = () => {
   const userDelete = async (userId) => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/user-delete', {
+      const res = await fetch('/api/admin/del-data/user-delete', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId })
@@ -95,7 +96,7 @@ const page = () => {
   const handleDcrStatus = async (id, type) => {
     setLoading(true);
     try {
-      const res = await fetch('/api/user/submit-data/dcr-accept', {
+      const res = await fetch('/api/user/edit-data/dcr-accept', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, type })
@@ -114,7 +115,7 @@ const page = () => {
   const handleAcceptUddokta = async (id, type) => {
     setLoading(true);
     try {
-      const res = await fetch('/api/user/uddokta', {
+      const res = await fetch('/api/user/edit-data/uddokta', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, type })
@@ -134,10 +135,10 @@ const page = () => {
   const handleDeleteUddokta = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/user/del-uddokta', {
+      const res = await fetch('/admin/del-data/del-uddokta', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: uddoktaId })
+        body: JSON.stringify({ id:uddoktaId })
       });
       const data = await res.json();
       setLoading(false);
@@ -211,7 +212,6 @@ const page = () => {
       console.log(error);
     }
   }
-
 
   return (
     <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative">
@@ -330,7 +330,7 @@ const page = () => {
 
           {
             isUddokta && (
-              <div className="w-full h-full sm:w-80 sm:h-auto left-0 top-1/2 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1/2  bg-white border border-red-400 rounded absolute z-20 flex flex-col p-5 items-center">
+              <div className="w-full h-full sm:h-auto left-0 top-1/2 sm:left-1/2 sm:-translate-x-1/2 -translate-y-1/2  bg-white border border-red-400 rounded absolute z-20 flex flex-col p-5 items-center">
                 <div className="absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setUddokta(false)}>
                   <IoClose />
                 </div>
@@ -353,57 +353,59 @@ const page = () => {
 
                 <div className="w-full h-auto flex flex-col items-center gap-y-5 sm:overflow-x-scroll sm:items-start">
                   <h1 className="text-xl font-bold self-center">উদ্যোক্তা একাউন্ট</h1>
-                  <div className="w-full gap-x-1 grid grid-cols-6 bg-green-600 text-white font-bold">
-                    <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
-                    <p className="text-center border-r py-3">ইউজার নেম</p>
-                    <p className="text-center border-r py-3">ইমেইল</p>
-                    <p className="text-center border-r py-3">মোবাইল</p>
-                    <p className="text-center border-r py-3">স্টাটাস</p>
-                    <p className="text-center border-r py-3">ঠিকানা</p>
-                  </div>
-                </div>
-                {
-                  uddoktaData ? (
-                    uddoktaData.slice().reverse().map((elem, index) => {
-                      return (
-                        <div className="w-full flex flex-col relative" key={elem._id}>
-                          <div className="w-full grid grid-cols-6">
-                            <p className="text-center border-r overflow-x-scroll border-l border-b py-3">{index + 1}</p>
-                            <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.username}</p>
-                            <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.email}</p>
-                            <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.mobile}</p>
-                            {
-                              elem.status !== 'pending' && (
-                                <div className={`text-center border-r border-b grid grid-cols-2 gap-x-px ${elem.status === 'accept' ? 'text-green-700' : 'text-red-600'}`}>
-                                  <p className="py-3">{elem.status}</p>
-                                  <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                    setDeleteUddokta(true);
-                                    setUddoktaId(elem._id);
-                                  }}><MdDeleteForever /></button>
-                                </div>
-                              )
-                            }
-                            {
-                              elem.status === 'pending' && (
-                                <div className="text-center border-r border-b grid grid-cols-2 gap-x-px">
-                                  <button className="bg-green-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                    handleAcceptUddokta(elem._id, 'accept');
-                                  }}><IoCheckmarkSharp /></button>
-                                  <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                    handleAcceptUddokta(elem._id, 'cancel');
-                                  }}><RxCross2 /></button>
-                                </div>
-                              )
-                            }
-                            <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.address}</p>
-                          </div>
-                        </div>
+                  <div className="w-full h-auto flex flex-col sm:w-[1200px]">
+                    <div className="w-full gap-x-1 grid grid-cols-6 bg-green-600 text-white font-bold">
+                      <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
+                      <p className="text-center border-r py-3">ইউজার নেম</p>
+                      <p className="text-center border-r py-3">ইমেইল</p>
+                      <p className="text-center border-r py-3">মোবাইল</p>
+                      <p className="text-center border-r py-3">স্টাটাস</p>
+                      <p className="text-center border-r py-3">ঠিকানা</p>
+                    </div>
+                    {
+                      uddoktaData ? (
+                        uddoktaData.slice().reverse().map((elem, index) => {
+                          return (
+                            <div className="w-full flex flex-col relative " key={elem._id}>
+                              <div className="w-full grid grid-cols-6">
+                                <p className="text-center border-r overflow-x-scroll border-l border-b py-3">{index + 1}</p>
+                                <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.username}</p>
+                                <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.email}</p>
+                                <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.mobile}</p>
+                                {
+                                  elem.status !== 'pending' && (
+                                    <div className={`text-center border-r border-b grid grid-cols-2 gap-x-px ${elem.status === 'accept' ? 'text-green-700' : 'text-red-600'}`}>
+                                      <p className="py-3">{elem.status}</p>
+                                      <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                        setDeleteUddokta(true);
+                                        setUddoktaId(elem._id);
+                                      }}><MdDeleteForever /></button>
+                                    </div>
+                                  )
+                                }
+                                {
+                                  elem.status === 'pending' && (
+                                    <div className="text-center border-r border-b grid grid-cols-2 gap-x-px">
+                                      <button className="bg-green-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                        handleAcceptUddokta(elem._id, 'accept');
+                                      }}><IoCheckmarkSharp /></button>
+                                      <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                        handleAcceptUddokta(elem._id, 'cancel');
+                                      }}><RxCross2 /></button>
+                                    </div>
+                                  )
+                                }
+                                <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.address}</p>
+                              </div>
+                            </div>
+                          )
+                        }
+                        )) : (
+                        <p>Loading...</p>
                       )
                     }
-                    )) : (
-                    <p>Loading...</p>
-                  )
-                }
+                  </div>
+                </div>
               </div>
             )
           }
@@ -530,7 +532,7 @@ const page = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

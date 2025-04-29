@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDb } from "../../../../../../lib/mongodb";
-import DCRPayment from "../../../../../../models/DCRPayment";
 import { dbConnection } from "../../../../../../lib/connectDB";
+import DCRPayment from "../../../../../../models/DCRPayment";
 
 export const POST = async (request) => {
     try {
@@ -29,7 +29,7 @@ export const POST = async (request) => {
 }
 export const GET = async () => {
     try {
-        const collection = (await dbConnection()).collection('dcrpayents');
+        const collection = (await dbConnection()).collection('dcrpayments');
         const data = await collection.find({}).toArray();
         return NextResponse.json({ message: data, success: true });
     } catch (error) {

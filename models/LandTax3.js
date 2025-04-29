@@ -1,17 +1,24 @@
-import mongoose from 'mongoose';
+const { default: mongoose } = require("mongoose");
 
 const LandSchema3 = new mongoose.Schema({
-    divisionName: { type: String, required: true },
-    districtName: { type: String, required: true },
-    upazilaName: { type: String, required: true },
-    mouzaName: { type: String, required: true },
-    khatianName: { type: String, required: true },
-    mobile: { type: String, required: true },
-    khatian: { type: String, required: true },
-    dolil: { type: String, required: true },
-    photo: { type: String, required: true },
-    dakhila: { type: String, required: true },
-    imgId: { type: [String], default: [] },
+    username: { type: String, required: false },
+    email: { type: String, required: false },
+    status: { type: String, default: 'pending' },
+    action: { type: String, required: false },
+    divisionName: { type: String, required: false },
+    districtName: { type: String, required: false },
+    upazilaName: { type: String, required: false },
+    mouzaName: { type: String, required: false },
+    khatianName: { type: String, required: false },
+    mobile: { type: String, required: false },
+    khatian: { type: String, required: false },
+    khatian_id: { type: String, required: false },
+    dolil: { type: String, required: false },
+    dolil_id: { type: String, required: false },
+    photo: { type: String, required: false },
+    photo_id: { type: String, required: false },
+    dakhila: { type: String, required: false },
+    dakhila_id: { type: String, required: false },
 });
 
 export default mongoose.models.LandTax3 || mongoose.model('LandTax3', LandSchema3);

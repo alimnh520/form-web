@@ -22,7 +22,7 @@ const page = () => {
 
     return (
         <div className='w-full h-auto flex flex-col items-center justify-start p-10 gap-y-10 sm:gap-y-5'>
-            <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl sm:py-3'>খতিয়ান অনুসন্ধান করুন</h1>
+            <h1 className='text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl sm:py-3'>ভূমি রেকর্ড ও ম্যাপ</h1>
 
             <div className="flex items-center justify-center flex-col w-full">
                 {

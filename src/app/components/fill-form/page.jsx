@@ -73,7 +73,7 @@ const page = () => {
   const handleSUbmit = async (e) => {
     setLoading(true);
     try {
-      const response = await fetch("/api/post/submit-form", {
+      const response = await fetch("/api/user/submit-data/submit-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

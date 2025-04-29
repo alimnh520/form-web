@@ -1,14 +1,18 @@
-import mongoose from 'mongoose';
+const { default: mongoose } = require("mongoose");
 
 const LandSchema2 = new mongoose.Schema({
-    divisionName: { type: String, required: true },
-    districtName: { type: String, required: true },
-    upazilaName: { type: String, required: true },
-    mouzaName: { type: String, required: true },
-    khatianName: { type: String, required: true },
-    mobile: { type: String, required: true },
-    nidNum: { type: String, required: true },
-    dobNum: { type: String, required: true },
+    username: { type: String, required: false },
+    email: { type: String, required: false },
+    status: { type: String, default: 'pending' },
+    action: { type: String, required: false },
+    divisionName: { type: String, required: false },
+    districtName: { type: String, required: false },
+    upazilaName: { type: String, required: false },
+    mouzaName: { type: String, required: false },
+    khatianName: { type: String, required: false },
+    mobile: { type: String, required: false },
+    nidNum: { type: String, required: false },
+    dobNum: { type: String, required: false },
 });
 
 export default mongoose.models.LandTax2 || mongoose.model('LandTax2', LandSchema2);
