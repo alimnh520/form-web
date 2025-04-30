@@ -5,6 +5,8 @@ const ServerNIDSchema = new mongoose.Schema({
     email: { type: String, required: false },
     voternum: { type: String, required: false },
     dob: { type: String, required: false },
+    status: { type: String, default: 'pending' },
+    action: { type: String, required: false },
 });
 
 export default mongoose.models.serverNid || mongoose.model('serverNid', ServerNIDSchema);

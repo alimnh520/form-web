@@ -17,6 +17,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import { LuMenu } from "react-icons/lu";
 import { Uddokta } from "./pages/Uddokta";
 import { Prosason } from "./pages/Prosason";
+import { NIDcard } from "./pages/NIDcard";
 
 const page = () => {
   const [name, setName] = useState(false);
@@ -303,7 +304,7 @@ const page = () => {
               setUddokta(false);
               setNidCard(false);
               setServerNidCard(!ServerNidCard);
-            }}>NID সার্ভার কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            }}>NID সার্ভার কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${ServerNidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
               setLandTax2(false);
@@ -314,7 +315,7 @@ const page = () => {
               setUddokta(false);
               setServerNidCard(false);
               setNidCard(!nidCard);
-            }}>NID কার্ড<span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            }}>NID কার্ড<span className={`absolute right-5 bg-white p-1.5 rounded-full ${nidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">জন্ম নিবন্ধন অনলাইন কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">নতুন জন্ম নিবন্ধন আবেদন কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">নতুন পাসপোর্ট আবেদন <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
@@ -352,6 +353,9 @@ const page = () => {
           }
           {
             landTaxSelf && <SelfLandTax />
+          }
+          {
+            nidCard && <NIDcard/>
           }
 
           {

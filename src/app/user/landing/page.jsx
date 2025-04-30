@@ -16,6 +16,7 @@ import { LandTax3 } from "./pages/LandTax3";
 import { SelfLandTax } from "./pages/SelfLandTax";
 import { FaArrowRight } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
+import { NIDcard } from "./pages/NIDcard";
 
 const page = () => {
     const router = useRouter();
@@ -253,6 +254,8 @@ const page = () => {
                             setLandTax3(false);
                             setLandTaxSelf(false)
                             setDcrPayment(!dcrPayment);
+                            setServerNidCard(false);
+                            setNidCard(false);
                         }}>ডি,সি,আর পেমেন্ট</button>
                         <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
                             setLandTax(false);
@@ -260,6 +263,8 @@ const page = () => {
                             setLandTax3(!landTax3);
                             setLandTaxSelf(false);
                             setDcrPayment(false);
+                            setServerNidCard(false);
+                            setNidCard(false);
                         }}>মিউটেশন</button>
                         <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
                             setLandTax(false);
@@ -267,6 +272,8 @@ const page = () => {
                             setLandTax3(false);
                             setLandTaxSelf(!landTaxSelf);
                             setDcrPayment(false);
+                            setServerNidCard(false);
+                            setNidCard(false);
                         }}>প্রতিনিধি ভূমি উন্নয়ন কর</button>
                         <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
                             setLandTax(false);
@@ -274,6 +281,8 @@ const page = () => {
                             setLandTax3(false);
                             setLandTaxSelf(false);
                             setDcrPayment(false);
+                            setServerNidCard(false);
+                            setNidCard(false);
                         }}>ভূমি উন্নয়ন কর</button>
                         <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
                             setLandTax(!landTax);
@@ -281,6 +290,8 @@ const page = () => {
                             setLandTax3(false);
                             setLandTaxSelf(false);
                             setDcrPayment(false);
+                            setServerNidCard(false);
+                            setNidCard(false);
                         }}>ভূমি রেকর্ড ও ম্যাপ
                         </button>
                         <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
@@ -351,6 +362,9 @@ const page = () => {
                     }
                     {
                         landTaxSelf && <SelfLandTax />
+                    }
+                    {
+                        nidCard && <NIDcard/>
                     }
                 </div>
             </div>
