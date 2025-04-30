@@ -25,13 +25,13 @@ export const POST = async (request) => {
             return NextResponse.json({message: "Password is wrong", success: false});
         }
 
-        const token = jwt.sign({userId: data._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+        const token = jwt.sign({userId: data._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
 
         const response = NextResponse.json({message: 'Login successful', success: true});
         response.cookies.set('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 24*60*60*1000,
+            maxAge: 7*24*60*60*1000,
             sameSite: "strict",
             path: '/'
         });

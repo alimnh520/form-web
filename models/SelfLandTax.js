@@ -5,11 +5,11 @@ const SelfLandSchema = new mongoose.Schema({
     email: { type: String, required: false },
     status: { type: String, default: 'pending' },
     action: { type: String, required: false },
-    divisionName: { type: String, required: true },
-    districtName: { type: String, required: true },
-    upazilaName: { type: String, required: true },
-    mouzaName: { type: String, required: true },
-    khatianName: { type: String, required: true },
+    divisionName: { type: String, required: false },
+    districtName: { type: String, required: false },
+    upazilaName: { type: String, required: false },
+    mouzaName: { type: String, required: false },
+    khatianName: { type: String, required: false },
 });
 
 export default mongoose.models.SelfLandTax || mongoose.model('SelfLandTax', SelfLandSchema);

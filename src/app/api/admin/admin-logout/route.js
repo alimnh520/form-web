@@ -7,6 +7,6 @@ export const POST = async (request) => {
     res.cookies.delete("token");
     return res;
   } catch (error) {
-    return NextResponse.json({ message: "error is : ", error });
+    return NextResponse.json({ message: "error is : ", success: false });
   }
 };

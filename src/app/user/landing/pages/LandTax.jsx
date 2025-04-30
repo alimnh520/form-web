@@ -229,7 +229,10 @@ export const LandTax = () => {
                                     </div>
                                 )
                             })
-                        ) : <p>Loading...</p>
+                        ) : (
+                            <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                                <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
+                            </div>)
                     }
                 </div>
             </div>

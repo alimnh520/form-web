@@ -16,7 +16,6 @@ export const GET = async (request) => {
             });
             return NextResponse.json({ message: data, success: true });
         }
-        return NextResponse.json({ message: 'Token expired', success: false });
     } catch (error) {
         return NextResponse.json({ message: 'not registered', success: false });
     }

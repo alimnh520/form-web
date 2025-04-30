@@ -39,6 +39,8 @@ const page = () => {
   const [landTax3, setLandTax3] = useState(false);
   const [landTaxSelf, setLandTaxSelf] = useState(false);
   const [dcrPayment, setDcrPayment] = useState(false);
+  const [nidCard, setNidCard] = useState(false);
+  const [ServerNidCard, setServerNidCard] = useState(false);
 
   if (message) {
     setTimeout(() => {
@@ -69,7 +71,7 @@ const page = () => {
       const res = await fetch('/api/admin/notice', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message:noticeMessage})
+        body: JSON.stringify({ message: noticeMessage })
       });
       const data = await res.json();
       setLoading(false);
@@ -81,24 +83,6 @@ const page = () => {
       console.log(error)
     }
   }
-
-
-  // admin logout
-
-  const logoutPage = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("/api/admin/admin-logout", { method: "POST" });
-      const data = await response.json();
-      if (data.success) {
-        setLoading(false);
-        router.push('/')
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   // admin edit name
 
   const handleNameEdit = async () => {
@@ -164,7 +148,7 @@ const page = () => {
           {
             noticeBtn && (
               <div className="flex items-center justify-center w-full h-full justify-self-center">
-                <input type="text" className="w-full h-full outline-none px-4 text-lg"  value={noticeMessage} onChange={(e) => setNoticeMessage(e.target.value)}/>
+                <input type="text" className="w-full h-full outline-none px-4 text-lg" value={noticeMessage} onChange={(e) => setNoticeMessage(e.target.value)} />
                 <button className="w-20 h-full text-3xl flex items-center justify-center bg-green-700 text-white" onClick={submitNotice}><MdSend /></button>
               </div>
             )
@@ -309,7 +293,28 @@ const page = () => {
               setUddokta(false);
             }}>ভূমি রেকর্ড ও ম্যাপ
               <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
-            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">NID সার্ভার কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
+              setLandTax(false);
+              setLandTax2(false);
+              setLandTax3(false);
+              setLandTaxSelf(false);
+              setDcrPayment(false);
+              setProsason(false);
+              setUddokta(false);
+              setNidCard(false);
+              setServerNidCard(!ServerNidCard);
+            }}>NID সার্ভার কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
+              setLandTax(false);
+              setLandTax2(false);
+              setLandTax3(false);
+              setLandTaxSelf(false);
+              setDcrPayment(false);
+              setProsason(false);
+              setUddokta(false);
+              setServerNidCard(false);
+              setNidCard(!nidCard);
+            }}>NID কার্ড<span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">জন্ম নিবন্ধন অনলাইন কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">নতুন জন্ম নিবন্ধন আবেদন কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">নতুন পাসপোর্ট আবেদন <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
@@ -350,7 +355,7 @@ const page = () => {
           }
 
           {
-            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && (
+            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && (
               <div className="w-full flex flex-col items-center gap-y-4 mt-16">
                 <h1 className="text-xl font-semibold text-center">রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span></h1>
                 <h1 className="text-3xl font-light text-center text-green-700">আপনাকে স্বাগতম !</h1>

@@ -52,6 +52,8 @@ const page = () => {
     const [landTax3, setLandTax3] = useState(false);
     const [landTaxSelf, setLandTaxSelf] = useState(false);
     const [dcrPayment, setDcrPayment] = useState(false);
+    const [nidCard, setNidCard] = useState(false);
+    const [ServerNidCard, setServerNidCard] = useState(false);
 
     // edit user name
     const handleNameEdit = async () => {
@@ -134,7 +136,6 @@ const page = () => {
         getAdminNotice()
     }, []);
 
-    console.log(notice);
 
     return (
         <div className="w-full h-auto flex flex-col bg-center bg-cover -mt-16 bg-[#eff9f1] ">
@@ -282,7 +283,24 @@ const page = () => {
                             setDcrPayment(false);
                         }}>ভূমি রেকর্ড ও ম্যাপ
                         </button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300">NID সার্ভার কপি</button>
+                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
+                            setLandTax(false);
+                            setLandTax2(false);
+                            setLandTax3(false);
+                            setLandTaxSelf(false);
+                            setDcrPayment(false);
+                            setNidCard(false);
+                            setServerNidCard(!ServerNidCard);
+                        }}>NID সার্ভার কপি</button>
+                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
+                            setLandTax(false);
+                            setLandTax2(false);
+                            setLandTax3(false);
+                            setLandTaxSelf(false);
+                            setDcrPayment(false);
+                            setServerNidCard(false);
+                            setNidCard(!nidCard);
+                        }}>NID কার্ড</button>
                         <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300">জন্ম নিবন্ধন অনলাইন কপি</button>
                         <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300">নতুন জন্ম নিবন্ধন আবেদন কপি</button>
                         <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300">নতুন পাসপোর্ট আবেদন</button>
@@ -301,13 +319,13 @@ const page = () => {
 
                 <div className={`h-screen ${hideMenu ? 'w-11/12' : 'w-9/12'} sm:w-full bg-white transition-all duration-300`}>
                     {
-                        !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && (
+                        !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && (
                             <div className="w-full flex flex-col items-center gap-y-4 mt-16">
                                 <h1 className="text-xl font-semibold text-center">রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span></h1>
                                 <h1 className="text-3xl font-light text-center text-green-700">আপনাকে স্বাগতম !</h1>
 
                                 <div className="flex flex-col items-center gap-y-3 mt-10 text-green-700 w-80">
-                                    <Link href="" className="text-3xl flex items-center justify-center gap-x-2 font-semibold text-center text-green-700">ড্যাশবোর্ড <span><FaArrowRight /></span></Link>
+                                    <Link href="/office" className="text-3xl flex items-center justify-center gap-x-2 font-semibold text-center text-green-700">ড্যাশবোর্ড <span><FaArrowRight /></span></Link>
                                     <p className="text-xl">জরুরী প্রয়োজনে কল বা ইমেইল করুন</p>
 
                                     <div className="w-full h-24 rounded-lg border border-green-700 p-5 flex flex-col gap-y-1 items-start justify-center">
