@@ -56,6 +56,7 @@ export const LandTax3 = () => {
                 <div className="w-full h-auto flex flex-col">
                     <div className="w-full gap-x-1 grid grid-cols-8 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
+                        <p className="text-center border-r py-3">নাম</p>
                         <p className="text-center border-r py-3">বিভাগ</p>
                         <p className="text-center border-r py-3">জেলা</p>
                         <p className="text-center border-r py-3">উপজেলা</p>
@@ -71,6 +72,7 @@ export const LandTax3 = () => {
                                     <div className="w-full flex flex-col" key={elem._id}>
                                         <div className="w-full grid grid-cols-8">
                                             <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
+                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.username}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.divisionName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.districtName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.upazilaName}</p>

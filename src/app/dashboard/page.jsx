@@ -1,11 +1,12 @@
 "use client";
-import { FaEdit } from "react-icons/fa";
+import { MdSend } from "react-icons/md";
+import { FaEdit, FaMailBulk } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
+import { IoCall, IoClose } from "react-icons/io5";
 import { UserProvider } from "../ChildCom";
 import { LandTax } from "./pages/LandTax";
 import { LandTax2 } from "./pages/LandTax2";
@@ -14,6 +15,8 @@ import { SelfLandTax } from "./pages/SelfLandTax";
 import { DCRpayment } from "./pages/DCRpayment";
 import { Uddokta } from "./pages/uddokta";
 import { Prosason } from "./pages/prosason";
+import { FaArrowRight } from "react-icons/fa6";
+import { LuMenu } from "react-icons/lu";
 
 const page = () => {
   const [name, setName] = useState(false);
@@ -24,9 +27,10 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [profile, setProfile] = useState(false);
-  
+
   const router = useRouter();
   const { admin } = useContext(UserProvider);
+  const [hideMenu, setHideMenu] = useState(false);
 
   const [isUddokta, setUddokta] = useState(false);
   const [prosason, setProsason] = useState(false);
@@ -40,6 +44,42 @@ const page = () => {
     setTimeout(() => {
       setMessage('');
     }, 1500);
+  }
+
+  const [notice, setNotice] = useState('');
+  const [noticeMessage, setNoticeMessage] = useState('');
+  const [noticeBtn, setNoticeBtn] = useState(false);
+
+  useEffect(() => {
+    async function getAdminNotice() {
+      try {
+        const res = await fetch('/api/admin/notice', { method: 'GET' });
+        const data = await res.json();
+        setNotice(data.message);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAdminNotice()
+  }, []);
+
+  const submitNotice = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/notice', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message:noticeMessage})
+      });
+      const data = await res.json();
+      setLoading(false);
+      setMessage(data.message);
+      if (data.success) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
@@ -113,17 +153,33 @@ const page = () => {
   return (
     <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative">
 
-      <div className="w-full h-12 bg-red-400 flex items-center justify-between">
-
+      <div className="w-full h-12 flex gap-3 items-center justify-between px-10 sm:px-5">
+        <img src="/user/notice-icon-png.webp" alt="" className="h-10 justify-self-start" />
+        <div className="w-full h-full rounded-md flex items-center justify-end">
+          <marquee behavior="smooth" direction="rtl" className="font-semibold text-lg">
+            {!noticeBtn && (
+              notice ? notice[0].message : 'Loading......'
+            )}
+          </marquee>
+          {
+            noticeBtn && (
+              <div className="flex items-center justify-center w-full h-full justify-self-center">
+                <input type="text" className="w-full h-full outline-none px-4 text-lg"  value={noticeMessage} onChange={(e) => setNoticeMessage(e.target.value)}/>
+                <button className="w-20 h-full flex items-center justify-center bg-green-700 text-white" onClick={submitNotice}>SET</button>
+              </div>
+            )
+          }
+        </div>
+        <button className="text-3xl text-green-700" onClick={() => setNoticeBtn(!noticeBtn)}><MdSend /></button>
       </div>
 
-      <div className="h-full w-full flex items-start justify-between gap-x-5 sm:relative">
+      <div className="h-full w-full flex items-start justify-between gap-x-5 sm:relative border-t border-t-green-700">
 
         <div className="hidden sm:block absolute left-2 top-[16px] text-green-700 text-3xl cursor-pointer z-10" onClick={() => setProfile(true)}>
           <FaUserCircle />
         </div>
 
-        <div className={`w-1/4 h-auto flex items-center justify-start sm:absolute sm:z-10 transition-all duration-300 ${profile ? 'sm:left-0' : 'sm:-left-full'} sm:w-full`}>
+        <div className={`h-auto flex items-center justify-start sm:absolute sm:z-10 transition-all duration-300 ${profile ? 'sm:left-0' : 'sm:-left-full'} ${hideMenu ? 'w-0 overflow-hidden px-0 opacity-0' : 'w-1/4 opacity-100'} sm:w-full`}>
 
           {
             loading && (
@@ -197,7 +253,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(!isUddokta);
-            }}>উদ্যোক্তা <span className={`absolute right-5 ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            }}>উদ্যোক্তা <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
               setLandTax2(false);
@@ -206,7 +262,7 @@ const page = () => {
               setUddokta(false);
               setDcrPayment(false);
               setProsason(!prosason);
-            }}>প্রশাসনিক <span className={`absolute right-5 ${prosason ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            }}>প্রশাসনিক <span className={`absolute right-5 bg-white p-1.5 rounded-full ${prosason ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
               setLandTax2(false);
@@ -215,7 +271,7 @@ const page = () => {
               setProsason(false);
               setUddokta(false);
               setDcrPayment(!dcrPayment);
-            }}>ডি,সি,আর পেমেন্ট <span className={`absolute right-5 ${dcrPayment ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            }}>ডি,সি,আর পেমেন্ট <span className={`absolute right-5 bg-white p-1.5 rounded-full ${dcrPayment ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
               setLandTax2(false);
@@ -224,7 +280,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
-            }}>মিউটেশন <span className={`absolute right-5 ${landTax3 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            }}>মিউটেশন <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax3 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
               setLandTax2(false);
@@ -233,7 +289,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
-            }}>প্রতিনিধি ভূমি উন্নয়ন কর <span className={`absolute right-5 ${landTaxSelf ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            }}>প্রতিনিধি ভূমি উন্নয়ন কর <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTaxSelf ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
               setLandTax2(!landTax2);
@@ -242,7 +298,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
-            }}>ভূমি উন্নয়ন কর <span className={`absolute right-5 ${landTax2 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            }}>ভূমি উন্নয়ন কর <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax2 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(!landTax);
               setLandTax2(false);
@@ -252,11 +308,11 @@ const page = () => {
               setProsason(false);
               setUddokta(false);
             }}>ভূমি রেকর্ড ও ম্যাপ
-              <span className={`absolute right-5 ${landTax ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
-            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">NID সার্ভার কপি <span className={`absolute right-5 ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
-            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">জন্ম নিবন্ধন অনলাইন কপি <span className={`absolute right-5 ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
-            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">নতুন জন্ম নিবন্ধন আবেদন কপি <span className={`absolute right-5 ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
-            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">নতুন পাসপোর্ট আবেদন <span className={`absolute right-5 ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+              <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">NID সার্ভার কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">জন্ম নিবন্ধন অনলাইন কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">নতুন জন্ম নিবন্ধন আবেদন কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">নতুন পাসপোর্ট আবেদন <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
           </div>
 
 
@@ -265,16 +321,20 @@ const page = () => {
           </div>
         </div>
 
-        <div className="w-3/4 h-screen p-4 flex flex-col items-center justify-start gap-y-4 sm:w-full sm:h-auto relative">
+        <button className="text-3xl text-green-700 mt-5 sm:hidden" onClick={() => setHideMenu(!hideMenu)}>
+          <LuMenu />
+        </button>
+
+        <div className={`h-screen ${hideMenu ? 'w-11/12' : 'w-3/4'} p-4 flex flex-col items-center justify-start gap-y-4 sm:w-full sm:h-auto relative`}>
 
           {
-            isUddokta && <Uddokta/>
+            isUddokta && <Uddokta />
           }
           {
-            prosason && <Prosason/>
+            prosason && <Prosason />
           }
           {
-            dcrPayment && <DCRpayment/>
+            dcrPayment && <DCRpayment />
           }
           {
             landTax && <LandTax />
@@ -289,15 +349,31 @@ const page = () => {
             landTaxSelf && <SelfLandTax />
           }
 
-          <h1 className="text-4xl sm:text-2xl font-thin">অনলাইন সংক্রান্ত সেবা</h1>
-          <div className="flex flex-col items-center justify-start mt-4 gap-y-5">
-            <h1 className="text-4xl font-thin sm:text-2xl">ভূমি উন্নয়ন দাখিলার আবেদন</h1>
-            <div className="flex items-center justify-center gap-x-6">
-              <Link href="/components/fill-form" className="px-6 py-1 bg-blue-600 text-lg font-semibold text-white">দাখিলা ফর্ম</Link>
+          {
+            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && (
+              <div className="w-full flex flex-col items-center gap-y-4 mt-16">
+                <h1 className="text-xl font-semibold text-center">রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span></h1>
+                <h1 className="text-3xl font-light text-center text-green-700">আপনাকে স্বাগতম !</h1>
 
-              <Link href="/dakhila-print" className="px-6 py-1 bg-blue-600 text-lg font-semibold text-white">দাখিলা প্রিন্ট</Link>
-            </div>
-          </div>
+                <div className="flex flex-col items-center gap-y-3 mt-10 text-green-700 w-80">
+                  <Link href="" className="text-3xl flex items-center justify-center gap-x-2 font-semibold text-center text-green-700">ড্যাশবোর্ড <span><FaArrowRight /></span></Link>
+                  <p className="text-xl">জরুরী প্রয়োজনে কল বা ইমেইল করুন</p>
+
+                  <div className="w-full h-24 rounded-lg border border-green-700 p-5 flex flex-col gap-y-1 items-start justify-center">
+                    <p className="flex items-center text-lg justify-center gap-x-2">মোবাইল নম্বর: <span><IoCall /></span> 01850685033</p>
+                    <p className="flex items-center text-lg justify-center gap-x-2">ইমেইল: <span><FaMailBulk /></span> uddokta@bdl.tax</p>
+                  </div>
+                </div>
+
+                <h1 className="text-4xl font-thin sm:text-2xl">ভূমি উন্নয়ন দাখিলার আবেদন</h1>
+                <div className="flex items-center justify-center gap-x-6">
+                  <Link href="/components/fill-form" className="px-6 py-1 bg-blue-600 text-lg font-semibold text-white">দাখিলা ফর্ম</Link>
+
+                  <Link href="/dakhila-print" className="px-6 py-1 bg-blue-600 text-lg font-semibold text-white">দাখিলা প্রিন্ট</Link>
+                </div>
+              </div>
+            )
+          }
         </div>
       </div>
     </div >

@@ -30,7 +30,7 @@ const page = () => {
     // display profile photo
     const [displayImage, setDisplayImage] = useState('');
 
-    const [notice, setNotice] = useState();
+    const [notice, setNotice] = useState('');
 
     // loading and message animation
     const [loading, setLoading] = useState(false);

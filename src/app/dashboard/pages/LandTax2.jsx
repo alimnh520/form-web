@@ -1,5 +1,7 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
+import { IoCheckmarkSharp } from 'react-icons/io5';
+import { RxCross2 } from 'react-icons/rx';
 
 export const LandTax2 = () => {
     const [LandTax2, setLandTax2] = useState('');
@@ -27,6 +29,25 @@ export const LandTax2 = () => {
         landTax2();
     }, []);
 
+    const landTaxStatus = async (id, type) => {
+        setLoading(true);
+        try {
+            const res = await fetch('/api/user/edit-data/editLandTax2', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, type })
+            });
+            const data = await res.json();
+            setLoading(false);
+            setMessage(data.message);
+            if (data.success) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className="w-full h-full flex flex-col items-center p-7">
 
@@ -52,8 +73,9 @@ export const LandTax2 = () => {
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full gap-x-1 grid grid-cols-11 bg-green-600 text-white font-bold">
+                    <div className="w-full gap-x-1 grid grid-cols-12 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
+                        <p className="text-center border-r py-3">নাম</p>
                         <p className="text-center border-r py-3">বিভাগ</p>
                         <p className="text-center border-r py-3">জেলা</p>
                         <p className="text-center border-r py-3">উপজেলা</p>
@@ -70,8 +92,9 @@ export const LandTax2 = () => {
                             LandTax2.slice().reverse().map((elem, index) => {
                                 return (
                                     <div className="w-full flex flex-col" key={elem._id}>
-                                        <div className="w-full grid grid-cols-11">
+                                        <div className="w-full grid grid-cols-12">
                                             <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
+                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.username}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.divisionName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.districtName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.upazilaName}</p>
@@ -80,7 +103,23 @@ export const LandTax2 = () => {
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mobile}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.nidNum}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.dobNum}</p>
-                                            <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
+                                            {
+                                                elem.status !== 'pending' && (
+                                                    <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3`}>{elem.status}</p>
+                                                )
+                                            }
+                                            {
+                                                elem.status === 'pending' && (
+                                                    <div className="text-center border-r border-b grid grid-cols-2 gap-x-px">
+                                                        <button className="bg-green-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                                            landTaxStatus(elem._id, 'accept');
+                                                        }}><IoCheckmarkSharp /></button>
+                                                        <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                                            landTaxStatus(elem._id, 'cancel');
+                                                        }}><RxCross2 /></button>
+                                                    </div>
+                                                )
+                                            }
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.action}</p>
                                         </div>
                                     </div>
