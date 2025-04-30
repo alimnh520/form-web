@@ -40,10 +40,12 @@ export const NIDcard = () => {
     const nidCardStatus = async (id, type) => {
         setLoading(true);
         try {
-            const res = await fetch('/api/user/edit-data/editLandTax2', {
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('type', type);
+            const res = await fetch('/api/user/edit-data/editNidCard', {
                 method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, type })
+                body: formData
             });
             const data = await res.json();
             setLoading(false);

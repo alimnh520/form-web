@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
-import jwt from 'jsonwebtoken';
-import { jwtVerify } from "jose";
 
 export const middleware = async (request) => {
   const path = request.nextUrl.pathname;
 
   // admin
-  const token = request.cookies.get("token")?.value;
+  const token = request.cookies.get("admin-token")?.value;
 
   // user
   const verify = request.cookies.get("otp")?.value;

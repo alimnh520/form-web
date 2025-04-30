@@ -12,32 +12,32 @@ export const POST = async (request) => {
 
     try {
         const reqBody = await request.json();
-        const {username,password} = reqBody.user;
-        const data = await collection.findOne({username});
+        const { username, password } = reqBody.user;
+        const data = await collection.findOne({ username });
 
         if (!data) {
-            return NextResponse.json({message: "User not found", success: false});
+            return NextResponse.json({ message: "User not found", success: false });
         }
 
         const comparePass = await bcrypt.compare(password, data.password);
 
         if (!comparePass) {
-            return NextResponse.json({message: "Password is wrong", success: false});
+            return NextResponse.json({ message: "Password is wrong", success: false });
         }
 
-        const token = jwt.sign({userId: data._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
+        const token = jwt.sign({ userId: data._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-        const response = NextResponse.json({message: 'Login successful', success: true});
-        response.cookies.set('token', token, {
+        const response = NextResponse.json({ message: 'Login successful', success: true });
+        response.cookies.set('admin-token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 7*24*60*60*1000,
+            maxAge: 24 * 60 * 60, // ⏳ 1 day in seconds
             sameSite: "strict",
             path: '/'
         });
         return response
 
     } catch (error) {
-        return NextResponse.json({message: "Failed to login"});
+        return NextResponse.json({ message: "Failed to login" });
     }
 }

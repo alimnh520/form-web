@@ -14,26 +14,17 @@ export const POST = async (request) => {
 
         if (type === 'accept') {
 
-            if (pdfFile !== 'null' && publicUrl) {
-                publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
-                const userPdf = await UploadImage(pdfFile, "user");
+            publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
+            const userPdf = await UploadImage(pdfFile, "user");
 
-                const collection = (await dbConnection()).collection('nidcards');
-                await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
-                    $set: {
-                        status: 'complete',
-                        action: userPdf.secure_url,
-                        pdf_url: userPdf.public_id
-                    }
-                });
-            } else {
-                const collection = (await dbConnection()).collection('nidcards');
-                await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
-                    $set: {
-                        status: 'complete',
-                    }
-                });
-            }
+            const collection = (await dbConnection()).collection('nidcards');
+            await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
+                $set: {
+                    status: 'complete',
+                    action: userPdf.secure_url,
+                    pdf_url: userPdf.public_id
+                }
+            });
         }
 
         if (type === 'cancel') {

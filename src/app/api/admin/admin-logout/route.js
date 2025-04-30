@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export const POST = async (request) => {
   try {
     const res = NextResponse.json({ message: "Logged out successfully" , success: true});
-    res.cookies.delete("token");
+    res.cookies.delete("admin-token");
     return res;
   } catch (error) {
     return NextResponse.json({ message: "error is : ", success: false });

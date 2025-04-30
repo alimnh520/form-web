@@ -18,6 +18,7 @@ import { LuMenu } from "react-icons/lu";
 import { Uddokta } from "./pages/Uddokta";
 import { Prosason } from "./pages/Prosason";
 import { NIDcard } from "./pages/NIDcard";
+import { NIDserverCopy } from "./pages/NIDserverCopy";
 
 const page = () => {
   const [name, setName] = useState(false);
@@ -41,7 +42,7 @@ const page = () => {
   const [landTaxSelf, setLandTaxSelf] = useState(false);
   const [dcrPayment, setDcrPayment] = useState(false);
   const [nidCard, setNidCard] = useState(false);
-  const [ServerNidCard, setServerNidCard] = useState(false);
+  const [serverNidCard, setServerNidCard] = useState(false);
 
   if (message) {
     setTimeout(() => {
@@ -303,8 +304,8 @@ const page = () => {
               setProsason(false);
               setUddokta(false);
               setNidCard(false);
-              setServerNidCard(!ServerNidCard);
-            }}>NID সার্ভার কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${ServerNidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+              setServerNidCard(!serverNidCard);
+            }}>NID সার্ভার কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${serverNidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
               setLandTax2(false);
@@ -357,9 +358,12 @@ const page = () => {
           {
             nidCard && <NIDcard/>
           }
+          {
+            serverNidCard && <NIDserverCopy/>
+          }
 
           {
-            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && (
+            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !serverNidCard && (
               <div className="w-full flex flex-col items-center gap-y-4 mt-16">
                 <h1 className="text-xl font-semibold text-center">রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span></h1>
                 <h1 className="text-3xl font-light text-center text-green-700">আপনাকে স্বাগতম !</h1>
