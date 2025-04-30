@@ -13,10 +13,10 @@ import { LandTax2 } from "./pages/LandTax2";
 import { LandTax3 } from "./pages/LandTax3";
 import { SelfLandTax } from "./pages/SelfLandTax";
 import { DCRpayment } from "./pages/DCRpayment";
-import { Uddokta } from "./pages/uddokta";
-import { Prosason } from "./pages/prosason";
 import { FaArrowRight } from "react-icons/fa6";
 import { LuMenu } from "react-icons/lu";
+import { Uddokta } from "./pages/Uddokta";
+import { Prosason } from "./pages/Prosason";
 
 const page = () => {
   const [name, setName] = useState(false);
@@ -165,12 +165,12 @@ const page = () => {
             noticeBtn && (
               <div className="flex items-center justify-center w-full h-full justify-self-center">
                 <input type="text" className="w-full h-full outline-none px-4 text-lg"  value={noticeMessage} onChange={(e) => setNoticeMessage(e.target.value)}/>
-                <button className="w-20 h-full flex items-center justify-center bg-green-700 text-white" onClick={submitNotice}>SET</button>
+                <button className="w-20 h-full text-3xl flex items-center justify-center bg-green-700 text-white" onClick={submitNotice}><MdSend /></button>
               </div>
             )
           }
         </div>
-        <button className="text-3xl text-green-700" onClick={() => setNoticeBtn(!noticeBtn)}><MdSend /></button>
+        <button className="bg-green-700 text-white w-40 h-full" onClick={() => setNoticeBtn(!noticeBtn)}>SET NOTICE</button>
       </div>
 
       <div className="h-full w-full flex items-start justify-between gap-x-5 sm:relative border-t border-t-green-700">
