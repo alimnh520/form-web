@@ -135,7 +135,7 @@ const page = () => {
       console.log(error);
     }
   }
-
+  
   return (
     <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative">
 
@@ -196,7 +196,7 @@ const page = () => {
                 displayImage ? (
                   <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
                 ) : (
-                  <img src={admin.image_url ? admin.image_url : '/user/user-icon-on-transparent-background-free-png.webp'} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                  <img src={admin ? admin.image_url : '/use'} alt="" className="w-full h-full object-cover object-center rounded-full" />
                 )
               }
             </div>

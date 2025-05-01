@@ -138,7 +138,7 @@ const page = () => {
         getAdminNotice()
     }, []);
 
-
+    image_url
     return (
         <div className="w-full h-auto flex flex-col bg-center bg-cover -mt-16 bg-[#eff9f1] ">
 
@@ -211,7 +211,7 @@ const page = () => {
                             displayImage ? (
                                 <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
                             ) : (
-                                <img src={user.image_url ? user.image_url : '/user/user-icon-on-transparent-background-free-png.webp'} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                                <img src={user? user.image_url : '/user/user-icon-on-transparent-background-free-png.webp'} alt="" className="w-full h-full object-cover object-center rounded-full" />
                             )
                         }
                     </div>
