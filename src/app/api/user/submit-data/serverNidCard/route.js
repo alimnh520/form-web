@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import NidCard from "../../../../../../models/NidCard";
 import { connectDb } from "../../../../../../lib/mongodb";
+import ServerNIDCard from "../../../../../../models/ServerNIDCard";
 
 export async function POST(request) {
     try {
@@ -12,7 +12,7 @@ export async function POST(request) {
             return NextResponse.json({ message: 'Fill up all', success: false });
         }
         console.log(voterNum, nidNum, dobNum, username, email)
-        const saveUser = new NidCard({
+        const saveUser = new ServerNIDCard({
             username,
             email,
             voternum: voterNum,

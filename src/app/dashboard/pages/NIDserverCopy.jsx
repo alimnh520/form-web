@@ -25,7 +25,7 @@ export const NIDserverCopy = () => {
     useEffect(() => {
         const serverNidCardData = async () => {
             try {
-                const response = await fetch("/api/user/get-data/land-data/nidCard", {
+                const response = await fetch("/api/user/get-data/land-data/serverNidCard", {
                     method: "GET",
                 });
                 const data = await response.json();
@@ -40,10 +40,12 @@ export const NIDserverCopy = () => {
     const serverNidCardStatus = async (id, type) => {
         setLoading(true);
         try {
-            const res = await fetch('/api/user/edit-data/editLandTax2', {
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('type', type);
+            const res = await fetch('/api/user/edit-data/editServerNid', {
                 method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, type })
+                body: formData
             });
             const data = await res.json();
             setLoading(false);
@@ -70,7 +72,7 @@ export const NIDserverCopy = () => {
             formData.append('type', type);
             formData.append('pdfFile', pdfFile);
             formData.append('publicUrl', publicUrl);
-            const res = await fetch('/api/user/edit-data/editNidCard', {
+            const res = await fetch('/api/user/edit-data/editServerNid', {
                 method: "POST",
                 body: formData
             });
@@ -142,8 +144,8 @@ export const NIDserverCopy = () => {
                                         <div className="w-full grid grid-cols-7">
                                             <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.username}</p>
-                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.voternum ? <p>elem.voternum</p> : <button><ImCross /></button>}</div>
-                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.nidnum ? <p>elem.voternum</p> : <button><ImCross /></button>}</div>
+                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.voternum ? <p>{elem.voternum}</p> : <button><ImCross /></button>}</div>
+                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.nidnum ? <p>{elem.nidnum}</p> : <button><ImCross /></button>}</div>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.dob}</p>
                                             {
                                                 elem.status !== 'pending' && (

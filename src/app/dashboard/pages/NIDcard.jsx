@@ -144,8 +144,8 @@ export const NIDcard = () => {
                                         <div className="w-full grid grid-cols-7">
                                             <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.username}</p>
-                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.voternum ? <p>elem.voternum</p> : <button><ImCross /></button>}</div>
-                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.nidnum ? <p>elem.voternum</p> : <button><ImCross /></button>}</div>
+                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.voternum ? <p>{elem.voternum}</p> : <button><ImCross /></button>}</div>
+                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.nidnum ? <p>{elem.nidnum}</p> : <button><ImCross /></button>}</div>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.dob}</p>
                                             {
                                                 elem.status !== 'pending' && (

@@ -11,31 +11,40 @@ export const POST = async (request) => {
         const type = formData.get('type');
         const pdfFile = formData.get('pdfFile');
         const publicUrl = formData.get('publicUrl');
+        console.log('Your pdf file is : ', pdfFile);
 
         if (type === 'accept') {
 
-            publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
-            const userPdf = await UploadImage(pdfFile, "user");
+            if (pdfFile !== 'null' && publicUrl) {
+                publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
+                const userPdf = await UploadImage(pdfFile, "user");
 
-            const collection = (await dbConnection()).collection('nidcards');
-            await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
-                $set: {
-                    status: 'complete',
-                    action: userPdf.secure_url,
-                    pdf_url: userPdf.public_id
-                }
-            });
+                const collection = (await dbConnection()).collection('servernids');
+                await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
+                    $set: {
+                        status: 'complete',
+                        action: userPdf.secure_url,
+                        pdf_url: userPdf.public_id
+                    }
+                });
+            } else {
+                const collection = (await dbConnection()).collection('servernids');
+                await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
+                    $set: {
+                        status: 'complete',
+                    }
+                });
+            }
         }
 
         if (type === 'cancel') {
-            const collection = (await dbConnection()).collection('nidcards');
+            const collection = (await dbConnection()).collection('servernids');
             await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
                 $set: {
                     status: 'reject'
                 }
             });
         }
-
 
         return NextResponse.json({ message: 'successful', success: true });
     } catch (error) {

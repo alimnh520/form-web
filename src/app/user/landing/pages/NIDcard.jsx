@@ -148,8 +148,8 @@ export const NIDcard = () => {
                                     <div className="w-full flex flex-col" key={elem._id}>
                                         <div className="w-full grid grid-cols-6">
                                             <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
-                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.voternum ? <p>elem.voternum</p> : <button><ImCross /></button>}</div>
-                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.nidnum ? <p>elem.voternum</p> : <button><ImCross /></button>}</div>
+                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.voternum ? <p>{elem.voternum}</p> : <button><ImCross /></button>}</div>
+                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.nidnum ? <p>{elem.nidnum}</p> : <button><ImCross /></button>}</div>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.dob}</p>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
                                             <a href={elem.action} className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600">{

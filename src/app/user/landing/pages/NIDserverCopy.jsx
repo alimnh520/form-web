@@ -4,14 +4,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ImCross } from 'react-icons/im';
 import { ImFolderDownload } from "react-icons/im";
 
-export const NIDcard = () => {
+export const NIDserverCopy = () => {
     const { user } = useContext(UserProvider);
 
     const [nidNum, setNidNum] = useState('');
     const [dobNum, setDobNum] = useState('');
     const [voterNum, setVoterNum] = useState('');
 
-    const [nidCard, setNidCard] = useState('');
+    const [serverNidCard, setNidCard] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [select, setSelect] = useState(true);
@@ -25,7 +25,7 @@ export const NIDcard = () => {
     useEffect(() => {
         const nidCardData = async () => {
             try {
-                const response = await fetch("/api/user/get-data/land-data/nidCard", {
+                const response = await fetch("/api/user/get-data/land-data/serverNidCard", {
                     method: "GET",
                 });
                 const data = await response.json();
@@ -37,7 +37,7 @@ export const NIDcard = () => {
         nidCardData();
     }, []);
 
-    const submitNidData = async (e) => {
+    const submitServerNidData = async (e) => {
         e.preventDefault();
         if (select && !nidNum) {
             setMessage('Fill up all');
@@ -48,7 +48,7 @@ export const NIDcard = () => {
             return
         }
         setLoading(true);
-        const res = await fetch('/api/user/submit-data/nidCard', {
+        const res = await fetch('/api/user/submit-data/serverNidCard', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ export const NIDcard = () => {
                     </div>
                 </div>
 
-                <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={submitNidData}>জমা দিন</button>
+                <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={submitServerNidData}>জমা দিন</button>
             </div>
 
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
@@ -142,14 +142,14 @@ export const NIDcard = () => {
                         <p className="text-center border-r py-3">অ্যাকশন</p>
                     </div>
                     {
-                        nidCard ? (
-                            nidCard.slice().reverse().filter((currElm) => currElm.email === user.email).map((elem, index) => {
+                        serverNidCard ? (
+                            serverNidCard.slice().reverse().filter((currElm) => currElm.email === user.email).map((elem, index) => {
                                 return (
                                     <div className="w-full flex flex-col" key={elem._id}>
                                         <div className="w-full grid grid-cols-6">
                                             <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
-                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.voternum ? <p>elem.voternum</p> : <button><ImCross /></button>}</div>
-                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.nidnum ? <p>elem.voternum</p> : <button><ImCross /></button>}</div>
+                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.voternum ? <p>{elem.voternum}</p> : <button><ImCross /></button>}</div>
+                                            <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.nidnum ? <p>{elem.nidnum}</p> : <button><ImCross /></button>}</div>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.dob}</p>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
                                             <a href={elem.action} className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600">{

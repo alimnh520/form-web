@@ -17,6 +17,7 @@ import { SelfLandTax } from "./pages/SelfLandTax";
 import { FaArrowRight } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
 import { NIDcard } from "./pages/NIDcard";
+import { NIDserverCopy } from "./pages/NIDserverCopy";
 
 const page = () => {
     const router = useRouter();
@@ -365,6 +366,9 @@ const page = () => {
                     }
                     {
                         nidCard && <NIDcard/>
+                    }
+                    {
+                        ServerNidCard && <NIDserverCopy/>
                     }
                 </div>
             </div>
