@@ -150,16 +150,9 @@ const page = () => {
         ভূমি উন্নয়ন দাখিলার আবেদন
       </h1>
 
-      {loading && (
-        <div className="absolute bottom-60 rounded-full bg-red-400 size-40 flex items-center justify-center">
-          <div className="container">
-            <div className="bar"></div>
-            <div className="bar"></div>
-            <div className="bar"></div>
-            <div className="bar"></div>
-          </div>
-        </div>
-      )}
+      {loading && (<div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+        <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
+      </div>)}
       {message && (
         <p className="absolute bottom-60 bg-red-600 px-5 py-2 flex items-center justify-center text-white">
           {message}

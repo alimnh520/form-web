@@ -20,7 +20,7 @@ const page = () => {
         document.title = 'ভূমি উন্নয়ন কর_Dakhila'
         const userData = async () => {
             try {
-                const res = await fetch("/api/get/form-data", {
+                const res = await fetch("/api/user/get-data/form-data", {
                     method: "GET",
                 });
                 const data = await res.json();

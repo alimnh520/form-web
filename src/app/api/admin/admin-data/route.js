@@ -10,7 +10,7 @@ export const GET = async (request) => {
         const token = request.cookies.get('admin-token')?.value;
 
         if (!token) {
-            return NextResponse.json({ message: "Unauthorized", success: false }, { status: 401 });
+            return NextResponse.json({ message: "Unauthorized", success: false });
         }
 
         const verifyToken = jwt.verify(token, process.env.JWT_SECRET);

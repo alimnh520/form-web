@@ -138,7 +138,6 @@ const page = () => {
         getAdminNotice()
     }, []);
 
-    image_url
     return (
         <div className="w-full h-auto flex flex-col bg-center bg-cover -mt-16 bg-[#eff9f1] ">
 
@@ -179,8 +178,8 @@ const page = () => {
                     </Link>
                     {
                         user && (
-                            user.image_url ? (
-                                <img src={user.image_url} alt="" className="size-8 rounded-full object-cover object-center mt-0.5" />
+                            user?.image_url ? (
+                                <img src={user?.image_url} alt="" className="size-8 rounded-full object-cover object-center mt-0.5" />
                             ) : (
                                 <span className="text-3xl">
                                     <FaUserCircle />

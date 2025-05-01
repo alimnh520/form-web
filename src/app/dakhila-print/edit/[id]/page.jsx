@@ -80,7 +80,7 @@ const page = () => {
                 setLandDeleteLoading(true);
             }
             try {
-                const response = await fetch('/api/get/form-data/edit-form', {
+                const response = await fetch('/api/user/get-data/edit-form', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -100,8 +100,6 @@ const page = () => {
         }
     };
 
-    fetchData && matchId.map((elem) => console.log(elem))
-
 
     const [totalLand, setTotalLand] = useState("");
     const [loanPlus, setLoanPlus] = useState("");
@@ -117,18 +115,17 @@ const page = () => {
     const [banglaDate, setBanglaDate] = useState("");
     const [englishDate, setEnglishDate] = useState("");
     const [loading, setLoading] = useState(false);
-    const [isOk, setIsOk] = useState(false);
     const [message, setMessage] = useState('');
 
     const handleSUbmit = async (id) => {
         setLoading(true);
         try {
-            const response = await fetch('/api/get/form-data/edit-form', {
+            const response = await fetch('/api/user/get-data/edit-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id, ownerData, landData, topCrokimNmbr, unionNum, moujarNam, thana, district, holdingNmbr, khatianNmbr, totalLand, loanPlus, loan, loanFine, halDabi, totalDabi, totalAdai, totalLoan, totalAmount, year, calanNumber, banglaDate, englishDate})
+                body: JSON.stringify({ id, ownerData, landData, topCrokimNmbr, unionNum, moujarNam, thana, district, holdingNmbr, khatianNmbr, totalLand, loanPlus, loan, loanFine, halDabi, totalDabi, totalAdai, totalLoan, totalAmount, year, calanNumber, banglaDate, englishDate })
             });
             const data = await response.json();
             setMessage(data.message);
@@ -144,7 +141,7 @@ const page = () => {
     useEffect(() => {
         const getFormData = async () => {
             try {
-                const response = await fetch('/api/get/form-data', { method: 'GET' });
+                const response = await fetch('/api/user/get-data/form-data', { method: 'GET' });
                 const data = await response.json();
                 if (data.success) {
                     setFetchData(data.message);
@@ -166,15 +163,9 @@ const page = () => {
             </h1>
 
             {loading && (
-                <div className="absolute bottom-60 rounded-full bg-red-400 size-40 flex items-center justify-center">
-                    <div className="container">
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                        <div className="bar"></div>
-                    </div>
-                </div>
-            )}
+                <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                    <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
+                </div>)}
             {message && (
                 <p className="absolute bottom-60 bg-red-600 px-5 py-2 flex items-center justify-center text-white">
                     {message}

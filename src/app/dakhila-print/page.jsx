@@ -11,7 +11,7 @@ const page = () => {
   useEffect(() => {
     const userData = async () => {
       try {
-        const res = await fetch("/api/get/form-data", {
+        const res = await fetch("/api/user/get-data/form-data", {
           method: "GET",
         });
         const data = await res.json();
@@ -28,7 +28,7 @@ const page = () => {
   const deleteData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/delete/delete-form", {
+      const response = await fetch("/api/user/del-data/delete-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,9 +47,8 @@ const page = () => {
   return (
     <div className="w-full h-screen px-20 flex flex-col items-center justify-center relative gap-y-5 sm:h-auto sm:px-2 sm:mt-20 bg-white">
       <div
-        className={`w-60 absolute bg-gray-500 border border-gray-700 ${
-          deleteBtn ? "flex" : "hidden"
-        } flex-col items-center justify-center gap-y-5 z-10 py-5 rounded-md`}
+        className={`w-60 absolute bg-gray-500 border border-gray-700 ${deleteBtn ? "flex" : "hidden"
+          } flex-col items-center justify-center gap-y-5 z-10 py-5 rounded-md`}
       >
         <p>Are you sure to delete</p>
         <div className="flex items-center justify-center gap-x-4">
@@ -74,15 +73,9 @@ const page = () => {
         ভূমি উন্নয়ন দাখিলা
       </h1>
       {loading && (
-        <div className="absolute bottom-60 rounded-full bg-red-400 size-40 flex items-center justify-center z-10">
-          <div className="container">
-            <div className="bar"></div>
-            <div className="bar"></div>
-            <div className="bar"></div>
-            <div className="bar"></div>
-          </div>
-        </div>
-      )}
+        <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+          <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
+        </div>)}
       <div className="flex flex-col items-center justify-between space-y-5 h-screen w-full overflow-y-scroll">
         {userData ? (
           userData.map((elem) => {
