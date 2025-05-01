@@ -139,7 +139,8 @@ const page = () => {
                 router.push('/user/approve');
             }
             if (data.success) {
-                router.push('/user/landing');
+                router.push("/user/landing");
+                window.location.reload();
             }
         } catch (error) {
             console.log(error);
