@@ -126,6 +126,33 @@ const page = () => {
     }
 
     useEffect(() => {
+
+        switch (true) {
+            case dcrPayment:
+                document.title = 'ডি,সি,আর পেমেন্ট'
+                break;
+            case landTax3:
+                document.title = 'মিউটেশন'
+                break;
+            case landTaxSelf:
+                document.title = 'প্রতিনিধি ভূমি উন্নয়ন কর'
+                break;
+            case landTax2:
+                document.title = 'ভূমি উন্নয়ন কর'
+                break;
+            case landTax:
+                document.title = 'ভূমি রেকর্ড ও ম্যাপ'
+                break;
+            case ServerNidCard:
+                document.title = 'NID সার্ভার কপি'
+                break;
+            case nidCard:
+                document.title = 'NID কার্ড'
+                break;
+            default:
+                break;
+        }
+
         async function getAdminNotice() {
             try {
                 const res = await fetch('/api/admin/notice', { method: 'GET' });
@@ -136,7 +163,7 @@ const page = () => {
             }
         }
         getAdminNotice()
-    }, []);
+    }, [dcrPayment,landTax,landTax2,landTax3,landTaxSelf,nidCard,ServerNidCard]);
 
     return (
         <div className="w-full h-auto flex flex-col bg-center bg-cover -mt-16 bg-[#eff9f1] ">
@@ -210,7 +237,7 @@ const page = () => {
                             displayImage ? (
                                 <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
                             ) : (
-                                <img src={user? user.image_url : '/user/user-icon-on-transparent-background-free-png.webp'} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                                <img src={user ? user.image_url : '/user/user-icon-on-transparent-background-free-png.webp'} alt="" className="w-full h-full object-cover object-center rounded-full" />
                             )
                         }
                     </div>
@@ -364,10 +391,10 @@ const page = () => {
                         landTaxSelf && <SelfLandTax />
                     }
                     {
-                        nidCard && <NIDcard/>
+                        nidCard && <NIDcard />
                     }
                     {
-                        ServerNidCard && <NIDserverCopy/>
+                        ServerNidCard && <NIDserverCopy />
                     }
                 </div>
             </div>

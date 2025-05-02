@@ -55,6 +55,37 @@ const page = () => {
   const [noticeBtn, setNoticeBtn] = useState(false);
 
   useEffect(() => {
+    switch (true) {
+      case isUddokta:
+        document.title = 'উদ্যোক্তা'
+        break;
+      case prosason:
+        document.title = 'প্রশাসনিক'
+        break;
+      case dcrPayment:
+        document.title = 'ডি,সি,আর পেমেন্ট'
+        break;
+      case landTax3:
+        document.title = 'মিউটেশন'
+        break;
+      case landTaxSelf:
+        document.title = 'প্রতিনিধি ভূমি উন্নয়ন কর'
+        break;
+      case landTax2:
+        document.title = 'ভূমি উন্নয়ন কর'
+        break;
+      case landTax:
+        document.title = 'ভূমি রেকর্ড ও ম্যাপ'
+        break;
+      case serverNidCard:
+        document.title = 'NID সার্ভার কপি'
+        break;
+      case nidCard:
+        document.title = 'NID কার্ড'
+        break;
+      default:
+        break;
+    }
     async function getAdminNotice() {
       try {
         const res = await fetch('/api/admin/notice', { method: 'GET' });
@@ -65,7 +96,7 @@ const page = () => {
       }
     }
     getAdminNotice()
-  }, []);
+  }, [dcrPayment, landTax, landTax2, landTax3, landTaxSelf, nidCard, serverNidCard, prosason, isUddokta]);
 
   const submitNotice = async () => {
     setLoading(true);
@@ -135,7 +166,7 @@ const page = () => {
       console.log(error);
     }
   }
-  
+
   return (
     <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative">
 
@@ -356,10 +387,10 @@ const page = () => {
             landTaxSelf && <SelfLandTax />
           }
           {
-            nidCard && <NIDcard/>
+            nidCard && <NIDcard />
           }
           {
-            serverNidCard && <NIDserverCopy/>
+            serverNidCard && <NIDserverCopy />
           }
 
           {
