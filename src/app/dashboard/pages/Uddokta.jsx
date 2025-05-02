@@ -107,7 +107,7 @@ export const Uddokta = () => {
             }
 
             <div className="w-full h-auto flex flex-col items-center gap-y-5 sm:overflow-x-scroll sm:items-start">
-                <h1 className="text-xl font-bold self-center">উদ্যোক্তা একাউন্ট</h1>
+                <p className="w-10/12 border-b text-center pb-1.5 border-b-gray-300 text-2xl font-semibold">উদ্যোক্তা একাউন্ট</p>
                 <div className="w-full h-auto flex flex-col sm:w-[1200px]">
                     <div className="w-full gap-x-1 grid grid-cols-6 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>

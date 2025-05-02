@@ -67,8 +67,8 @@ export const DCRpayment = () => {
 
                 )
             }
-
-            <h1 className="self-start text-2xl font-bold">ডি,সি,আর পেমেন্ট</h1>
+            
+            <p className="w-10/12 border-b text-center pb-1.5 border-b-gray-300 text-2xl font-semibold">ডি,সি,আর পেমেন্ট</p>
 
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>

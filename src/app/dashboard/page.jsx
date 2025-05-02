@@ -170,7 +170,7 @@ const page = () => {
   return (
     <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative">
 
-      <div className="w-full h-12 flex gap-3 items-center justify-between px-10 sm:px-5">
+      <div className="w-full h-12 flex gap-3 items-center justify-between px-10 sm:gap-x-0 sm:px-2">
         <img src="/user/notice-icon-png.webp" alt="" className="h-10 justify-self-start" />
         <div className="w-full h-full rounded-md flex items-center justify-end">
           <marquee behavior="smooth" direction="rtl" className="font-semibold text-lg">

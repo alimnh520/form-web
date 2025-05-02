@@ -109,8 +109,8 @@ export const LandTax3 = () => {
                 )
             }
 
-            <h1 className="text-4xl font-bold border-b border-b-gray-400 py-5 sm:text-2xl">
-                খারিজ আবেদন
+            <h1 className="text-4xl text-center w-full font-bold border-b border-b-gray-400 py-5 sm:text-2xl">
+                মিউটেশন
             </h1>
 
             <div className="w-10/12 sm:w-full space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:grid-cols-1 sm:grid-rows-none relative">

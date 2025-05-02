@@ -91,8 +91,9 @@ export const SelfLandTax = () => {
 
                 )
             }
-
-            <h1 className="self-start text-2xl font-bold">প্রতিনিধি ভূমি উন্নয়ন কর</h1>
+            <h1 className="text-4xl text-center w-full font-bold border-b border-b-gray-400 py-5 sm:text-2xl">
+                প্রতিনিধি ভূমি উন্নয়ন কর
+            </h1>
 
             <div className='w-10/12 space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:w-full sm:gap-x-0 sm:flex sm:flex-col relative'>
 
@@ -198,8 +199,8 @@ export const SelfLandTax = () => {
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.khatianName}</p>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
                                             <a href={elem.action} className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600">{
-                                                    elem.status === 'complete' ?  <FaLink /> :<ImCross />
-                                                }</a>
+                                                elem.status === 'complete' ? <FaLink /> : <ImCross />
+                                            }</a>
                                         </div>
                                     </div>
                                 )

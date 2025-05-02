@@ -185,10 +185,10 @@ const page = () => {
                 )
             }
 
-            <div className="w-full h-20 bg-white px-20 flex justify-between items-center shadow-[0_2px_10px_rgba(0,0,0,0.1)] z-10 sm:px-5 sm:h-auto sm:flex-col sm:justify-center sm:py-2 gap-x-5">
+            <div className="w-full h-20 bg-white px-20 flex justify-between items-center shadow-[0_2px_10px_rgba(0,0,0,0.1)] z-10 sm:px-2 sm:h-auto sm:flex-col sm:justify-center ssm sm:py-2 gap-x-5">
                 <h1 className="text-[25px] text-green-700 font-bold animate-pulse">অনলাইন সংক্রান্ত সেবা</h1>
 
-                <div className="w-7/12 h-12 flex items-center justify-center gap-x-1">
+                <div className="w-7/12 h-12 flex items-center justify-center gap-x-1 sm:w-full sm:h-10">
                     <img src="/user/notice-icon-png.webp" alt="" className="h-full justify-self-start" />
                     <div className="w-full h-full border border-green-700 rounded-md flex items-center justify-end">
                         <marquee behavior="smooth" direction="rtl" className="font-semibold text-lg">
@@ -199,7 +199,7 @@ const page = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-center gap-x-3 text-green-600 sm:w-full">
+                <div className="flex items-center justify-center gap-x-3 text-green-600 sm:w-full sm:justify-start sm:mt-1.5">
                     <Link href='/' className="text-4xl justify-self-start">
                         <IoMdHome />
                     </Link>
@@ -214,10 +214,10 @@ const page = () => {
                             )
                         )
                     }
-                    <button className="text-4xl justify-self-start" onClick={handleLogout}>
+                    <button className="text-[34px] justify-self-start" onClick={handleLogout}>
                         <IoMdLogOut />
                     </button>
-                    <p className="text-black flex items-center justify-center gap-x-0.5 text-2xl mt-1.5 pl-5">{user && user.balance}<span className="-mt-1"><HiOutlineCurrencyBangladeshi /></span></p>
+                    <p className="text-black flex items-center justify-center gap-x-0.5 text-3xl mt-1.5 pl-5 sm:justify-self-end">{user && user.balance}<span className="-mt-1"><HiOutlineCurrencyBangladeshi /></span></p>
                 </div>
             </div>
 
@@ -275,7 +275,7 @@ const page = () => {
                     {/* tag option */}
 
                     <div className="w-full flex text-lg flex-col gap-y-3">
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
+                        <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
                             setLandTax2(false);
                             setLandTax3(false);
@@ -284,7 +284,7 @@ const page = () => {
                             setServerNidCard(false);
                             setNidCard(false);
                         }}>ডি,সি,আর পেমেন্ট</button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
+                        <button className={`w-full border ${landTax3 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
                             setLandTax2(false);
                             setLandTax3(!landTax3);
@@ -293,7 +293,7 @@ const page = () => {
                             setServerNidCard(false);
                             setNidCard(false);
                         }}>মিউটেশন</button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
+                        <button className={`w-full border ${landTaxSelf ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
                             setLandTax2(false);
                             setLandTax3(false);
@@ -302,7 +302,7 @@ const page = () => {
                             setServerNidCard(false);
                             setNidCard(false);
                         }}>প্রতিনিধি ভূমি উন্নয়ন কর</button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
+                        <button className={`w-full border ${landTax2 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
                             setLandTax2(!landTax2);
                             setLandTax3(false);
@@ -311,7 +311,7 @@ const page = () => {
                             setServerNidCard(false);
                             setNidCard(false);
                         }}>ভূমি উন্নয়ন কর</button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
+                        <button className={`w-full border ${landTax ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(!landTax);
                             setLandTax2(false);
                             setLandTax3(false);
@@ -321,7 +321,7 @@ const page = () => {
                             setNidCard(false);
                         }}>ভূমি রেকর্ড ও ম্যাপ
                         </button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
+                        <button className={`w-full border ${ServerNidCard ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
                             setLandTax2(false);
                             setLandTax3(false);
@@ -330,7 +330,7 @@ const page = () => {
                             setNidCard(false);
                             setServerNidCard(!ServerNidCard);
                         }}>NID সার্ভার কপি</button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300" onClick={() => {
+                        <button className={`w-full border ${nidCard ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
                             setLandTax2(false);
                             setLandTax3(false);
@@ -339,10 +339,10 @@ const page = () => {
                             setServerNidCard(false);
                             setNidCard(!nidCard);
                         }}>NID কার্ড</button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300">জন্ম নিবন্ধন অনলাইন কপি</button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300">নতুন জন্ম নিবন্ধন আবেদন কপি</button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300">নতুন পাসপোর্ট আবেদন</button>
-                        <button className="w-full border border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300">বিবরণ</button>
+                        <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>জন্ম নিবন্ধন অনলাইন কপি</button>
+                        <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন জন্ম নিবন্ধন আবেদন কপি</button>
+                        <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন পাসপোর্ট আবেদন</button>
+                        <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>বিবরণ</button>
                     </div>
 
                 </div>

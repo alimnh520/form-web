@@ -68,37 +68,36 @@ export const Prosason = () => {
                 )
             }
 
-            <p className="w-10/12 border-b text-center pb-1.5 border-b-gray-300 text-xl font-semibold">প্রশাসনিক তথ্য</p>
-            <div className="w-full grid grid-cols-2 text-lg font-semibold mt-3 border-b border-b-gray-300">
-                <p>Username</p>
-                <p>Password</p>
-            </div>
-            {
-                loginUser && (
-                    loginUser.length === 0 && (
-                        <div className="w-full grid grid-cols-2 border-b border-b-gray-300">
-                            <p className="py-0.5">No Data</p>
-                            <p className="py-0.5">No Data</p>
+            <p className="w-10/12 border-b text-center pb-1.5 border-b-gray-300 text-2xl font-semibold">প্রশাসনিক তথ্য</p>
+
+
+            <div className="w-full h-auto flex flex-col items-center mt-10">
+                <div className="w-full gap-x-1 grid grid-cols-3 bg-green-600 text-white font-bold">
+                    <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
+                    <p className="text-center border-r border-b py-3">Username</p>
+                    <p className="text-center border-r py-3">Password</p>
+                </div>
+                {
+                    loginUser ? (
+                        loginUser.slice().reverse().map((elem, index) => {
+                            return (
+                                <div className="w-full flex flex-col" key={elem._id}>
+                                    <div className="w-full grid grid-cols-3 relative">
+                                        <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
+                                        <button className="absolute right-3 bg-red-600 p-1.5 rounded-full text-white top-1/2 -translate-y-1/2 text-xl" onClick={() => userDelete(elem._id)}><MdDeleteForever /></button>
+                                        <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.username}</p>
+                                        <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.password}</p>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    ) : (
+                        <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                            <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
                         </div>
                     )
-                )
-            }
-            {
-                loginUser ? (
-                    loginUser.slice().reverse().map((elem) => {
-                        return (
-                            <div className="w-full grid grid-cols-2 gap-x-2 border-b border-b-gray-300 relative" key={elem._id}>
-                                <button className="absolute right-1 top-1/2 -translate-y-1/2 text-lg" onClick={() => userDelete(elem._id)}><MdDeleteForever /></button>
-                                <p className="py-1 overflow-x-scroll">{elem.username}</p>
-                                <p className="py-1 overflow-x-scroll">{elem.password}</p>
-                            </div>
-                        )
-                    })
-                ) : (
-                    <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
-                        <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
-                    </div>)
-            }
+                }
+            </div>
         </div>
     )
 }
