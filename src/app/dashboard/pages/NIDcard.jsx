@@ -121,8 +121,7 @@ export const NIDcard = () => {
                     </div>
                 )
             }
-
-            <h1 className='text-4xl w-full text-center font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>NID কার্ড</h1>
+            <p className="w-10/12 border-b text-center pb-1.5 border-b-gray-300 text-2xl font-semibold">NID কার্ড</p>
 
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>

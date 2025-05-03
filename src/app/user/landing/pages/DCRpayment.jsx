@@ -1,6 +1,8 @@
 'use client'
 import { UserProvider } from '@/app/ChildCom';
 import React, { useContext, useEffect, useState } from 'react'
+import { FaLink } from 'react-icons/fa6';
+import { ImCross } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
 export const DCRpayment = () => {
@@ -73,7 +75,7 @@ export const DCRpayment = () => {
 
             {
                 message && (
-                    <p className="px-10 py-1.5 bg-[rgba(239,68,68,0.9)] text-white text-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30">
+                    <p className="px-10 py-1.5 bg-[rgba(239,68,68,0.9)] text-white text-center absolute top-1/2 left-1/2 -translate-x-1/2 z-30">
                         {message}
                     </p>
 
@@ -140,7 +142,9 @@ export const DCRpayment = () => {
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.dcrPayment}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">ডি,সি,আর পেমেন্ট</p>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.action}</p>
+                                            <a href={elem.action} className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600">{
+                                                elem.status === 'complete' ? <FaLink /> : <ImCross />
+                                            }</a>
                                         </div>
                                     </div>
                                 )

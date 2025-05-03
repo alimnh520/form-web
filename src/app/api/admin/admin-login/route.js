@@ -31,7 +31,7 @@ export const POST = async (request) => {
         response.cookies.set('admin-token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 24 * 60 * 60, // ⏳ 1 day in seconds
+            maxAge: 24 * 60 * 60 * 1000, // ⏳ 1 day in seconds
             sameSite: "strict",
             path: '/'
         });

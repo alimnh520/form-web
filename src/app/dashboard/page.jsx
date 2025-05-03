@@ -270,6 +270,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(!isUddokta);
+              setNidCard(false);
             }}>উদ্যোক্তা <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
@@ -279,6 +280,7 @@ const page = () => {
               setUddokta(false);
               setDcrPayment(false);
               setProsason(!prosason);
+              setNidCard(false);
             }}>প্রশাসনিক <span className={`absolute right-5 bg-white p-1.5 rounded-full ${prosason ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
@@ -288,6 +290,7 @@ const page = () => {
               setProsason(false);
               setUddokta(false);
               setDcrPayment(!dcrPayment);
+              setNidCard(false);
             }}>ডি,সি,আর পেমেন্ট <span className={`absolute right-5 bg-white p-1.5 rounded-full ${dcrPayment ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
@@ -297,6 +300,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setNidCard(false);
             }}>মিউটেশন <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax3 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
@@ -306,6 +310,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setNidCard(false);
             }}>প্রতিনিধি ভূমি উন্নয়ন কর <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTaxSelf ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
@@ -315,6 +320,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setNidCard(false);
             }}>ভূমি উন্নয়ন কর <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax2 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(!landTax);
@@ -324,6 +330,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setNidCard(false);
             }}>ভূমি রেকর্ড ও ম্যাপ
               <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {

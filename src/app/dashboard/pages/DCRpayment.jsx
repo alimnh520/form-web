@@ -1,5 +1,7 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
+import { FaLink } from 'react-icons/fa6';
+import { ImCross } from 'react-icons/im';
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
 
@@ -7,6 +9,11 @@ export const DCRpayment = () => {
     const [dcrData, setDcrData] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
+
+    const [sendLink, setSendLink] = useState(false);
+    const [fileLink, setFileLink] = useState('');
+    const [id, setId] = useState('');
+    const [type, setType] = useState('');
 
     if (message) {
         setTimeout(() => {
@@ -47,6 +54,25 @@ export const DCRpayment = () => {
         }
     }
 
+    const handleSendLink = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch('/api/user/edit-data/dcr-accept', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, type, fileLink })
+            });
+            const data = await res.json();
+            setLoading(false);
+            setMessage(data.message);
+            if (data.success) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     return (
         <div className="w-full h-full flex flex-col items-center p-7">
@@ -67,7 +93,23 @@ export const DCRpayment = () => {
 
                 )
             }
-            
+
+            {
+                sendLink && (
+                    <div className="w-96 h-40 bg-white border border-green-700 rounded-md flex flex-col items-center justify-center p-5 gap-y-5 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-20">
+                        <input type="text" className='w-full py-1.5 px-4 outline-none border border-gray-700 rounded-md' value={fileLink} onChange={(e) => setFileLink(e.target.value)} />
+                        <div className="w-full flex items-center justify-center gap-x-5">
+                            <button className='px-9 py-2 bg-red-700 text-white rounded-md hover:text-red-700 hover:bg-white border border-red-700 transition-all duration-300' onClick={() => {
+                                setSendLink(false);
+                                setType('');
+                                setId('');
+                            }}>Cancel</button>
+                            <button className='px-9 py-2 bg-green-700 text-white rounded-md hover:text-green-700 hover:bg-white border border-green-700 transition-all duration-300' onClick={handleSendLink}>Send</button>
+                        </div>
+                    </div>
+                )
+            }
+
             <p className="w-10/12 border-b text-center pb-1.5 border-b-gray-300 text-2xl font-semibold">ডি,সি,আর পেমেন্ট</p>
 
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
@@ -110,7 +152,15 @@ export const DCRpayment = () => {
                                                     </div>
                                                 )
                                             }
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.action}</p>
+                                            <button className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600" onClick={() => {
+                                                elem.status !== 'reject' && (
+                                                    setId(elem._id),
+                                                    setType('accept'),
+                                                    setSendLink(true)
+                                                )
+                                            }}>{
+                                                    elem.status === 'reject' ? <ImCross /> : <FaLink />
+                                                }</button>
                                         </div>
                                     </div>
                                 )
