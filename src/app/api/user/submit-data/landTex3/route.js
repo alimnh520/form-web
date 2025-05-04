@@ -1,50 +1,34 @@
-import { UploadImage } from "../../../../../../lib/cloudinary/cloud-image";
+import { NextResponse } from "next/server";
 import { connectDb } from "../../../../../../lib/mongodb";
 import LandTax3 from "../../../../../../models/LandTax3";
 
 export const POST = async (request) => {
     await connectDb();
-
     try {
-        const formData = await request.formData();
-        const divisionName = formData.get("divisionName");
-        const districtName = formData.get("districtName");
-        const upazilaName = formData.get("upazilaName");
-        const mouzaName = formData.get("mouzaName");
-        const khatianNumber = formData.get("khatianNumber");
-        const mobile = formData.get("mobile");
-        const khatian = formData.get("khatian");
-        const dolil = formData.get("dolil");
-        const photo = formData.get("photo");
-        const dakhila = formData.get("dakhila");
-
-        if (!divisionName || !districtName || !upazilaName || !mouzaName || !khatianNumber || !mobile || !khatian || !dolil || !photo || !dakhila) {
-            return Response.json({ message: "Fill all the fields" });
-        }
-
-        const khatianPic = await UploadImage(khatian, "land-tax");
-        const dolilPic = await UploadImage(dolil, "land-tax");
-        const mainPhoto = await UploadImage(photo, "land-tax");
-        const dakhilaPic = await UploadImage(dakhila, "land-tax");
+        const { email, username, mobile, khatianNumber, mouzaName, upazilaName, districtName, divisionName, dakhila_url, dakhila_id, photo_url, photo_id, dolil_url, dolil_id, khatian_url, khatian_id, } = await request.json();
 
         const addDetails = new LandTax3({
-            divisionName: divisionName,
-            districtName: districtName,
-            upazilaName: upazilaName,
-            mouzaName: mouzaName,
+            username,
+            email,
+            divisionName,
+            districtName,
+            upazilaName,
+            mouzaName,
             khatianName: khatianNumber,
-            mobile: mobile,
-            khatian: khatianPic.secure_url,
-            dolil: dolilPic.secure_url,
-            photo: mainPhoto.secure_url,
-            dakhila: dakhilaPic.secure_url,
-            imgId: [khatianPic.public_id, dolilPic.public_id, mainPhoto.public_id, dakhilaPic.public_id]
+            mobile,
+            khatian_url,
+            khatian_id,
+            dolil_url,
+            dolil_id,
+            photo_url,
+            photo_id,
+            dakhila_url,
+            dakhila_id,
         });
         await addDetails.save();
-        return Response.json({ message: "uploaded successfully", success: true });
-
+        return NextResponse.json({ message: "uploaded successfully", success: true });
     } catch (error) {
         console.log(error);
-        return Response.json({ message: "upload failed", success: false });
+        return NextResponse.json({ message: "upload failed", success: false });
     }
 }

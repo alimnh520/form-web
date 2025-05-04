@@ -75,7 +75,7 @@ export const Uddokta = () => {
 
             {
                 loading && (
-                    <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                    <div className="flex items-center justify-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30 bg-white">
                         <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
                     </div>
                 )
@@ -83,7 +83,7 @@ export const Uddokta = () => {
 
             {
                 message && (
-                    <p className="px-10 py-1.5 bg-[rgba(239,68,68,0.9)] text-white text-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30">
+                    <p className="px-10 py-1.5 bg-[rgba(239,68,68,0.9)] text-white text-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30">
                         {message}
                     </p>
 
@@ -92,7 +92,7 @@ export const Uddokta = () => {
 
             {
                 deleteUddokta && (
-                    <div className="w-60 h-28 bg-gray-500 border border-blue-600 rounded-md absolute z-20 flex items-center justify-center gap-x-5 top-1/2 -translate-y-1/2">
+                    <div className="w-60 h-28 bg-gray-500 border border-blue-600 rounded-md absolute z-20 flex items-center justify-center gap-x-5 top-1/3">
                         <button className="px-5 py-1 bg-red-600 text-lg rounded-lg font-semibold text-white" onClick={() => {
                             handleDeleteUddokta();
                             setDeleteUddokta(false);
@@ -157,7 +157,7 @@ export const Uddokta = () => {
                             }
                             )) : (
 
-                            <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                            <div className="flex items-center justify-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30 bg-white">
                                 <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
                             </div>
                         )

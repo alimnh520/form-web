@@ -32,7 +32,7 @@ export const LandTax3 = () => {
 
             {
                 loading && (
-                    <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                    <div className="flex items-center justify-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30 bg-white">
                         <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
                     </div>
                 )
@@ -40,7 +40,7 @@ export const LandTax3 = () => {
 
             {
                 message && (
-                    <p className="px-10 py-1.5 bg-[rgba(239,68,68,0.9)] text-white text-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30">
+                    <p className="px-10 py-1.5 bg-[rgba(239,68,68,0.9)] text-white text-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30">
                         {message}
                     </p>
 
@@ -83,7 +83,7 @@ export const LandTax3 = () => {
                                 )
                             })
                         ) : (
-                            <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                            <div className="flex items-center justify-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30 bg-white">
                                 <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
                             </div>
                         )

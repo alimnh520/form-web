@@ -11,13 +11,13 @@ const LandSchema3 = new mongoose.Schema({
     mouzaName: { type: String, required: false },
     khatianName: { type: String, required: false },
     mobile: { type: String, required: false },
-    khatian: { type: String, required: false },
+    khatian_url: { type: String, required: false },
     khatian_id: { type: String, required: false },
-    dolil: { type: String, required: false },
+    dolil_url: { type: String, required: false },
     dolil_id: { type: String, required: false },
-    photo: { type: String, required: false },
+    photo_url: { type: String, required: false },
     photo_id: { type: String, required: false },
-    dakhila: { type: String, required: false },
+    dakhila_url: { type: String, required: false },
     dakhila_id: { type: String, required: false },
 });
 

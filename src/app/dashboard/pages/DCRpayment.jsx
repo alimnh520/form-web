@@ -79,7 +79,7 @@ export const DCRpayment = () => {
 
             {
                 loading && (
-                    <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                    <div className="flex items-center justify-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30 bg-white">
                         <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
                     </div>
                 )
@@ -87,7 +87,7 @@ export const DCRpayment = () => {
 
             {
                 message && (
-                    <p className="px-10 py-1.5 bg-[rgba(239,68,68,0.9)] text-white text-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30">
+                    <p className="px-10 py-1.5 bg-[rgba(239,68,68,0.9)] text-white text-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30">
                         {message}
                     </p>
 
@@ -96,7 +96,7 @@ export const DCRpayment = () => {
 
             {
                 sendLink && (
-                    <div className="w-96 h-40 bg-white border border-green-700 rounded-md flex flex-col items-center justify-center p-5 gap-y-5 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-20">
+                    <div className="w-96 h-40 bg-white border border-green-700 rounded-md flex flex-col items-center justify-center p-5 gap-y-5 absolute top-1/3 left-1/2 -translate-x-1/2 z-20">
                         <input type="text" className='w-full py-1.5 px-4 outline-none border border-gray-700 rounded-md' value={fileLink} onChange={(e) => setFileLink(e.target.value)} />
                         <div className="w-full flex items-center justify-center gap-x-5">
                             <button className='px-9 py-2 bg-red-700 text-white rounded-md hover:text-red-700 hover:bg-white border border-red-700 transition-all duration-300' onClick={() => {
@@ -166,7 +166,7 @@ export const DCRpayment = () => {
                                 )
                             })
                         ) : (
-                            <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                            <div className="flex items-center justify-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30 bg-white">
                                 <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
                             </div>)
                     }

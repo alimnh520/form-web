@@ -69,12 +69,24 @@ export const LandTax3 = () => {
     const submitLandTax3 = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const res = await fetch('/api/user/submit-data/landTex2', {
+        const files = [dakhila, photo, dolil, khatian];
+        const uploadedUrls = [];
+        for (const file of files) {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "form-submit");
+            formData.append("folder", "user");
+            const response = await fetch(`https://api.cloudinary.com/v1_1/dtitguuwt/auto/upload`, {
+                method: "POST",
+                body: formData,
+            });
+            const result = await response.json();
+            uploadedUrls.push(result.secure_url, result.public_id);
+        }
+        const res = await fetch('/api/user/submit-data/landTex3', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ divisionName, districtName, upazilaName, mouzaName, khatianName, email: user.email, username: user.username }),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({email: user.email, username: user.username, mobile, khatianNumber, mouzaName, upazilaName, districtName, divisionName, dakhila_url: uploadedUrls[0], dakhila_id: uploadedUrls[1], photo_url: uploadedUrls[2], photo_id: uploadedUrls[3], dolil_url: uploadedUrls[4], dolil_id: uploadedUrls[5], khatian_url: uploadedUrls[6], khatian_id: uploadedUrls[7], }),
         });
         setLoading(false);
         const data = await res.json();
@@ -87,6 +99,7 @@ export const LandTax3 = () => {
         setUpazilaName('');
         setMouzaName('');
         setKhatianNumber('');
+        setMobile('');
     };
 
     return (
@@ -94,7 +107,7 @@ export const LandTax3 = () => {
 
             {
                 loading && (
-                    <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30 bg-white">
+                    <div className="flex items-center justify-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30 bg-white">
                         <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
                     </div>
                 )
@@ -102,7 +115,7 @@ export const LandTax3 = () => {
 
             {
                 message && (
-                    <p className="px-10 py-1.5 bg-[rgba(239,68,68,0.9)] text-white text-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-30">
+                    <p className="px-10 py-1.5 bg-[rgba(239,68,68,0.9)] text-white text-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30">
                         {message}
                     </p>
 
@@ -345,7 +358,7 @@ export const LandTax3 = () => {
 
                 <button
                     type="submit"
-                    className="w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg"
+                    className="w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={submitLandTax3}
                 >
                     জমা দিন
                 </button>
