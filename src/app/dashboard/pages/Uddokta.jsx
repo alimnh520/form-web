@@ -75,7 +75,7 @@ export const Uddokta = () => {
 
             {
                 loading && (
-                    <div className="flex items-center justify-center absolute top-1/3 left-1/2 -translate-x-1/2 z-30 bg-white">
+                    <div className="flex items-center justify-center absolute top-1/3 lef  t-1/2 -translate-x-1/2 z-30 bg-white">
                         <img src="/loader/images.png" className="h-20 animate-pulse" alt="" />
                     </div>
                 )

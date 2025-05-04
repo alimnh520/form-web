@@ -68,6 +68,10 @@ export const LandTax3 = () => {
 
     const submitLandTax3 = async (e) => {
         e.preventDefault();
+        if (!mobile || !khatianNumber || !mouzaName || !upazilaName || !districtName || !divisionName || !dakhila || !photo || !dolil || khatian) {
+            setMessage('Fill up all');
+            return
+        }
         setLoading(true);
         const files = [dakhila, photo, dolil, khatian];
         const uploadedUrls = [];
@@ -86,7 +90,7 @@ export const LandTax3 = () => {
         const res = await fetch('/api/user/submit-data/landTex3', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({email: user.email, username: user.username, mobile, khatianNumber, mouzaName, upazilaName, districtName, divisionName, dakhila_url: uploadedUrls[0], dakhila_id: uploadedUrls[1], photo_url: uploadedUrls[2], photo_id: uploadedUrls[3], dolil_url: uploadedUrls[4], dolil_id: uploadedUrls[5], khatian_url: uploadedUrls[6], khatian_id: uploadedUrls[7], }),
+            body: JSON.stringify({ email: user.email, username: user.username, mobile, khatianNumber, mouzaName, upazilaName, districtName, divisionName, dakhila_url: uploadedUrls[0], dakhila_id: uploadedUrls[1], photo_url: uploadedUrls[2], photo_id: uploadedUrls[3], dolil_url: uploadedUrls[4], dolil_id: uploadedUrls[5], khatian_url: uploadedUrls[6], khatian_id: uploadedUrls[7], }),
         });
         setLoading(false);
         const data = await res.json();
@@ -101,6 +105,8 @@ export const LandTax3 = () => {
         setKhatianNumber('');
         setMobile('');
     };
+
+    console.log(LandTax3)
 
     return (
         <div className="w-full h-full flex flex-col items-center p-7">
@@ -367,30 +373,38 @@ export const LandTax3 = () => {
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full gap-x-1 grid grid-cols-8 bg-green-600 text-white font-bold">
+                    <div className="w-full gap-x-1 grid grid-cols-12 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
                         <p className="text-center border-r py-3">বিভাগ</p>
                         <p className="text-center border-r py-3">জেলা</p>
                         <p className="text-center border-r py-3">উপজেলা</p>
                         <p className="text-center border-r py-3">মৌজা</p>
+                        <p className="text-center border-r py-3">খতিয়ান নং</p>
+                        <p className="text-center border-r py-3">মোবাইল নং</p>
                         <p className="text-center border-r py-3">খতিয়ান</p>
+                        <p className="text-center border-r py-3">দলিল</p>
+                        <p className="text-center border-r py-3">ছবি</p>
+                        <p className="text-center border-r py-3">দাখিলা</p>
                         <p className="text-center border-r py-3">স্টাটাস</p>
-                        <p className="text-center border-r py-3">অ্যাকশন</p>
                     </div>
                     {
                         LandTax3 ? (
                             LandTax3.slice().reverse().filter((currElm) => currElm.email === user.email).map((elem, index) => {
                                 return (
                                     <div className="w-full flex flex-col" key={elem._id}>
-                                        <div className="w-full grid grid-cols-8">
+                                        <div className="w-full grid grid-cols-12">
                                             <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.divisionName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.districtName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.upazilaName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mouzaName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.khatianName}</p>
+                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mobile}</p>
+                                            <a href={elem.khatian_url} target='blank' className="text-center border-r border-b py-3 overflow-x-scroll">See</a>
+                                            <a href={elem.dolil_url} target='blank' className="text-center border-r border-b py-3 overflow-x-scroll">See</a>
+                                            <a href={elem.photo_url} target='blank' className="text-center border-r border-b py-3 overflow-x-scroll">See</a>
+                                            <a href={elem.dakhila_url} target='blank' className="text-center border-r border-b py-3 overflow-x-scroll">See</a>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.action}</p>
                                         </div>
                                     </div>
                                 )
