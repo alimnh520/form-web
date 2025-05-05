@@ -400,10 +400,10 @@ export const LandTax3 = () => {
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mouzaName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.khatianName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mobile}</p>
-                                            <a href={elem.khatian_url} target='blank' className="text-center border-r border-b py-3 overflow-x-scroll">See</a>
-                                            <a href={elem.dolil_url} target='blank' className="text-center border-r border-b py-3 overflow-x-scroll">See</a>
-                                            <a href={elem.photo_url} target='blank' className="text-center border-r border-b py-3 overflow-x-scroll">See</a>
-                                            <a href={elem.dakhila_url} target='blank' className="text-center border-r border-b py-3 overflow-x-scroll">See</a>
+                                            <a href={`${elem.khatian_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
+                                            <a href={`${elem.dolil_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
+                                            <a href={`${elem.photo_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
+                                            <a href={`${elem.dakhila_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
                                         </div>
                                     </div>
