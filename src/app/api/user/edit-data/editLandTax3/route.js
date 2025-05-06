@@ -1,16 +1,27 @@
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import { dbConnection } from "../../../../../../lib/connectDB";
+import cloudinary from "../../../../../../lib/cloudinary/cloud-config";
+import { UploadImage } from "../../../../../../lib/cloudinary/cloud-image";
 
 export const POST = async (request) => {
     try {
-        const { id, type } = await request.json();
+        const formData = await request.formData();
+        const id = formData.get('id');
+        const type = formData.get('type');
+        const pdfFile = formData.get('pdfFile');
+        const publicUrl = formData.get('publicUrl');
+                                                                                     
+        if (pdfFile !== null) {
+            publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
+            const userPdf = await UploadImage(pdfFile, "user");
 
-        if (type === 'accept') {
             const collection = (await dbConnection()).collection('landtax3');
             await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
                 $set: {
-                    status: 'complete'
+                    status: 'complete',
+                    action: userPdf.secure_url,
+                    pdf_url: userPdf.public_id
                 }
             });
         }

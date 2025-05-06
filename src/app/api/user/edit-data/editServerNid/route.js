@@ -15,7 +15,7 @@ export const POST = async (request) => {
 
         if (type === 'accept') {
 
-            if (pdfFile !== 'null' && publicUrl) {
+            if (pdfFile !== null) {
                 publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
                 const userPdf = await UploadImage(pdfFile, "user");
 

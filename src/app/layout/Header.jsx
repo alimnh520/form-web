@@ -56,7 +56,7 @@ const Header = () => {
   const day = banglaNumberDate[date.getDate() + (date.getDate() > 14 ? -16 : 16)];
 
   // get bangla month
-  const month = monthsInBangla[date.getDate() - 5];
+  const month = monthsInBangla[date.getDate() - 6];
 
   const option = {
     year: "numeric",

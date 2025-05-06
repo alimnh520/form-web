@@ -1,6 +1,7 @@
 'use client'
 import { UserProvider } from '@/app/ChildCom';
 import React, { useContext, useEffect, useState } from 'react'
+import { ImFolderDownload } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
 export const LandTax3 = () => {
@@ -68,7 +69,7 @@ export const LandTax3 = () => {
 
     const submitLandTax3 = async (e) => {
         e.preventDefault();
-        if (!mobile || !khatianNumber || !mouzaName || !upazilaName || !districtName || !divisionName || !dakhila || !photo || !dolil || khatian) {
+        if (!mobile || !khatianNumber || !mouzaName || !upazilaName || !districtName || !divisionName || !dakhila || !photo || !dolil || !khatian) {
             setMessage('Fill up all');
             return
         }
@@ -404,7 +405,10 @@ export const LandTax3 = () => {
                                             <a href={`${elem.dolil_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
                                             <a href={`${elem.photo_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
                                             <a href={`${elem.dakhila_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
-                                            <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
+
+                                            <div className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status === 'complete' ? (
+                                                <a href={elem.action} className="text-3xl flex items-center justify-center"><ImFolderDownload /></a>
+                                            ) : elem.status}</div>
                                         </div>
                                     </div>
                                 )

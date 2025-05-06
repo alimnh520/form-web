@@ -1,5 +1,7 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
+import { FaLink } from 'react-icons/fa6';
+import { ImCross } from 'react-icons/im';
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
 
@@ -7,6 +9,12 @@ export const LandTax3 = () => {
     const [LandTax3, setLandTax3] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
+
+    const [sendLink, setSendLink] = useState(false);
+    const [pdfFile, setPdfFile] = useState('');
+    const [id, setId] = useState('');
+    const [type, setType] = useState('');
+    const [publicUrl, setPublicUrl] = useState('');
 
     if (message) {
         setTimeout(() => {
@@ -33,10 +41,41 @@ export const LandTax3 = () => {
     const landTaxStatus3 = async (id, type) => {
         setLoading(true);
         try {
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('type', type);
             const res = await fetch('/api/user/edit-data/editLandTax3', {
                 method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, type })
+                body: formData
+            });
+            const data = await res.json();
+            setLoading(false);
+            setMessage(data.message);
+            if (data.success) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleSendLink = async () => {
+        if (pdfFile) {
+            if ((pdfFile.size / 1048576) > 3) {
+                setMessage('File size is too large');
+                return
+            }
+        }
+        setLoading(true);
+        try {
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('type', type);
+            formData.append('pdfFile', pdfFile);
+            formData.append('publicUrl', publicUrl);
+            const res = await fetch('/api/user/edit-data/editLandTax3', {
+                method: "POST",
+                body: formData
             });
             const data = await res.json();
             setLoading(false);
@@ -66,6 +105,21 @@ export const LandTax3 = () => {
                         {message}
                     </p>
 
+                )
+            }
+            {
+                sendLink && (
+                    <div className="w-96 h-40 bg-white border border-green-700 rounded-md flex flex-col items-center justify-center p-5 gap-y-5 absolute top-1/3 left-1/2 -translate-x-1/2 z-20">
+                        <input type="file" className='w-full py-1.5 px-4 outline-none border border-gray-700 rounded-md' onChange={(e) => setPdfFile(e.target.files[0])} />
+                        <div className="w-full flex items-center justify-center gap-x-5">
+                            <button className='px-9 py-2 bg-red-700 text-white rounded-md hover:text-red-700 hover:bg-white border border-red-700 transition-all duration-300' onClick={() => {
+                                setSendLink(false);
+                                setType('');
+                                setId('');
+                            }}>Cancel</button>
+                            <button className='px-9 py-2 bg-green-700 text-white rounded-md hover:text-green-700 hover:bg-white border border-green-700 transition-all duration-300' onClick={handleSendLink}>Send</button>
+                        </div>
+                    </div>
                 )
             }
 
@@ -105,23 +159,45 @@ export const LandTax3 = () => {
                                             <a href={`${elem.dolil_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
                                             <a href={`${elem.photo_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
                                             <a href={`${elem.dakhila_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
-                                            {
-                                                elem.status !== 'pending' && (
-                                                    <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3`}>{elem.status}</p>
-                                                )
-                                            }
+
                                             {
                                                 elem.status === 'pending' && (
                                                     <div className="text-center border-r border-b grid grid-cols-2 gap-x-px">
-                                                        <button className="bg-green-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            landTaxStatus3(elem._id, 'accept');
-                                                        }}><IoCheckmarkSharp /></button>
-                                                        <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
+                                                        <button className='flex items-center justify-center text-2xl border-r text-red-600' onClick={() => {
                                                             landTaxStatus3(elem._id, 'cancel');
-                                                        }}><RxCross2 /></button>
+                                                        }}>
+                                                            <ImCross />
+                                                        </button>
+                                                        <button className='flex items-center justify-center text-3xl text-green-700' onClick={() => {
+                                                            setId(elem._id);
+                                                            setType('accept');
+                                                            setSendLink(true);
+                                                            setPublicUrl(elem.pdf_url);
+                                                        }}>
+                                                            <FaLink />
+                                                        </button>
                                                     </div>
                                                 )
                                             }
+                                            {
+                                                elem.status === 'complete' && (
+                                                    <button className='flex items-center justify-center border-r border-b py-3 text-3xl text-green-700' onClick={() => {
+                                                        setId(elem._id);
+                                                        setType('accept');
+                                                        setSendLink(true);
+                                                        setPublicUrl(elem.pdf_url);
+                                                    }}>
+                                                        <FaLink />
+                                                    </button>
+                                                )
+                                            }
+
+                                            {
+                                                elem.status === 'reject' && (
+                                                    <p className="text-center border-r border-b py-3 overflow-x-scroll text-red-600">{elem.status}</p>
+                                                )
+                                            }
+
                                         </div>
                                     </div>
                                 )
