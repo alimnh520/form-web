@@ -49,7 +49,7 @@ export const Prosason = () => {
 
 
     return (
-        <div className="w-full h-full sm:w-80 sm:h-auto z-20 flex flex-col p-5 items-center">
+        <div className="w-full h-full z-20 flex flex-col p-5 items-center">
 
             {
                 loading && (

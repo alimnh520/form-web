@@ -5,7 +5,7 @@ import { LuMenu } from "react-icons/lu";
 import { FaMailBulk, FaUserCircle } from "react-icons/fa";
 import { IoMdHome } from "react-icons/io";
 import { UserProvider } from '@/app/ChildCom';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react'
 import { FaEdit } from 'react-icons/fa';
 import Link from "next/link";
@@ -22,6 +22,7 @@ import { NIDserverCopy } from "./pages/NIDserverCopy";
 const page = () => {
     const router = useRouter();
     const { user } = useContext(UserProvider);
+    const path = usePathname();
 
     // edit name
     const [name, setName] = useState(false);
@@ -44,7 +45,6 @@ const page = () => {
     }
 
     // mobile view
-    const [profile, setProfile] = useState(false);
     // slide width
     const [hideMenu, setHideMenu] = useState(false);
 
@@ -162,11 +162,16 @@ const page = () => {
                 console.log(error);
             }
         }
-        getAdminNotice()
+        getAdminNotice();
+
+        if (path === '/user/landing') {
+            document.body.style.background = '#eff9f1'
+        }
+
     }, [dcrPayment,landTax,landTax2,landTax3,landTaxSelf,nidCard,ServerNidCard]);
 
     return (
-        <div className="w-full h-auto flex flex-col bg-center bg-cover -mt-16 bg-[#eff9f1] ">
+        <div className="w-full h-auto flex flex-col bg-center bg-cover -mt-16 bg-[#eff9f1] sm-device">
 
             {
                 loading && (
@@ -185,10 +190,10 @@ const page = () => {
                 )
             }
 
-            <div className="w-full h-20 bg-white px-20 flex justify-between items-center shadow-[0_2px_10px_rgba(0,0,0,0.1)] z-10 sm:px-2 sm:h-auto sm:flex-col sm:justify-center ssm sm:py-2 gap-x-5">
+            <div className="w-full h-20 bg-white px-20 flex justify-between items-center shadow-[0_2px_10px_rgba(0,0,0,0.1)] z-10 gap-x-5">
                 <h1 className="text-[25px] text-green-700 font-bold animate-pulse">অনলাইন সংক্রান্ত সেবা</h1>
 
-                <div className="w-7/12 h-12 flex items-center justify-center gap-x-1 sm:w-full sm:h-10">
+                <div className="w-7/12 h-12 flex items-center justify-center gap-x-1">
                     <img src="/user/notice-icon-png.webp" alt="" className="h-full justify-self-start" />
                     <div className="w-full h-full border border-green-700 rounded-md flex items-center justify-end">
                         <marquee behavior="smooth" direction="rtl" className="font-semibold text-lg">
@@ -199,7 +204,7 @@ const page = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-center gap-x-3 text-green-600 sm:w-full sm:justify-start sm:mt-1.5">
+                <div className="flex items-center justify-center gap-x-3 text-green-600">
                     <Link href='/' className="text-4xl justify-self-start">
                         <IoMdHome />
                     </Link>
@@ -217,15 +222,13 @@ const page = () => {
                     <button className="text-[34px] justify-self-start" onClick={handleLogout}>
                         <IoMdLogOut />
                     </button>
-                    <p className="text-black flex items-center justify-center gap-x-0.5 text-3xl mt-1.5 pl-5 sm:justify-self-end">{user && user.balance}<span className="-mt-1"><HiOutlineCurrencyBangladeshi /></span></p>
+                    <p className="text-black flex items-center justify-center gap-x-0.5 text-3xl mt-1.5 pl-5">{user && user.balance}<span className="-mt-1"><HiOutlineCurrencyBangladeshi /></span></p>
                 </div>
             </div>
 
             <div className="w-full h-full flex items-start justify-center relative mt-3 gap-x-2">
 
-                <button className='absolute hidden sm:block right-5 top-5 size-16 rounded-full z-20 bg-red-700' onClick={() => setProfile(!profile)}></button>
-
-                <div className={`h-full relative sm:absolute sm:w-full ${profile ? 'sm:left-0' : 'sm:-left-full'} ${hideMenu ? 'w-0 overflow-hidden px-0 opacity-0' : 'w-3/12 px-10 opacity-100'} transition-all duration-300 bg-white flex flex-col pt-5 items-start gap-y-5`}>
+                <div className={`h-full relative ${hideMenu ? 'w-0 overflow-hidden px-0 opacity-0' : 'w-3/12 px-10 opacity-100'} transition-all duration-300 bg-white flex flex-col pt-5 items-start gap-y-5`}>
 
                     {/* set user image */}
 
@@ -349,13 +352,13 @@ const page = () => {
 
                 {/* middle width slide */}
 
-                <button className="text-3xl text-green-700 mt-5 sm:hidden" onClick={() => setHideMenu(!hideMenu)}>
+                <button className="text-3xl text-green-700 mt-5" onClick={() => setHideMenu(!hideMenu)}>
                     <LuMenu />
                 </button>
 
                 {/* display tax data */}
 
-                <div className={`h-screen ${hideMenu ? 'w-11/12' : 'w-9/12'} sm:w-full bg-white transition-all duration-300`}>
+                <div className={`h-screen ${hideMenu ? 'w-11/12' : 'w-9/12'} bg-white transition-all duration-300`}>
                     {
                         !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && (
                             <div className="w-full flex flex-col items-center gap-y-4 mt-16">

@@ -83,9 +83,9 @@ export const NIDserverCopy = () => {
                 )
             }
 
-            <h1 className='text-4xl w-full text-center font-bold border-b border-b-gray-400 py-5 sm:text-2xl'>NID সার্ভার কপি</h1>
+            <h1 className='text-4xl w-full text-center font-bold border-b border-b-gray-400 py-5'>NID সার্ভার কপি</h1>
 
-            <div className='w-10/12 gap-x-3 grid grid-cols-4 items-center justify-center mt-5 sm:w-full sm:gap-x-0 sm:flex sm:flex-col relative'>
+            <div className='w-10/12 gap-x-3 grid grid-cols-4 items-center justify-center mt-5 relative'>
 
                 <div className="flex flex-col items-start justify-center ">
                     <div className="flex items-center justify-center cursor-pointer gap-x-2" onClick={() => setSelect(true)}>

@@ -2,10 +2,9 @@
 import { MdSend } from "react-icons/md";
 import { FaEdit, FaMailBulk } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
-import { FaUserCircle } from "react-icons/fa";
 import { IoCall, IoClose } from "react-icons/io5";
 import { UserProvider } from "../ChildCom";
 import { LandTax } from "./pages/LandTax";
@@ -28,10 +27,10 @@ const page = () => {
   const [displayImage, setDisplayImage] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const [profile, setProfile] = useState(false);
 
   const router = useRouter();
   const { admin } = useContext(UserProvider);
+  const path = usePathname();
   const [hideMenu, setHideMenu] = useState(false);
 
   const [isUddokta, setUddokta] = useState(false);
@@ -95,7 +94,12 @@ const page = () => {
         console.log(error);
       }
     }
-    getAdminNotice()
+    getAdminNotice();
+
+    if (path === '/dashboard') {
+      document.body.style.background = 'rgb(220,252,231)'
+    }
+
   }, [dcrPayment, landTax, landTax2, landTax3, landTaxSelf, nidCard, serverNidCard, prosason, isUddokta]);
 
   const submitNotice = async () => {
@@ -168,9 +172,9 @@ const page = () => {
   }
 
   return (
-    <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative">
+    <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative sm-device">
 
-      <div className="w-full h-12 flex gap-3 items-center justify-between px-10 sm:gap-x-0 sm:px-2">
+      <div className="w-full h-12 flex gap-3 items-center justify-between px-10">
         <img src="/user/notice-icon-png.webp" alt="" className="h-10 justify-self-start" />
         <div className="w-full h-full rounded-md flex items-center justify-end">
           <marquee behavior="smooth" direction="rtl" className="font-semibold text-lg">
@@ -190,13 +194,9 @@ const page = () => {
         <button className="bg-green-700 text-white w-40 h-full" onClick={() => setNoticeBtn(!noticeBtn)}>SET NOTICE</button>
       </div>
 
-      <div className="h-full w-full flex items-start justify-between gap-x-5 sm:relative border-t border-t-green-700">
+      <div className="h-full w-full flex items-start justify-between gap-x-5 border-t border-t-green-700">
 
-        <div className="hidden sm:block absolute left-2 top-[16px] text-green-700 text-3xl cursor-pointer z-10" onClick={() => setProfile(true)}>
-          <FaUserCircle />
-        </div>
-
-        <div className={`h-auto flex items-center justify-start sm:absolute sm:z-10 transition-all duration-300 ${profile ? 'sm:left-0' : 'sm:-left-full'} ${hideMenu ? 'w-0 overflow-hidden px-0 opacity-0' : 'w-1/4 opacity-100'} sm:w-full`}>
+        <div className={`h-auto flex items-center justify-start transition-all duration-300 ${hideMenu ? 'w-0 overflow-hidden px-0 opacity-0' : 'w-1/4 opacity-100'}`}>
 
           {
             loading && (
@@ -366,18 +366,13 @@ const page = () => {
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">নতুন জন্ম নিবন্ধন আবেদন কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">নতুন পাসপোর্ট আবেদন <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
           </div>
-
-
-          <div className="hidden sm:block absolute right-2 z-10 opacity-100 top-2 text-3xl cursor-pointer" onClick={() => setProfile(false)}>
-            <IoClose />
-          </div>
         </div>
 
-        <button className="text-3xl text-green-700 mt-5 sm:hidden" onClick={() => setHideMenu(!hideMenu)}>
+        <button className="text-3xl text-green-700 mt-5" onClick={() => setHideMenu(!hideMenu)}>
           <LuMenu />
         </button>
 
-        <div className={`h-screen ${hideMenu ? 'w-11/12' : 'w-3/4'} p-4 flex flex-col items-center justify-start gap-y-4 sm:w-full sm:h-auto relative`}>
+        <div className={`h-screen ${hideMenu ? 'w-11/12' : 'w-3/4'} p-4 flex flex-col items-center justify-start gap-y-4 relative`}>
 
           {
             isUddokta && <Uddokta />
@@ -423,7 +418,7 @@ const page = () => {
                   </div>
                 </div>
 
-                <h1 className="text-4xl font-thin sm:text-2xl">ভূমি উন্নয়ন দাখিলার আবেদন</h1>
+                <h1 className="text-4xl font-thin">ভূমি উন্নয়ন দাখিলার আবেদন</h1>
                 <div className="flex items-center justify-center gap-x-6">
                   <Link href="/components/fill-form" className="px-6 py-1 bg-blue-600 text-lg font-semibold text-white">দাখিলা ফর্ম</Link>
 

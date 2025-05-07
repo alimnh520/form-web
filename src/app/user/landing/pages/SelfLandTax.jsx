@@ -91,13 +91,13 @@ export const SelfLandTax = () => {
 
                 )
             }
-            <h1 className="text-4xl text-center w-full font-bold border-b border-b-gray-400 py-5 sm:text-2xl">
+            <h1 className="text-4xl text-center w-full font-bold border-b border-b-gray-400 py-5">
                 প্রতিনিধি ভূমি উন্নয়ন কর
             </h1>
 
-            <div className='w-10/12 space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 sm:w-full sm:gap-x-0 sm:flex sm:flex-col relative'>
+            <div className='w-10/12 space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 relative'>
 
-                <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12 mt-6 sm:mt-0'>
+                <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12 mt-6'>
 
                     <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
                         <div className="w-0.5 h-6 bg-neutral-300"></div>

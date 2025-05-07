@@ -210,7 +210,7 @@ const page = () => {
                 </div>
 
                 <div className="w-full h-10 flex items-center justify-between mt-4  gap-x-2">
-                    <div className="w-9/12 h-full border border-gray-300 rounded-md bg-gray-100 relative flex items-center justify-center tracking-[20px] sm:tracking-[15px] text-lg font-medium">
+                    <div className="w-9/12 h-full border border-gray-300 rounded-md bg-gray-100 relative flex items-center justify-center tracking-[20px] sm:tracking-[15px] text-lg font-medium no-copy">
                         <p>{verifyCode}</p>
                     </div>
 
