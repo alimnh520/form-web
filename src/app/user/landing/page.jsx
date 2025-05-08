@@ -171,7 +171,7 @@ const page = () => {
     }, [dcrPayment,landTax,landTax2,landTax3,landTaxSelf,nidCard,ServerNidCard]);
 
     return (
-        <div className="w-full h-auto flex flex-col bg-center bg-cover -mt-16 bg-[#eff9f1] sm-device">
+        <div className="w-full h-auto flex flex-col items-center -mt-16 justify-start bg-[#eff9f1] relative sm-device">
 
             {
                 loading && (

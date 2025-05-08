@@ -9,7 +9,7 @@ const Footer = () => {
     const path = usePathname();
     const form = '/components/fill-form'
     return (
-        <div className={`w-full h-96 bg-green-100 text-black mt-7 pt-16 px-10 flex items-center justify-between gap-x-8 sm:h-auto sm:gap-x-0 sm:gap-y-5 sm:flex-col sm:px-0 sm:pt-5 ${path == form && 'dakhila'}`}>
+        <div className={`w-full h-96 bg-green-100 text-black mt-7 pt-16 px-10 flex items-center justify-between gap-x-8 ${path === '/' ? 'sm:h-auto sm:gap-x-0 sm:gap-y-5 sm:flex-col sm:px-0 sm:pt-5' : 'dakhila'}`}>
             <div className="h-full w-auto flex flex-col items-center justify-start gap-y-4">
                 <p className='text-2xl text-green-800 self-start ml-10 sm:ml-5'>গুরুত্বপূর্ণ লিঙ্ক</p>
                 <div className="w-full h-auto flex items-start justify-between gap-x-5 sm:gap-x-0">
