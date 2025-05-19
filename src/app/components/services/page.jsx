@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const page = () => {
@@ -21,13 +22,13 @@ const page = () => {
                         <h1 className='text-2xl sm:text-lg sm:text-center font-semibold'>ভূমি উন্নয়ন কর</h1>
 
                     </div>
-                    <div className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56 sm:space-y-3 sm:justify-end">
+                    <Link href='/components/services/land-tax' className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56 sm:space-y-3 sm:justify-end">
                         <div className=" absolute w-full h-10 rounded-md bg-[#9cbf3d] top-0"></div>
                         <div className="size-20 flex items-center justify-center">
                             <img src="/logos/1732941934.webp" alt="" />
                         </div>
                         <h1 className='text-2xl sm:text-lg sm:text-center font-semibold'>ভূমি রেকর্ড ও ম্যাপ</h1>
-                    </div>
+                    </Link>
 
                     <div className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:h-52 h-56 sm:space-y-3 sm:justify-end">
                         <div className=" absolute w-full h-10 rounded-md bg-[#4072b7] top-0"></div>

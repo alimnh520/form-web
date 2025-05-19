@@ -56,7 +56,7 @@ const Header = () => {
   const day = banglaNumberDate[date.getDate() + (date.getDate() > 14 ? -16 : 16)];
 
   // get bangla month
-  const month = monthsInBangla[date.getDate() - 6];
+  const month = monthsInBangla[date.getMonth() - 4];
 
   const option = {
     year: "numeric",
@@ -84,7 +84,7 @@ const Header = () => {
         <img src="/logos/logo2.jpg" alt="" className="h-full sm:h-auto sm:w-40" />
       </div>
       <div className="w-[85%] h-full flex flex-col items-center justify-between sm:w-full">
-        <div className="w-full h-[50%] bg-gradient-to-l text-white from-white via-green-700 to-white flex items-center justify-center text-sm font-[500]">
+        <div className="w-full h-[50%] bg-gradient-to-l text-white from-white via-green-800 to-white flex items-center justify-center text-sm font-[500]">
 
           <p className="left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0">{splitDate[0]} {day} {month} {getYear},{splitDate[1]}{splitDate[2]}</p>
 

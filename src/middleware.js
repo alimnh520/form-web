@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 export const middleware = async (request) => {
   const path = request.nextUrl.pathname;
 
+  console.log(path);
+
   // admin
   const token = request.cookies.get("admin-token")?.value;
 
@@ -55,7 +57,8 @@ export const config = {
     "/user/passwordset",
     "/user/landing",
     "/user/registration",
-    "/user/login"
+    "/user/login",
+    "/dlrms.land.gov.bd/"
   ],
   runtime: "nodejs"
 };

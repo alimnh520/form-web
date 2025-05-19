@@ -9,10 +9,10 @@ const ServiceText = () => {
     const [q3, setQ3] = useState(false);
     const [q4, setQ4] = useState(false);
     return (
-        <div className="w-full h-auto flex flex-col items-center justify-center gap-y-8 bg-[url('/bg/bg-map.png')] bg-center bg-no-repeat bg-cover sm:px-5" id="services">
-            <h1 className="text-4xl font-thin sm:text-2xl">অনলাইন সংক্রান্ত সেবা</h1>
+        <div className="w-full h-auto flex flex-col items-center justify-center gap-y-8 bg-[url('/bg/bangladesh_bg.webp')] bg-no-repeat bg-right-top sm:px-5" id="services">
+            <h1 className="text-4xl font-thin sm:text-2xl mt-16">অনলাইন সংক্রান্ত সেবা</h1>
 
-            <div className="w-11/12 h-auto grid grid-rows-2 grid-cols-4 gap-8 sm:grid-cols-2 sm:grid-rows-3 sm:h-auto sm:gap-3 sm:w-full">
+            <div className="w-11/12 h-auto grid grid-rows-2 grid-cols-4 gap-8 sm:grid-cols-2 sm:grid-rows-3 sm:h-auto sm:gap-3 sm:w-full mt-10">
 
                 <div className="shadow-[0_0_10px_rgba(0,0,0,0.5)] cursor-pointer bg-white rounded-md flex flex-col items-center justify-center relative space-y-5 sm:space-y-2 sm:h-52 h-56 sm:justify-end sm:pb-2">
                     <div className=" absolute w-full h-10 rounded-md bg-[#59b8a0] top-0"></div>
@@ -125,11 +125,11 @@ const ServiceText = () => {
                     <div className="px-12 py-4 bg-green-800 text-white text-lg font-semibold rounded-md mt-3">আরো</div>
                 </div>
 
-                <div className="w-1/3 h-96 flex items-center justify-center sm:w-full sm:h-80">
+                <div className="w-1/3 h-96 flex items-center justify-center sm:w-full sm:h-80 mt-32">
                     <img src="/bg/home_faq22.webp" alt="" className="w-full h-full object-cover object-center sm:h-auto"/>
                 </div>
             </div>
-            <div className="w-[110%] h-auto flex flex-col items-center justify-center sm:w-[120%]">
+            <div className="w-[110%] h-auto flex flex-col items-center justify-center sm:w-[120%] mt-36">
                 <img src="/bg/dhaka_line_2.webp" alt="" className="h-96 w-full object-center sm:h-auto"/>
                 <div className="w-full h-7 bg-gradient-to-r from-white via-green-800 to-white"></div>
             </div>
