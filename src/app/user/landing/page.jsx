@@ -342,10 +342,10 @@ const page = () => {
                             setServerNidCard(false);
                             setNidCard(!nidCard);
                         }}>NID কার্ড</button>
-                        <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>জন্ম নিবন্ধন অনলাইন কপি</button>
-                        <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন জন্ম নিবন্ধন আবেদন কপি</button>
-                        <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন পাসপোর্ট আবেদন</button>
-                        <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>বিবরণ</button>
+                        <button className={`w-full border ${ false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>জন্ম নিবন্ধন অনলাইন কপি</button>
+                        <button className={`w-full border ${ false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন জন্ম নিবন্ধন আবেদন কপি</button>
+                        <button className={`w-full border ${ false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন পাসপোর্ট আবেদন</button>
+                        <button className={`w-full border ${ false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>বিবরণ</button>
                     </div>
 
                 </div>

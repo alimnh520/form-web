@@ -16,7 +16,7 @@ export const POST = async (request) => {
         }
         const collection = (await dbConnection()).collection('userprofiles');
         public_url && await cloudinary.uploader.destroy(public_url.toString());
-        const setImg = await UploadImage(newImage, "user");
+        const setImg = await UploadImage(newImage, "user", "image");
 
         await collection.findOneAndUpdate({ email }, {
             $set: {
