@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Header = () => {
-  const router = useRouter();
   const [token, setToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [hideMenu, setHideMenu] = useState(false);
@@ -53,10 +52,10 @@ const Header = () => {
   const getYear = `${banglaNumberDate[banglaYear[0] - 1]}${banglaNumberDate[banglaYear[1] - 1]}${banglaNumberDate[banglaYear[2] - 1]}${banglaNumberDate[banglaYear[3] - 1]}`
 
   // get bangla date
-  const day = banglaNumberDate[date.getDate() + (date.getDate() > 14 ? -16 : 16)];
+  const day = banglaNumberDate[date.getDate() + (date.getDate() > 14 ? -15 : 16)];
 
   // get bangla month
-  const month = monthsInBangla[date.getMonth() - 4];
+  const month = monthsInBangla[5 - date.getMonth()];
 
   const option = {
     year: "numeric",

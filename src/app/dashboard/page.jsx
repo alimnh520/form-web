@@ -18,6 +18,7 @@ import { Uddokta } from "./pages/Uddokta";
 import { Prosason } from "./pages/Prosason";
 import { NIDcard } from "./pages/NIDcard";
 import { NIDserverCopy } from "./pages/NIDserverCopy";
+import SubAdmin from "./pages/SubAdmin";
 
 const page = () => {
   const [name, setName] = useState(false);
@@ -42,6 +43,7 @@ const page = () => {
   const [dcrPayment, setDcrPayment] = useState(false);
   const [nidCard, setNidCard] = useState(false);
   const [serverNidCard, setServerNidCard] = useState(false);
+  const [subAdmin, setSubAdmin] = useState(false);
 
   if (message) {
     setTimeout(() => {
@@ -272,6 +274,7 @@ const page = () => {
               setUddokta(!isUddokta);
               setNidCard(false);
               setServerNidCard(false);
+              setSubAdmin(false);
             }}>উদ্যোক্তা <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
@@ -283,7 +286,20 @@ const page = () => {
               setProsason(!prosason);
               setNidCard(false);
               setServerNidCard(false);
+              setSubAdmin(false);
             }}>প্রশাসনিক <span className={`absolute right-5 bg-white p-1.5 rounded-full ${prosason ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
+              setLandTax(false);
+              setLandTax2(false);
+              setLandTax3(false);
+              setLandTaxSelf(false)
+              setUddokta(false);
+              setDcrPayment(false);
+              setProsason(false);
+              setNidCard(false);
+              setServerNidCard(false);
+              setSubAdmin(!subAdmin);
+            }}>সহকারী কর্মকর্তা <span className={`absolute right-5 bg-white p-1.5 rounded-full ${subAdmin ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
               setLandTax2(false);
@@ -294,6 +310,7 @@ const page = () => {
               setDcrPayment(!dcrPayment);
               setNidCard(false);
               setServerNidCard(false);
+              setSubAdmin(false);
             }}>ডি,সি,আর পেমেন্ট <span className={`absolute right-5 bg-white p-1.5 rounded-full ${dcrPayment ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
@@ -305,6 +322,7 @@ const page = () => {
               setUddokta(false);
               setNidCard(false);
               setServerNidCard(false);
+              setSubAdmin(false);
             }}>মিউটেশন <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax3 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
@@ -316,6 +334,7 @@ const page = () => {
               setUddokta(false);
               setNidCard(false);
               setServerNidCard(false);
+              setSubAdmin(false);
             }}>প্রতিনিধি ভূমি উন্নয়ন কর <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTaxSelf ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
@@ -327,6 +346,7 @@ const page = () => {
               setUddokta(false);
               setNidCard(false);
               setServerNidCard(false);
+              setSubAdmin(false);
             }}>ভূমি উন্নয়ন কর <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax2 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(!landTax);
@@ -338,6 +358,7 @@ const page = () => {
               setUddokta(false);
               setNidCard(false);
               setServerNidCard(false);
+              setSubAdmin(false);
             }}>ভূমি রেকর্ড ও ম্যাপ
               <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
@@ -350,6 +371,7 @@ const page = () => {
               setUddokta(false);
               setNidCard(false);
               setServerNidCard(!serverNidCard);
+              setSubAdmin(false);
             }}>NID সার্ভার কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${serverNidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg" onClick={() => {
               setLandTax(false);
@@ -360,6 +382,7 @@ const page = () => {
               setProsason(false);
               setUddokta(false);
               setServerNidCard(false);
+              setSubAdmin(false);
               setNidCard(!nidCard);
             }}>NID কার্ড<span className={`absolute right-5 bg-white p-1.5 rounded-full ${nidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className="w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] flex items-center justify-center cursor-pointer relative text-lg">জন্ম নিবন্ধন অনলাইন কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
@@ -401,9 +424,12 @@ const page = () => {
           {
             serverNidCard && <NIDserverCopy />
           }
+          {
+            subAdmin && <SubAdmin/>
+          }
 
           {
-            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !serverNidCard && (
+            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !serverNidCard && !subAdmin && (
               <div className="w-full flex flex-col items-center gap-y-4 mt-16">
                 <h1 className="text-xl font-semibold text-center">রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span></h1>
                 <h1 className="text-3xl font-light text-center text-green-700">আপনাকে স্বাগতম !</h1>

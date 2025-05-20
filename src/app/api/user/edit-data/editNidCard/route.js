@@ -16,7 +16,7 @@ export const POST = async (request) => {
 
             if (pdfFile !== null) {
                 publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
-                const userPdf = await UploadImage(pdfFile, "user", 'raw');
+                const userPdf = await UploadImage(pdfFile, "user");
 
                 const collection = (await dbConnection()).collection('nidcards');
                 await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
