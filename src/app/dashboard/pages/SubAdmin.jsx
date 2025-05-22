@@ -200,7 +200,7 @@ const SubAdmin = () => {
                         {
                             list.map((elem, index) => {
                                 return (
-                                    <div className={`cursor-pointer group py-2 pl-1 w-full relative hover:bg-green-700 hover:text-white flex items-center ${(workList.includes(elem)) ? 'bg-green-700  text-white border-b border-b-white' : 'bg-white text-black'} ${elem === 'নির্বাচন করুন' && 'hover:bg-white hover:text-black'}`} key={index}>
+                                    <div className={`cursor-pointer group py-2 pl-1 w-full z-10 relative hover:bg-green-700 hover:text-white flex items-center ${(workList.includes(elem)) ? 'bg-green-700  text-white border-b border-b-white' : 'bg-white text-black'} ${elem === 'নির্বাচন করুন' && 'hover:bg-white hover:text-black'}`} key={index}>
                                         <li className={`w-full ${elem === 'নির্বাচন করুন' && 'border-b'}`} onClick={() => {
                                             elem !== 'নির্বাচন করুন' && setWorkList((prev) => [...prev, elem]);
                                         }}>{elem} </li>
