@@ -16,6 +16,9 @@ export const NIDserverCopy = () => {
     const [type, setType] = useState('');
     const [publicUrl, setPublicUrl] = useState('');
 
+    const [nidNum, setNidNum] = useState('');
+    const [dob, setDob] = useState('');
+
     if (message) {
         setTimeout(() => {
             setMessage('');
@@ -87,6 +90,31 @@ export const NIDserverCopy = () => {
         }
     }
 
+    const getNidData = async () => {
+        if (!nidNum || !dob) {
+            setMessage('সকল ঘর পূরণ করুন');
+            return;
+        }
+        setLoading(true);
+        try {
+            const res = await fetch(`/api/nid-data`, {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({nidNum, dob})
+            });
+            const data = await res.json();
+            setLoading(false);
+            console.log(data);
+            setMessage(data.message);
+            if (data.success) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     return (
         <div className="w-full h-full flex flex-col items-center p-7">
 
@@ -122,6 +150,55 @@ export const NIDserverCopy = () => {
                 )
             }
             <p className="w-10/12 border-b text-center pb-1.5 border-b-gray-300 text-2xl font-semibold">NID সার্ভার কপি</p>
+
+            <div className="w-10/12 gap-x-7 gap-y-5 grid grid-cols-3 items-center justify-center mt-8 relative">
+
+                <div className="flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md">
+                    <p className=" absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 text-green-700">
+                        NID নাম্বার <span className="text-red-500 relative top-1 text-lg ">*</span>
+                    </p>
+                    <div
+                        name=""
+                        id=""
+                        className="bg-transparent w-full relative outline-none"
+                    >
+                        <input
+                            type="text"
+                            className="outline-none w-full placeholder:text-sm bg-transparent placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4 "
+                            value={nidNum}
+                            placeholder="NID নাম্বার লিখুন..."
+                            onChange={(e) => setNidNum(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md">
+                    <p className=" absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 text-green-700">
+                        জন্ম তারিখ <span className="text-red-500 relative top-1 text-lg ">*</span>
+                    </p>
+                    <div
+                        name=""
+                        id=""
+                        className="bg-transparent w-full relative outline-none"
+                    >
+                        <input
+                            type="text"
+                            className="outline-none w-full placeholder:text-sm bg-transparent placeholder:text-neutral-600 text-neutral-600 border-b-green-500 px-4 "
+                            value={dob}
+                            placeholder="2000-12-20"
+                            onChange={(e) => setDob(e.target.value)}
+                        />
+                    </div>
+                </div>
+
+                <button
+                    className="w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg"
+                    onClick={getNidData}
+                >
+                    খুজুন
+                </button>
+
+            </div>
+
 
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>

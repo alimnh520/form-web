@@ -32,7 +32,6 @@ const SubAdmin = () => {
         'নতুন পাসপোর্ট আবেদন'
     ]
 
-
     if (message) {
         setTimeout(() => {
             setMessage('');
@@ -196,11 +195,11 @@ const SubAdmin = () => {
                     </p>
                     <p className="bg-transparent w-full relative px-4 appearance-none cursor-pointer text-neutral-600 outline-none">{workList.length <= 0 ? 'নির্বাচন করুন' : workList.length}</p>
 
-                    <div className={`absolute w-72 left-1/2 -translate-x-1/2 ${listActive ? 'flex' : 'hidden'} flex-col items-start justify-start h-auto bg-white top-12 p-4`}>
+                    <div className={`absolute w-72 left-1/2 -translate-x-1/2 ${listActive ? 'flex' : 'hidden'} flex-col items-start justify-start h-auto bg-white top-12 p-4 z-10`}>
                         {
                             list.map((elem, index) => {
                                 return (
-                                    <div className={`cursor-pointer group py-2 pl-1 w-full z-10 relative hover:bg-green-700 hover:text-white flex items-center ${(workList.includes(elem)) ? 'bg-green-700  text-white border-b border-b-white' : 'bg-white text-black'} ${elem === 'নির্বাচন করুন' && 'hover:bg-white hover:text-black'}`} key={index}>
+                                    <div className={`cursor-pointer group py-2 pl-1 w-full relative hover:bg-green-700 hover:text-white flex items-center ${(workList.includes(elem)) ? 'bg-green-700  text-white border-b border-b-white' : 'bg-white text-black'} ${elem === 'নির্বাচন করুন' && 'hover:bg-white hover:text-black'}`} key={index}>
                                         <li className={`w-full ${elem === 'নির্বাচন করুন' && 'border-b'}`} onClick={() => {
                                             elem !== 'নির্বাচন করুন' && setWorkList((prev) => [...prev, elem]);
                                         }}>{elem} </li>
