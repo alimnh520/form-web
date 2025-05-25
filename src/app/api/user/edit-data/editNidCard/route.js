@@ -12,6 +12,8 @@ export const POST = async (request) => {
         const pdfFile = formData.get('pdfFile');
         const publicUrl = formData.get('publicUrl');
 
+        console.log('Pdf file name is : ', pdfFile.name);
+
         if (type === 'accept') {
 
             if (pdfFile !== null) {
@@ -26,6 +28,7 @@ export const POST = async (request) => {
                         pdf_url: userPdf.public_id
                     }
                 });
+                return NextResponse.json({ message: 'successful', success: true });
             } else {
                 const collection = (await dbConnection()).collection('nidcards');
                 await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
@@ -33,6 +36,7 @@ export const POST = async (request) => {
                         status: 'complete',
                     }
                 });
+                return NextResponse.json({ message: 'successful', success: true });
             }
         }
 
@@ -43,10 +47,10 @@ export const POST = async (request) => {
                     status: 'reject'
                 }
             });
+            return NextResponse.json({ message: 'successful', success: true });
         }
-
-
         return NextResponse.json({ message: 'successful', success: true });
+
     } catch (error) {
         console.log(error);
         return NextResponse.json({ message: 'failed', success: false });

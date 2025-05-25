@@ -45,6 +45,10 @@ export const middleware = async (request) => {
   if (token && path === '/office') {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
+
+  if (!token && path.startsWith('/dashboard/pages')) {
+    return NextResponse.redirect(new URL("/user/registration", request.url));
+  }
 };
 
 export const config = {
@@ -58,7 +62,8 @@ export const config = {
     "/user/landing",
     "/user/registration",
     "/user/login",
-    "/dlrms.land.gov.bd/"
+    "/dlrms.land.gov.bd/",
+    "/dashboard/pages"
   ],
   runtime: "nodejs"
 };

@@ -13,6 +13,7 @@ const ChildCom = ({ children }) => {
     const routePath = /^\/dakhila-print\/\w+$/i.test(pathName) || /^\/user\/\w+$/i.test(pathName);
     const hiddenPath = ['/office'];
     const setHiddenPath = hiddenPath.includes(pathName);
+    const nidPath = pathName.startsWith('/dashboard/pages');
 
     useEffect(() => {
         async function userData(params) {
@@ -44,9 +45,9 @@ const ChildCom = ({ children }) => {
 
     return (
         <UserProvider className='w-full h-screen scroll-smooth' value={{user, admin}} >
-            {(!routePath && !setHiddenPath) && <Header />}
+            {(!routePath && !setHiddenPath && !nidPath) && <Header />}
             <div className='mt-16'>{children}</div>
-            {(!routePath && !setHiddenPath) && <Footer />}
+            {(!routePath && !setHiddenPath && !nidPath) && <Footer />}
         </UserProvider>
     )
 }

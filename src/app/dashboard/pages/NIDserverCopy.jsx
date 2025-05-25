@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { FaLink } from 'react-icons/fa6';
 import { ImCross } from 'react-icons/im';
@@ -90,28 +91,12 @@ export const NIDserverCopy = () => {
         }
     }
 
-    const getNidData = async () => {
+    const submitNidData = async () => {
         if (!nidNum || !dob) {
             setMessage('সকল ঘর পূরণ করুন');
             return;
         }
         setLoading(true);
-        try {
-            const res = await fetch(`/api/nid-data`, {
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({nidNum, dob})
-            });
-            const data = await res.json();
-            setLoading(false);
-            console.log(data);
-            setMessage(data.message);
-            if (data.success) {
-                window.location.reload();
-            }
-        } catch (error) {
-            console.log(error);
-        }
     }
 
 
@@ -190,12 +175,12 @@ export const NIDserverCopy = () => {
                     </div>
                 </div>
 
-                <button
-                    className="w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg"
-                    onClick={getNidData}
+                <Link href={`/dashboard/pages/nid-data/${nidNum}/${dob}`}
+                    className={`w-full py-3 text-lg font-semibold flex items-center justify-center bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg ${!nidNum || !dob ? 'pointer-events-none' : 'pointer-events-auto'}`}
+                    onClick={submitNidData}
                 >
                     খুজুন
-                </button>
+                </Link>
 
             </div>
 
