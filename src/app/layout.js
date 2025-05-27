@@ -1,6 +1,6 @@
 import { Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
-import ChildCom from "./ChildCom";
+import ChildCom from "./user/ChildCom";
 
 const banglaFont = Noto_Sans_Bengali({ subsets: ["bengali"], weight: ["400", "700"], variable: '--font-noto-sans-bengali' });
 

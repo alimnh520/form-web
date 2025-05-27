@@ -235,18 +235,19 @@ input[type="number"]::-webkit-inner-spin-button {
   display: none;
 }
 
-.division::-webkit-scrollbar{
+.division::-webkit-scrollbar {
   display: block;
   width: 5px;
 }
 
-.division::-webkit-scrollbar-thumb{
+.division::-webkit-scrollbar-thumb {
   background-color: #919191;
   border-radius: 10px;
 }
 
 @media (max-width: 768px) {
-  .dakhila, .sm-device {
+  .dakhila,
+  .sm-device {
     width: 1100px;
   }
 }
@@ -321,20 +322,25 @@ input[type="number"]::-webkit-inner-spin-button {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-.swiper-button-next::after, .swiper-button-prev::after{
+.swiper-button-next::after,
+.swiper-button-prev::after {
   font-size: 20px !important;
   font-weight: 700 !important;
   color: white !important;
 }
-.swiper-button-next{
+.swiper-button-next {
   margin-right: 20px !important;
 }
-.swiper-button-prev{
+.swiper-button-prev {
   margin-left: 20px !important;
 }
-.swiper-pagination-bullet-active{
+.swiper-pagination-bullet-active {
   background-color: white !important;
 }
-.swiper-pagination-bullet{
+.swiper-pagination-bullet {
   background-color: greenyellow !important;
+}
+
+.english{
+  font-family:  'Times New Roman', Times, serif;
 }

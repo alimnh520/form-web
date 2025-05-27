@@ -4,7 +4,7 @@ import { HiOutlineCurrencyBangladeshi } from "react-icons/hi";
 import { LuMenu } from "react-icons/lu";
 import { FaMailBulk, FaUserCircle } from "react-icons/fa";
 import { IoMdHome } from "react-icons/io";
-import { UserProvider } from '@/app/ChildCom';
+import { UserProvider } from '@/app/user/ChildCom';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react'
 import { FaEdit } from 'react-icons/fa';

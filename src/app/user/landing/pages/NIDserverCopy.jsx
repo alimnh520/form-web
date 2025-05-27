@@ -1,5 +1,5 @@
 'use client'
-import { UserProvider } from '@/app/ChildCom';
+import { UserProvider } from '@/app/user/ChildCom';
 import React, { useContext, useEffect, useState } from 'react'
 import { ImCross } from 'react-icons/im';
 import { ImFolderDownload } from "react-icons/im";

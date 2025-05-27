@@ -10,7 +10,7 @@ import ServiceText from "./ServiceText";
 const Home = () => {
 
     return (
-        <div className="h-full w-auto flex flex-col gap-y-10 items-center justify-center px-10 sm:px-0">
+        <div className="h-full w-auto flex flex-col gap-y-10 items-center justify-center px-10 sm:px-0 overflow-x-hidden">
             <div className="w-full h-auto flex items-center justify-between relative sm:flex-col sm:justify-center mt-3">
                 <div className="w-1/2 h-96 flex items-center justify-center relative shadow-[0_10px_10px_rgba(0,0,0,0.2)] sm:w-full sm:h-80">
                     <p className=" absolute w-10/12 z-10 text-3xl font-semibold text-center top-10 text-green-800">

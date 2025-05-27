@@ -1,5 +1,5 @@
 'use client'
-import { UserProvider } from '@/app/ChildCom';
+import { UserProvider } from '@/app/user/ChildCom';
 import React, { useContext, useEffect, useState } from 'react'
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 

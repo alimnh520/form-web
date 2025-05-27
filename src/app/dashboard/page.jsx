@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { IoCall, IoClose } from "react-icons/io5";
-import { UserProvider } from "../ChildCom";
+import { UserProvider } from "../user/ChildCom";
 import { LandTax } from "./pages/LandTax";
 import { LandTax2 } from "./pages/LandTax2";
 import { LandTax3 } from "./pages/LandTax3";

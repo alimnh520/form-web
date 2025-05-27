@@ -1,7 +1,7 @@
 'use client'
 import React, { createContext, useEffect, useState } from 'react'
-import Header from './layout/Header'
-import Footer from './layout/Footer'
+import Header from '../layout/Header'
+import Footer from '../layout/Footer'
 import { usePathname } from 'next/navigation'
 
 export const UserProvider = createContext();
@@ -44,7 +44,7 @@ const ChildCom = ({ children }) => {
     }, []);
 
     return (
-        <UserProvider className='w-full h-screen scroll-smooth' value={{user, admin}} >
+        <UserProvider className='w-full h-screen scroll-smooth max-w-[1250px] mx-auto' value={{user, admin}} >
             {(!routePath && !setHiddenPath && !nidPath) && <Header />}
             <div className='mt-16'>{children}</div>
             {(!routePath && !setHiddenPath && !nidPath) && <Footer />}
