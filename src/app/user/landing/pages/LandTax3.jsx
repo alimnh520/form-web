@@ -220,6 +220,7 @@ export const LandTax3 = () => {
                         <option value="গাবতলী">গাবতলী</option>
                         <option value="শিবগঞ্জ">শিবগঞ্জ</option>
                         <option value="সোনাতলা">সোনাতলা</option>
+                        <option value="রানীনগর">রানীনগর</option>
                     </select>
                 </div>
                 <div className="flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md">
