@@ -128,6 +128,7 @@ export const SelfLandTax = () => {
                         <option value="">নির্বাচন করুন</option>
                         <option value="বগুড়া">বগুড়া</option>
                         <option value="রাঙ্গামাটি">রাঙ্গামাটি</option>
+                        <option value="নওগাঁ">নওগাঁ</option>
                     </select>
                 </div>
 
