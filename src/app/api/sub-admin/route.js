@@ -7,22 +7,22 @@ export const POST = async (request) => {
     try {
         const { username, email, password, workList } = await request.json();
 
-        const collection = (await dbConnection()).collection('subadmins');
-        const user = await collection.findOne({ email });
+        const collection = (await dbConnection()).collection('admin');
+        const userName = await collection.findOne({ username });
+        const userMail = await collection.findOne({ email });
 
-        if (user) {
-            return NextResponse.json({ message: 'Email already exits', success: false });
+        if (userName || userMail) {
+            return NextResponse.json({ message: 'User already exits', success: false });
         }
 
         await connectDb();
 
-        const saveUser = new SubAdmin({
+        await collection.insertOne({
             username,
             email,
             password,
             workList
         });
-        await saveUser.save();
 
         return NextResponse.json({ message: 'Success', success: true });
     } catch (error) {
@@ -32,7 +32,7 @@ export const POST = async (request) => {
 }
 
 export const GET = async () => {
-    const collection = (await dbConnection()).collection('subadmins');
+    const collection = (await dbConnection()).collection('admin');
     const data = await collection.find({}).toArray();
     try {
         return NextResponse.json({ message: data });

@@ -9,6 +9,8 @@ const page = () => {
     const [nidData, setNidData] = useState('');
     const nidRef = useRef();
 
+    console.log(nidData)
+
     const nidPrint = () => {
         window.print();
     }

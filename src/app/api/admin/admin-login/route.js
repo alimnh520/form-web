@@ -1,6 +1,5 @@
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server"
-import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 export const POST = async (request) => {
@@ -19,9 +18,8 @@ export const POST = async (request) => {
             return NextResponse.json({ message: "User not found", success: false });
         }
 
-        const comparePass = await bcrypt.compare(password, data.password);
 
-        if (!comparePass) {
+        if (password !== data.password) {
             return NextResponse.json({ message: "Password is wrong", success: false });
         }
 

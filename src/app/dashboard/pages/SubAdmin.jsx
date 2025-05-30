@@ -15,6 +15,8 @@ const SubAdmin = () => {
     const [listActive, setListActive] = useState(false);
     const [listBtn, setListBtn] = useState(false);
     const [indexNum, setIndexNum] = useState('');
+    const [delAdmin, setDelAdmin] = useState(false);
+    const [adminId, setAdminId] = useState('')
 
     const [subAdmin, setSubAdmin] = useState('');
 
@@ -46,6 +48,10 @@ const SubAdmin = () => {
     const addAdmin = async () => {
         if (!username || !email || !password || !workList) {
             setMessage('সকল ঘর পূরণ করুন');
+            return;
+        }
+        if (password.length < 6) {
+            setMessage('৬ ডিজিটের পাসওয়ার্ড ব্যবহার করুন');
             return;
         }
         if (!valid(email)) {
@@ -84,13 +90,13 @@ const SubAdmin = () => {
         handleAdmin();
     }, []);
 
-    const delSubAdmin = async (id) => {
+    const delSubAdmin = async () => {
         setLoading(true);
         try {
             const res = await fetch('/api/subadmin-del', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: id })
+                body: JSON.stringify({ userId: adminId })
             });
             const data = await res.json();
             setLoading(false);
@@ -121,6 +127,21 @@ const SubAdmin = () => {
                         {message}
                     </p>
 
+                )
+            }
+            {
+                delAdmin && (
+                    <div className="w-60 h-28 bg-white border border-blue-600 rounded-md absolute z-20 flex items-center justify-center gap-x-5 top-1/3">
+                        <button className="px-5 py-1 bg-red-600 text-lg rounded-lg font-semibold text-white" onClick={() => {
+                            delSubAdmin();
+                            setDelAdmin(false);
+                        }}>
+                            delete
+                        </button>
+                        <button className="px-5 py-1 bg-blue-600 text-lg rounded-lg font-semibold text-white" onClick={() => setDelAdmin(false)}>
+                            cancel
+                        </button>
+                    </div>
                 )
             }
 
@@ -230,10 +251,11 @@ const SubAdmin = () => {
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full gap-x-1 grid grid-cols-4 bg-green-600 text-white font-bold">
+                    <div className="w-full gap-x-1 grid grid-cols-[100px_1fr_1fr_1fr_1fr] bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
                         <p className="text-center border-r py-3">ই-মেইল</p>
                         <p className="text-center border-r py-3">নাম</p>
+                        <p className="text-center border-r py-3">পাসওয়ার্ড</p>
                         <p className="text-center border-r py-3">দায়িত্ব</p>
                     </div>
                     {
@@ -241,22 +263,30 @@ const SubAdmin = () => {
                             subAdmin.slice().reverse().map((elem, index) => {
                                 return (
                                     <div className="w-full flex flex-col" key={elem._id}>
-                                        <div className="w-full grid grid-cols-4">
+                                        <div className="w-full grid grid-cols-[100px_1fr_1fr_1fr_1fr]">
                                             <div className="grid grid-cols-2 items-center justify-center border-r border-l border-b overflow-x-scroll">
                                                 <p className="flex py-3 items-center justify-center border-r ">{index + 1}</p>
-                                                <button className="flex py-3 items-center text-2xl justify-center text-red-600" onClick={() => delSubAdmin(elem._id)}><MdDeleteForever /></button>
+                                                {elem._id !== '67b9c9b18529900963e44adf' && <button className="flex py-3 items-center text-2xl justify-center text-red-600" onClick={() => {
+                                                    setAdminId(elem._id);
+                                                    setDelAdmin(true);
+                                                }}><MdDeleteForever /></button>}
                                             </div>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.email}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.username}</p>
+                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.password}</p>
                                             <div className="text-center border-r border-b py-3 relative flex items-center justify-center">
-                                                <p className="w-full flex items-center px-3 justify-center">{elem.workList.length} <button className="text-2xl absolute right-3" onClick={() => {
-                                                    setListBtn(!listBtn);
-                                                    setIndexNum(index);
-                                                }}><IoIosArrowDropdownCircle /></button></p>
+                                                {
+                                                    elem._id !== '67b9c9b18529900963e44adf' && (
+                                                        <p className="w-full flex items-center px-3 justify-center">{elem.workList?.length} <button className="text-2xl absolute right-3" onClick={() => {
+                                                            setListBtn(!listBtn);
+                                                            setIndexNum(index);
+                                                        }}><IoIosArrowDropdownCircle /></button></p>
+                                                    )
+                                                }
                                                 {
                                                     listBtn || indexNum === index && (
                                                         <div className="absolute w-full h-auto overflow-x-scroll bg-green-700 text-white flex flex-col items-start justify-start pl-2 top-12 z-10 gap-y-0.5 p-1">
-                                                            {elem.workList.map((item, index) => {
+                                                            {elem.workList?.map((item, index) => {
                                                                 return (
                                                                     <li className="w-full text-start py-2 border-b border-b-white" key={index}>{item}</li>
                                                                 )

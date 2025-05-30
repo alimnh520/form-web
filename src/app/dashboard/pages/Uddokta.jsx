@@ -92,7 +92,7 @@ export const Uddokta = () => {
 
             {
                 deleteUddokta && (
-                    <div className="w-60 h-28 bg-gray-500 border border-blue-600 rounded-md absolute z-20 flex items-center justify-center gap-x-5 top-1/3">
+                    <div className="w-60 h-28 bg-white border border-blue-600 rounded-md absolute z-20 flex items-center justify-center gap-x-5 top-1/3">
                         <button className="px-5 py-1 bg-red-600 text-lg rounded-lg font-semibold text-white" onClick={() => {
                             handleDeleteUddokta();
                             setDeleteUddokta(false);

@@ -9,4 +9,4 @@ const UserSchema = new mongoose.Schema({
     workList: [String]
 });
 
-export default mongoose.models.subadmin || mongoose.model('subadmin', UserSchema);
+export default mongoose.models.admin || mongoose.model('admin', UserSchema);
