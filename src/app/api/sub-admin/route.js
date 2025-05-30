@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { connectDb } from "../../../../lib/mongodb";
-import SubAdmin from "../../../../models/SubAdmin";
 import { dbConnection } from "../../../../lib/connectDB";
 
 export const POST = async (request) => {

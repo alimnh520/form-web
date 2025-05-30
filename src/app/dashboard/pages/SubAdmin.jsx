@@ -16,7 +16,8 @@ const SubAdmin = () => {
     const [listBtn, setListBtn] = useState(false);
     const [indexNum, setIndexNum] = useState('');
     const [delAdmin, setDelAdmin] = useState(false);
-    const [adminId, setAdminId] = useState('')
+    const [adminId, setAdminId] = useState('');
+    const [publicId, setPublicId] = useState('');
 
     const [subAdmin, setSubAdmin] = useState('');
 
@@ -96,7 +97,7 @@ const SubAdmin = () => {
             const res = await fetch('/api/subadmin-del', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: adminId })
+                body: JSON.stringify({ userId: adminId, public_url: publicId })
             });
             const data = await res.json();
             setLoading(false);
@@ -269,6 +270,7 @@ const SubAdmin = () => {
                                                 {elem._id !== '67b9c9b18529900963e44adf' && <button className="flex py-3 items-center text-2xl justify-center text-red-600" onClick={() => {
                                                     setAdminId(elem._id);
                                                     setDelAdmin(true);
+                                                    setPublicId(elem.public_url);
                                                 }}><MdDeleteForever /></button>}
                                             </div>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.email}</p>

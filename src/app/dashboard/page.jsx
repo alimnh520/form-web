@@ -32,7 +32,6 @@ const page = () => {
 
   const router = useRouter();
   const { admin } = useContext(UserProvider);
-  console.log(admin)
   const path = usePathname();
   const [hideMenu, setHideMenu] = useState(false);
 
