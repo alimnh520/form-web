@@ -1,4 +1,5 @@
 'use client'
+import { FaCirclePlus } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
 import React, { useEffect, useState } from 'react'
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md';
@@ -20,6 +21,9 @@ const SubAdmin = () => {
     const [publicId, setPublicId] = useState('');
 
     const [subAdmin, setSubAdmin] = useState('');
+    const [newList, setNewList] = useState([]);
+    const [newActiveList, setNewActiveList] = useState(false);
+
 
     const list = [
         'নির্বাচন করুন',
@@ -98,6 +102,25 @@ const SubAdmin = () => {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId: adminId, public_url: publicId })
+            });
+            const data = await res.json();
+            setLoading(false);
+            setMessage(data.message);
+            if (data.success) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const editAdminData = async (username, item) => {
+        setLoading(true);
+        try {
+            const res = await fetch('/api/edit-subadmin', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, newList, item })
             });
             const data = await res.json();
             setLoading(false);
@@ -223,7 +246,7 @@ const SubAdmin = () => {
                                 return (
                                     <div className={`cursor-pointer group py-2 pl-1 w-full relative hover:bg-green-700 hover:text-white flex items-center ${(workList.includes(elem)) ? 'bg-green-700  text-white border-b border-b-white' : 'bg-white text-black'} ${elem === 'নির্বাচন করুন' && 'hover:bg-white hover:text-black'}`} key={index}>
                                         <li className={`w-full ${elem === 'নির্বাচন করুন' && 'border-b'}`} onClick={() => {
-                                            elem !== 'নির্বাচন করুন' && setWorkList((prev) => [...prev, elem]);
+                                            elem !== 'নির্বাচন করুন' && !workList.includes(elem) && setWorkList((prev) => [...prev, elem]);
                                         }}>{elem} </li>
                                         {
                                             workList.includes(elem) && (
@@ -279,10 +302,14 @@ const SubAdmin = () => {
                                             <div className="text-center border-r border-b py-3 relative flex items-center justify-center">
                                                 {
                                                     elem._id !== '67b9c9b18529900963e44adf' && (
-                                                        <p className="w-full flex items-center px-3 justify-center">{elem.workList?.length} <button className="text-2xl absolute right-3" onClick={() => {
-                                                            setListBtn(!listBtn);
-                                                            setIndexNum(index);
-                                                        }}><IoIosArrowDropdownCircle /></button></p>
+                                                        <p className="w-full relative flex items-center px-3 justify-center">
+                                                            <button className="text-3xl absolute left-3" onClick={() => setNewActiveList(!newActiveList)}><FaCirclePlus /></button>
+                                                            {elem.workList?.length + newList.length}
+                                                            <button className="text-4xl absolute right-3" onClick={() => {
+                                                                setListBtn(!listBtn);
+                                                                setIndexNum(index);
+                                                            }}><IoIosArrowDropdownCircle /></button>
+                                                        </p>
                                                     )
                                                 }
                                                 {
@@ -296,6 +323,35 @@ const SubAdmin = () => {
                                                         </div>
                                                     )
                                                 }
+                                                <div className={`absolute  border border-gray-400 w-72 top-12 right-0 ${elem._id === '67b9c9b18529900963e44adf' && 'hidden'} ${newActiveList ? 'flex' : 'hidden'} flex-col items-start justify-start h-auto bg-white top-12 p-4 z-10`}>
+                                                    {
+                                                        list.filter((rejectItem) => rejectItem !== 'নির্বাচন করুন').map((listItem, index) => {
+                                                            return (
+                                                                <div className={`cursor-pointer group py-2 pl-1 w-full relative hover:bg-green-700 hover:text-white flex items-center ${(newList.includes(listItem)) || elem.workList?.includes(listItem) ? 'bg-green-700  text-white border-b border-b-white' : 'bg-white text-black'}`} key={index}>
+                                                                    <li className={`w-full text-start`} onClick={() => {
+                                                                        !elem.workList?.includes(listItem) && !newList.includes(listItem) && setNewList((prev) => [...prev, listItem]);
+                                                                    }}>
+                                                                        {listItem}
+                                                                    </li>
+
+                                                                    {
+                                                                        elem.workList?.includes(listItem) && (
+                                                                            <button className={`absolute right-0.5 z-20 text-2xl `} onClick={() => editAdminData(elem.username, listItem)}><MdDeleteForever /></button>
+                                                                        )
+                                                                    }
+                                                                    {
+                                                                        newList.includes(listItem) && (
+                                                                            <button className={`absolute right-0.5 z-20 text-2xl `} onClick={() => {
+                                                                                setNewList(newList.filter((match) => match !== listItem));
+                                                                            }}><MdDeleteForever /></button>
+                                                                        )
+                                                                    }
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                    <button className="bg-green-700 px-7 py-1.5 text-white rounded-md mt-2 hover:bg-white hover:text-green-700 transition-all duration-300 self-center border border-green-700" onClick={() => editAdminData(elem.username)}>Set</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
