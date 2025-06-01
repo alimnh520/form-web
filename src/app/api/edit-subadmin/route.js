@@ -6,6 +6,10 @@ export const POST = async (request) => {
     try {
         const { username, newList, item } = await request.json();
 
+        if (!item && newList.length < 1) {
+            return NextResponse.json({ message: 'Select a list', success: false });
+        }
+
         const collection = (await dbConnection()).collection('admin');
 
         if (item) {
@@ -13,6 +17,7 @@ export const POST = async (request) => {
                 $pull: { workList: item }
             });
         }
+
         await collection.findOneAndUpdate({ username }, {
             $push: {
                 workList: {

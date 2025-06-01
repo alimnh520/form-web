@@ -152,7 +152,7 @@ export const NIDserverCopy = () => {
                                             <div className="flex items-center justify-center border-r border-b py-3 overflow-x-scroll">{elem.nidnum ? <p>{elem.nidnum}</p> : <button><ImCross /></button>}</div>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.dob}</p>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
-                                            <a href={elem.action} className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600">{
+                                            <a href={elem.action?.replace("/upload/", "/upload/fl_attachment/")} className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600">{
                                                 elem.status === 'complete' ? <ImFolderDownload /> : <ImCross />
                                             }</a>
                                         </div>

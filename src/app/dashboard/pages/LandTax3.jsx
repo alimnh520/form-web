@@ -69,15 +69,24 @@ export const LandTax3 = () => {
         setLoading(true);
         try {
             const formData = new FormData();
-            formData.append('id', id);
-            formData.append('type', type);
-            formData.append('pdfFile', pdfFile);
-            formData.append('publicUrl', publicUrl);
-            const res = await fetch('/api/user/edit-data/editLandTax3', {
-                method: "POST",
-                body: formData
+            formData.append('file', pdfFile);
+            formData.append('upload_preset', 'form-submit');
+            formData.append('cloud_name', 'dtitguuwt');
+
+            const res = await fetch('https://api.cloudinary.com/v1_1/dtitguuwt/raw/upload', {
+                method: 'POST',
+                body: formData,
             });
-            const data = await res.json();
+            const cloudData = await res.json();
+            const sourceUrl = cloudData.secure_url;
+            const publicId = cloudData.public_id;
+
+            const response = await fetch('/api/user/edit-data/editLandTax3', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, type, sourceUrl, publicUrl, publicId})
+            });
+            const data = await response.json();
             setLoading(false);
             setMessage(data.message);
             if (data.success) {

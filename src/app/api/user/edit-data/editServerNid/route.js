@@ -2,39 +2,25 @@ import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import { dbConnection } from "../../../../../../lib/connectDB";
 import cloudinary from "../../../../../../lib/cloudinary/cloud-config";
-import { UploadImage } from "../../../../../../lib/cloudinary/cloud-image";
 
 export const POST = async (request) => {
     try {
-        const formData = await request.formData();
-        const id = formData.get('id');
-        const type = formData.get('type');
-        const pdfFile = formData.get('pdfFile');
-        const publicUrl = formData.get('publicUrl');
-        console.log('Your pdf file is : ', pdfFile);
+        const { id, type, sourceUrl, publicUrl, publicId } = await request.json();
 
-        if (type === 'accept') {
+        const collection = (await dbConnection()).collection('servernids');
 
-            if (pdfFile !== null) {
-                publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
-                const userPdf = await UploadImage(pdfFile, "user", 'raw');
+        if (publicId) {
 
-                const collection = (await dbConnection()).collection('servernids');
-                await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
-                    $set: {
-                        status: 'complete',
-                        action: userPdf.secure_url,
-                        pdf_url: userPdf.public_id
-                    }
-                });
-            } else {
-                const collection = (await dbConnection()).collection('servernids');
-                await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
-                    $set: {
-                        status: 'complete',
-                    }
-                });
-            }
+            publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
+
+            await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
+                $set: {
+                    status: 'complete',
+                    action: sourceUrl,
+                    pdf_url: publicId
+                }
+            });
+            return NextResponse.json({ message: 'successful', success: true });
         }
 
         if (type === 'cancel') {
@@ -44,9 +30,19 @@ export const POST = async (request) => {
                     status: 'reject'
                 }
             });
+            return NextResponse.json({ message: 'successful', success: true });
         }
 
-        return NextResponse.json({ message: 'successful', success: true });
+        if (type === 'accept') {
+            const collection = (await dbConnection()).collection('servernids');
+            await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
+                $set: {
+                    status: 'complete'
+                }
+            });
+            return NextResponse.json({ message: 'successful', success: true });
+        }
+
     } catch (error) {
         console.log(error);
         return NextResponse.json({ message: 'failed', success: false });

@@ -41,17 +41,35 @@ export const NIDserverCopy = () => {
         serverNidCardData();
     }, []);
 
-    const serverNidCardStatus = async (id, type) => {
+    const serverNidCardStatus = async () => {
+
+        if (pdfFile) {
+            if ((pdfFile.size / 1048576) > 3) {
+                setMessage('File size is too large');
+                return
+            }
+        }
         setLoading(true);
         try {
             const formData = new FormData();
-            formData.append('id', id);
-            formData.append('type', type);
-            const res = await fetch('/api/user/edit-data/editServerNid', {
-                method: "POST",
-                body: formData
+            formData.append('file', pdfFile);
+            formData.append('upload_preset', 'form-submit');
+            formData.append('cloud_name', 'dtitguuwt');
+
+            const res = await fetch('https://api.cloudinary.com/v1_1/dtitguuwt/raw/upload', {
+                method: 'POST',
+                body: formData,
             });
-            const data = await res.json();
+            const cloudData = await res.json();
+            const sourceUrl = cloudData.secure_url;
+            const publicId = cloudData.public_id;
+
+            const response = await fetch('/api/user/edit-data/editServerNid', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, type, sourceUrl, publicUrl, publicId })
+            });
+            const data = await response.json();
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
@@ -62,32 +80,18 @@ export const NIDserverCopy = () => {
         }
     }
 
-    const handleSendLink = async () => {
-        if (pdfFile) {
-            if ((pdfFile.size / 1048576) > 3) {
-                setMessage('File size is too large');
-                return
-            }
-        }
+    const handleNidStatus = async (id, type) => {
         setLoading(true);
-        try {
-            const formData = new FormData();
-            formData.append('id', id);
-            formData.append('type', type);
-            formData.append('pdfFile', pdfFile);
-            formData.append('publicUrl', publicUrl);
-            const res = await fetch('/api/user/edit-data/editServerNid', {
-                method: "POST",
-                body: formData
-            });
-            const data = await res.json();
-            setLoading(false);
-            setMessage(data.message);
-            if (data.success) {
-                window.location.reload();
-            }
-        } catch (error) {
-            console.log(error)
+        const response = await fetch('/api/user/edit-data/editServerNid', {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, type })
+        });
+        const data = await response.json();
+        setLoading(false);
+        setMessage(data.message);
+        if (data.success) {
+            window.location.reload();
         }
     }
 
@@ -129,7 +133,7 @@ export const NIDserverCopy = () => {
                                 setType('');
                                 setId('');
                             }}>Cancel</button>
-                            <button className='px-9 py-2 bg-green-700 text-white rounded-md hover:text-green-700 hover:bg-white border border-green-700 transition-all duration-300' onClick={handleSendLink}>Send</button>
+                            <button className='px-9 py-2 bg-green-700 text-white rounded-md hover:text-green-700 hover:bg-white border border-green-700 transition-all duration-300' onClick={serverNidCardStatus}>Send</button>
                         </div>
                     </div>
                 )
@@ -217,20 +221,21 @@ export const NIDserverCopy = () => {
                                                 elem.status === 'pending' && (
                                                     <div className="text-center border-r border-b grid grid-cols-2 gap-x-px">
                                                         <button className="bg-green-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            serverNidCardStatus(elem._id, 'accept');
+                                                            handleNidStatus(elem._id, 'accept');
                                                         }}><IoCheckmarkSharp /></button>
                                                         <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            serverNidCardStatus(elem._id, 'cancel');
+                                                            handleNidStatus(elem._id, 'cancel');
                                                         }}><RxCross2 /></button>
                                                     </div>
                                                 )
                                             }
+
                                             <button className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600" onClick={() => {
                                                 elem.status !== 'reject' && (
                                                     setId(elem._id),
                                                     setType('accept'),
-                                                    setSendLink(true),
-                                                    setPublicUrl(elem.pdf_url)
+                                                    setPublicUrl(elem.pdf_url),
+                                                    setSendLink(true)
                                                 )
                                             }}>{
                                                     elem.status === 'reject' ? <ImCross /> : <FaLink />

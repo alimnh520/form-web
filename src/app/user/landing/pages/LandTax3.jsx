@@ -408,7 +408,7 @@ export const LandTax3 = () => {
                                             <a href={`${elem.dakhila_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
 
                                             <div className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status === 'complete' ? (
-                                                <a href={elem.action} className="text-3xl flex items-center justify-center"><ImFolderDownload /></a>
+                                                <a href={elem.action?.replace("/upload/", "/upload/fl_attachment/")} className="text-3xl flex items-center justify-center"><ImFolderDownload /></a>
                                             ) : elem.status}</div>
                                         </div>
                                     </div>
