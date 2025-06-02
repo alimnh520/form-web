@@ -29,9 +29,6 @@ export const POST = async (request) => {
         }
 
         const response = NextResponse.json({ message: 'Password set successfully', success: true });
-        
-        userMobile && response.cookies.delete('mobile');
-        userMail && response.cookies.delete('email');
         response.cookies.delete('password');
         return response;
 
