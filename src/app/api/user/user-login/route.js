@@ -50,7 +50,7 @@ export const POST = async (request) => {
                 await collection.findOneAndUpdate({ mobile }, {
                     $set: {
                         isLogged: true,
-                        loggedExpire: Date.now() + 30 * 24 * 60 * 60 * 1000
+                        loggedExpire: Date.now() + 1 * 24 * 60 * 60 * 1000
                     }
                 });
                 const response = NextResponse.json({ message: 'Login successful', success: true });
@@ -58,7 +58,7 @@ export const POST = async (request) => {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
                     sameSite: 'strict',
-                    maxAge: 30 * 24 * 60 * 60
+                    maxAge: 1 * 24 * 60 * 60
                 });
                 return response
             }
@@ -96,6 +96,7 @@ export const POST = async (request) => {
                 return NextResponse.json({ message: 'Waiting for approve', type: 'pending', success: false });
             }
             const currentTime = Date.now();
+
             if (user.isLogged && user.loggedExpire > currentTime) {
                 return NextResponse.json({ message: 'User already login', success: false });
             }
@@ -105,7 +106,7 @@ export const POST = async (request) => {
                 await collection.findOneAndUpdate({ email }, {
                     $set: {
                         isLogged: true,
-                        loggedExpire: Date.now() + 30 * 24 * 60 * 60 * 1000
+                        loggedExpire: Date.now() + 1 * 24 * 60 * 60 * 1000
                     }
                 });
 
@@ -114,7 +115,7 @@ export const POST = async (request) => {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
                     sameSite: 'strict',
-                    maxAge: 30 * 24 * 60 * 60
+                    maxAge: 1 * 24 * 60 * 60
                 });
                 return response
             }
