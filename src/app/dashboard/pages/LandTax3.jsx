@@ -41,14 +41,12 @@ export const LandTax3 = () => {
     const landTaxStatus3 = async (id, type) => {
         setLoading(true);
         try {
-            const formData = new FormData();
-            formData.append('id', id);
-            formData.append('type', type);
-            const res = await fetch('/api/user/edit-data/editLandTax3', {
+            const response = await fetch('/api/user/edit-data/editLandTax3', {
                 method: "POST",
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, type })
             });
-            const data = await res.json();
+            const data = await response.json();
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
@@ -84,7 +82,7 @@ export const LandTax3 = () => {
             const response = await fetch('/api/user/edit-data/editLandTax3', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, type, sourceUrl, publicUrl, publicId})
+                body: JSON.stringify({ id, type, sourceUrl, publicUrl, publicId })
             });
             const data = await response.json();
             setLoading(false);
