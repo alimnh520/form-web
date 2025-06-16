@@ -107,7 +107,6 @@ export const LandTax3 = () => {
         setMobile('');
     };
 
-    console.log(LandTax3)
 
     return (
         <div className="w-full h-full flex flex-col items-center p-7">

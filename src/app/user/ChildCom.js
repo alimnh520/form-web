@@ -44,7 +44,7 @@ const ChildCom = ({ children }) => {
     }, []);
 
     return (
-        <UserProvider className='w-full h-screen scroll-smooth max-w-[1250px] mx-auto' value={{user, admin}} >
+        <UserProvider className='w-full h-auto scroll-smooth' value={{user, admin}} >
             {(!routePath && !setHiddenPath && !nidPath) && <Header />}
             <div className='mt-16'>{children}</div>
             {(!routePath && !setHiddenPath && !nidPath) && <Footer />}

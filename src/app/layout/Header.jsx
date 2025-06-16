@@ -38,24 +38,19 @@ const Header = () => {
     }
   };
 
-  let date = new Date();
 
-  const monthsInBangla = [
-    'বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ', 'ভাদ্র', 'আশ্বিন',
-    'কার্তিক', 'অগ্রহায়ণ', 'পৌষ', 'মাঘ', 'ফাল্গুন', 'চৈত্র'
+  let date = new Date();
+  // 📅 বাংলা মাসের নাম
+  const banglaMonths = [
+    'বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ', 'ভাদ্র', 'আশ্বিন',
+    'কার্তিক', 'অগ্রহায়ণ', 'পৌষ', 'মাঘ', 'ফাল্গুন', 'চৈত্র'
   ];
 
-  const banglaNumberDate = ['১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', '১০', '১১', '১২', '১৩', '১৪', '১৫', '১৬', '১৭', '১৮', '১৯', '২০', '২১', '২২', '২৩', '২৪', '২৫', '২৬', '২৭', '২৮', '২৯', '৩০', '৩১'];
-
-  // get bangla year
-  const banglaYear = (date.getFullYear() - 593).toString().split('');
-  const getYear = `${banglaNumberDate[banglaYear[0] - 1]}${banglaNumberDate[banglaYear[1] - 1]}${banglaNumberDate[banglaYear[2] - 1]}${banglaNumberDate[banglaYear[3] - 1]}`
-
-  // get bangla date
-  const day = banglaNumberDate[date.getDate() + (date.getDate() > 14 ? -15 : 16)];
-
-  // get bangla month
-  const month = monthsInBangla[5 - date.getMonth()];
+  // 🔢 ইংরেজি সংখ্যাকে বাংলা সংখ্যায় রূপান্তর
+  const convertToBanglaNumber = (num) => {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return num.toString().split('').map(d => banglaDigits[+d] || d).join('');
+  };
 
   const option = {
     year: "numeric",
@@ -67,6 +62,22 @@ const Header = () => {
   const banglaDate = new Intl.DateTimeFormat("bn-BD", option).format(date);
 
   const splitDate = banglaDate.split(',');
+
+  // 🎯 বাংলা তারিখ বের করা (সাধারণ নিয়মে, নিখুঁত নয় কিন্তু ইউজার ফ্রেন্ডলি)
+  function getBanglaDate() {
+    const engDate = new Date();
+    const day = engDate.getDate();
+    const month = engDate.getMonth(); // 0 index
+    const year = engDate.getFullYear();
+
+    // একটা রাফ অনুমান ভিত্তিক হিসাব (বাংলা মাস সাধারণত ইংরেজি মাসের মাঝামাঝি শুরু হয়)
+    const banglaDay = convertToBanglaNumber((day + 16) % 30 || 1);
+    const banglaMonth = banglaMonths[(month + 9) % 12];
+    const banglaYear = convertToBanglaNumber(year - 593); // Approx Bengali Year
+
+    return `${splitDate[0]}, ${banglaDay} ${banglaMonth} ${banglaYear} , ${splitDate[1]} ${splitDate[2]}`;
+  }
+
 
   return (
     <div className="w-full h-16 bg-white flex items-center justify-between px-10 shadow-2xl fixed top-0 z-40 sm:px-5 sm:h-auto sm:flex-col">
@@ -85,7 +96,7 @@ const Header = () => {
       <div className="w-[85%] h-full flex flex-col items-center justify-between sm:w-full">
         <div className="w-full h-[50%] bg-gradient-to-l text-white from-white via-green-800 to-white flex items-center justify-center text-sm font-[500]">
 
-          <p className="left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0">{splitDate[0]} {day} {month} {getYear},{splitDate[1]}{splitDate[2]}</p>
+          <p className="left-1/2 text-[15px] -translate-x-1/2 sm:left-0 sm:translate-x-0">{getBanglaDate()}</p>
 
         </div>
 
