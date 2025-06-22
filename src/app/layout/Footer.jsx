@@ -50,7 +50,7 @@ const Footer = () => {
                 <p className='text-2xl text-green-800'>সামাজিক যোগাযোগ</p>
                 <div className="flex items-center justify-center gap-x-3">
                     <Link href="https://www.facebook.com/profile.php?id=61571803631079&_rdc=1&_rdr#" className='text-4xl text-blue-700'><FaFacebookSquare /></Link>
-                    <Link href="" className='text-4xl text-green-700'><FaWhatsappSquare /></Link>
+                    <Link href="https://wa.link/1sjqhm" className='text-4xl text-green-700'><FaWhatsappSquare /></Link>
                     <Link href="https://www.youtube.com/@bdbihigram" className='text-4xl text-red-600'><FaYoutubeSquare /></Link>
                     <Link href="" className='text-4xl text-blue-900'><FaTwitterSquare /></Link>
                 </div>
