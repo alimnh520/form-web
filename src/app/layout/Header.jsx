@@ -2,12 +2,13 @@
 import { IoIosArrowDropdownCircle, IoMdLogOut } from "react-icons/io";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Header = () => {
   const [token, setToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [hideMenu, setHideMenu] = useState(false);
+  const path = usePathname();
 
   useEffect(() => {
     const userToken = async () => {
@@ -107,10 +108,10 @@ const Header = () => {
         </div>
 
         <nav className={`w-full h-[50%] flex items-center justify-end gap-x-5 sm:flex-col sm:items-start sm:gap-y-3 sm:justify-center transition-all duration-300 sm:overflow-hidden ${hideMenu ? ' sm:h-56' : ' sm:h-0'}`}>
-          <Link href="/" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>হোম</Link>
-          <Link href="/components/services" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>সার্ভিস</Link>
-          <Link href="/components/services" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>প্রবাসী সেবা</Link>
-          <Link href="" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>যোগাযোগ</Link>
+          <Link href="/" className={`text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 ${path === '/' ? 'text-green-700' : 'text-black'} transition-all duration-300`} onClick={() => setHideMenu(!hideMenu)}>হোম</Link>
+          <Link href="/components/services" className={`text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 ${path === '/components/services' ? 'text-green-700' : 'text-black'} transition-all duration-300`} onClick={() => setHideMenu(!hideMenu)}>সার্ভিস</Link>
+          <Link href="/components/probashi" className={`text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 ${path === '/components/probashi' ? 'text-green-700' : 'text-black'} transition-all duration-300`} onClick={() => setHideMenu(!hideMenu)}>প্রবাসী সেবা</Link>
+          <Link href="/components/contact" className={`text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 ${path === '/components/contact' ? 'text-green-700' : 'text-black'} transition-all duration-300`} onClick={() => setHideMenu(!hideMenu)}>যোগাযোগ</Link>
           {
             token && (
               <button className="text-xl bg-green-700 text-white rounded-full p-0.5 font-medium px-2 py-0.5 hover:text-green-700 hover:bg-transparent transition-all duration-300 sm:ml-5" onClick={logoutPage}>
