@@ -22,7 +22,7 @@ export const middleware = async (request) => {
   }
 
   if (!profile && path === "/user/landing") {
-    return NextResponse.redirect(new URL("/user/registration", request.url));
+    return NextResponse.redirect(new URL("/user/login", request.url));
   }
 
   if (profile && (path === "/user/registration" || path === "/user/login")) {

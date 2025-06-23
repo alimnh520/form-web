@@ -109,6 +109,7 @@ const Header = () => {
         <nav className={`w-full h-[50%] flex items-center justify-end gap-x-5 sm:flex-col sm:items-start sm:gap-y-3 sm:justify-center transition-all duration-300 sm:overflow-hidden ${hideMenu ? ' sm:h-56' : ' sm:h-0'}`}>
           <Link href="/" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>হোম</Link>
           <Link href="/components/services" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>সার্ভিস</Link>
+          <Link href="/components/services" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>প্রবাসী সেবা</Link>
           <Link href="" className="text-lg font-medium px-2 rounded-2xl py-0.5 hover:text-green-700 transition-all duration-300" onClick={() => setHideMenu(!hideMenu)}>যোগাযোগ</Link>
           {
             token && (
