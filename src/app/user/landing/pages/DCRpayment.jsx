@@ -13,6 +13,7 @@ export const DCRpayment = () => {
     const [division, setDivision] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
+    const [takaKata, setTakaKata] = useState(false);
     if (message) {
         setTimeout(() => {
             setMessage('');
@@ -82,6 +83,23 @@ export const DCRpayment = () => {
                 )
             }
 
+            {takaKata &&
+                <div className="w-80 h-44 absolute z-20 top-1/3 bg-white border border-green-600 flex flex-col items-center justify-center gap-y-8 rounded-md">
+                    <p className='text-lg text-center'>আপনার একাউন্ট থেকে ১১১০ টাকা কেটে নেওয়া হবে।</p>
+                    <div className="w-full h-auto  rounded-md flex items-center justify-center gap-x-5">
+                        <button className="px-5 py-1.5 text-lg font-semibold bg-red-600 hover:bg-transparent border border-red-600 transition-all duration-300 hover:text-red-600 text-white rounded-lg" onClick={() => setTakaKata(false)}>
+                            বাতিল করুন
+                        </button>
+                        <button className="px-5 py-1.5 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={() => {
+                            handleDcrPayment();
+                            setTakaKata(false);
+                        }}>
+                            জমা দিন
+                        </button>
+                    </div>
+                </div>
+            }
+
             <h1 className="text-4xl text-center w-full font-bold border-b border-b-gray-400 py-5">
                 ডি,সি,আর পেমেন্ট
             </h1>
@@ -115,7 +133,7 @@ export const DCRpayment = () => {
                             onChange={(e) => setAbedon(e.target.value)} />
                     </div>
                 </div>
-                <button className="w-full relative py-4 h-12 flex items-center justify-center bg-green-500 text-white transition-all hover:bg-green-700 duration-300 border border-green-500 rounded-md" onClick={handleDcrPayment}>
+                <button className="w-full relative py-4 h-12 flex items-center justify-center bg-green-500 text-white transition-all hover:bg-green-700 duration-300 border border-green-500 rounded-md" onClick={() => setTakaKata(true)}>
                     সাবমিট করুন
                 </button>
             </div>

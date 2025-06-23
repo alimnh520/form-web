@@ -20,6 +20,7 @@ import { NIDcard } from "./pages/NIDcard";
 import { NIDserverCopy } from "./pages/NIDserverCopy";
 import SubAdmin from "./pages/SubAdmin";
 import { MouzaMap } from "./pages/MouzaMap";
+import Recharge from "./pages/Recharge";
 
 const page = () => {
   const [name, setName] = useState(false);
@@ -46,6 +47,7 @@ const page = () => {
   const [serverNidCard, setServerNidCard] = useState(false);
   const [subAdmin, setSubAdmin] = useState(false);
   const [mouzamap, setMouzaMap] = useState(false);
+  const [recharge, setRecharge] = useState(false);
 
   if (message) {
     setTimeout(() => {
@@ -280,13 +282,29 @@ const page = () => {
               setMouzaMap(false);
               setServerNidCard(false);
               setSubAdmin(false);
+              setRecharge(false);
             }}>উদ্যোক্তা <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
             <button className={`w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
               setLandTax(false);
               setLandTax2(false);
               setLandTax3(false);
               setLandTaxSelf(false)
+              setDcrPayment(false);
+              setProsason(false);
               setUddokta(false);
+              setNidCard(false);
+              setMouzaMap(false);
+              setServerNidCard(false);
+              setSubAdmin(false);
+              setRecharge(!recharge);
+            }}>রিচার্জ <span className={`absolute right-5 bg-white p-1.5 rounded-full ${recharge ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <button className={`w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+              setLandTax(false);
+              setLandTax2(false);
+              setLandTax3(false);
+              setLandTaxSelf(false)
+              setUddokta(false);
+              setRecharge(false);
               setDcrPayment(false);
               setProsason(!prosason);
               setNidCard(false);
@@ -300,6 +318,7 @@ const page = () => {
               setLandTax3(false);
               setLandTaxSelf(false)
               setUddokta(false);
+              setRecharge(false);
               setDcrPayment(false);
               setProsason(false);
               setNidCard(false);
@@ -314,6 +333,7 @@ const page = () => {
               setLandTaxSelf(false)
               setProsason(false);
               setUddokta(false);
+              setRecharge(false);
               setDcrPayment(!dcrPayment);
               setNidCard(false);
               setMouzaMap(false);
@@ -328,6 +348,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setRecharge(false);
               setNidCard(false);
               setMouzaMap(false);
               setServerNidCard(false);
@@ -341,6 +362,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setRecharge(false);
               setNidCard(false);
               setMouzaMap(false);
               setServerNidCard(false);
@@ -354,6 +376,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setRecharge(false);
               setNidCard(false);
               setMouzaMap(false);
               setServerNidCard(false);
@@ -367,6 +390,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setRecharge(false);
               setNidCard(false);
               setMouzaMap(false);
               setServerNidCard(false);
@@ -381,6 +405,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setRecharge(false);
               setNidCard(false);
               setMouzaMap(false);
               setServerNidCard(!serverNidCard);
@@ -394,6 +419,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setRecharge(false);
               setServerNidCard(false);
               setSubAdmin(false);
               setNidCard(!nidCard);
@@ -407,6 +433,7 @@ const page = () => {
               setDcrPayment(false);
               setProsason(false);
               setUddokta(false);
+              setRecharge(false);
               setServerNidCard(false);
               setSubAdmin(false);
               setNidCard(false);
@@ -426,6 +453,9 @@ const page = () => {
 
           {
             isUddokta && <Uddokta />
+          }
+          {
+            recharge && <Recharge/>
           }
           {
             prosason && <Prosason />
@@ -459,7 +489,7 @@ const page = () => {
           }
 
           {
-            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !serverNidCard && !subAdmin && !mouzamap && (
+            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !serverNidCard && !subAdmin && !mouzamap && !recharge && (
               <div className="w-full flex flex-col items-center gap-y-4 mt-16">
                 <h1 className="text-xl font-semibold text-center">রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span></h1>
                 <h1 className="text-3xl font-light text-center text-green-700">আপনাকে স্বাগতম !</h1>

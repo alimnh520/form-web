@@ -72,10 +72,10 @@ export const Prosason = () => {
 
 
             <div className="w-full h-auto flex flex-col items-center mt-10">
-                <div className="w-full gap-x-1 grid grid-cols-3 bg-green-600 text-white font-bold">
+                <div className="w-full grid grid-cols-3 bg-green-600 text-white font-bold">
                     <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
                     <p className="text-center border-r border-b py-3">Username</p>
-                    <p className="text-center border-r py-3">Password</p>
+                    <p className="text-center border-r border-b py-3">Password</p>
                 </div>
                 {
                     loginUser ? (

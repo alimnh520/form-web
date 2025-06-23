@@ -15,6 +15,7 @@ export const NIDserverCopy = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [select, setSelect] = useState(true);
+    const [takaKata, setTakaKata] = useState(false);
 
     if (message) {
         setTimeout(() => {
@@ -38,7 +39,6 @@ export const NIDserverCopy = () => {
     }, []);
 
     const submitServerNidData = async (e) => {
-        e.preventDefault();
         if (select && !nidNum) {
             setMessage('Fill up all');
             return
@@ -81,6 +81,23 @@ export const NIDserverCopy = () => {
                     </p>
 
                 )
+            }
+
+            {takaKata &&
+                <div className="w-80 h-44 absolute z-20 top-1/3 bg-white border border-green-600 flex flex-col items-center justify-center gap-y-8 rounded-md">
+                    <p className='text-lg text-center'>আপনার একাউন্ট থেকে ১৫ টাকা কেটে নেওয়া হবে।</p>
+                    <div className="w-full h-auto  rounded-md flex items-center justify-center gap-x-5">
+                        <button className="px-5 py-1.5 text-lg font-semibold bg-red-600 hover:bg-transparent border border-red-600 transition-all duration-300 hover:text-red-600 text-white rounded-lg" onClick={() => setTakaKata(false)}>
+                            বাতিল করুন
+                        </button>
+                        <button className="px-5 py-1.5 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={() => {
+                            submitServerNidData();
+                            setTakaKata(false);
+                        }}>
+                            জমা দিন
+                        </button>
+                    </div>
+                </div>
             }
 
             <h1 className='text-4xl w-full text-center font-bold border-b border-b-gray-400 py-5'>NID সার্ভার কপি</h1>
@@ -127,7 +144,7 @@ export const NIDserverCopy = () => {
                     </div>
                 </div>
 
-                <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={submitServerNidData}>জমা দিন</button>
+                <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={() => setTakaKata(true)}>জমা দিন</button>
             </div>
 
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">

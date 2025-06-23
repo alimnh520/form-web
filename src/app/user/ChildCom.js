@@ -14,6 +14,7 @@ const ChildCom = ({ children }) => {
     const hiddenPath = ['/office'];
     const setHiddenPath = hiddenPath.includes(pathName);
     const nidPath = pathName.startsWith('/dashboard/pages');
+    const hideFooter = pathName.startsWith('/dashboard');
 
     useEffect(() => {
         async function userData(params) {
@@ -47,7 +48,7 @@ const ChildCom = ({ children }) => {
         <UserProvider className='w-full h-auto scroll-smooth' value={{user, admin}} >
             {(!routePath && !setHiddenPath && !nidPath) && <Header />}
             <div className='mt-16'>{children}</div>
-            {(!routePath && !setHiddenPath && !nidPath) && <Footer />}
+            {(!routePath && !setHiddenPath && !nidPath && !hideFooter) && <Footer />}
         </UserProvider>
     )
 }

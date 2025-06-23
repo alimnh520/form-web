@@ -1,4 +1,5 @@
 'use client'
+import { RxCross2 } from "react-icons/rx";
 import { IoMdLogOut } from "react-icons/io";
 import { HiOutlineCurrencyBangladeshi } from "react-icons/hi";
 import { LuMenu } from "react-icons/lu";
@@ -56,6 +57,9 @@ const page = () => {
     const [dcrPayment, setDcrPayment] = useState(false);
     const [nidCard, setNidCard] = useState(false);
     const [ServerNidCard, setServerNidCard] = useState(false);
+    const [balance, setBalance] = useState(false);
+    const [amount, setAmount] = useState('');
+    const [trxnum, setTrxnum] = useState('');
 
     // edit user name
     const handleNameEdit = async () => {
@@ -168,7 +172,28 @@ const page = () => {
             document.body.style.background = '#eff9f1'
         }
 
-    }, [dcrPayment,landTax,landTax2,landTax3,landTaxSelf,nidCard,ServerNidCard]);
+    }, [dcrPayment, landTax, landTax2, landTax3, landTaxSelf, nidCard, ServerNidCard]);
+
+
+    const addPayment = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch('/api/user/payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: user.email, username: user.username, amount, trxnum })
+            });
+            setLoading(false);
+            const data = await res.json();
+            setMessage(data.message);
+            if (data.success) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <div className="w-full h-auto flex flex-col items-center -mt-16 justify-start bg-[#eff9f1] relative sm-device">
@@ -189,6 +214,34 @@ const page = () => {
 
                 )
             }
+
+
+
+            {balance &&
+                <div className="absolute size-96 bg-[#de1d6e] top-40 border z-10 flex flex-col items-center px-1 py-3 gap-y-3 text-white">
+                    <div className="w-full relative h-24 px-8 bg-white flex items-center justify-center">
+
+                        <button className="absolute top-0 right-0 bg-[#df1e6f] text-white text-2xl" onClick={() => setBalance(false)}><RxCross2 /></button>
+
+                        <div className="h-12 w-full flex items-center justify-center border-[#de1d6e] border-2 rounded-tl-xl rounded-bl-xl rounded-br-xl">
+                            <img src="/logos/1656227518bkash-logo-png.webp" alt="" className="h-16 -mt-2" />
+                            <p className="text-2xl mt-2 text-[#de1d6e]">Payment</p>
+                        </div>
+                    </div>
+
+                    <p className="text-lg text-center">সর্বনিম্ন ১০০ টাকা পেমেন্ট করে ৫ মিনিট অপেক্ষা করুন!</p>
+                    {/* <p>Merchant : <span></span> </p> */}
+                    <div className="flex items-center justify-center  gap-x-2"><p>মার্সেন্ট নাম্বার : </p> <p className="text-lg mt-0.5"> 01850685033</p> </div>
+
+                    <div className="flex items-center justify-center  gap-x-2"><p>ট্রানজেকশন নাম্বার : </p> <input type="text" className="w-40 bg-white text-black outline-none p-1 rounded" value={trxnum} onChange={(e) => setTrxnum(e.target.value)} /> </div>
+
+                    <div className="flex items-center justify-center  gap-x-2"><p>টাকার পরিমান  : </p> <input type="number" className="w-20 font-semibold bg-white text-black outline-none p-1 rounded" value={amount} onChange={(e) => setAmount(e.target.value)} /> </div>
+
+                    <button className="bg-white font-semibold transition-all duration-300 hover:shadow-[inset_0_0_5px_#de1d6e] px-4 py-1.5 text-lg rounded mt-5 text-[#de1d6e]" onClick={addPayment}>পেমেন্ট করুন</button>
+
+                </div>
+            }
+
 
             <div className="w-full h-20 bg-white px-20 flex justify-between items-center shadow-[0_2px_10px_rgba(0,0,0,0.1)] z-10 gap-x-5">
                 <h1 className="text-[25px] text-green-700 font-bold animate-pulse">অনলাইন সংক্রান্ত সেবা</h1>
@@ -219,10 +272,13 @@ const page = () => {
                             )
                         )
                     }
+
+                    <p className="text-white bg-green-600 flex items-center justify-center gap-x-0.5 text-xl mt-0.5 ml-5 px-4 py-1 rounded-3xl cursor-pointer" onClick={() => setBalance(true)}>{user && user.balance}<span className="-mt-1"><HiOutlineCurrencyBangladeshi /></span></p>
+
                     <button className="text-[34px] justify-self-start" onClick={handleLogout}>
                         <IoMdLogOut />
                     </button>
-                    <p className="text-black flex items-center justify-center gap-x-0.5 text-3xl mt-1.5 pl-5">{user && user.balance}<span className="-mt-1"><HiOutlineCurrencyBangladeshi /></span></p>
+
                 </div>
             </div>
 
@@ -342,10 +398,10 @@ const page = () => {
                             setServerNidCard(false);
                             setNidCard(!nidCard);
                         }}>NID কার্ড</button>
-                        <button className={`w-full border ${ false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>জন্ম নিবন্ধন অনলাইন কপি</button>
-                        <button className={`w-full border ${ false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন জন্ম নিবন্ধন আবেদন কপি</button>
-                        <button className={`w-full border ${ false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন পাসপোর্ট আবেদন</button>
-                        <button className={`w-full border ${ false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>বিবরণ</button>
+                        <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>জন্ম নিবন্ধন অনলাইন কপি</button>
+                        <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন জন্ম নিবন্ধন আবেদন কপি</button>
+                        <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন পাসপোর্ট আবেদন</button>
+                        <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>বিবরণ</button>
                     </div>
 
                 </div>

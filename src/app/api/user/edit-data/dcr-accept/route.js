@@ -4,7 +4,7 @@ import { dbConnection } from "../../../../../../lib/connectDB";
 
 export const POST = async (request) => {
     try {
-        const { id, type, fileLink } = await request.json();
+        const { id, type, fileLink, email } = await request.json();
 
         if (type === 'accept') {
             const collection = (await dbConnection()).collection('dcrpayments');
@@ -24,6 +24,13 @@ export const POST = async (request) => {
                 }
             });
         }
+
+        const collectionUser = (await dbConnection()).collection('userprofiles');
+        await collectionUser.findOneAndUpdate({ email }, {
+            $inc: {
+                balance: 1110
+            }
+        });
 
         return NextResponse.json({ message: 'successful', success: true });
     } catch (error) {

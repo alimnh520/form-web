@@ -35,13 +35,13 @@ export const DCRpayment = () => {
 
     }, []);
 
-    const handleDcrStatus = async (id, type) => {
+    const handleDcrStatus = async (id, type, email) => {
         setLoading(true);
         try {
             const res = await fetch('/api/user/edit-data/dcr-accept', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, type })
+                body: JSON.stringify({ id, type, email })
             });
             const data = await res.json();
             setLoading(false);
@@ -115,14 +115,14 @@ export const DCRpayment = () => {
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full gap-x-1 grid grid-cols-7 bg-green-600 text-white font-bold">
+                    <div className="w-full grid grid-cols-7 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
-                        <p className="text-center border-r py-3">নাম</p>
-                        <p className="text-center border-r py-3">বিভাগ</p>
-                        <p className="text-center border-r py-3">ডি,সি,আর পেমেন্ট</p>
-                        <p className="text-center border-r py-3">তথ্যের ধরণ</p>
-                        <p className="text-center border-r py-3">স্টাটাস</p>
-                        <p className="text-center border-r py-3">অ্যাকশন</p>
+                        <p className="text-center border-r border-b py-3">নাম</p>
+                        <p className="text-center border-r border-b py-3">বিভাগ</p>
+                        <p className="text-center border-r border-b py-3">ডি,সি,আর পেমেন্ট</p>
+                        <p className="text-center border-r border-b py-3">তথ্যের ধরণ</p>
+                        <p className="text-center border-r border-b py-3">স্টাটাস</p>
+                        <p className="text-center border-r border-b py-3">অ্যাকশন</p>
                     </div>
                     {
                         dcrData ? (
@@ -147,7 +147,7 @@ export const DCRpayment = () => {
                                                             handleDcrStatus(elem._id, 'accept');
                                                         }}><IoCheckmarkSharp /></button>
                                                         <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            handleDcrStatus(elem._id, 'cancel');
+                                                            handleDcrStatus(elem._id, 'cancel', elem.email);
                                                         }}><RxCross2 /></button>
                                                     </div>
                                                 )

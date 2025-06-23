@@ -109,13 +109,13 @@ export const Uddokta = () => {
             <div className="w-full h-auto flex flex-col items-center gap-y-5">
                 <p className="w-10/12 border-b text-center pb-1.5 border-b-gray-300 text-2xl font-semibold">উদ্যোক্তা একাউন্ট</p>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full gap-x-1 grid grid-cols-[40px_1fr_1fr_1fr_1fr_1fr] bg-green-600 text-white font-bold">
+                    <div className="w-full grid grid-cols-[40px_1fr_1fr_1fr_1fr_1fr] bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
-                        <p className="text-center border-r py-3">ইউজার নেম</p>
-                        <p className="text-center border-r py-3">ইমেইল</p>
-                        <p className="text-center border-r py-3">মোবাইল</p>
-                        <p className="text-center border-r py-3">স্টাটাস</p>
-                        <p className="text-center border-r py-3">ঠিকানা</p>
+                        <p className="text-center border-r py-3 border-b">ইউজার নেম</p>
+                        <p className="text-center border-r py-3 border-b">ইমেইল</p>
+                        <p className="text-center border-r py-3 border-b">মোবাইল</p>
+                        <p className="text-center border-r py-3 border-b">স্টাটাস</p>
+                        <p className="text-center border-r py-3 border-b">ঠিকানা</p>
                     </div>
                     {
                         uddoktaData ? (

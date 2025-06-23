@@ -111,7 +111,7 @@ export const SelfLandTax = () => {
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full gap-x-1 grid grid-cols-9 bg-green-600 text-white font-bold">
+                    <div className="w-full grid grid-cols-9 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
                         <p className="text-center border-r py-3">নাম</p>
                         <p className="text-center border-r py-3">বিভাগ</p>

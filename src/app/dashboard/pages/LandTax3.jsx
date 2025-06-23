@@ -38,13 +38,13 @@ export const LandTax3 = () => {
     }, []);
 
 
-    const landTaxStatus3 = async (id, type) => {
+    const landTaxStatus3 = async (id, type, email) => {
         setLoading(true);
         try {
             const response = await fetch('/api/user/edit-data/editLandTax3', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, type })
+                body: JSON.stringify({ id, type, email })
             });
             const data = await response.json();
             setLoading(false);
@@ -135,19 +135,19 @@ export const LandTax3 = () => {
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full gap-x-1 grid grid-cols-12 bg-green-600 text-white font-bold">
+                    <div className="w-full grid grid-cols-12 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
-                        <p className="text-center border-r py-3">বিভাগ</p>
-                        <p className="text-center border-r py-3">জেলা</p>
-                        <p className="text-center border-r py-3">উপজেলা</p>
-                        <p className="text-center border-r py-3">মৌজা</p>
-                        <p className="text-center border-r py-3">খতিয়ান নং</p>
-                        <p className="text-center border-r py-3">মোবাইল নং</p>
-                        <p className="text-center border-r py-3">খতিয়ান</p>
-                        <p className="text-center border-r py-3">দলিল</p>
-                        <p className="text-center border-r py-3">ছবি</p>
-                        <p className="text-center border-r py-3">দাখিলা</p>
-                        <p className="text-center border-r py-3">স্টাটাস</p>
+                        <p className="text-center border-r border-b py-3">বিভাগ</p>
+                        <p className="text-center border-r border-b py-3">জেলা</p>
+                        <p className="text-center border-r border-b py-3">উপজেলা</p>
+                        <p className="text-center border-r border-b py-3">মৌজা</p>
+                        <p className="text-center border-r border-b py-3">খতিয়ান নং</p>
+                        <p className="text-center border-r border-b py-3">মোবাইল নং</p>
+                        <p className="text-center border-r border-b py-3">খতিয়ান</p>
+                        <p className="text-center border-r border-b py-3">দলিল</p>
+                        <p className="text-center border-r border-b py-3">ছবি</p>
+                        <p className="text-center border-r border-b py-3">দাখিলা</p>
+                        <p className="text-center border-r border-b py-3">স্টাটাস</p>
                     </div>
                     {
                         LandTax3 ? (
@@ -171,7 +171,7 @@ export const LandTax3 = () => {
                                                 elem.status === 'pending' && (
                                                     <div className="text-center border-r border-b grid grid-cols-2 gap-x-px">
                                                         <button className='flex items-center justify-center text-2xl border-r text-red-600' onClick={() => {
-                                                            landTaxStatus3(elem._id, 'cancel');
+                                                            landTaxStatus3(elem._id, 'cancel', elem.email);
                                                         }}>
                                                             <ImCross />
                                                         </button>

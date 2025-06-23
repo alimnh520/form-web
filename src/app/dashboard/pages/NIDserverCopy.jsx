@@ -80,12 +80,12 @@ export const NIDserverCopy = () => {
         }
     }
 
-    const handleNidStatus = async (id, type) => {
+    const handleNidStatus = async (id, type, email) => {
         setLoading(true);
         const response = await fetch('/api/user/edit-data/editServerNid', {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, type })
+            body: JSON.stringify({ id, type, email})
         });
         const data = await response.json();
         setLoading(false);
@@ -192,14 +192,14 @@ export const NIDserverCopy = () => {
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full gap-x-1 grid grid-cols-7 bg-green-600 text-white font-bold">
+                    <div className="w-full grid grid-cols-7 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
-                        <p className="text-center border-r py-3">নাম</p>
-                        <p className="text-center border-r py-3">ভোটার নাম্বার</p>
-                        <p className="text-center border-r py-3">NID নাম্বার</p>
-                        <p className="text-center border-r py-3">জন্ম তারিখ</p>
-                        <p className="text-center border-r py-3">স্টাটাস</p>
-                        <p className="text-center border-r py-3">অ্যাকশন</p>
+                        <p className="text-center border-r border-b py-3">নাম</p>
+                        <p className="text-center border-r border-b py-3">ভোটার নাম্বার</p>
+                        <p className="text-center border-r border-b py-3">NID নাম্বার</p>
+                        <p className="text-center border-r border-b py-3">জন্ম তারিখ</p>
+                        <p className="text-center border-r border-b py-3">স্টাটাস</p>
+                        <p className="text-center border-r border-b py-3">অ্যাকশন</p>
                     </div>
                     {
                         serverNidData ? (
@@ -224,7 +224,7 @@ export const NIDserverCopy = () => {
                                                             handleNidStatus(elem._id, 'accept');
                                                         }}><IoCheckmarkSharp /></button>
                                                         <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            handleNidStatus(elem._id, 'cancel');
+                                                            handleNidStatus(elem._id, 'cancel', elem.email);
                                                         }}><RxCross2 /></button>
                                                     </div>
                                                 )

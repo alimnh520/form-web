@@ -17,6 +17,7 @@ export const POST = async (request) => {
         const hashedOtp = jwt.sign({ otp }, process.env.JWT_SECRET, { expiresIn: '2m' });
 
         if (type) {
+            return NextResponse.json({ message: "Server isn't ready", success: false });
             const user = await collection.findOne({ mobile });
 
             if (user) {

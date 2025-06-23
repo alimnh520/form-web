@@ -275,12 +275,12 @@ const SubAdmin = () => {
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full gap-x-1 grid grid-cols-[100px_1fr_1fr_1fr_1fr] bg-green-600 text-white font-bold">
+                    <div className="w-full grid grid-cols-[100px_1fr_1fr_1fr_1fr] bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
-                        <p className="text-center border-r py-3">ই-মেইল</p>
-                        <p className="text-center border-r py-3">নাম</p>
-                        <p className="text-center border-r py-3">পাসওয়ার্ড</p>
-                        <p className="text-center border-r py-3">দায়িত্ব</p>
+                        <p className="text-center border-r py-3 border-b">ই-মেইল</p>
+                        <p className="text-center border-r py-3 border-b">নাম</p>
+                        <p className="text-center border-r py-3 border-b">পাসওয়ার্ড</p>
+                        <p className="text-center border-r py-3 border-b">দায়িত্ব</p>
                     </div>
                     {
                         subAdmin ? (

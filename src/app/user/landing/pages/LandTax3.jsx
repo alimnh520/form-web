@@ -23,6 +23,7 @@ export const LandTax3 = () => {
     const [LandTax3, setLandTax3] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
+    const [takaKata, setTakaKata] = useState(false);
 
     if (message) {
         setTimeout(() => {
@@ -68,7 +69,6 @@ export const LandTax3 = () => {
     }, []);
 
     const submitLandTax3 = async (e) => {
-        e.preventDefault();
         if (!mobile || !khatianNumber || !mouzaName || !upazilaName || !districtName || !divisionName || !dakhila || !photo || !dolil || !khatian) {
             setMessage('Fill up all');
             return
@@ -127,6 +127,24 @@ export const LandTax3 = () => {
 
                 )
             }
+
+            {takaKata &&
+                <div className="w-80 h-44 absolute z-20 top-[250px] bg-white border border-green-600 flex flex-col items-center justify-center gap-y-8 rounded-md">
+                    <p className='text-lg text-center'>আপনার একাউন্ট থেকে ৩৭০ টাকা কেটে নেওয়া হবে।</p>
+                    <div className="w-full h-auto  rounded-md flex items-center justify-center gap-x-5">
+                        <button className="px-5 py-1.5 text-lg font-semibold bg-red-600 hover:bg-transparent border border-red-600 transition-all duration-300 hover:text-red-600 text-white rounded-lg" onClick={() => setTakaKata(false)}>
+                            বাতিল করুন
+                        </button>
+                        <button className="px-5 py-1.5 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={() => {
+                            submitLandTax3();
+                            setTakaKata(false);
+                        }}>
+                            জমা দিন
+                        </button>
+                    </div>
+                </div>
+            }
+
 
             <h1 className="text-4xl text-center w-full font-bold border-b border-b-gray-400 py-5">
                 মিউটেশন
@@ -365,7 +383,7 @@ export const LandTax3 = () => {
 
                 <button
                     type="submit"
-                    className="w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={submitLandTax3}
+                    className="w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={() => setTakaKata(true)}
                 >
                     জমা দিন
                 </button>

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDb } from "../../../../../../lib/mongodb";
 import LandTax3 from "../../../../../../models/LandTax3";
+import { dbConnection } from "../../../../../../lib/connectDB";
 
 export const POST = async (request) => {
     await connectDb();
@@ -26,6 +27,13 @@ export const POST = async (request) => {
             dakhila_id,
         });
         await addDetails.save();
+        const collection = (await dbConnection()).collection('userprofiles');
+        await collection.findOneAndUpdate({ email }, {
+            $inc: {
+                balance: -370
+            }
+        });
+
         return NextResponse.json({ message: "uploaded successfully", success: true });
     } catch (error) {
         console.log(error);

@@ -22,6 +22,13 @@ export const POST = async (request) => {
 
         await newUser.save();
 
+        const collection = (await dbConnection()).collection('userprofiles');
+        await collection.findOneAndUpdate({ email }, {
+            $inc: {
+                balance: -1110
+            }
+        });
+
         return NextResponse.json({ message: 'successful', success: true });
     } catch (error) {
         return NextResponse.json({ message: 'failed', success: false });

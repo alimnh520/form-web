@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDb } from "../../../../../../lib/mongodb";
 import ServerNIDCard from "../../../../../../models/ServerNIDCard";
+import { dbConnection } from "../../../../../../lib/connectDB";
 
 export async function POST(request) {
     try {
@@ -11,7 +12,7 @@ export async function POST(request) {
         if (!dobNum || !username || !email) {
             return NextResponse.json({ message: 'Fill up all', success: false });
         }
-        console.log(voterNum, nidNum, dobNum, username, email)
+
         const saveUser = new ServerNIDCard({
             username,
             email,
@@ -20,6 +21,13 @@ export async function POST(request) {
             dob: dobNum
         });
         await saveUser.save();
+
+        const collection = (await dbConnection()).collection('userprofiles');
+        await collection.findOneAndUpdate({ email }, {
+            $inc: {
+                balance: -15
+            }
+        });
 
         return NextResponse.json({ message: 'success', success: true });
     } catch (error) {
