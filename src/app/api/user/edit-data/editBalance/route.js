@@ -20,6 +20,9 @@ export const POST = async (request) => {
             await collection.findOneAndUpdate({ email }, {
                 $inc: {
                     balance: balance
+                },
+                $set: {
+                    active_balance: true,
                 }
             });
 

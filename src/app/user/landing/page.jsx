@@ -19,6 +19,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
 import { NIDcard } from "./pages/NIDcard";
 import { NIDserverCopy } from "./pages/NIDserverCopy";
+import { Driving } from "./pages/Driving";
 
 const page = () => {
     const router = useRouter();
@@ -58,6 +59,8 @@ const page = () => {
     const [nidCard, setNidCard] = useState(false);
     const [ServerNidCard, setServerNidCard] = useState(false);
     const [balance, setBalance] = useState(false);
+    const [driving, setDriving] = useState(false);
+
     const [amount, setAmount] = useState('');
     const [trxnum, setTrxnum] = useState('');
 
@@ -211,10 +214,6 @@ const page = () => {
         return taka.toString().replace(/[0-9]/g, digit => engToBangla[digit]);
     }
 
-    // const englishNum = 130;
-    // const getBangla = convertTaka(englishNum);
-    // console.log(getBangla);
-
 
     return (
         <div className="w-full h-auto flex flex-col items-center -mt-16 justify-start bg-[#eff9f1] relative sm-device">
@@ -264,7 +263,7 @@ const page = () => {
             }
 
 
-            <div className="w-full h-20 bg-white px-20 flex justify-between items-center shadow-[0_2px_10px_rgba(0,0,0,0.1)] z-10 gap-x-5">
+            <div className="w-full h-20 bg-white px-12 flex justify-between items-center shadow-[0_2px_10px_rgba(0,0,0,0.1)] z-10 gap-x-5">
                 <h1 className="text-[25px] text-green-700 font-bold animate-pulse">অনলাইন সংক্রান্ত সেবা</h1>
 
                 <div className="w-7/12 h-12 flex items-center justify-center gap-x-1">
@@ -305,7 +304,7 @@ const page = () => {
 
             <div className="w-full h-full flex items-start justify-center relative mt-3 gap-x-2">
 
-                <div className={`h-full relative ${hideMenu ? 'w-0 overflow-hidden px-0 opacity-0' : 'w-3/12 px-10 opacity-100'} transition-all duration-300 bg-white flex flex-col pt-5 items-start gap-y-5`}>
+                <div className={`h-screen overflow-y-scroll pb-10 relative ${hideMenu ? 'w-0 overflow-hidden px-0 opacity-0' : 'w-3/12 px-10 opacity-100'} transition-all duration-300 bg-white flex flex-col pt-5 items-start gap-y-5`}>
 
                     {/* set user image */}
 
@@ -363,6 +362,7 @@ const page = () => {
                             setDcrPayment(!dcrPayment);
                             setServerNidCard(false);
                             setNidCard(false);
+                            setDriving(false);
                         }}>ডি,সি,আর পেমেন্ট</button>
                         <button className={`w-full border ${landTax3 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
@@ -372,6 +372,7 @@ const page = () => {
                             setDcrPayment(false);
                             setServerNidCard(false);
                             setNidCard(false);
+                            setDriving(false);
                         }}>মিউটেশন</button>
                         <button className={`w-full border ${landTaxSelf ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
@@ -381,6 +382,7 @@ const page = () => {
                             setDcrPayment(false);
                             setServerNidCard(false);
                             setNidCard(false);
+                            setDriving(false);
                         }}>প্রতিনিধি ভূমি উন্নয়ন কর</button>
                         <button className={`w-full border ${landTax2 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
@@ -390,6 +392,7 @@ const page = () => {
                             setDcrPayment(false);
                             setServerNidCard(false);
                             setNidCard(false);
+                            setDriving(false);
                         }}>ভূমি উন্নয়ন কর</button>
                         <button className={`w-full border ${landTax ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(!landTax);
@@ -399,6 +402,7 @@ const page = () => {
                             setDcrPayment(false);
                             setServerNidCard(false);
                             setNidCard(false);
+                            setDriving(false);
                         }}>ভূমি রেকর্ড ও ম্যাপ
                         </button>
                         <button className={`w-full border ${ServerNidCard ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
@@ -408,6 +412,7 @@ const page = () => {
                             setLandTaxSelf(false);
                             setDcrPayment(false);
                             setNidCard(false);
+                            setDriving(false);
                             setServerNidCard(!ServerNidCard);
                         }}>NID সার্ভার কপি</button>
                         <button className={`w-full border ${nidCard ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
@@ -418,7 +423,18 @@ const page = () => {
                             setDcrPayment(false);
                             setServerNidCard(false);
                             setNidCard(!nidCard);
+                            setDriving(false);
                         }}>NID কার্ড</button>
+                        <button className={`w-full border ${driving ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
+                            setLandTax(false);
+                            setLandTax2(false);
+                            setLandTax3(false);
+                            setLandTaxSelf(false);
+                            setDcrPayment(false);
+                            setServerNidCard(false);
+                            setNidCard(false);
+                            setDriving(!driving);
+                        }}>ড্রাইভিং লাইসেন্স BRTA</button>
                         <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>জন্ম নিবন্ধন অনলাইন কপি</button>
                         <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন জন্ম নিবন্ধন আবেদন কপি</button>
                         <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600 rounded-md px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন পাসপোর্ট আবেদন</button>
@@ -435,9 +451,9 @@ const page = () => {
 
                 {/* display tax data */}
 
-                <div className={`h-screen ${hideMenu ? 'w-11/12' : 'w-9/12'} bg-white transition-all duration-300`}>
+                <div className={`h-screen overflow-y-scroll ${hideMenu ? 'w-11/12' : 'w-9/12'} bg-white transition-all duration-300`}>
                     {
-                        !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && (
+                        !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && !driving && (
                             <div className="w-full flex flex-col items-center gap-y-4 mt-16">
                                 <h1 className="text-xl font-semibold text-center">রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span></h1>
                                 <h1 className="text-3xl font-light text-center text-green-700">আপনাকে স্বাগতম !</h1>
@@ -475,6 +491,9 @@ const page = () => {
                     }
                     {
                         ServerNidCard && <NIDserverCopy />
+                    }
+                    {
+                        driving && <Driving/>
                     }
                 </div>
             </div>

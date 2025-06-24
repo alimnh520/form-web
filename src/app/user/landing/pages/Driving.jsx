@@ -5,12 +5,15 @@ import { FaLink } from 'react-icons/fa6';
 import { ImCross } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
-export const DCRpayment = () => {
+export const Driving = () => {
     const { user } = useContext(UserProvider);
-    const [abedon, setAbedon] = useState('');
-    const [dcrData, setDcrData] = useState('');
-    const [divisionName, setDivisionName] = useState('');
-    const [division, setDivision] = useState('');
+
+    const [drivingData, setDrivingData] = useState('');
+    const [nid, setNid] = useState('');
+    const [motherNid, setMotherNid] = useState('');
+    const [fatherNid, setFatherNid] = useState('');
+    const [bill, setBill] = useState('');
+
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [takaKata, setTakaKata] = useState(false);
@@ -28,36 +31,26 @@ export const DCRpayment = () => {
     }
 
     useEffect(() => {
-        async function getDivision() {
-            try {
-                const response = await fetch("https://bdapi.vercel.app/api/v.1/division");
-                const result = await response.json();
-                setDivision(result.data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        }
-        getDivision();
 
-        async function handleDcrData() {
+        async function handleDrivingData() {
             try {
-                const res = await fetch('/api/user/submit-data/dcr-payment', { method: 'GET' });
+                const res = await fetch('/api/user/submit-data/driving', { method: 'GET' });
                 const data = await res.json();
-                setDcrData(data.message);
+                setDrivingData(data.message);
             } catch (error) {
                 console.log(error);
             }
         }
-        handleDcrData();
+        handleDrivingData();
     }, []);
 
-    const handleDcrPayment = async () => {
+    const handleDrivingStatus = async () => {
         setLoading(true);
         try {
-            const res = await fetch('/api/user/submit-data/dcr-payment', {
+            const res = await fetch('/api/user/submit-data/driving', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: user.email, username: user.username, mobile: user.mobile, divisionName, abedon })
+                body: JSON.stringify({ email: user.email, username: user.username, nid, fatherNid, motherNid, bill })
             });
             setLoading(false);
             const data = await res.json();
@@ -119,7 +112,7 @@ export const DCRpayment = () => {
                         <button
                             className="px-5 py-2 text-sm font-semibold text-white bg-green-600 hover:bg-transparent hover:text-green-600 border border-green-600 rounded transition-all duration-300"
                             onClick={() => {
-                                handleDcrPayment();
+                                handleDrivingStatus();
                                 setTakaKata(false);
                             }}
                         >
@@ -139,36 +132,37 @@ export const DCRpayment = () => {
                 ডি,সি,আর পেমেন্ট
             </h1>
 
-            <div className='w-10/12 space-y-6 gap-x-7 grid grid-cols-4 items-center justify-center mt-5 relative'>
+            <div className='w-10/12 gap-7 grid grid-cols-4 grid-rows-2 items-center justify-center mt-5 relative'>
 
-                <div className='flex flex-col items-start w-full border border-green-600 relative py-4 rounded-md h-12 mt-6'>
-
-                    <div className=" absolute right-4 text-xl text-neutral-500 flex items-center justify-center space-x-3 top-1/2 -translate-y-1/2">
-                        <div className="w-0.5 h-6 bg-neutral-300"></div>
-                        <MdOutlineArrowDropDownCircle />
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>NID নাম্বার <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none'>
+                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={nid} placeholder='NID নাম্বার লিখুন...'
+                            onChange={(e) => setNid(e.target.value)} />
                     </div>
-
-                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>বিভাগ <span className='text-red-500 relative top-1 text-lg '>*</span></p>
-
-                    <select id="" className='w-full relative px-4 appearance-none cursor-pointer text-neutral-600 outline-none bg-transparent' value={divisionName} onChange={(e) => setDivisionName(e.target.value)}>
-                        <option value="">নির্বাচন করুন</option>
-                        {
-                            division && division.map((elem) => {
-                                return (
-                                    <option value={elem.bn_name} key={elem.id} className='h-full'>{elem.bn_name}</option>
-                                )
-                            })
-                        }
-                    </select>
                 </div>
                 <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
-                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>আবেদন নাম্বার <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>পিতার NID নাম্বার <span className='text-red-500 relative top-1 text-lg '>*</span></p>
                     <div name="" id="" className='bg-transparent w-full relative outline-none'>
-                        <input type="text" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={abedon} placeholder='আবেদন নাম্বার লিখুন...'
-                            onChange={(e) => setAbedon(e.target.value)} />
+                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={fatherNid} placeholder='পিতার NID নাম্বার লিখুন...'
+                            onChange={(e) => setFatherNid(e.target.value)} />
                     </div>
                 </div>
-                <button className="w-full relative py-4 h-12 flex items-center justify-center bg-green-500 text-white transition-all hover:bg-green-700 duration-300 border border-green-500 rounded-md" onClick={() => {
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>মাতার NID নাম্বার <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none'>
+                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={motherNid} placeholder='মাতার NID নাম্বার লিখুন...'
+                            onChange={(e) => setMotherNid(e.target.value)} />
+                    </div>
+                </div>
+                <div className='flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md'>
+                    <p className=' absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700'>বিল নাম্বার <span className='text-red-500 relative top-1 text-lg '>*</span></p>
+                    <div name="" id="" className='bg-transparent w-full relative outline-none'>
+                        <input type="number" className='outline-none w-full placeholder:text-sm placeholder:text-neutral-600 text-neutral-600 appearance-none border-b-green-500 px-4' value={bill} placeholder='বিল নাম্বার লিখুন...'
+                            onChange={(e) => setBill(e.target.value)} />
+                    </div>
+                </div>
+                <button className="w-full col-span-2 col-start-2 relative py-4 h-12 flex items-center justify-center bg-green-500 text-white transition-all hover:bg-green-700 duration-300 border border-green-500 rounded-md" onClick={() => {
                     !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
                 }}>
                     সাবমিট করুন
@@ -180,23 +174,23 @@ export const DCRpayment = () => {
                     <div className="w-full grid grid-cols-7 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
                         <p className="text-center border-r border-b py-3">নাম</p>
-                        <p className="text-center border-r border-b py-3">বিভাগ</p>
-                        <p className="text-center border-r border-b py-3">ডি,সি,আর পেমেন্ট</p>
-                        <p className="text-center border-r border-b py-3">তথ্যের ধরণ</p>
+                        <p className="text-center border-r border-b py-3">পিতার NID নাম্বার</p>
+                        <p className="text-center border-r border-b py-3">মাতার NID নাম্বার</p>
+                        <p className="text-center border-r border-b py-3">বিল নাম্বার</p>
                         <p className="text-center border-r border-b py-3">স্টাটাস</p>
                         <p className="text-center border-r border-b py-3">অ্যাকশন</p>
                     </div>
                     {
-                        dcrData ? (
-                            dcrData.slice().reverse().filter((currElm) => currElm.email === user.email).map((elem, index) => {
+                        drivingData ? (
+                            drivingData.slice().reverse().filter((currElm) => currElm.email === user.email).map((elem, index) => {
                                 return (
                                     <div className="w-full flex flex-col" key={elem._id}>
                                         <div className="w-full grid grid-cols-7">
                                             <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.username}</p>
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.divisionName}</p>
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.dcrPayment}</p>
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">ডি,সি,আর পেমেন্ট</p>
+                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.fatherNid}</p>
+                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.motherNid}</p>
+                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.bill}</p>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
                                             <a href={elem.action} className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600">{
                                                 elem.status === 'complete' ? <FaLink /> : <ImCross />

@@ -25,10 +25,16 @@ export const LandTax3 = () => {
     const [message, setMessage] = useState('');
     const [takaKata, setTakaKata] = useState(false);
 
+    const [activeBalance, setActiveBalance] = useState(false);
+
     if (message) {
         setTimeout(() => {
             setMessage('');
-        }, 1500);
+        }, 2500);
+    } else if (activeBalance) {
+        setTimeout(() => {
+            setActiveBalance(false);
+        }, 3500);
     }
 
     useEffect(() => {
@@ -128,21 +134,50 @@ export const LandTax3 = () => {
                 )
             }
 
-            {takaKata &&
-                <div className="w-80 h-44 absolute z-20 top-[250px] bg-white border border-green-600 flex flex-col items-center justify-center gap-y-8 rounded-md">
-                    <p className='text-lg text-center'>আপনার একাউন্ট থেকে ৩৭০ টাকা কেটে নেওয়া হবে।</p>
-                    <div className="w-full h-auto  rounded-md flex items-center justify-center gap-x-5">
-                        <button className="px-5 py-1.5 text-lg font-semibold bg-red-600 hover:bg-transparent border border-red-600 transition-all duration-300 hover:text-red-600 text-white rounded-lg" onClick={() => setTakaKata(false)}>
-                            বাতিল করুন
-                        </button>
-                        <button className="px-5 py-1.5 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={() => {
-                            submitLandTax3();
-                            setTakaKata(false);
-                        }}>
-                            জমা দিন
-                        </button>
+            {activeBalance &&
+                <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md animate-pulse">
+                    <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
+                    <p className="text-base leading-relaxed">
+                        আপনার একাউন্ট সক্রিয় করতে <span className="font-bold text-red-600">৫৫০ টাকা</span> রিচার্জ করুন!
+                    </p>
+                    <div className="mt-4 text-sm text-gray-700">
+                        📞 প্রয়োজনে যোগাযোগ করুন: <span className="font-semibold">+8801850685033</span>
                     </div>
                 </div>
+            }
+
+            {takaKata &&
+                <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md animate-pulse">
+                    <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
+                    <p className="text-base leading-relaxed">
+                        আপনার একাউন্ট থেকে <span className="font-bold text-red-600">৩৭০ টাকা</span> কেটে নেওয়া হবে।
+                    </p>
+
+                    <div className="mt-6 flex justify-center gap-4">
+                        <button
+                            className="px-5 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-transparent hover:text-red-600 border border-red-600 rounded transition-all duration-300"
+                            onClick={() => setTakaKata(false)}
+                        >
+                            ❌ বাতিল করুন
+                        </button>
+
+                        <button
+                            className="px-5 py-2 text-sm font-semibold text-white bg-green-600 hover:bg-transparent hover:text-green-600 border border-green-600 rounded transition-all duration-300"
+                            onClick={() => {
+                                submitLandTax3();
+                                setTakaKata(false);
+                            }}
+                        >
+                            ✅ জমা দিন
+                        </button>
+                    </div>
+
+                    <div className="mt-4 text-sm text-gray-700 text-center">
+                        📞 প্রয়োজনে যোগাযোগ করুন: <span className="font-semibold">+8801850685033</span>
+                    </div>
+                </div>
+
+
             }
 
 
@@ -383,7 +418,9 @@ export const LandTax3 = () => {
 
                 <button
                     type="submit"
-                    className="w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={() => setTakaKata(true)}
+                    className="w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={() => {
+                        !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                    }}
                 >
                     জমা দিন
                 </button>
@@ -392,19 +429,19 @@ export const LandTax3 = () => {
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full gap-x-1 grid grid-cols-12 bg-green-600 text-white font-bold">
+                    <div className="w-full grid grid-cols-12 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
-                        <p className="text-center border-r py-3">বিভাগ</p>
-                        <p className="text-center border-r py-3">জেলা</p>
-                        <p className="text-center border-r py-3">উপজেলা</p>
-                        <p className="text-center border-r py-3">মৌজা</p>
-                        <p className="text-center border-r py-3">খতিয়ান নং</p>
-                        <p className="text-center border-r py-3">মোবাইল নং</p>
-                        <p className="text-center border-r py-3">খতিয়ান</p>
-                        <p className="text-center border-r py-3">দলিল</p>
-                        <p className="text-center border-r py-3">ছবি</p>
-                        <p className="text-center border-r py-3">দাখিলা</p>
-                        <p className="text-center border-r py-3">স্টাটাস</p>
+                        <p className="text-center border-r border-b py-3">বিভাগ</p>
+                        <p className="text-center border-r border-b py-3">জেলা</p>
+                        <p className="text-center border-r border-b py-3">উপজেলা</p>
+                        <p className="text-center border-r border-b py-3">মৌজা</p>
+                        <p className="text-center border-r border-b py-3">খতিয়ান নং</p>
+                        <p className="text-center border-r border-b py-3">মোবাইল নং</p>
+                        <p className="text-center border-r border-b py-3">খতিয়ান</p>
+                        <p className="text-center border-r border-b py-3">দলিল</p>
+                        <p className="text-center border-r border-b py-3">ছবি</p>
+                        <p className="text-center border-r border-b py-3">দাখিলা</p>
+                        <p className="text-center border-r border-b py-3">স্টাটাস</p>
                     </div>
                     {
                         LandTax3 ? (
