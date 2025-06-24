@@ -4,14 +4,15 @@ import { connectDb } from "../../../../../../lib/mongodb";
 
 export async function POST(request) {
     try {
-        await connectDb();
 
         const { voterNum, nidNum, dobNum, username, email } = await request.json();
 
         if (!dobNum || !username || !email) {
             return NextResponse.json({ message: 'Fill up all', success: false });
         }
-        console.log(voterNum, nidNum, dobNum, username, email)
+
+        await connectDb();
+
         const saveUser = new NidCard({
             username,
             email,

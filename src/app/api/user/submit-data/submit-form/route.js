@@ -3,13 +3,13 @@ import LandForm from "../../../../../../models/LandForm";
 import { connectDb } from "../../../../../../lib/mongodb";
 
 export const POST = async (request) => {
-    await connectDb();
+
     try {
         const reqBody = await request.json();
 
         const { topCrokimNmbr, moujarNam, unionNum, thana, district, holdingNmbr, khatianNmbr, ownerData, landData, totalLand, loanPlus, loan, loanFine, halDabi, totalDabi, totalAdai, totalLoan, totalAmount, calanNumber, year, banglaDate, englishDate } = reqBody;
 
-        console.log('The user data is : ', topCrokimNmbr, moujarNam, unionNum, thana, district, holdingNmbr, khatianNmbr, ownerData, landData, totalLand, loanPlus, loan, loanFine, halDabi, totalDabi, totalAdai, totalLoan, totalAmount, calanNumber, year, banglaDate, englishDate);
+        await connectDb();
 
         const saveData = new LandForm({
             topCrokimNmbr: topCrokimNmbr,

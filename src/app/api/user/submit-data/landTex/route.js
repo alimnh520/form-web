@@ -4,12 +4,13 @@ import LandTax from "../../../../../../models/LandTax";
 
 export async function POST(request) {
     try {
-        await connectDb();
         const { divisionName, districtName, upazilaName, mouzaName, khatianName, mobile, username, email } = await request.json();
 
         if (!divisionName || !districtName || !upazilaName || !mouzaName || !khatianName || !mobile || !username || !email) {
             return NextResponse.json({ message: 'Fill up all', success: false });
         }
+
+        await connectDb();
 
         const newUser = new LandTax({
             username,

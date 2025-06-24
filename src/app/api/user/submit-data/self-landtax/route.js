@@ -4,13 +4,14 @@ import SelfLandTax from "../../../../../../models/SelfLandTax";
 
 export async function POST(request) {
     try {
-        await connectDb();
 
         const { divisionName, districtName, upazilaName, mouzaName, khatianName, username, email } = await request.json();
 
         if (!divisionName || !districtName || !upazilaName || !mouzaName || !khatianName || !username || !email) {
             return NextResponse.json({ message: 'Fill up all', success: false });
         }
+
+        await connectDb();
 
         const newUser = new SelfLandTax({
             username,

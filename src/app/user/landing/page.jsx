@@ -195,6 +195,27 @@ const page = () => {
     }
 
 
+    const convertTaka = (taka) => {
+        const engToBangla = {
+            '1': '১',
+            '2': '২',
+            '3': '৩',
+            '4': '৪',
+            '5': '৫',
+            '6': '৬',
+            '7': '৭',
+            '8': '৮',
+            '9': '৯',
+            '0': '০',
+        }
+        return taka.toString().replace(/[0-9]/g, digit => engToBangla[digit]);
+    }
+
+    // const englishNum = 130;
+    // const getBangla = convertTaka(englishNum);
+    // console.log(getBangla);
+
+
     return (
         <div className="w-full h-auto flex flex-col items-center -mt-16 justify-start bg-[#eff9f1] relative sm-device">
 
@@ -273,7 +294,7 @@ const page = () => {
                         )
                     }
 
-                    <p className="text-white bg-green-600 flex items-center justify-center gap-x-0.5 text-xl mt-0.5 ml-5 px-4 py-1 rounded-3xl cursor-pointer" onClick={() => setBalance(true)}>{user && user.balance}<span className="-mt-1"><HiOutlineCurrencyBangladeshi /></span></p>
+                    <p className="text-white bg-green-600 flex items-center justify-center gap-x-0.5 text-xl mt-0.5 ml-5 px-4 py-1 rounded-3xl cursor-pointer" onClick={() => setBalance(true)}>{user && convertTaka(user?.balance)}<span className="-mt-[3px]"><HiOutlineCurrencyBangladeshi /></span></p>
 
                     <button className="text-[34px] justify-self-start" onClick={handleLogout}>
                         <IoMdLogOut />

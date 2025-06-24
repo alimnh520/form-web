@@ -5,12 +5,27 @@ import DCRPayment from "../../../../../../models/DCRPayment";
 
 export const POST = async (request) => {
     try {
-        await connectDb();
+
         const { email, mobile, divisionName, abedon, username } = await request.json();
 
         if (!abedon || !divisionName) {
             return NextResponse.json({ message: 'Fill up all', success: false });
         }
+
+        const collection = (await dbConnection()).collection('userprofiles');
+
+        const userData = await collection.findOne({ email });
+        if (userData.balance < 1110) {
+            return NextResponse.json({ message: 'পর্যাপ্ত ব্যালেন্স নেই!', success: false });
+        }
+
+        await collection.findOneAndUpdate({ email }, {
+            $inc: {
+                balance: -1110
+            }
+        });
+
+        await connectDb();
 
         const newUser = new DCRPayment({
             username,
@@ -21,13 +36,6 @@ export const POST = async (request) => {
         });
 
         await newUser.save();
-
-        const collection = (await dbConnection()).collection('userprofiles');
-        await collection.findOneAndUpdate({ email }, {
-            $inc: {
-                balance: -1110
-            }
-        });
 
         return NextResponse.json({ message: 'successful', success: true });
     } catch (error) {
