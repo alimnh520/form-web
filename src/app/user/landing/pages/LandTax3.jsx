@@ -17,8 +17,12 @@ export const LandTax3 = () => {
     const [dolil, setDolil] = useState("");
     const [photo, setPhoto] = useState("");
     const [dakhila, setDakhila] = useState("");
+
     const [division, setDivision] = useState("");
     const [district, setDistrict] = useState("");
+    const [upazilla, setUpazilla] = useState("");
+    const [divId, setDivId] = useState('');
+    const [disId, setDisId] = useState('');
 
     const [LandTax3, setLandTax3] = useState('');
     const [loading, setLoading] = useState(false);
@@ -38,9 +42,10 @@ export const LandTax3 = () => {
     }
 
     useEffect(() => {
+
         async function getDivision() {
             try {
-                const response = await fetch("https://bdapi.vercel.app/api/v.1/division");
+                const response = await fetch("https://raw.githubusercontent.com/alimnh520/bd-api/refs/heads/main/Division.json");
                 const result = await response.json();
                 setDivision(result.data);
             } catch (error) {
@@ -51,7 +56,7 @@ export const LandTax3 = () => {
 
         async function getDistrict() {
             try {
-                const response = await fetch("https://bdapi.vercel.app/api/v.1/district");
+                const response = await fetch("https://raw.githubusercontent.com/alimnh520/bd-api/refs/heads/main/District.json");
                 const result = await response.json();
                 setDistrict(result.data);
             } catch (error) {
@@ -59,6 +64,17 @@ export const LandTax3 = () => {
             }
         }
         getDistrict();
+
+        async function getUpazilla() {
+            try {
+                const response = await fetch("https://raw.githubusercontent.com/alimnh520/bd-api/refs/heads/main/Upazilla.json");
+                const result = await response.json();
+                setUpazilla(result.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        getUpazilla();
 
         const selfLandTaxData = async () => {
             try {
@@ -202,14 +218,19 @@ export const LandTax3 = () => {
                         id=""
                         className="w-full relative px-4 appearance-none cursor-pointer text-neutral-600 outline-none bg-transparent"
                         value={divisionName}
-                        onChange={(e) => setDivisionName(e.target.value)}
+                        onChange={(e) => {
+                            setDivisionName(e.target.value);
+                            const selectedOption = e.target.options[e.target.selectedIndex];
+                            const bbsCode = selectedOption.getAttribute('data-bbs-code');
+                            setDivId(bbsCode);
+                        }}
                     >
-                        <option value="">নির্বাচন করুন</option>
+                        <option value="" disabled>নির্বাচন করুন</option>
                         {division &&
-                            division.map((elem) => {
+                            division.slice().reverse().map((elem) => {
                                 return (
-                                    <option value={elem.bn_name} key={elem.id} className="h-full">
-                                        {elem.bn_name}
+                                    <option value={elem.NAME} data-bbs-code={elem.BBS_CODE} key={elem.ID} className="h-full">
+                                        {elem.NAME}
                                     </option>
                                 );
                             })}
@@ -229,17 +250,23 @@ export const LandTax3 = () => {
                         id=""
                         className="bg-transparent w-full relative px-4 appearance-none cursor-pointer text-neutral-600 outline-none"
                         value={districtName}
-                        onChange={(e) => setDistrictName(e.target.value)}
+                        onChange={(e) => {
+                            setDistrictName(e.target.value);
+                            const selectedOption = e.target.options[e.target.selectedIndex];
+                            const bbsCode = selectedOption.getAttribute('data-bbs-code');
+                            setDisId(bbsCode);
+                        }}
                     >
-                        <option value="">নির্বাচন করুন</option>
+                        <option value="" disabled>নির্বাচন করুন</option>
                         {district &&
-                            district.map((elem) => {
+                            district?.filter(dis => dis.DIVISION_BBS_CODE === divId).slice().reverse().map((elem) => {
                                 return (
-                                    <option value={elem.bn_name} key={elem.id}>
-                                        {elem.bn_name}
+                                    <option value={elem.NAME} data-bbs-code={elem.BBS_CODE} key={elem.ID}>
+                                        {elem.NAME}
                                     </option>
                                 );
-                            })}
+                            })
+                        }
                     </select>
                 </div>
 
@@ -259,20 +286,16 @@ export const LandTax3 = () => {
                         value={upazilaName}
                         onChange={(e) => setUpazilaName(e.target.value)}
                     >
-                        <option value="">নির্বাচন করুন</option>
-                        <option value="বগুড়া সদর">বগুড়া সদর</option>
-                        <option value="আদমদীঘি">আদমদীঘি</option>
-                        <option value="দুপচাঁচিয়া">দুপচাঁচিয়া</option>
-                        <option value="নন্দীগ্রাম">নন্দীগ্রাম</option>
-                        <option value="কাহালু">কাহালু</option>
-                        <option value="শেরপুর">শেরপুর</option>
-                        <option value="শাজাহানপুর">শাজাহানপুর</option>
-                        <option value="ধুনট">ধুনট</option>
-                        <option value="সারিয়াকান্দি">সারিয়াকান্দি</option>
-                        <option value="গাবতলী">গাবতলী</option>
-                        <option value="শিবগঞ্জ">শিবগঞ্জ</option>
-                        <option value="সোনাতলা">সোনাতলা</option>
-                        <option value="রানীনগর">রানীনগর</option>
+                        <option value="" disabled>নির্বাচন করুন</option>
+                        {upazilla &&
+                            upazilla?.filter(dis => dis.DISTRICT_BBS_CODE === disId).slice().reverse().map((elem) => {
+                                return (
+                                    <option value={elem.NAME} key={elem.ID}>
+                                        {elem.NAME}
+                                    </option>
+                                );
+                            })
+                        }
                     </select>
                 </div>
                 <div className="flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md">
