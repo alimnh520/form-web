@@ -23,14 +23,13 @@ export const POST = async (request) => {
                     status: 'reject'
                 }
             });
+            const collectionUser = (await dbConnection()).collection('userprofiles');
+            await collectionUser.findOneAndUpdate({ email }, {
+                $inc: {
+                    balance: 1110
+                }
+            });
         }
-
-        const collectionUser = (await dbConnection()).collection('userprofiles');
-        await collectionUser.findOneAndUpdate({ email }, {
-            $inc: {
-                balance: 1110
-            }
-        });
 
         return NextResponse.json({ message: 'successful', success: true });
     } catch (error) {

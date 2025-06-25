@@ -29,13 +29,13 @@ export const LandTax2 = () => {
         landTax2();
     }, []);
 
-    const landTaxStatus = async (id, type) => {
+    const landTaxStatus = async (id, type, email) => {
         setLoading(true);
         try {
             const res = await fetch('/api/user/edit-data/editLandTax2', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, type })
+                body: JSON.stringify({ id, type, email })
             });
             const data = await res.json();
             setLoading(false);
@@ -114,7 +114,7 @@ export const LandTax2 = () => {
                                                             landTaxStatus(elem._id, 'accept');
                                                         }}><IoCheckmarkSharp /></button>
                                                         <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            landTaxStatus(elem._id, 'cancel');
+                                                            landTaxStatus(elem._id, 'cancel', elem.email);
                                                         }}><RxCross2 /></button>
                                                     </div>
                                                 )

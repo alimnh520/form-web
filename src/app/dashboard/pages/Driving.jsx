@@ -118,23 +118,23 @@ export const Driving = () => {
                     <div className="w-full grid grid-cols-7 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
                         <p className="text-center border-r border-b py-3">নাম</p>
-                        <p className="text-center border-r border-b py-3">বিভাগ</p>
-                        <p className="text-center border-r border-b py-3">ডি,সি,আর পেমেন্ট</p>
-                        <p className="text-center border-r border-b py-3">তথ্যের ধরণ</p>
+                        <p className="text-center border-r border-b py-3">পিতার NID নাম্বার</p>
+                        <p className="text-center border-r border-b py-3">মাতার NID নাম্বার</p>
+                        <p className="text-center border-r border-b py-3">বিল নাম্বার</p>
                         <p className="text-center border-r border-b py-3">স্টাটাস</p>
                         <p className="text-center border-r border-b py-3">অ্যাকশন</p>
                     </div>
                     {
-                        dcrData ? (
-                            dcrData.slice().reverse().map((elem, index) => {
+                        driving ? (
+                            driving.slice().reverse().map((elem, index) => {
                                 return (
                                     <div className="w-full flex flex-col" key={elem._id}>
                                         <div className="w-full grid grid-cols-7">
                                             <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.username}</p>
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.divisionName}</p>
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.dcrPayment}</p>
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">ডি,সি,আর পেমেন্ট</p>
+                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.fatherNid}</p>
+                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.motherNid}</p>
+                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.bill}</p>
                                             {
                                                 elem.status !== 'pending' && (
                                                     <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3`}>{elem.status}</p>

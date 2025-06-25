@@ -7,7 +7,7 @@ export const POST = async (request) => {
         const { id, type, fileLink, email } = await request.json();
 
         if (type === 'accept') {
-            const collection = (await dbConnection()).collection('dcrpayments');
+            const collection = (await dbConnection()).collection('drivings');
             await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
                 $set: {
                     status: 'complete',
@@ -17,20 +17,21 @@ export const POST = async (request) => {
         }
 
         if (type === 'cancel') {
-            const collection = (await dbConnection()).collection('dcrpayments');
+            const collection = (await dbConnection()).collection('drivings');
             await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
                 $set: {
                     status: 'reject'
                 }
             });
+
+            const collectionUser = (await dbConnection()).collection('userprofiles');
+            await collectionUser.findOneAndUpdate({ email }, {
+                $inc: {
+                    balance: 1000
+                }
+            });
         }
 
-        const collectionUser = (await dbConnection()).collection('userprofiles');
-        await collectionUser.findOneAndUpdate({ email }, {
-            $inc: {
-                balance: 1110
-            }
-        });
 
         return NextResponse.json({ message: 'successful', success: true });
     } catch (error) {

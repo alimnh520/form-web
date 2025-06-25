@@ -4,7 +4,7 @@ import { dbConnection } from "../../../../../../lib/connectDB";
 
 export const POST = async (request) => {
     try {
-        const { id, type, fileLink } = await request.json();
+        const { id, type, fileLink, email } = await request.json();
 
         if (type === 'accept') {
             const collection = (await dbConnection()).collection('selflandtaxes');
@@ -21,6 +21,12 @@ export const POST = async (request) => {
             await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
                 $set: {
                     status: 'reject'
+                }
+            });
+            const collectionUser = (await dbConnection()).collection('userprofiles');
+            await collectionUser.findOneAndUpdate({ email }, {
+                $inc: {
+                    balance: 300
                 }
             });
         }

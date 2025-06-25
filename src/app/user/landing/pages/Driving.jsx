@@ -16,8 +16,8 @@ export const Driving = () => {
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
-    const [takaKata, setTakaKata] = useState(false);
 
+    const [takaKata, setTakaKata] = useState(false);
     const [activeBalance, setActiveBalance] = useState(false);
 
     if (message) {
@@ -83,7 +83,7 @@ export const Driving = () => {
                 )
             }
             {activeBalance &&
-                <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md animate-pulse">
+                <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md z-20 absolute top-40">
                     <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
                     <p className="text-base leading-relaxed">
                         আপনার একাউন্ট সক্রিয় করতে <span className="font-bold text-red-600">৫৫০ টাকা</span> রিচার্জ করুন!
@@ -95,10 +95,10 @@ export const Driving = () => {
             }
 
             {takaKata &&
-                <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md animate-pulse">
+                <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md z-20 absolute top-40">
                     <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
                     <p className="text-base leading-relaxed">
-                        আপনার একাউন্ট থেকে <span className="font-bold text-red-600">১১১০ টাকা</span> কেটে নেওয়া হবে।
+                        আপনার একাউন্ট থেকে <span className="font-bold text-red-600">১০০০ টাকা</span> কেটে নেওয়া হবে।
                     </p>
 
                     <div className="mt-6 flex justify-center gap-4">
