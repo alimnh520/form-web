@@ -76,12 +76,12 @@ export const NIDcard = () => {
         }
     }
 
-    const handleNidStatus = async (id, type) => {
+    const handleNidStatus = async (id, type, email) => {
         setLoading(true);
         const response = await fetch('/api/user/edit-data/editNidCard', {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, type })
+            body: JSON.stringify({ id, type, email })
         });
         const data = await response.json();
         setLoading(false);
@@ -162,7 +162,7 @@ export const NIDcard = () => {
                                                             handleNidStatus(elem._id, 'accept');
                                                         }}><IoCheckmarkSharp /></button>
                                                         <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            handleNidStatus(elem._id, 'cancel');
+                                                            handleNidStatus(elem._id, 'cancel', elem.email);
                                                         }}><RxCross2 /></button>
                                                     </div>
                                                 )

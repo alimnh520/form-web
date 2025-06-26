@@ -5,7 +5,7 @@ import cloudinary from "../../../../../../lib/cloudinary/cloud-config";
 
 export const POST = async (request) => {
     try {
-        const { id, type, sourceUrl, publicUrl, publicId } = await request.json();
+        const { id, type, sourceUrl, publicUrl, publicId, email } = await request.json();
 
         const collection = (await dbConnection()).collection('nidcards');
 
@@ -28,6 +28,12 @@ export const POST = async (request) => {
             await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
                 $set: {
                     status: 'reject'
+                }
+            });
+            const collectionUser = (await dbConnection()).collection('userprofiles');
+            await collectionUser.findOneAndUpdate({ email }, {
+                $inc: {
+                    balance: 15
                 }
             });
             return NextResponse.json({ message: 'successful', success: true });

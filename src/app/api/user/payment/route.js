@@ -12,6 +12,12 @@ export const POST = async (request) => {
             return NextResponse.json({ message: 'Type error', success: false });
         }
 
+        const userColl = (await dbConnection()).collection('userprofiles');
+        const profile = await userColl.findOne({ email });
+        if (!profile.active_balance && amount < 550) {
+            return NextResponse.json({ message: 'প্রথমে ৫৫০ টাকা রিচার্জ করুন!', success: false });
+        }
+
         const collection = (await dbConnection()).collection('userbalances');
         const userTrx = await collection.findOne({ trx_num: trxnum });
 

@@ -6,8 +6,6 @@ export const POST = async (request) => {
     try {
         const { id, type, balance, email } = await request.json();
 
-        console.log('Type is : ', id, type, balance, email);
-
         if (type === 'accept') {
             const collection = (await dbConnection()).collection('userprofiles');
             const collectionBalance = (await dbConnection()).collection('userbalances');

@@ -16,10 +16,18 @@ export const NIDcard = () => {
     const [message, setMessage] = useState('');
     const [select, setSelect] = useState(true);
 
+    const [takaKata, setTakaKata] = useState(false);
+
+    const [activeBalance, setActiveBalance] = useState(false);
+
     if (message) {
         setTimeout(() => {
             setMessage('');
-        }, 1500);
+        }, 2500);
+    } else if (activeBalance) {
+        setTimeout(() => {
+            setActiveBalance(false);
+        }, 3500);
     }
 
     useEffect(() => {
@@ -83,6 +91,52 @@ export const NIDcard = () => {
                 )
             }
 
+            {activeBalance &&
+                <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md z-20 absolute top-40">
+                    <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
+                    <p className="text-base leading-relaxed">
+                        আপনার একাউন্ট সক্রিয় করতে <span className="font-bold text-red-600">৫৫০ টাকা</span> রিচার্জ করুন!
+                    </p>
+                    <div className="mt-4 text-sm text-gray-700">
+                        📞 প্রয়োজনে যোগাযোগ করুন: <span className="font-semibold">+8801850685033</span>
+                    </div>
+                </div>
+            }
+
+            {takaKata &&
+                <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md z-20 absolute top-40">
+                    <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
+                    <p className="text-base leading-relaxed">
+                        আপনার একাউন্ট থেকে <span className="font-bold text-red-600">১৫ টাকা</span> কেটে নেওয়া হবে।
+                    </p>
+
+                    <div className="mt-6 flex justify-center gap-4">
+                        <button
+                            className="px-5 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-transparent hover:text-red-600 border border-red-600 rounded transition-all duration-300"
+                            onClick={() => setTakaKata(false)}
+                        >
+                            ❌ বাতিল করুন
+                        </button>
+
+                        <button
+                            className="px-5 py-2 text-sm font-semibold text-white bg-green-600 hover:bg-transparent hover:text-green-600 border border-green-600 rounded transition-all duration-300"
+                            onClick={() => {
+                                submitNidData();
+                                setTakaKata(false);
+                            }}
+                        >
+                            ✅ জমা দিন
+                        </button>
+                    </div>
+
+                    <div className="mt-4 text-sm text-gray-700 text-center">
+                        📞 প্রয়োজনে যোগাযোগ করুন: <span className="font-semibold">+8801850685033</span>
+                    </div>
+                </div>
+
+
+            }
+
             <h1 className='text-4xl w-full text-center font-bold border-b border-b-gray-400 py-5'>NID কার্ড</h1>
 
             <div className='w-10/12 gap-x-3 grid grid-cols-4 items-center justify-center mt-5 relative'>
@@ -127,7 +181,9 @@ export const NIDcard = () => {
                     </div>
                 </div>
 
-                <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={submitNidData}>জমা দিন</button>
+                <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={() => {
+                    !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                }}>জমা দিন</button>
             </div>
 
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
