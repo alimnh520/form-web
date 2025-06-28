@@ -11,9 +11,11 @@ export const Driving = () => {
     const [message, setMessage] = useState('');
 
     const [sendLink, setSendLink] = useState(false);
-    const [fileLink, setFileLink] = useState('');
+    const [pdfFile, setPdfFile] = useState('');
     const [id, setId] = useState('');
     const [type, setType] = useState('');
+    const [publicUrl, setPublicUrl] = useState('');
+
 
     if (message) {
         setTimeout(() => {
@@ -54,15 +56,35 @@ export const Driving = () => {
         }
     }
 
+
     const handleSendLink = async () => {
+        if (pdfFile) {
+            if ((pdfFile.size / 1048576) > 3) {
+                setMessage('File size is too large');
+                return
+            }
+        }
         setLoading(true);
         try {
-            const res = await fetch('/api/user/edit-data/driving', {
+            const formData = new FormData();
+            formData.append('file', pdfFile);
+            formData.append('upload_preset', 'form-submit');
+            formData.append('cloud_name', 'dtitguuwt');
+
+            const res = await fetch('https://api.cloudinary.com/v1_1/dtitguuwt/raw/upload', {
+                method: 'POST',
+                body: formData,
+            });
+            const cloudData = await res.json();
+            const sourceUrl = cloudData.secure_url;
+            const publicId = cloudData.public_id;
+
+            const response = await fetch('/api/user/edit-data/driving', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, type, fileLink })
+                body: JSON.stringify({ id, type, sourceUrl, publicUrl, publicId })
             });
-            const data = await res.json();
+            const data = await response.json();
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
@@ -72,6 +94,7 @@ export const Driving = () => {
             console.log(error)
         }
     }
+
 
 
     return (
@@ -97,7 +120,7 @@ export const Driving = () => {
             {
                 sendLink && (
                     <div className="w-96 h-40 bg-white border border-green-700 rounded-md flex flex-col items-center justify-center p-5 gap-y-5 absolute top-1/3 left-1/2 -translate-x-1/2 z-20">
-                        <input type="text" className='w-full py-1.5 px-4 outline-none border border-gray-700 rounded-md' value={fileLink} onChange={(e) => setFileLink(e.target.value)} />
+                        <input type="file" className='w-full py-1.5 px-4 outline-none border border-gray-700 rounded-md' onChange={(e) => setPdfFile(e.target.files[0])} />
                         <div className="w-full flex items-center justify-center gap-x-5">
                             <button className='px-9 py-2 bg-red-700 text-white rounded-md hover:text-red-700 hover:bg-white border border-red-700 transition-all duration-300' onClick={() => {
                                 setSendLink(false);
@@ -156,7 +179,8 @@ export const Driving = () => {
                                                 elem.status !== 'reject' && (
                                                     setId(elem._id),
                                                     setType('accept'),
-                                                    setSendLink(true)
+                                                    setSendLink(true),
+                                                    setPublicUrl(elem.pdf_url)
                                                 )
                                             }}>{
                                                     elem.status === 'reject' ? <ImCross /> : <FaLink />
@@ -173,6 +197,6 @@ export const Driving = () => {
                     }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

@@ -2,7 +2,7 @@
 import { UserProvider } from '@/app/user/ChildCom';
 import React, { useContext, useEffect, useState } from 'react'
 import { FaLink } from 'react-icons/fa6';
-import { ImCross } from 'react-icons/im';
+import { ImCross, ImFolderDownload } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
 export const Driving = () => {
@@ -192,9 +192,9 @@ export const Driving = () => {
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.motherNid}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.bill}</p>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
-                                            <a href={elem.action} className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600">{
-                                                elem.status === 'complete' ? <FaLink /> : <ImCross />
-                                            }</a>
+                                            <div className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status === 'complete' ? (
+                                                <a href={elem.action?.replace("/upload/", "/upload/fl_attachment/")} className="text-3xl flex items-center justify-center"><ImFolderDownload /></a>
+                                            ) : elem.status}</div>
                                         </div>
                                     </div>
                                 )

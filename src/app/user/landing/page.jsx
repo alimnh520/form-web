@@ -20,6 +20,7 @@ import { IoCall } from "react-icons/io5";
 import { NIDcard } from "./pages/NIDcard";
 import { NIDserverCopy } from "./pages/NIDserverCopy";
 import { Driving } from "./pages/Driving";
+import { MouzaMap } from "./pages/Mouza";
 
 const page = () => {
     const router = useRouter();
@@ -65,6 +66,7 @@ const page = () => {
     const [ServerNidCard, setServerNidCard] = useState(false);
     const [balance, setBalance] = useState(false);
     const [driving, setDriving] = useState(false);
+    const [mouzaMap, setMouzaMap] = useState(false);
 
     const [amount, setAmount] = useState('');
     const [trxnum, setTrxnum] = useState('');
@@ -361,7 +363,7 @@ const page = () => {
 
                         {/* land sheba */}
 
-                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${landSeba ? 'h-[305px]' : 'h-24'}`}>
+                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${landSeba ? 'h-[357px]' : 'h-24'}`}>
 
                             <h1 className="text-2xl font-extrabold text-green-700 text-center my-1.5 tracking-wide">
                                 <span className="text-xl">🌾</span> ভূমি সেবা
@@ -377,6 +379,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMouzaMap(false);
                             }}>ডি,সি,আর পেমেন্ট</button>
                             <button className={`w-full border ${landTax3 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                                 setLandTax(false);
@@ -387,6 +390,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMouzaMap(false);
                             }}>মিউটেশন</button>
                             <button className={`w-full border ${landTaxSelf ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                                 setLandTax(false);
@@ -397,6 +401,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMouzaMap(false);
                             }}>প্রতিনিধি ভূমি উন্নয়ন কর</button>
                             <button className={`w-full border ${landTax2 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                                 setLandTax(false);
@@ -407,6 +412,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMouzaMap(false);
                             }}>ভূমি উন্নয়ন কর</button>
                             <button className={`w-full border ${landTax ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                                 setLandTax(!landTax);
@@ -417,7 +423,20 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMouzaMap(false);
                             }}>ভূমি রেকর্ড ও ম্যাপ
+                            </button>
+                            <button className={`w-full border ${mouzaMap ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
+                                setLandTax(false);
+                                setLandTax2(false);
+                                setLandTax3(false);
+                                setLandTaxSelf(false);
+                                setDcrPayment(false);
+                                setServerNidCard(false);
+                                setNidCard(false);
+                                setDriving(false);
+                                setMouzaMap(!mouzaMap);
+                            }}>মৌজা ম্যাপ
                             </button>
 
                         </div>
@@ -445,6 +464,7 @@ const page = () => {
                                 setDcrPayment(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMouzaMap(false);
                                 setServerNidCard(!ServerNidCard);
                             }}>NID সার্ভার কপি</button>
                             <button className={`w-full border ${nidCard ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
@@ -456,6 +476,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(!nidCard);
                                 setDriving(false);
+                                setMouzaMap(false);
                             }}>NID কার্ড</button>
 
                         </div>
@@ -488,6 +509,22 @@ const page = () => {
                             setDobSeba(!dobSeba);
                         }}>{dobSeba ? 'লুকান' : 'আরো দেখুন'} <span className={`absolute right-14 p-1.5 rounded-full ${dobSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span></button>
 
+                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${probasiSeba ? 'h-24' : 'h-24'}`}>
+
+                            <h1 className="text-2xl font-extrabold text-green-700 text-center my-1 tracking-wide">
+                                <span className="text-xl">🌍</span> প্রবাসী সেবা
+                            </h1>
+
+                            <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন পাসপোর্ট আবেদন</button>
+                        </div>
+
+                        <button className="px-7 py-1.5 bg-green-600 border border-green-600 text-white transition-all duration-300 hover:bg-white hover:text-black" onClick={() => {
+                            setLandSeba(false);
+                            setNidSeba(false);
+                            setProbasiSeba(!probasiSeba);
+                            setDobSeba(false);
+                        }}>{probasiSeba ? 'লুকান' : 'আরো দেখুন'} <span className={`absolute right-14 p-1.5 rounded-full ${probasiSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span></button>
+
                         <button className={`w-full border ${driving ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
                             setLandTax2(false);
@@ -497,10 +534,8 @@ const page = () => {
                             setServerNidCard(false);
                             setNidCard(false);
                             setDriving(!driving);
+                            setMouzaMap(false);
                         }}>ড্রাইভিং লাইসেন্স BRTA</button>
-
-                        <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন পাসপোর্ট আবেদন</button>
-                        <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>বিবরণ</button>
                     </div>
 
                 </div>
@@ -515,7 +550,7 @@ const page = () => {
 
                 <div className={`h-screen overflow-y-scroll ${hideMenu ? 'w-11/12' : 'w-9/12'} bg-white transition-all duration-300`}>
                     {
-                        !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && !driving && (
+                        !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && !driving && !mouzaMap && (
                             <div className="w-full flex flex-col items-center gap-y-4 mt-16">
                                 <h1 className="text-xl font-semibold text-center">রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span></h1>
                                 <h1 className="text-3xl font-light text-center text-green-700">আপনাকে স্বাগতম !</h1>
@@ -556,6 +591,9 @@ const page = () => {
                     }
                     {
                         driving && <Driving />
+                    }
+                    {
+                        mouzaMap && <MouzaMap/>
                     }
                 </div>
             </div>

@@ -7,18 +7,6 @@ export const POST = async (request) => {
     try {
         const { id, type, sourceUrl, publicUrl, publicId, email } = await request.json();
 
-        publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
-
-        const collection = (await dbConnection()).collection('landtax3');
-
-        await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
-            $set: {
-                status: 'complete',
-                action: sourceUrl,
-                pdf_url: publicId
-            }
-        });
-
         if (type === 'cancel') {
             const collection = (await dbConnection()).collection('landtax3');
             await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
@@ -32,9 +20,22 @@ export const POST = async (request) => {
                     balance: 370
                 }
             });
-        }
+            return NextResponse.json({ message: 'successful', success: true });
+        } else {
 
-        return NextResponse.json({ message: 'successful', success: true });
+            publicUrl && await cloudinary.uploader.destroy(publicUrl.toString(), { resource_type: 'raw' });
+
+            const collection = (await dbConnection()).collection('landtax3');
+
+            await collection.findOneAndUpdate({ _id: new ObjectId(id) }, {
+                $set: {
+                    status: 'complete',
+                    action: sourceUrl,
+                    pdf_url: publicId
+                }
+            });
+            return NextResponse.json({ message: 'successful', success: true });
+        }
 
     } catch (error) {
         console.log(error);

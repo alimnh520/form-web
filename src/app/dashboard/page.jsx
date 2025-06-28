@@ -51,6 +51,13 @@ const page = () => {
   const [recharge, setRecharge] = useState(false);
   const [driving, setDriving] = useState(false);
 
+
+  const [landSeba, setLandSeba] = useState(false);
+  const [nidSeba, setNidSeba] = useState(false);
+  const [probasiSeba, setProbasiSeba] = useState(false);
+  const [dobSeba, setDobSeba] = useState(false);
+  const [customerSeba, setCustomerSeba] = useState(false);
+
   if (message) {
     setTimeout(() => {
       setMessage('');
@@ -181,7 +188,7 @@ const page = () => {
   }
 
   return (
-    <div className="w-full h-auto flex flex-col items-center justify-start bg-green-100 relative sm-device">
+    <div className="w-full flex flex-col items-center justify-start bg-green-100 relative sm-device">
 
       <div className="w-full h-12 flex gap-3 items-center justify-between px-10">
         <img src="/user/notice-icon-png.webp" alt="" className="h-10 justify-self-start" />
@@ -204,9 +211,9 @@ const page = () => {
           <button className="bg-green-700 text-white w-40 h-full" onClick={() => setNoticeBtn(!noticeBtn)}>SET NOTICE</button>}
       </div>
 
-      <div className="h-full w-full flex items-start justify-between gap-x-5 border-t border-t-green-700">
+      <div className="w-full flex items-start justify-between gap-x-5 border-t border-t-green-700">
 
-        <div className={`h-auto flex items-center justify-start transition-all duration-300 ${hideMenu ? 'w-0 overflow-hidden px-0 opacity-0' : 'w-1/4 opacity-100'}`}>
+        <div className={`bg-white p-3 scroll-smooth gap-y-5 shadow-[4px_0px_8px_rgba(0,0,0,0.5)] h-screen overflow-y-scroll flex flex-col items-center justify-start transition-all duration-300 ${hideMenu ? 'w-0 overflow-hidden px-0 opacity-0' : 'w-1/4 opacity-100'}`}>
 
           {
             loading && (
@@ -224,260 +231,318 @@ const page = () => {
             )
           }
 
-          <div className="bg-white border-r-2 w-full flex flex-col items-center p-5 gap-y-5 h-screen shadow-[4px_0px_8px_rgba(0,0,0,0.5)] overflow-y-scroll">
 
-            {/* set new image */}
+          {/* set new image */}
 
-            <div className="size-40 rounded-full self-center relative">
-              <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => setImage(!image)}>
-                <FaEdit />
-              </button>
+          <div className="size-40 rounded-full self-center relative">
+            <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => setImage(!image)}>
+              <FaEdit />
+            </button>
 
-              {
-                displayImage ? (
-                  <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
-                ) : (
-                  <img src={admin ? admin.image_url : '/use'} alt="" className="w-full h-full object-cover object-center rounded-full" />
-                )
-              }
-            </div>
             {
-              image && (
-                <div className="flex items-center justify-center gap-x-3">
-                  <input type="file" className="outline-none border border-gray-400 px-4 py-1 w-52 rounded-xl" onChange={(e) => {
-                    setNewImage(e.target.files[0]);
-                    setDisplayImage(URL.createObjectURL(e.target.files[0]));
-                  }} />
-                  <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleEditPhoto}>set</button>
-                </div>
+              displayImage ? (
+                <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
+              ) : (
+                <img src={admin ? admin.image_url : '/use'} alt="" className="w-full h-full object-cover object-center rounded-full" />
               )
             }
+          </div>
+          {
+            image && (
+              <div className="flex items-center justify-center gap-x-3">
+                <input type="file" className="outline-none border border-gray-400 px-4 py-1 w-52 rounded-xl" onChange={(e) => {
+                  setNewImage(e.target.files[0]);
+                  setDisplayImage(URL.createObjectURL(e.target.files[0]));
+                }} />
+                <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleEditPhoto}>set</button>
+              </div>
+            )
+          }
 
-            {/* set new name */}
+          {/* set new name */}
 
-            <div className="flex items-center justify-center gap-x-2">
-              <p className="text-2xl font-semibold">{admin ? admin.username : 'loading...'}</p>
-              <button className="text-lg text-white bg-red-700 rounded-full p-1.5" onClick={() => setName(!name)}>
-                <FaEdit />
-              </button>
+          <div className="flex items-center justify-center gap-x-2">
+            <p className="text-2xl font-semibold">{admin ? admin.username : 'loading...'}</p>
+            <button className="text-lg text-white bg-red-700 rounded-full p-1.5" onClick={() => setName(!name)}>
+              <FaEdit />
+            </button>
+          </div>
+          {
+            name && (
+              <div className="flex items-center justify-center">
+                <input type="text" className="outline-none border border-gray-400 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
+                <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNameEdit}>set</button>
+              </div>
+            )
+          }
+
+          {/* options */}
+
+
+          <div className="w-full flex flex-col items-center justify-start gap-y-5">
+
+            <div className={`w-full transition-all duration-300 bg-white overflow-y-hidden ${customerSeba ? 'h-[290px]' : 'h-12'} flex flex-col items-center gap-y-5`}>
+
+              <button className={`py-1.5 w-10/12 h-12 border ${customerSeba ? 'text-black bg-white' : 'bg-[#59b8a0] text-white'} hover:text-black hover:bg-white transition-all duration-300 group border-[#59b8a0] bg-[#59b8a0] items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandSeba(false);
+                setNidSeba(false);
+                setProbasiSeba(false);
+                setDobSeba(false);
+                setCustomerSeba(!customerSeba);
+              }}>উদ্যোক্তা সেবা<span className={`absolute group-hover:bg-[#59b8a0] group-hover:text-white right-2 p-1.5 rounded-full ${customerSeba ? 'rotate-180 text-white bg-[#59b8a0]' : 'rotate-0 bg-white text-black'} transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false);
+                setDcrPayment(false);
+                setProsason(false);
+                setUddokta(!isUddokta);
+                setNidCard(false);
+                setMouzaMap(false);
+                setDriving(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+                setRecharge(false);
+              }}>উদ্যোক্তা <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false)
+                setDcrPayment(false);
+                setProsason(false);
+                setUddokta(false);
+                setNidCard(false);
+                setMouzaMap(false);
+                setDriving(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+                setRecharge(!recharge);
+              }}>রিচার্জ <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${recharge ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false)
+                setUddokta(false);
+                setRecharge(false);
+                setDcrPayment(false);
+                setProsason(!prosason);
+                setNidCard(false);
+                setMouzaMap(false);
+                setDriving(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+              }}>প্রশাসনিক <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${prosason ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false)
+                setUddokta(false);
+                setRecharge(false);
+                setDcrPayment(false);
+                setProsason(false);
+                setNidCard(false);
+                setMouzaMap(false);
+                setDriving(false);
+                setServerNidCard(false);
+                setSubAdmin(!subAdmin);
+              }}>সহকারী কর্মকর্তা <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${subAdmin ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
             </div>
-            {
-              name && (
-                <div className="flex items-center justify-center">
-                  <input type="text" className="outline-none border border-gray-400 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
-                  <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNameEdit}>set</button>
-                </div>
-              )
-            }
-
-            {/* options */}
-
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(false);
-              setLandTax3(false);
-              setLandTaxSelf(false)
-              setDcrPayment(false);
-              setProsason(false);
-              setUddokta(!isUddokta);
-              setNidCard(false);
-              setMouzaMap(false);
-              setDriving(false);
-              setServerNidCard(false);
-              setSubAdmin(false);
-              setRecharge(false);
-            }}>উদ্যোক্তা <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
 
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(false);
-              setLandTax3(false);
-              setLandTaxSelf(false)
-              setDcrPayment(false);
-              setProsason(false);
-              setUddokta(false);
-              setNidCard(false);
-              setMouzaMap(false);
-              setDriving(false);
-              setServerNidCard(false);
-              setSubAdmin(false);
-              setRecharge(!recharge);
-            }}>রিচার্জ <span className={`absolute right-5 bg-white p-1.5 rounded-full ${recharge ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <div className={`w-full transition-all duration-300 overflow-y-hidden bg-white ${landSeba ? 'h-[415px]' : 'h-12'} flex flex-col items-center gap-y-5`}>
+
+              <button className={`py-1.5 w-10/12 h-12 border ${landSeba ? 'text-black bg-white' : 'bg-[#59b8a0] text-white'} hover:text-black hover:bg-white transition-all duration-300 group border-[#59b8a0] bg-[#59b8a0] items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandSeba(!landSeba);
+                setNidSeba(false);
+                setProbasiSeba(false);
+                setDobSeba(false);
+                setCustomerSeba(false);
+              }}>ভূমি সেবা<span className={`absolute group-hover:bg-[#59b8a0] group-hover:text-white right-2 p-1.5 rounded-full ${landSeba ? 'rotate-180 text-white bg-[#59b8a0]' : 'rotate-0 bg-white text-black'} transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('ডি,সি,আর পেমেন্ট') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false)
+                setProsason(false);
+                setUddokta(false);
+                setRecharge(false);
+                setDcrPayment(!dcrPayment);
+                setNidCard(false);
+                setMouzaMap(false);
+                setDriving(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+              }}>ডি,সি,আর পেমেন্ট <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${dcrPayment ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
 
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(false);
-              setLandTax3(false);
-              setLandTaxSelf(false)
-              setUddokta(false);
-              setRecharge(false);
-              setDcrPayment(false);
-              setProsason(!prosason);
-              setNidCard(false);
-              setMouzaMap(false);
-              setDriving(false);
-              setServerNidCard(false);
-              setSubAdmin(false);
-            }}>প্রশাসনিক <span className={`absolute right-5 bg-white p-1.5 rounded-full ${prosason ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('মিউটেশন') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(!landTax3);
+                setLandTaxSelf(false);
+                setDcrPayment(false);
+                setProsason(false);
+                setUddokta(false);
+                setRecharge(false);
+                setNidCard(false);
+                setMouzaMap(false);
+                setDriving(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+              }}>মিউটেশন <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${landTax3 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
 
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(false);
-              setLandTax3(false);
-              setLandTaxSelf(false)
-              setUddokta(false);
-              setRecharge(false);
-              setDcrPayment(false);
-              setProsason(false);
-              setNidCard(false);
-              setMouzaMap(false);
-              setDriving(false);
-              setServerNidCard(false);
-              setSubAdmin(!subAdmin);
-            }}>সহকারী কর্মকর্তা <span className={`absolute right-5 bg-white p-1.5 rounded-full ${subAdmin ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('প্রতিনিধি ভূমি উন্নয়ন কর') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(!landTaxSelf);
+                setDcrPayment(false);
+                setProsason(false);
+                setUddokta(false);
+                setRecharge(false);
+                setNidCard(false);
+                setMouzaMap(false);
+                setDriving(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+              }}>প্রতিনিধি ভূমি উন্নয়ন কর <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${landTaxSelf ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
 
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('ডি,সি,আর পেমেন্ট') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(false);
-              setLandTax3(false);
-              setLandTaxSelf(false)
-              setProsason(false);
-              setUddokta(false);
-              setRecharge(false);
-              setDcrPayment(!dcrPayment);
-              setNidCard(false);
-              setMouzaMap(false);
-              setDriving(false);
-              setServerNidCard(false);
-              setSubAdmin(false);
-            }}>ডি,সি,আর পেমেন্ট <span className={`absolute right-5 bg-white p-1.5 rounded-full ${dcrPayment ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('ভূমি উন্নয়ন কর') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(!landTax2);
+                setLandTax3(false);
+                setLandTaxSelf(false);
+                setDcrPayment(false);
+                setProsason(false);
+                setUddokta(false);
+                setRecharge(false);
+                setNidCard(false);
+                setMouzaMap(false);
+                setDriving(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+              }}>ভূমি উন্নয়ন কর <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${landTax2 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
 
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('মিউটেশন') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(false);
-              setLandTax3(!landTax3);
-              setLandTaxSelf(false);
-              setDcrPayment(false);
-              setProsason(false);
-              setUddokta(false);
-              setRecharge(false);
-              setNidCard(false);
-              setMouzaMap(false);
-              setDriving(false);
-              setServerNidCard(false);
-              setSubAdmin(false);
-            }}>মিউটেশন <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax3 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('ভূমি রেকর্ড ও ম্যাপ') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(!landTax);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false);
+                setDcrPayment(false);
+                setProsason(false);
+                setUddokta(false);
+                setRecharge(false);
+                setNidCard(false);
+                setMouzaMap(false);
+                setDriving(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+              }}>ভূমি রেকর্ড ও ম্যাপ
+                <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${landTax ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('মৌজা ম্যাপ') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false);
+                setDcrPayment(false);
+                setProsason(false);
+                setUddokta(false);
+                setRecharge(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+                setNidCard(false);
+                setDriving(false);
+                setMouzaMap(!mouzamap);
+              }}>মৌজা ম্যাপ<span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${mouzamap ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+            </div>
 
 
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('প্রতিনিধি ভূমি উন্নয়ন কর') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(false);
-              setLandTax3(false);
-              setLandTaxSelf(!landTaxSelf);
-              setDcrPayment(false);
-              setProsason(false);
-              setUddokta(false);
-              setRecharge(false);
-              setNidCard(false);
-              setMouzaMap(false);
-              setDriving(false);
-              setServerNidCard(false);
-              setSubAdmin(false);
-            }}>প্রতিনিধি ভূমি উন্নয়ন কর <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTaxSelf ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <div className={`w-full transition-all duration-300 bg-white overflow-y-hidden ${nidSeba ? 'h-[175px]' : 'h-12'} flex flex-col items-center gap-y-5`}>
+
+              <button className={`py-1.5 w-10/12 h-12 border ${nidSeba ? 'text-black bg-white' : 'bg-[#59b8a0] text-white'} hover:text-black hover:bg-white transition-all duration-300 group border-[#59b8a0] bg-[#59b8a0] items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandSeba(false);
+                setNidSeba(!nidSeba);
+                setProbasiSeba(false);
+                setDobSeba(false);
+                setCustomerSeba(false);
+              }}>NID কার্ড সেবা<span className={`absolute group-hover:bg-[#59b8a0] group-hover:text-white right-2 p-1.5 rounded-full ${nidSeba ? 'rotate-180 text-white bg-[#59b8a0]' : 'rotate-0 bg-white text-black'} transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('NID সার্ভার কপি') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false);
+                setDcrPayment(false);
+                setProsason(false);
+                setUddokta(false);
+                setRecharge(false);
+                setNidCard(false);
+                setMouzaMap(false);
+                setDriving(false);
+                setServerNidCard(!serverNidCard);
+                setSubAdmin(false);
+              }}>NID সার্ভার কপি <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${serverNidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
 
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('ভূমি উন্নয়ন কর') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(!landTax2);
-              setLandTax3(false);
-              setLandTaxSelf(false);
-              setDcrPayment(false);
-              setProsason(false);
-              setUddokta(false);
-              setRecharge(false);
-              setNidCard(false);
-              setMouzaMap(false);
-              setDriving(false);
-              setServerNidCard(false);
-              setSubAdmin(false);
-            }}>ভূমি উন্নয়ন কর <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax2 ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('NID কার্ড') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false);
+                setDcrPayment(false);
+                setProsason(false);
+                setUddokta(false);
+                setRecharge(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+                setNidCard(!nidCard);
+                setMouzaMap(false);
+                setDriving(false);
+              }}>NID কার্ড<span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${nidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+            </div>
 
 
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('ভূমি রেকর্ড ও ম্যাপ') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(!landTax);
-              setLandTax2(false);
-              setLandTax3(false);
-              setLandTaxSelf(false);
-              setDcrPayment(false);
-              setProsason(false);
-              setUddokta(false);
-              setRecharge(false);
-              setNidCard(false);
-              setMouzaMap(false);
-              setDriving(false);
-              setServerNidCard(false);
-              setSubAdmin(false);
-            }}>ভূমি রেকর্ড ও ম্যাপ
-              <span className={`absolute right-5 bg-white p-1.5 rounded-full ${landTax ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+            <div className={`w-full transition-all duration-300 overflow-y-hidden bg-white ${dobSeba ? 'h-[175px]' : 'h-12'} flex flex-col items-center gap-y-5`}>
+
+              <button className={`py-1.5 w-10/12 h-12 border ${dobSeba ? 'text-black bg-white' : 'bg-[#59b8a0] text-white'} hover:text-black hover:bg-white transition-all duration-300 group border-[#59b8a0] bg-[#59b8a0] items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandSeba(false);
+                setNidSeba(false);
+                setProbasiSeba(false);
+                setDobSeba(!dobSeba);
+                setCustomerSeba(false);
+              }}>জন্ম নিবন্ধন সেবা<span className={`absolute group-hover:bg-[#59b8a0] group-hover:text-white right-2 p-1.5 rounded-full ${dobSeba ? 'rotate-180 text-white bg-[#59b8a0]' : 'rotate-0 bg-white text-black'} transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('জন্ম নিবন্ধন অনলাইন কপি') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`}>জন্ম নিবন্ধন অনলাইন কপি <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('নতুন জন্ম নিবন্ধন আবেদন কপি') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`}>নতুন জন্ম নিবন্ধন আবেদন কপি <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
 
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('NID সার্ভার কপি') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(false);
-              setLandTax3(false);
-              setLandTaxSelf(false);
-              setDcrPayment(false);
-              setProsason(false);
-              setUddokta(false);
-              setRecharge(false);
-              setNidCard(false);
-              setMouzaMap(false);
-              setDriving(false);
-              setServerNidCard(!serverNidCard);
-              setSubAdmin(false);
-            }}>NID সার্ভার কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${serverNidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            </div>
 
 
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('NID কার্ড') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(false);
-              setLandTax3(false);
-              setLandTaxSelf(false);
-              setDcrPayment(false);
-              setProsason(false);
-              setUddokta(false);
-              setRecharge(false);
-              setServerNidCard(false);
-              setSubAdmin(false);
-              setNidCard(!nidCard);
-              setMouzaMap(false);
-              setDriving(false);
-            }}>NID কার্ড<span className={`absolute right-5 bg-white p-1.5 rounded-full ${nidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('নতুন পাসপোর্ট আবেদন') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`}>নতুন পাসপোর্ট আবেদন <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
-
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('মৌজা ম্যাপ') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
-              setLandTax(false);
-              setLandTax2(false);
-              setLandTax3(false);
-              setLandTaxSelf(false);
-              setDcrPayment(false);
-              setProsason(false);
-              setUddokta(false);
-              setRecharge(false);
-              setServerNidCard(false);
-              setSubAdmin(false);
-              setNidCard(false);
-              setDriving(false);
-              setMouzaMap(!mouzamap);
-            }}>মৌজা ম্যাপ<span className={`absolute right-5 bg-white p-1.5 rounded-full ${mouzamap ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
-
-
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('ড্রাইভিং লাইসেন্স BRTA') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+            <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('ড্রাইভিং লাইসেন্স BRTA') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
               setLandTax(false);
               setLandTax2(false);
               setLandTax3(false);
@@ -491,17 +556,9 @@ const page = () => {
               setNidCard(false);
               setMouzaMap(false);
               setDriving(!driving);
-            }}>ড্রাইভিং লাইসেন্স BRTA<span className={`absolute right-5 bg-white p-1.5 rounded-full ${driving ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
-
-
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('জন্ম নিবন্ধন অনলাইন কপি') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`}>জন্ম নিবন্ধন অনলাইন কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
-
-
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('নতুন জন্ম নিবন্ধন আবেদন কপি') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`}>নতুন জন্ম নিবন্ধন আবেদন কপি <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
-
-
-            <button className={`py-1.5 w-10/12 h-12 rounded-md animate-pulse border border-[#59b8a0] bg-[#59b8a0] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('নতুন পাসপোর্ট আবেদন') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`}>নতুন পাসপোর্ট আবেদন <span className={`absolute right-5 bg-white p-1.5 rounded-full ${isUddokta ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+            }}>ড্রাইভিং লাইসেন্স BRTA<span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${driving ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
           </div>
+
         </div>
 
         <button className="text-3xl text-green-700 mt-5" onClick={() => setHideMenu(!hideMenu)}>
@@ -547,7 +604,7 @@ const page = () => {
             mouzamap && <MouzaMap />
           }
           {
-            driving && <Driving/>
+            driving && <Driving />
           }
 
           {

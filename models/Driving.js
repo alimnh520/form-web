@@ -10,6 +10,7 @@ const DrcSchema = new mongoose.Schema({
     bill: { type: String, required: false },
     status: { type: String, default: 'pending' },
     action: { type: String, required: false },
+    pdf_url: { type: String, required: false },
 });
 
 export default mongoose.models.Driving || mongoose.model('Driving', DrcSchema);
