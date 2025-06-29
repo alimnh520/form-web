@@ -194,7 +194,7 @@ export const Driving = () => {
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
                                             <div className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status === 'complete' ? (
                                                 <a href={elem.action?.replace("/upload/", "/upload/fl_attachment/")} className="text-3xl flex items-center justify-center"><ImFolderDownload /></a>
-                                            ) : elem.status}</div>
+                                            ) : <span className="text-3xl flex items-center justify-center"><ImCross /></span>}</div>
                                         </div>
                                     </div>
                                 )

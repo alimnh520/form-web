@@ -1,7 +1,7 @@
 'use client'
 import { UserProvider } from '@/app/user/ChildCom';
 import React, { useContext, useEffect, useState } from 'react'
-import { ImFolderDownload } from 'react-icons/im';
+import { ImCross, ImFolderDownload } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
 export const LandTax3 = () => {
@@ -442,7 +442,8 @@ export const LandTax3 = () => {
                 <button
                     type="submit"
                     className="w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={() => {
-                        !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                        // !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                        setMessage('সার্ভারে কাজ চলছে!');
                     }}
                 >
                     জমা দিন
@@ -486,7 +487,7 @@ export const LandTax3 = () => {
 
                                             <div className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status === 'complete' ? (
                                                 <a href={elem.action?.replace("/upload/", "/upload/fl_attachment/")} className="text-3xl flex items-center justify-center"><ImFolderDownload /></a>
-                                            ) : elem.status}</div>
+                                            ) : <span className="text-3xl flex items-center justify-center"><ImCross /></span>}</div>
                                         </div>
                                     </div>
                                 )

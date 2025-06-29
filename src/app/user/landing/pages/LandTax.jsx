@@ -244,7 +244,9 @@ export const LandTax = () => {
                     </div>
                 </div>
 
-                <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={submitLandTax}>জমা দিন</button>
+                <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={() => {
+                    setMessage('সার্ভারে কাজ চলছে!');
+                }}>জমা দিন</button>
             </div>
 
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">

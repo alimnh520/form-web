@@ -1,10 +1,12 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
+import { FaLink } from 'react-icons/fa6';
+import { ImCross } from 'react-icons/im';
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
 
 export const MouzaMap = () => {
-    const [LandTax2, setLandTax2] = useState('');
+    const [mouzaData, setMouzaData] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
 
@@ -21,19 +23,39 @@ export const MouzaMap = () => {
     }
 
     useEffect(() => {
-        const landTax2 = async () => {
+        const mouzaData = async () => {
             try {
                 const response = await fetch("/api/user/get-data/land-data/mouza", {
                     method: "GET",
                 });
                 const data = await response.json();
-                setLandTax2(data.message);
+                setMouzaData(data.message);
             } catch (err) {
                 console.log(err);
             }
         };
-        landTax2();
+        mouzaData();
     }, []);
+
+    const handleMouzaStatus = async (id, type, email) => {
+        setLoading(true);
+        try {
+            const res = await fetch('/api/user/edit-data/mouza', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, type, email })
+            });
+            const data = await res.json();
+            setLoading(false);
+            setMessage(data.message);
+            if (data.success) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     const handleSendLink = async () => {
         if (pdfFile) {
@@ -57,7 +79,7 @@ export const MouzaMap = () => {
             const sourceUrl = cloudData.secure_url;
             const publicId = cloudData.public_id;
 
-            const response = await fetch('/api/user/edit-data/editLandTax3', {
+            const response = await fetch('/api/user/edit-data/mouza', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id, type, sourceUrl, publicUrl, publicId })
@@ -114,7 +136,7 @@ export const MouzaMap = () => {
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
-                    <div className="w-full grid grid-cols-8 bg-green-600 text-white font-bold">
+                    <div className="w-full grid grid-cols-9 bg-green-600 text-white font-bold">
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
                         <p className="text-center border-r border-b py-3">নাম</p>
                         <p className="text-center border-r border-b py-3">বিভাগ</p>
@@ -126,11 +148,11 @@ export const MouzaMap = () => {
                         <p className="text-center border-r border-b py-3">অ্যাকশন</p>
                     </div>
                     {
-                        LandTax2 ? (
-                            LandTax2.slice().reverse().map((elem, index) => {
+                        mouzaData ? (
+                            mouzaData.slice().reverse().map((elem, index) => {
                                 return (
                                     <div className="w-full flex flex-col" key={elem._id}>
-                                        <div className="w-full grid grid-cols-8">
+                                        <div className="w-full grid grid-cols-9">
                                             <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.username}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.divisionName}</p>
@@ -147,15 +169,24 @@ export const MouzaMap = () => {
                                                 elem.status === 'pending' && (
                                                     <div className="text-center border-r border-b grid grid-cols-2 gap-x-px">
                                                         <button className="bg-green-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            landTaxStatus(elem._id, 'accept');
+                                                            handleMouzaStatus(elem._id, 'accept');
                                                         }}><IoCheckmarkSharp /></button>
                                                         <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            landTaxStatus(elem._id, 'cancel', elem.email);
+                                                            handleMouzaStatus(elem._id, 'cancel', elem.email);
                                                         }}><RxCross2 /></button>
                                                     </div>
                                                 )
                                             }
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.action}</p>
+                                            <button className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600" onClick={() => {
+                                                elem.status !== 'reject' && (
+                                                    setId(elem._id),
+                                                    setType('accept'),
+                                                    setSendLink(true),
+                                                    setPublicUrl(elem.pdf_url)
+                                                )
+                                            }}>{
+                                                    elem.status === 'reject' ? <ImCross /> : <FaLink />
+                                                }</button>
                                         </div>
                                     </div>
                                 )

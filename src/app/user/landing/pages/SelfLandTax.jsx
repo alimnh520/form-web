@@ -301,7 +301,8 @@ export const SelfLandTax = () => {
                 </div>
 
                 <button type="submit" className='w-full py-3 text-lg col-start-2 col-span-2 font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={() => {
-                    !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                    // !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                    setMessage('সার্ভারে কাজ চলছে!');
                 }}>জমা দিন</button>
             </div>
 

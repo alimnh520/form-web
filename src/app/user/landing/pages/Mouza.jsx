@@ -1,6 +1,7 @@
 'use client'
 import { UserProvider } from '@/app/user/ChildCom';
 import React, { useContext, useEffect, useState } from 'react'
+import { ImCross, ImFolderDownload } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
 export const MouzaMap = () => {
@@ -317,7 +318,9 @@ export const MouzaMap = () => {
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mouzaName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.sitNumber}</p>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3`}>{elem.status}</p>
-                                            <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.action}</p>
+                                            <div className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status === 'complete' ? (
+                                                <a href={elem.action?.replace("/upload/", "/upload/fl_attachment/")} className="text-3xl flex items-center justify-center"><ImFolderDownload /></a>
+                                            ) : <span className="text-3xl flex items-center justify-center"><ImCross /></span>}</div>
                                         </div>
                                     </div>
                                 )
