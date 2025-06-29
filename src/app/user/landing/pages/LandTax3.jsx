@@ -41,6 +41,7 @@ export const LandTax3 = () => {
         }, 3500);
     }
 
+
     useEffect(() => {
 
         async function getDivision() {
@@ -103,7 +104,8 @@ export const LandTax3 = () => {
             formData.append("file", file);
             formData.append("upload_preset", "form-submit");
             formData.append("folder", "user");
-            const response = await fetch(`https://api.cloudinary.com/v1_1/dtitguuwt/auto/upload`, {
+            const resourceType = file.type === "application/pdf" ? "raw" : "image";
+            const response = await fetch(`https://api.cloudinary.com/v1_1/dtitguuwt/${resourceType}/upload`, {
                 method: "POST",
                 body: formData,
             });
@@ -163,7 +165,7 @@ export const LandTax3 = () => {
             }
 
             {takaKata &&
-                <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md z-20 absolute top-40">
+                <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md z-30 absolute top-40">
                     <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
                     <p className="text-base leading-relaxed">
                         আপনার একাউন্ট থেকে <span className="font-bold text-red-600">৩৭০ টাকা</span> কেটে নেওয়া হবে।
@@ -359,8 +361,7 @@ export const LandTax3 = () => {
 
                 <div className="flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md">
                     <p className=" absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700">
-                        খতিয়ান{" "}
-                        <span className="text-red-500 relative top-1 text-lg ">*</span>
+                        খতিয়ান PDF <span className="text-red-500 relative top-1 text-lg ">*</span>
                     </p>
                     <div
                         name=""
@@ -380,7 +381,7 @@ export const LandTax3 = () => {
 
                 <div className="flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md">
                     <p className=" absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700">
-                        দলিল <span className="text-red-500 relative top-1 text-lg ">*</span>
+                        দলিল PDF <span className="text-red-500 relative top-1 text-lg ">*</span>
                     </p>
                     <div
                         name=""
@@ -420,8 +421,7 @@ export const LandTax3 = () => {
 
                 <div className="flex flex-col items-start w-full relative py-4 h-12 border border-green-500 rounded-md">
                     <p className=" absolute -top-3 rounded-md left-3 text-sm backdrop-blur-md px-2 bg-white text-green-700">
-                        দাখিলা{" "}
-                        <span className="text-red-500 relative top-1 text-lg ">*</span>
+                        দাখিলা PDF <span className="text-red-500 relative top-1 text-lg ">*</span>
                     </p>
                     <div
                         name=""
@@ -442,8 +442,8 @@ export const LandTax3 = () => {
                 <button
                     type="submit"
                     className="w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg" onClick={() => {
-                        // !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
-                        setMessage('সার্ভারে কাজ চলছে!');
+                        !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                        // setMessage('সার্ভারে কাজ চলছে!');
                     }}
                 >
                     জমা দিন
@@ -480,14 +480,14 @@ export const LandTax3 = () => {
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mouzaName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.khatianName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mobile}</p>
-                                            <a href={`${elem.khatian_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
-                                            <a href={`${elem.dolil_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
-                                            <a href={`${elem.photo_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
-                                            <a href={`${elem.dakhila_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
+                                            <a href={elem.status === 'reject' ? '' : elem.khatian_url?.replace('/upload/', '/upload/fl_attachment/')} rel="noopener noreferrer" className={`text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center text-red-600 justify-center ${elem.status === 'reject' ? 'pointer-events-none' : 'pointer-events-auto'}`}>{elem.status === 'reject' ? <ImCross /> : <span className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</span>}</a>
+                                            <a href={elem.status === 'reject' ? '' : elem.dolil_url?.replace('/upload/', '/upload/fl_attachment/')} rel="noopener noreferrer" className={`text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center text-red-600 justify-center ${elem.status === 'reject' ? 'pointer-events-none' : 'pointer-events-auto'}`}>{elem.status === 'reject' ? <ImCross /> : <span className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</span>}</a>
+                                            <a href={elem.status === 'reject' ? '' : elem.photo_url?.replace('/upload/', '/upload/fl_attachment/')} rel="noopener noreferrer" className={`text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center text-red-600 justify-center ${elem.status === 'reject' ? 'pointer-events-none' : 'pointer-events-auto'}`}>{elem.status === 'reject' ? <ImCross /> : <span className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</span>}</a>
+                                            <a href={elem.status === 'reject' ? '' : elem.dakhila_url?.replace('/upload/', '/upload/fl_attachment/')} rel="noopener noreferrer" className={`text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center text-red-600 justify-center ${elem.status === 'reject' ? 'pointer-events-none' : 'pointer-events-auto'}`}>{elem.status === 'reject' ? <ImCross /> : <span className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</span>}</a>
 
                                             <div className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status === 'complete' ? (
                                                 <a href={elem.action?.replace("/upload/", "/upload/fl_attachment/")} className="text-3xl flex items-center justify-center"><ImFolderDownload /></a>
-                                            ) : <span className="text-3xl flex items-center justify-center"><ImCross /></span>}</div>
+                                            ) : <span className="text-3xl flex items-center justify-center">{elem.status === 'reject' ? <ImCross /> : <span className='text-lg'>{elem.status}</span>}</span>}</div>
                                         </div>
                                     </div>
                                 )

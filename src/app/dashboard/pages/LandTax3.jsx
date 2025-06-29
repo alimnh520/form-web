@@ -58,18 +58,12 @@ export const LandTax3 = () => {
     }
 
     const handleSendLink = async () => {
-        if (pdfFile) {
-            if ((pdfFile.size / 1048576) > 3) {
-                setMessage('File size is too large');
-                return
-            }
-        }
         setLoading(true);
         try {
             const formData = new FormData();
             formData.append('file', pdfFile);
             formData.append('upload_preset', 'form-submit');
-            formData.append('cloud_name', 'dtitguuwt');
+            formData.append("folder", "user");
 
             const res = await fetch('https://api.cloudinary.com/v1_1/dtitguuwt/raw/upload', {
                 method: 'POST',
@@ -136,7 +130,7 @@ export const LandTax3 = () => {
                 <h1 className="text-xl font-bold">কাজের বিবরণ</h1>
                 <div className="w-full h-auto flex flex-col">
                     <div className="w-full grid grid-cols-12 bg-green-600 text-white font-bold">
-                        <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
+                        <p className="text-center border-r border-l border-b py-3">নাম</p>
                         <p className="text-center border-r border-b py-3">বিভাগ</p>
                         <p className="text-center border-r border-b py-3">জেলা</p>
                         <p className="text-center border-r border-b py-3">উপজেলা</p>
@@ -155,17 +149,17 @@ export const LandTax3 = () => {
                                 return (
                                     <div className="w-full flex flex-col" key={elem._id}>
                                         <div className="w-full grid grid-cols-12">
-                                            <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{index + 1}</p>
+                                            <p className="text-center border-r border-l border-b py-3 overflow-x-scroll">{elem.username}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.divisionName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.districtName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.upazilaName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mouzaName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.khatianName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mobile}</p>
-                                            <a href={`${elem.khatian_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
-                                            <a href={`${elem.dolil_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
-                                            <a href={`${elem.photo_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
-                                            <a href={`${elem.dakhila_url?.replace('/upload/', '/upload/fl_attachment/')}`} rel="noopener noreferrer" className="text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center justify-center"><p className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</p></a>
+                                            <a href={elem.status === 'reject' ? '' : elem.khatian_url?.replace('/upload/', '/upload/fl_attachment/')} rel="noopener noreferrer" className={`text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center text-red-600 justify-center ${elem.status === 'reject' ? 'pointer-events-none' : 'pointer-events-auto'}`}>{elem.status === 'reject' ? <ImCross /> : <span className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</span>}</a>
+                                            <a href={elem.status === 'reject' ? '' : elem.dolil_url?.replace('/upload/', '/upload/fl_attachment/')} rel="noopener noreferrer" className={`text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center text-red-600 justify-center ${elem.status === 'reject' ? 'pointer-events-none' : 'pointer-events-auto'}`}>{elem.status === 'reject' ? <ImCross /> : <span className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</span>}</a>
+                                            <a href={elem.status === 'reject' ? '' : elem.photo_url?.replace('/upload/', '/upload/fl_attachment/')} rel="noopener noreferrer" className={`text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center text-red-600 justify-center ${elem.status === 'reject' ? 'pointer-events-none' : 'pointer-events-auto'}`}>{elem.status === 'reject' ? <ImCross /> : <span className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</span>}</a>
+                                            <a href={elem.status === 'reject' ? '' : elem.dakhila_url?.replace('/upload/', '/upload/fl_attachment/')} rel="noopener noreferrer" className={`text-center text-sm border-r border-b py-3 overflow-x-scroll flex items-center text-red-600 justify-center ${elem.status === 'reject' ? 'pointer-events-none' : 'pointer-events-auto'}`}>{elem.status === 'reject' ? <ImCross /> : <span className='bg-green-700 text-white w-fit p-1 rounded-md'>Download</span>}</a>
 
                                             {
                                                 elem.status === 'pending' && (
