@@ -73,8 +73,14 @@ const page = () => {
       case isUddokta:
         document.title = 'উদ্যোক্তা'
         break;
+      case recharge:
+        document.title = 'রিচার্জ'
+        break;
       case prosason:
         document.title = 'প্রশাসনিক'
+        break;
+      case subAdmin:
+        document.title = 'সহকারী কর্মকর্তা'
         break;
       case dcrPayment:
         document.title = 'ডি,সি,আর পেমেন্ট'
@@ -91,16 +97,39 @@ const page = () => {
       case landTax:
         document.title = 'ভূমি রেকর্ড ও ম্যাপ'
         break;
+      case mouzamap:
+        document.title = 'মৌজা ম্যাপ'
+        break;
       case serverNidCard:
         document.title = 'NID সার্ভার কপি'
         break;
       case nidCard:
         document.title = 'NID কার্ড'
         break;
+      // case nidCard:
+      //   document.title = 'জন্ম নিবন্ধন অনলাইন কপি'
+      //   break;
+      // case nidCard:
+      //   document.title = 'নতুন জন্ম নিবন্ধন আবেদন কপি'
+      //   break;
+      // case driving:
+      //   document.title = 'নতুন পাসপোর্ট আবেদন'
+      //   break;
+      case driving:
+        document.title = 'ড্রাইভিং লাইসেন্স'
+        break;
       default:
         document.title = 'ড্যাশবোর্ড'
         break;
     }
+
+    if (path === '/dashboard') {
+      document.body.style.background = 'rgb(220,252,231)'
+    }
+
+  }, [dcrPayment, subAdmin, landTax, landTax2, landTax3, landTaxSelf, nidCard, serverNidCard, prosason, isUddokta, mouzamap, recharge, driving]);
+
+  useEffect(() => {
     async function getAdminNotice() {
       try {
         const res = await fetch('/api/admin/notice', { method: 'GET' });
@@ -111,12 +140,7 @@ const page = () => {
       }
     }
     getAdminNotice();
-
-    if (path === '/dashboard') {
-      document.body.style.background = 'rgb(220,252,231)'
-    }
-
-  }, [dcrPayment, landTax, landTax2, landTax3, landTaxSelf, nidCard, serverNidCard, prosason, isUddokta]);
+  }, []);
 
   const submitNotice = async () => {
     setLoading(true);
@@ -130,7 +154,17 @@ const page = () => {
       setLoading(false);
       setMessage(data.message);
       if (data.success) {
-        window.location.reload();
+        setNoticeBtn(false);
+        async function getAdminNotice() {
+          try {
+            const res = await fetch('/api/admin/notice', { method: 'GET' });
+            const data = await res.json();
+            setNotice(data.message);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+        getAdminNotice();
       }
     } catch (error) {
       console.log(error)

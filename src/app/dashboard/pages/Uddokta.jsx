@@ -17,20 +17,20 @@ export const Uddokta = () => {
         }, 1500);
     }
 
-    useEffect(() => {
-        async function handleUddokta() {
-            try {
-                const res = await fetch('/api/user/edit-data/uddokta', { method: 'GET' });
-                const data = await res.json();
-                setUddoktaData(data.message);
-            } catch (error) {
-                console.log(error);
-            }
+    async function handleUddokta() {
+        try {
+            const res = await fetch('/api/user/edit-data/uddokta', { method: 'GET' });
+            const data = await res.json();
+            setUddoktaData(data.message);
+        } catch (error) {
+            console.log(error);
         }
+    }
+
+    useEffect(() => {
         handleUddokta();
 
     }, [])
-
 
     const handleDeleteUddokta = async () => {
         setLoading(true);
@@ -44,7 +44,7 @@ export const Uddokta = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                handleUddokta();
             }
         } catch (error) {
             console.log(error)
@@ -63,7 +63,7 @@ export const Uddokta = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                handleUddokta();
             }
         } catch (error) {
             console.log(error)

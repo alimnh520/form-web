@@ -96,7 +96,6 @@ export const SelfLandTax = () => {
         const data = await res.json();
         setMessage(data.message);
         if (data.success) {
-            // window.location.reload();
             try {
                 const response = await fetch("/api/user/get-data/land-data/selfland-tax", {
                     method: "GET",

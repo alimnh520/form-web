@@ -100,7 +100,18 @@ export const LandTax2 = () => {
         const data = await res.json();
         setMessage(data.message);
         if (data.success) {
-            window.location.reload();
+            const landTax2 = async () => {
+                try {
+                    const response = await fetch("/api/user/get-data/land-data/land-tax2", {
+                        method: "GET",
+                    });
+                    const data = await response.json();
+                    setLandTax2(data.message);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            landTax2();
         }
         setDivisionName('');
         setDistrictName('');

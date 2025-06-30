@@ -63,7 +63,16 @@ export const DCRpayment = () => {
             const data = await res.json();
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                async function handleDcrData() {
+                    try {
+                        const res = await fetch('/api/user/submit-data/dcr-payment', { method: 'GET' });
+                        const data = await res.json();
+                        setDcrData(data.message);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                handleDcrData();
             }
         } catch (error) {
             console.log(error);

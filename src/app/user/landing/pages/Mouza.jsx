@@ -97,7 +97,18 @@ export const MouzaMap = () => {
         const data = await res.json();
         setMessage(data.message);
         if (data.success) {
-            window.location.reload();
+            const getMouzaData = async () => {
+                try {
+                    const response = await fetch("/api/user/get-data/land-data/mouza", {
+                        method: "GET",
+                    });
+                    const data = await response.json();
+                    setMouzaData(data.message);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            getMouzaData();
         }
         setDivisionName('');
         setDistrictName('');

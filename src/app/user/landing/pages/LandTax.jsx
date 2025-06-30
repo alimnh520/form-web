@@ -91,7 +91,18 @@ export const LandTax = () => {
         const data = await res.json();
         setMessage(data.message);
         if (data.success) {
-            window.location.reload();
+            const landTax = async () => {
+                try {
+                    const response = await fetch("/api/user/get-data/land-data/land-tax", {
+                        method: "GET",
+                    });
+                    const data = await response.json();
+                    setLandTax(data.message);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            landTax();
         }
         setDivisionName('');
         setDistrictName('');

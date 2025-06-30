@@ -56,7 +56,16 @@ export const Driving = () => {
             const data = await res.json();
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                async function handleDrivingData() {
+                    try {
+                        const res = await fetch('/api/user/submit-data/driving', { method: 'GET' });
+                        const data = await res.json();
+                        setDrivingData(data.message);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                handleDrivingData();
             }
         } catch (error) {
             console.log(error);

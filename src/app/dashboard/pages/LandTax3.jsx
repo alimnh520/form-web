@@ -50,7 +50,18 @@ export const LandTax3 = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                const selfLandTaxData = async () => {
+                    try {
+                        const response = await fetch("/api/user/get-data/land-data/land-tax3", {
+                            method: "GET",
+                        });
+                        const data = await response.json();
+                        setLandTax3(data.message);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                };
+                selfLandTaxData();
             }
         } catch (error) {
             console.log(error)
@@ -82,7 +93,19 @@ export const LandTax3 = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                setSendLink(false);
+                const selfLandTaxData = async () => {
+                    try {
+                        const response = await fetch("/api/user/get-data/land-data/land-tax3", {
+                            method: "GET",
+                        });
+                        const data = await response.json();
+                        setLandTax3(data.message);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                };
+                selfLandTaxData();
             }
         } catch (error) {
             console.log(error)

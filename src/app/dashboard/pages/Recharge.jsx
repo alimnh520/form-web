@@ -34,7 +34,16 @@ const Recharge = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                async function getBalance() {
+                    try {
+                        const res = await fetch('/api/user/payment', { method: 'GET' });
+                        const data = await res.json();
+                        setUserBalance(data.message);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                getBalance();
             }
         } catch (error) {
             console.log(error)

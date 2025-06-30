@@ -73,7 +73,19 @@ export const NIDserverCopy = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                setSendLink(false);
+                const serverNidCardData = async () => {
+                    try {
+                        const response = await fetch("/api/user/get-data/land-data/serverNidCard", {
+                            method: "GET",
+                        });
+                        const data = await response.json();
+                        setServerNidCard(data.message);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                };
+                serverNidCardData();
             }
         } catch (error) {
             console.log(error)
@@ -85,13 +97,24 @@ export const NIDserverCopy = () => {
         const response = await fetch('/api/user/edit-data/editServerNid', {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, type, email})
+            body: JSON.stringify({ id, type, email })
         });
         const data = await response.json();
         setLoading(false);
         setMessage(data.message);
         if (data.success) {
-            window.location.reload();
+            const serverNidCardData = async () => {
+                try {
+                    const response = await fetch("/api/user/get-data/land-data/serverNidCard", {
+                        method: "GET",
+                    });
+                    const data = await response.json();
+                    setServerNidCard(data.message);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            serverNidCardData();
         }
     }
 

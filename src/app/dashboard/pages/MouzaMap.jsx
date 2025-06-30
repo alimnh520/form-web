@@ -49,7 +49,18 @@ export const MouzaMap = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                const mouzaData = async () => {
+                    try {
+                        const response = await fetch("/api/user/get-data/land-data/mouza", {
+                            method: "GET",
+                        });
+                        const data = await response.json();
+                        setMouzaData(data.message);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                };
+                mouzaData();
             }
         } catch (error) {
             console.log(error)
@@ -88,7 +99,19 @@ export const MouzaMap = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                setSendLink(false);
+                const mouzaData = async () => {
+                    try {
+                        const response = await fetch("/api/user/get-data/land-data/mouza", {
+                            method: "GET",
+                        });
+                        const data = await response.json();
+                        setMouzaData(data.message);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                };
+                mouzaData();
             }
         } catch (error) {
             console.log(error)

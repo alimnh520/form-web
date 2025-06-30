@@ -45,6 +45,16 @@ const SubAdmin = () => {
         }, 1500);
     }
 
+    async function handleAdmin() {
+        try {
+            const res = await fetch('/api/sub-admin', { method: 'GET' });
+            const data = await res.json();
+            setSubAdmin(data.message);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     function valid(email) {
         const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return pattern.test(email);
@@ -74,7 +84,7 @@ const SubAdmin = () => {
             const data = await res.json();
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                handleAdmin();
             }
         } catch (error) {
             console.log(error);
@@ -83,15 +93,6 @@ const SubAdmin = () => {
 
 
     useEffect(() => {
-        async function handleAdmin() {
-            try {
-                const res = await fetch('/api/sub-admin', { method: 'GET' });
-                const data = await res.json();
-                setSubAdmin(data.message);
-            } catch (error) {
-                console.log(error);
-            }
-        }
         handleAdmin();
     }, []);
 
@@ -107,7 +108,7 @@ const SubAdmin = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                handleAdmin();
             }
         } catch (error) {
             console.log(error)

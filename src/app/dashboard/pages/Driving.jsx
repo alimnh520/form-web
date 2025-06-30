@@ -16,7 +16,6 @@ export const Driving = () => {
     const [type, setType] = useState('');
     const [publicUrl, setPublicUrl] = useState('');
 
-
     if (message) {
         setTimeout(() => {
             setMessage('');
@@ -49,7 +48,16 @@ export const Driving = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                async function getDrivingData() {
+                    try {
+                        const res = await fetch('/api/user/submit-data/driving', { method: 'GET' });
+                        const data = await res.json();
+                        setDriving(data.message);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                getDrivingData();
             }
         } catch (error) {
             console.log(error)
@@ -88,7 +96,17 @@ export const Driving = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                setSendLink(false);
+                async function getDrivingData() {
+                    try {
+                        const res = await fetch('/api/user/submit-data/driving', { method: 'GET' });
+                        const data = await res.json();
+                        setDriving(data.message);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                getDrivingData();
             }
         } catch (error) {
             console.log(error)

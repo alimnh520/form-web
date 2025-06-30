@@ -65,7 +65,18 @@ export const NIDserverCopy = () => {
         const data = await res.json();
         setMessage(data.message);
         if (data.success) {
-            window.location.reload();
+            const nidCardData = async () => {
+                try {
+                    const response = await fetch("/api/user/get-data/land-data/serverNidCard", {
+                        method: "GET",
+                    });
+                    const data = await response.json();
+                    setNidCard(data.message);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            nidCardData();
         }
     };
 

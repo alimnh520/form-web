@@ -14,16 +14,17 @@ export const Prosason = () => {
         }, 1500);
     }
 
-    useEffect(() => {
-        async function userLogin() {
-            try {
-                const res = await fetch('/api/admin/login-user', { method: "GET" });
-                const data = await res.json();
-                setLoginUser(data.message);
-            } catch (error) {
-                console.log(error);
-            }
+    async function userLogin() {
+        try {
+            const res = await fetch('/api/admin/login-user', { method: "GET" });
+            const data = await res.json();
+            setLoginUser(data.message);
+        } catch (error) {
+            console.log(error);
         }
+    }
+    useEffect(() => {
+
         userLogin();
 
     }, []);
@@ -40,7 +41,7 @@ export const Prosason = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                userLogin();
             }
         } catch (error) {
             console.log(error);

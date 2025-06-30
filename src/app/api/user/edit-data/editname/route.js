@@ -16,6 +16,7 @@ export const POST = async (request) => {
         const coll7 = (await dbConnection()).collection('landtax2');
         const coll8 = (await dbConnection()).collection('userbalances');
         const coll9 = (await dbConnection()).collection('drivings');
+        const coll10 = (await dbConnection()).collection('mouzamaps');
 
         await collection.findOneAndUpdate({ email }, {
             $set: {
@@ -58,6 +59,11 @@ export const POST = async (request) => {
             }
         });
         await coll9.findOneAndUpdate({ email }, {
+            $set: {
+                username: newName
+            }
+        });
+        await coll10.findOneAndUpdate({ email }, {
             $set: {
                 username: newName
             }
