@@ -5,7 +5,7 @@ import { FaLink } from 'react-icons/fa6';
 import { ImCross } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
-export const DCRpayment = () => {
+export const DCRpayment = ({ getNewMoney }) => {
     const { user } = useContext(UserProvider);
     const [abedon, setAbedon] = useState('');
     const [dcrData, setDcrData] = useState('');
@@ -63,6 +63,8 @@ export const DCRpayment = () => {
             const data = await res.json();
             setMessage(data.message);
             if (data.success) {
+                setDivisionName('');
+                setAbedon('');
                 async function handleDcrData() {
                     try {
                         const res = await fetch('/api/user/submit-data/dcr-payment', { method: 'GET' });
@@ -73,6 +75,20 @@ export const DCRpayment = () => {
                     }
                 }
                 handleDcrData();
+
+                async function userData() {
+                    try {
+                        const res = await fetch('/api/user/userdata', { method: 'GET' });
+                        const data = await res.json();
+                        if (data.success) {
+                            getNewMoney(data.message?.balance);
+                        } else setUser('');
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                userData();
+
             }
         } catch (error) {
             console.log(error);

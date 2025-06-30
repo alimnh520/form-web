@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ImCross, ImFolderDownload } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
-export const LandTax3 = () => {
+export const LandTax3 = ({ getNewMoney }) => {
     const { user } = useContext(UserProvider);
 
     const [divisionName, setDivisionName] = useState("");
@@ -121,6 +121,16 @@ export const LandTax3 = () => {
         const data = await res.json();
         setMessage(data.message);
         if (data.success) {
+            setDivisionName('');
+            setDistrictName('');
+            setUpazilaName('');
+            setMouzaName('');
+            setKhatianNumber('');
+            setMobile('');
+            setKhatian('');
+            setDakhila('');
+            setDolil('');
+            setPhoto('');
             const selfLandTaxData = async () => {
                 try {
                     const response = await fetch("/api/user/get-data/land-data/land-tax3", {
@@ -133,13 +143,19 @@ export const LandTax3 = () => {
                 }
             };
             selfLandTaxData();
+            async function userData() {
+                try {
+                    const res = await fetch('/api/user/userdata', { method: 'GET' });
+                    const data = await res.json();
+                    if (data.success) {
+                        getNewMoney(data.message?.balance);
+                    } else setUser('');
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            userData();
         }
-        setDivisionName('');
-        setDistrictName('');
-        setUpazilaName('');
-        setMouzaName('');
-        setKhatianNumber('');
-        setMobile('');
     };
 
 

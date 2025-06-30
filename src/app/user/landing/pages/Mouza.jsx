@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ImCross, ImFolderDownload } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
-export const MouzaMap = () => {
+export const MouzaMap = ({ getNewMoney }) => {
     const { user } = useContext(UserProvider);
 
     const [mouzaData, setMouzaData] = useState('');
@@ -97,6 +97,11 @@ export const MouzaMap = () => {
         const data = await res.json();
         setMessage(data.message);
         if (data.success) {
+            setDivisionName('');
+            setDistrictName('');
+            setUpazilaName('');
+            setMouzaName('');
+            setSitNumber('');
             const getMouzaData = async () => {
                 try {
                     const response = await fetch("/api/user/get-data/land-data/mouza", {
@@ -109,12 +114,19 @@ export const MouzaMap = () => {
                 }
             };
             getMouzaData();
+            async function userData() {
+                try {
+                    const res = await fetch('/api/user/userdata', { method: 'GET' });
+                    const data = await res.json();
+                    if (data.success) {
+                        getNewMoney(data.message?.balance);
+                    } else setUser('');
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            userData();
         }
-        setDivisionName('');
-        setDistrictName('');
-        setUpazilaName('');
-        setMouzaName('');
-        setSitNumber('');
     };
 
     return (

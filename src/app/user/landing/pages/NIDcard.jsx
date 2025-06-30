@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ImCross } from 'react-icons/im';
 import { ImFolderDownload } from "react-icons/im";
 
-export const NIDcard = () => {
+export const NIDcard = ({ getNewMoney }) => {
     const { user } = useContext(UserProvider);
 
     const [nidNum, setNidNum] = useState('');
@@ -46,39 +46,57 @@ export const NIDcard = () => {
     }, []);
 
     const submitNidData = async (e) => {
-        e.preventDefault();
-        if (select && !nidNum) {
-            setMessage('Fill up all');
-            return
-        }
-        if (!select && !voterNum) {
-            setMessage('Fill up all');
-            return
-        }
-        setLoading(true);
-        const res = await fetch('/api/user/submit-data/nidCard', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ nidNum, voterNum, dobNum, email: user.email, username: user.username }),
-        });
-        setLoading(false);
-        const data = await res.json();
-        setMessage(data.message);
-        if (data.success) {
-            const nidCardData = async () => {
-                try {
-                    const response = await fetch("/api/user/get-data/land-data/nidCard", {
-                        method: "GET",
-                    });
-                    const data = await response.json();
-                    setNidCard(data.message);
-                } catch (err) {
-                    console.log(err);
+        try {
+            if (select && !nidNum) {
+                setMessage('Fill up all');
+                return
+            }
+            if (!select && !voterNum) {
+                setMessage('Fill up all');
+                return
+            }
+            setLoading(true);
+            const res = await fetch('/api/user/submit-data/nidCard', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nidNum, voterNum, dobNum, email: user.email, username: user.username }),
+            });
+            setLoading(false);
+            const data = await res.json();
+            setMessage(data.message);
+            if (data.success) {
+                setNidNum('');
+                setVoterNum('');
+                setDobNum('');
+                const nidCardData = async () => {
+                    try {
+                        const response = await fetch("/api/user/get-data/land-data/nidCard", {
+                            method: "GET",
+                        });
+                        const data = await response.json();
+                        setNidCard(data.message);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                };
+                nidCardData();
+                async function userData() {
+                    try {
+                        const res = await fetch('/api/user/userdata', { method: 'GET' });
+                        const data = await res.json();
+                        if (data.success) {
+                            getNewMoney(data.message?.balance);
+                        } else setUser('');
+                    } catch (error) {
+                        console.log(error);
+                    }
                 }
-            };
-            nidCardData();
+                userData();
+            }
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -193,7 +211,8 @@ export const NIDcard = () => {
                 </div>
 
                 <button type="submit" className='w-full py-3 text-lg font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={() => {
-                    !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                    // !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                    setMessage('সার্ভারে কাজ চলছে!');
                 }}>জমা দিন</button>
             </div>
 

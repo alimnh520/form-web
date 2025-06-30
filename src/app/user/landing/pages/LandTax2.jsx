@@ -3,7 +3,7 @@ import { UserProvider } from '@/app/user/ChildCom';
 import React, { useContext, useEffect, useState } from 'react'
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
-export const LandTax2 = () => {
+export const LandTax2 = ({ getNewMoney }) => {
     const { user } = useContext(UserProvider);
 
     const [divisionName, setDivisionName] = useState('');
@@ -100,6 +100,14 @@ export const LandTax2 = () => {
         const data = await res.json();
         setMessage(data.message);
         if (data.success) {
+            setDivisionName('');
+            setDistrictName('');
+            setUpazilaName('');
+            setMouzaName('');
+            setKhatianNumber('');
+            setMobile('');
+            setNidNum('');
+            setDobNum('');
             const landTax2 = async () => {
                 try {
                     const response = await fetch("/api/user/get-data/land-data/land-tax2", {
@@ -112,12 +120,19 @@ export const LandTax2 = () => {
                 }
             };
             landTax2();
+            async function userData() {
+                try {
+                    const res = await fetch('/api/user/userdata', { method: 'GET' });
+                    const data = await res.json();
+                    if (data.success) {
+                        getNewMoney(data.message?.balance);
+                    } else setUser('');
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            userData();
         }
-        setDivisionName('');
-        setDistrictName('');
-        setUpazilaName('');
-        setMouzaName('');
-        setKhatianNumber('');
     };
 
     return (

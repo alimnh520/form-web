@@ -71,6 +71,8 @@ const page = () => {
     const [amount, setAmount] = useState('');
     const [trxnum, setTrxnum] = useState('');
 
+    const [newMoney, setNewMoney] = useState('');
+
     // edit user name
     const handleNameEdit = async () => {
         setLoading(true);
@@ -299,7 +301,7 @@ const page = () => {
                         )
                     }
 
-                    <p className="text-white bg-green-600 flex items-center justify-center gap-x-0.5 text-xl mt-0.5 ml-5 px-4 py-1 rounded-3xl cursor-pointer" onClick={() => setBalance(true)}>{user && convertTaka(user?.balance)}<span className="-mt-[3px]"><HiOutlineCurrencyBangladeshi /></span></p>
+                    <p className="text-white bg-green-600 flex items-center justify-center gap-x-0.5 text-xl mt-0.5 ml-5 px-4 py-1 rounded-3xl cursor-pointer" onClick={() => setBalance(true)}>{user && convertTaka(newMoney ? newMoney : user?.balance)}<span className="-mt-[3px]"><HiOutlineCurrencyBangladeshi /></span></p>
 
                     <button className="text-[34px] justify-self-start" onClick={handleLogout}>
                         <IoMdLogOut />
@@ -569,31 +571,31 @@ const page = () => {
                     }
 
                     {
-                        dcrPayment && <DCRpayment />
+                        dcrPayment && <DCRpayment getNewMoney={setNewMoney}/>
                     }
                     {
-                        landTax && <LandTax />
+                        landTax && <LandTax getNewMoney={setNewMoney}/>
                     }
                     {
-                        landTax2 && <LandTax2 />
+                        landTax2 && <LandTax2 getNewMoney={setNewMoney}/>
                     }
                     {
-                        landTax3 && <LandTax3 />
+                        landTax3 && <LandTax3 getNewMoney={setNewMoney}/>
                     }
                     {
-                        landTaxSelf && <SelfLandTax />
+                        landTaxSelf && <SelfLandTax getNewMoney={setNewMoney}/>
                     }
                     {
-                        nidCard && <NIDcard />
+                        nidCard && <NIDcard getNewMoney={setNewMoney}/>
                     }
                     {
-                        ServerNidCard && <NIDserverCopy />
+                        ServerNidCard && <NIDserverCopy getNewMoney={setNewMoney}/>
                     }
                     {
-                        driving && <Driving />
+                        driving && <Driving getNewMoney={setNewMoney}/>
                     }
                     {
-                        mouzaMap && <MouzaMap/>
+                        mouzaMap && <MouzaMap getNewMoney={setNewMoney}/>
                     }
                 </div>
             </div>

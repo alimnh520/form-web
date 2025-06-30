@@ -5,7 +5,7 @@ import { FaLink } from 'react-icons/fa6';
 import { ImCross, ImFolderDownload } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
-export const Driving = () => {
+export const Driving = ({ getNewMoney }) => {
     const { user } = useContext(UserProvider);
 
     const [drivingData, setDrivingData] = useState('');
@@ -56,6 +56,10 @@ export const Driving = () => {
             const data = await res.json();
             setMessage(data.message);
             if (data.success) {
+                setBill('');
+                setFatherNid('');
+                setMotherNid('');
+                setBill('');
                 async function handleDrivingData() {
                     try {
                         const res = await fetch('/api/user/submit-data/driving', { method: 'GET' });
@@ -66,6 +70,18 @@ export const Driving = () => {
                     }
                 }
                 handleDrivingData();
+                async function userData() {
+                    try {
+                        const res = await fetch('/api/user/userdata', { method: 'GET' });
+                        const data = await res.json();
+                        if (data.success) {
+                            getNewMoney(data.message?.balance);
+                        } else setUser('');
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                userData();
             }
         } catch (error) {
             console.log(error);

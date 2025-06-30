@@ -5,7 +5,7 @@ import { FaLink } from 'react-icons/fa6';
 import { ImCross } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
-export const SelfLandTax = () => {
+export const SelfLandTax = ({ getNewMoney }) => {
     const { user } = useContext(UserProvider);
     const [divisionName, setDivisionName] = useState('');
     const [districtName, setDistrictName] = useState('');
@@ -96,21 +96,36 @@ export const SelfLandTax = () => {
         const data = await res.json();
         setMessage(data.message);
         if (data.success) {
-            try {
-                const response = await fetch("/api/user/get-data/land-data/selfland-tax", {
-                    method: "GET",
-                });
-                const data = await response.json();
-                setLandTaxSelfData(data.message);
-            } catch (err) {
-                console.log(err);
+            setDivisionName('');
+            setDistrictName('');
+            setUpazilaName('');
+            setMouzaName('');
+            setKhatianNumber('');
+            const selfLandTaxData = async () => {
+                try {
+                    const response = await fetch("/api/user/get-data/land-data/selfland-tax", {
+                        method: "GET",
+                    });
+                    const data = await response.json();
+                    setLandTaxSelfData(data.message);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            selfLandTaxData();
+            async function userData() {
+                try {
+                    const res = await fetch('/api/user/userdata', { method: 'GET' });
+                    const data = await res.json();
+                    if (data.success) {
+                        getNewMoney(data.message?.balance);
+                    } else setUser('');
+                } catch (error) {
+                    console.log(error);
+                }
             }
+            userData();
         }
-        setDivisionName('');
-        setDistrictName('');
-        setUpazilaName('');
-        setMouzaName('');
-        setKhatianNumber('');
     };
 
 
