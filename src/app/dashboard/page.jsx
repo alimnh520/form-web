@@ -268,47 +268,55 @@ const page = () => {
 
           {/* set new image */}
 
-          <div className="size-40 rounded-full self-center relative">
-            <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => setImage(!image)}>
-              <FaEdit />
-            </button>
+          <div className="w-10/12 h-auto transition-all duration-300 flex flex-col items-center gap-y-5 justify-center p5-5 border border-[#59b8a0]">
+            <div className="size-40 rounded-full self-center relative">
+              <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => {
+                setImage(!image);
+                setName(false);
+              }}>
+                <FaEdit />
+              </button>
 
+              {
+                displayImage ? (
+                  <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                ) : (
+                  <img src={admin ? admin.image_url : '/use'} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                )
+              }
+            </div>
             {
-              displayImage ? (
-                <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
-              ) : (
-                <img src={admin ? admin.image_url : '/use'} alt="" className="w-full h-full object-cover object-center rounded-full" />
+              image && (
+                <div className="w-full flex items-center justify-center">
+                  <input type="file" className="w-3/4 outline-none border border-gray-400 px-4 py-1" onChange={(e) => {
+                    setNewImage(e.target.files[0]);
+                    setDisplayImage(URL.createObjectURL(e.target.files[0]));
+                  }} />
+                  <button className="w-1/4 py-[7px] text-white bg-green-700 border border-green-700" onClick={handleEditPhoto}>set</button>
+                </div>
+              )
+            }
+
+            {/* set new name */}
+
+            <div className="w-full flex items-center text-white justify-center py-1 relative bg-[#59b8a0]">
+              <p className="text-2xl font-semibold">{admin ? admin.username : 'loading...'}</p>
+              <button className="text-lg bg-red-700 p-1.5 absolute right-3" onClick={() => {
+                setName(!name);
+                setImage(false);
+              }}>
+                <FaEdit />
+              </button>
+            </div>
+            {
+              name && (
+                <div className="w-full flex items-center justify-center">
+                  <input type="text" className="w-3/4 outline-none border border-gray-400 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
+                  <button className="w-1/4 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNameEdit}>set</button>
+                </div>
               )
             }
           </div>
-          {
-            image && (
-              <div className="flex items-center justify-center gap-x-3">
-                <input type="file" className="outline-none border border-gray-400 px-4 py-1 w-52 rounded-xl" onChange={(e) => {
-                  setNewImage(e.target.files[0]);
-                  setDisplayImage(URL.createObjectURL(e.target.files[0]));
-                }} />
-                <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleEditPhoto}>set</button>
-              </div>
-            )
-          }
-
-          {/* set new name */}
-
-          <div className="flex items-center justify-center gap-x-2">
-            <p className="text-2xl font-semibold">{admin ? admin.username : 'loading...'}</p>
-            <button className="text-lg text-white bg-red-700 rounded-full p-1.5" onClick={() => setName(!name)}>
-              <FaEdit />
-            </button>
-          </div>
-          {
-            name && (
-              <div className="flex items-center justify-center">
-                <input type="text" className="outline-none border border-gray-400 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
-                <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNameEdit}>set</button>
-              </div>
-            )
-          }
 
           {/* options */}
 

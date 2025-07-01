@@ -194,7 +194,8 @@ export const DCRpayment = ({ getNewMoney }) => {
                     </div>
                 </div>
                 <button className="w-full relative py-4 h-12 flex items-center justify-center bg-green-500 text-white transition-all hover:bg-green-700 duration-300 border border-green-500 rounded-md" onClick={() => {
-                    !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                    // !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
+                    setMessage('সার্ভারে কাজ চলছে!');
                 }}>
                     সাবমিট করুন
                 </button>
