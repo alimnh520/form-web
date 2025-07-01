@@ -40,7 +40,7 @@ export const NIDcard = () => {
     const nidCardStatus = async () => {
 
         if (pdfFile) {
-            if ((pdfFile.size / 1048576) > 3) {
+            if ((pdfFile.size / 1048576) > 5) {
                 setMessage('File size is too large');
                 return
             }

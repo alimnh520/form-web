@@ -44,7 +44,7 @@ export const NIDserverCopy = () => {
     const serverNidCardStatus = async () => {
 
         if (pdfFile) {
-            if ((pdfFile.size / 1048576) > 3) {
+            if ((pdfFile.size / 1048576) > 5) {
                 setMessage('File size is too large');
                 return
             }

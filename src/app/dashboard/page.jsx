@@ -599,7 +599,7 @@ const page = () => {
           <LuMenu />
         </button>
 
-        <div className={`h-screen overflow-y-scroll ${hideMenu ? 'w-11/12' : 'w-3/4'} p-4 flex flex-col items-center justify-start gap-y-4 relative`}>
+        <div className={`h-screen overflow-y-scroll transition-all duration-300 ${hideMenu ? 'w-11/12' : 'w-3/4'} p-4 flex flex-col items-center justify-start gap-y-4 relative`}>
 
           {
             isUddokta && <Uddokta />

@@ -69,6 +69,12 @@ export const LandTax3 = () => {
     }
 
     const handleSendLink = async () => {
+        if (pdfFile) {
+            if ((pdfFile.size / 1048576) > 5) {
+                setMessage('File size is too large');
+                return
+            }
+        }
         setLoading(true);
         try {
             const formData = new FormData();
