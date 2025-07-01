@@ -4,7 +4,7 @@ import { dbConnection } from "../../../../../../lib/connectDB";
 export const POST = async (request) => {
     try {
         const { email, newName } = await request.json();
-        if (!newName || ! email) {
+        if (!newName || !email) {
             return NextResponse.json({ message: 'select a name', success: false });
         }
         const collection = (await dbConnection()).collection('userprofiles');
@@ -18,52 +18,52 @@ export const POST = async (request) => {
         const coll9 = (await dbConnection()).collection('drivings');
         const coll10 = (await dbConnection()).collection('mouzamaps');
 
-        await collection.findOneAndUpdate({ email }, {
+        await collection.updateMany({ email }, {
             $set: {
                 username: newName
             }
         });
-        await coll2.findOneAndUpdate({ email }, {
+        await coll2.updateMany({ email }, {
             $set: {
                 username: newName
             }
         });
-        await coll3.findOneAndUpdate({ email }, {
+        await coll3.updateMany({ email }, {
             $set: {
                 username: newName
             }
         });
-        await coll4.findOneAndUpdate({ email }, {
+        await coll4.updateMany({ email }, {
             $set: {
                 username: newName
             }
         });
-        await coll5.findOneAndUpdate({ email }, {
+        await coll5.updateMany({ email }, {
             $set: {
                 username: newName
             }
         });
-        await coll6.findOneAndUpdate({ email }, {
+        await coll6.updateMany({ email }, {
             $set: {
                 username: newName
             }
         });
-        await coll7.findOneAndUpdate({ email }, {
+        await coll7.updateMany({ email }, {
             $set: {
                 username: newName
             }
         });
-        await coll8.findOneAndUpdate({ email }, {
+        await coll8.updateMany({ email }, {
             $set: {
                 username: newName
             }
         });
-        await coll9.findOneAndUpdate({ email }, {
+        await coll9.updateMany({ email }, {
             $set: {
                 username: newName
             }
         });
-        await coll10.findOneAndUpdate({ email }, {
+        await coll10.updateMany({ email }, {
             $set: {
                 username: newName
             }
