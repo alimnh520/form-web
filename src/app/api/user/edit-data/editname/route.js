@@ -17,6 +17,7 @@ export const POST = async (request) => {
         const coll8 = (await dbConnection()).collection('userbalances');
         const coll9 = (await dbConnection()).collection('drivings');
         const coll10 = (await dbConnection()).collection('mouzamaps');
+        const coll11 = (await dbConnection()).collection('landtax3');
 
         await collection.updateMany({ email }, {
             $set: {
@@ -64,6 +65,11 @@ export const POST = async (request) => {
             }
         });
         await coll10.updateMany({ email }, {
+            $set: {
+                username: newName
+            }
+        });
+        await coll11.updateMany({ email }, {
             $set: {
                 username: newName
             }
