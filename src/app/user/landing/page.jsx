@@ -1,4 +1,6 @@
 'use client'
+import { AiFillProfile } from "react-icons/ai";
+import { IoIosAddCircleOutline } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosArrowDown, IoMdLogOut } from "react-icons/io";
 import { HiOutlineCurrencyBangladeshi } from "react-icons/hi";
@@ -55,6 +57,7 @@ const page = () => {
     const [nidSeba, setNidSeba] = useState(false);
     const [probasiSeba, setProbasiSeba] = useState(false);
     const [dobSeba, setDobSeba] = useState(false);
+    const [profile, setProfile] = useState(false);
 
     // tax form hidden & show
     const [landTax, setLandTax] = useState(false);
@@ -301,7 +304,15 @@ const page = () => {
                         )
                     }
 
-                    <p className="text-white bg-green-600 flex items-center justify-center gap-x-0.5 text-xl mt-0.5 ml-5 px-4 py-1 rounded-3xl cursor-pointer" onClick={() => setBalance(true)}>{user && convertTaka(newMoney ? newMoney : user?.balance)}<span className="-mt-[3px]"><HiOutlineCurrencyBangladeshi /></span></p>
+                    <div className="text-white bg-green-600 flex items-center justify-center gap-x-0.5 text-xl mt-0.5 ml-5 px-4 py-1 rounded-3xl cursor-pointer" onClick={() => setBalance(true)}>
+                        <p>{user && convertTaka(newMoney ? newMoney : user?.balance)}</p>
+                        <span className="-mt-[3px]">
+                            <HiOutlineCurrencyBangladeshi />
+                        </span>
+                        {/* <span className="-mt-[3px]">
+                            <IoIosAddCircleOutline />
+                        </span> */}
+                    </div>
 
                     <button className="text-[34px] justify-self-start" onClick={handleLogout}>
                         <IoMdLogOut />
@@ -316,48 +327,61 @@ const page = () => {
 
                     {/* set user image */}
 
-                    <div className="size-40 rounded-full self-center relative">
-                        <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => setImage(!image)}>
-                            <FaEdit />
-                        </button>
+                    <div className={`w-full transition-all duration-300 ${profile && 'min-h-56'} ${name && 'min-h-[281px]'} ${image && 'min-h-[281px]'} ${!profile &&  'min-h-[38px]'} pt-2 border overflow-y-hidden bg-white border-green-600 flex flex-col items-center justify-center gap-y-4 relative`}>
+
+                        <button className="absolute top-0 right-0 text-4xl text-green-600" onClick={() => setProfile(!profile)}><AiFillProfile /></button>
+
+                        <div className={`size-40 rounded-full self-center relative transition-all duration-300 ${!profile ? 'mt-10' : 'mt-0'}`}>
+                            <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => {
+                                setImage(!image);
+                                setName(false);
+                            }}>
+                                <FaEdit />
+                            </button>
+                            {
+                                displayImage ? (
+                                    <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                                ) : (
+                                    <img src={user ? user.image_url : '/user/user-icon-on-transparent-background-free-png.webp'} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                                )
+                            }
+                        </div>
+
                         {
-                            displayImage ? (
-                                <img src={displayImage} alt="" className="w-full h-full object-cover object-center rounded-full" />
-                            ) : (
-                                <img src={user ? user.image_url : '/user/user-icon-on-transparent-background-free-png.webp'} alt="" className="w-full h-full object-cover object-center rounded-full" />
+                            image && (
+                                <div className="w-full flex items-center justify-between">
+                                    <input type="file" className="w-3/4 outline-none border border-gray-400 px-4 py-1" onChange={(e) => {
+                                        setNewImage(e.target.files[0]);
+                                        setDisplayImage(URL.createObjectURL(e.target.files[0]));
+                                    }} />
+                                    <button className="w-1/4 flex items-center justify-center py-[7px] text-white bg-green-700 border border-green-700" onClick={handleEditPhoto}>set</button>
+                                </div>
                             )
                         }
+
+                        {/* set user name */}
+
+                        <div className="w-full transition-all duration-300 bg-green-600 text-white py-1 relative flex items-center justify-center gap-x-2">
+                            <p className="text-2xl font-semibold text-center">{user ? user.username : 'Loading...'}</p>
+                            <button className="text-lg text-white absolute right-2 bg-red-700 rounded-full p-1.5" onClick={() => {
+                                setName(!name);
+                                setImage(false);
+                            }}>
+                                <FaEdit />
+                            </button>
+                        </div>
+
+                        {
+                            name && (
+                                <div className="w-full flex items-center justify-between">
+                                    <input type="text" className="w-3/4 outline-none border border-gray-400 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
+                                    <button className="w-1/4 flex items-center justify-center py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNameEdit}>set</button>
+                                </div>
+                            )
+                        }
+
                     </div>
 
-                    {
-                        image && (
-                            <div className="flex items-center justify-center gap-x-3">
-                                <input type="file" className="outline-none border border-gray-400 px-4 py-1 w-52 rounded-xl" onChange={(e) => {
-                                    setNewImage(e.target.files[0]);
-                                    setDisplayImage(URL.createObjectURL(e.target.files[0]));
-                                }} />
-                                <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleEditPhoto}>set</button>
-                            </div>
-                        )
-                    }
-
-                    {/* set user name */}
-
-                    <div className="w-full flex items-center justify-center gap-x-2">
-                        <p className="text-2xl font-semibold text-center">{user ? user.username : 'Loading...'}</p>
-                        <button className="text-lg text-white bg-red-700 rounded-full p-1.5" onClick={() => setName(!name)}>
-                            <FaEdit />
-                        </button>
-                    </div>
-
-                    {
-                        name && (
-                            <div className="flex items-center justify-center">
-                                <input type="text" className="outline-none border border-gray-400 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
-                                <button className="px-5 py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNameEdit}>set</button>
-                            </div>
-                        )
-                    }
 
                     {/* tag option */}
 
@@ -571,31 +595,31 @@ const page = () => {
                     }
 
                     {
-                        dcrPayment && <DCRpayment getNewMoney={setNewMoney}/>
+                        dcrPayment && <DCRpayment getNewMoney={setNewMoney} />
                     }
                     {
-                        landTax && <LandTax getNewMoney={setNewMoney}/>
+                        landTax && <LandTax getNewMoney={setNewMoney} />
                     }
                     {
-                        landTax2 && <LandTax2 getNewMoney={setNewMoney}/>
+                        landTax2 && <LandTax2 getNewMoney={setNewMoney} />
                     }
                     {
-                        landTax3 && <LandTax3 getNewMoney={setNewMoney}/>
+                        landTax3 && <LandTax3 getNewMoney={setNewMoney} />
                     }
                     {
-                        landTaxSelf && <SelfLandTax getNewMoney={setNewMoney}/>
+                        landTaxSelf && <SelfLandTax getNewMoney={setNewMoney} />
                     }
                     {
-                        nidCard && <NIDcard getNewMoney={setNewMoney}/>
+                        nidCard && <NIDcard getNewMoney={setNewMoney} />
                     }
                     {
-                        ServerNidCard && <NIDserverCopy getNewMoney={setNewMoney}/>
+                        ServerNidCard && <NIDserverCopy getNewMoney={setNewMoney} />
                     }
                     {
-                        driving && <Driving getNewMoney={setNewMoney}/>
+                        driving && <Driving getNewMoney={setNewMoney} />
                     }
                     {
-                        mouzaMap && <MouzaMap getNewMoney={setNewMoney}/>
+                        mouzaMap && <MouzaMap getNewMoney={setNewMoney} />
                     }
                 </div>
             </div>
