@@ -1,6 +1,4 @@
 'use client'
-import { AiFillProfile } from "react-icons/ai";
-import { IoIosAddCircleOutline } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosArrowDown, IoMdLogOut } from "react-icons/io";
 import { HiOutlineCurrencyBangladeshi } from "react-icons/hi";
@@ -57,7 +55,6 @@ const page = () => {
     const [nidSeba, setNidSeba] = useState(false);
     const [probasiSeba, setProbasiSeba] = useState(false);
     const [dobSeba, setDobSeba] = useState(false);
-    const [profile, setProfile] = useState(false);
 
     // tax form hidden & show
     const [landTax, setLandTax] = useState(false);
@@ -327,11 +324,9 @@ const page = () => {
 
                     {/* set user image */}
 
-                    <div className={`w-full transition-all duration-300 ${profile && 'min-h-56'} ${name && 'min-h-[281px]'} ${image && 'min-h-[281px]'} ${!profile &&  'min-h-[38px]'} pt-2 border overflow-y-hidden bg-white border-green-600 flex flex-col items-center justify-center gap-y-4 relative`}>
+                    <div className={`w-full transition-all duration-300 pt-2 border overflow-y-hidden bg-white border-green-600 flex flex-col items-center justify-center relative`}>
 
-                        <button className="absolute top-0 right-0 text-4xl text-green-600" onClick={() => setProfile(!profile)}><AiFillProfile /></button>
-
-                        <div className={`size-40 rounded-full self-center relative transition-all duration-300 ${!profile ? 'mt-10' : 'mt-0'}`}>
+                        <div className={`size-40 rounded-full self-center relative transition-all duration-300`}>
                             <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => {
                                 setImage(!image);
                                 setName(false);
@@ -347,21 +342,17 @@ const page = () => {
                             }
                         </div>
 
-                        {
-                            image && (
-                                <div className="w-full flex items-center justify-between">
-                                    <input type="file" className="w-3/4 outline-none border border-gray-400 px-4 py-1" onChange={(e) => {
-                                        setNewImage(e.target.files[0]);
-                                        setDisplayImage(URL.createObjectURL(e.target.files[0]));
-                                    }} />
-                                    <button className="w-1/4 flex items-center justify-center py-[7px] text-white bg-green-700 border border-green-700" onClick={handleEditPhoto}>set</button>
-                                </div>
-                            )
-                        }
+                        <div className={`w-full ${image ? 'h-10' : 'h-0'} transition-all duration-300 overflow-hidden flex items-center justify-between`}>
+                            <input type="file" className="w-3/4 outline-none border border-gray-400 px-4 py-1" onChange={(e) => {
+                                setNewImage(e.target.files[0]);
+                                setDisplayImage(URL.createObjectURL(e.target.files[0]));
+                            }} />
+                            <button className="w-1/4 flex items-center justify-center py-[7px] text-white bg-green-700 border border-green-700" onClick={handleEditPhoto}>set</button>
+                        </div>
 
                         {/* set user name */}
 
-                        <div className="w-full transition-all duration-300 bg-green-600 text-white py-1 relative flex items-center justify-center gap-x-2">
+                        <div className="w-full mt-4 transition-all duration-300 bg-green-600 text-white py-1 relative flex items-center justify-center gap-x-2">
                             <p className="text-2xl font-semibold text-center">{user ? user.username : 'Loading...'}</p>
                             <button className="text-lg text-white absolute right-2 bg-red-700 rounded-full p-1.5" onClick={() => {
                                 setName(!name);
@@ -371,29 +362,30 @@ const page = () => {
                             </button>
                         </div>
 
-                        {
-                            name && (
-                                <div className="w-full flex items-center justify-between">
-                                    <input type="text" className="w-3/4 outline-none border border-gray-400 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
-                                    <button className="w-1/4 flex items-center justify-center py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNameEdit}>set</button>
-                                </div>
-                            )
-                        }
+                        <div className={`w-full ${name ? 'h-10' : 'h-0'} transition-all duration-300 overflow-hidden flex items-center justify-between`}>
+                            <input type="text" className="w-3/4 outline-none border border-gray-400 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
+                            <button className="w-1/4 flex items-center justify-center py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNameEdit}>set</button>
+                        </div>
 
                     </div>
 
 
                     {/* tag option */}
 
-                    <div className="w-full flex text-lg flex-col gap-y-4 border-t border-t-green-600">
+                    <div className="w-full flex text-lg flex-col gap-y-4">
 
                         {/* land sheba */}
 
-                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${landSeba ? 'h-[357px]' : 'h-24'}`}>
+                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${landSeba ? 'h-[357px]' : 'h-12'}`}>
 
-                            <h1 className="text-2xl font-extrabold text-green-700 text-center my-1.5 tracking-wide">
-                                <span className="text-xl">🌾</span> ভূমি সেবা
-                            </h1>
+                            <button className={`w-full border border-green-600 ${landSeba ? 'text-black bg-white' : 'text-white bg-green-600'} px-4 py-1.5 hover:bg-white hover:text-black transition-all duration-300`} onClick={() => {
+                                setLandSeba(!landSeba);
+                                setNidSeba(false);
+                                setProbasiSeba(false);
+                                setDobSeba(false);
+                            }}>
+                                <span className="text-xl">🌾</span> ভূমি সেবা <span className={`absolute right-14 p-1.5 rounded-full ${landSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span>
+                            </button>
 
 
                             <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
@@ -467,20 +459,18 @@ const page = () => {
 
                         </div>
 
-                        <button className="px-7 py-1.5 bg-green-600 border border-green-600 text-white transition-all duration-300 hover:bg-white hover:text-black" onClick={() => {
-                            setLandSeba(!landSeba);
-                            setNidSeba(false);
-                            setProbasiSeba(false);
-                            setDobSeba(false);
-                        }}>{landSeba ? 'লুকান' : 'আরো দেখুন'} <span className={`absolute right-14 p-1.5 rounded-full ${landSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span></button>
-
                         {/* nid sheba */}
 
-                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${nidSeba ? 'h-36' : 'h-24'}`}>
+                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${nidSeba ? 'h-[150px]' : 'h-12'}`}>
 
-                            <h1 className="text-2xl font-extrabold text-green-700 text-center my-1 tracking-wide">
-                                <span className="text-xl">🆔</span> NID সেবা
-                            </h1>
+                            <button className={`w-full border border-green-600 ${nidSeba ? 'text-black bg-white' : 'text-white bg-green-600'} px-4 py-1.5 hover:bg-white hover:text-black transition-all duration-300`} onClick={() => {
+                                setLandSeba(false);
+                                setNidSeba(!nidSeba);
+                                setProbasiSeba(false);
+                                setDobSeba(false);
+                            }}>
+                                <span className="text-xl">🆔</span> NID সেবা <span className={`absolute right-14 p-1.5 rounded-full ${nidSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span>
+                            </button>
 
                             <button className={`w-full border ${ServerNidCard ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                                 setLandTax(false);
@@ -507,49 +497,38 @@ const page = () => {
 
                         </div>
 
-                        <button className="px-7 py-1.5 bg-green-600 border border-green-600 text-white transition-all duration-300 hover:bg-white hover:text-black" onClick={() => {
-                            setLandSeba(false);
-                            setNidSeba(!nidSeba);
-                            setProbasiSeba(false);
-                            setDobSeba(false);
-                        }}>{nidSeba ? 'লুকান' : 'আরো দেখুন'} <span className={`absolute right-14 p-1.5 rounded-full ${nidSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span></button>
-
 
                         {/* BOB sheba */}
 
-                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${dobSeba ? 'h-[175px]' : 'h-24'}`}>
+                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${dobSeba ? 'h-[175px]' : 'h-12'}`}>
 
-                            <h1 className="text-2xl font-extrabold text-green-700 text-center my-1 tracking-wide">
-                                <span className="text-xl">📝</span> জন্ম নিবন্ধন সেবা
-                            </h1>
+                            <button className={`w-full border border-green-600 ${dobSeba ? 'text-black bg-white' : 'text-white bg-green-600'} px-4 py-1.5 hover:bg-white hover:text-black transition-all duration-300`} onClick={() => {
+                                setLandSeba(false);
+                                setNidSeba(false);
+                                setProbasiSeba(false);
+                                setDobSeba(!dobSeba);
+                            }}>
+                                <span className="text-xl">📝</span> জন্ম নিবন্ধন সেবা <span className={`absolute right-14 p-1.5 rounded-full ${dobSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span>
+                            </button>
 
                             <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>জন্ম নিবন্ধন অনলাইন কপি</button>
                             <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন জন্ম নিবন্ধন আবেদন কপি</button>
 
                         </div>
 
-                        <button className="px-7 py-1.5 bg-green-600 border border-green-600 text-white transition-all duration-300 hover:bg-white hover:text-black" onClick={() => {
-                            setLandSeba(false);
-                            setNidSeba(false);
-                            setProbasiSeba(false);
-                            setDobSeba(!dobSeba);
-                        }}>{dobSeba ? 'লুকান' : 'আরো দেখুন'} <span className={`absolute right-14 p-1.5 rounded-full ${dobSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span></button>
+                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${probasiSeba ? 'h-24' : 'h-12'}`}>
 
-                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${probasiSeba ? 'h-24' : 'h-24'}`}>
-
-                            <h1 className="text-2xl font-extrabold text-green-700 text-center my-1 tracking-wide">
-                                <span className="text-xl">🌍</span> প্রবাসী সেবা
-                            </h1>
+                            <button className={`w-full border border-green-600 ${probasiSeba ? 'text-black bg-white' : 'text-white bg-green-600'} px-4 py-1.5 hover:bg-white hover:text-black transition-all duration-300`} onClick={() => {
+                                setLandSeba(false);
+                                setNidSeba(false);
+                                setProbasiSeba(!probasiSeba);
+                                setDobSeba(false);
+                            }}>
+                                <span className="text-xl">🌍</span> প্রবাসী সেবা <span className={`absolute right-14 p-1.5 rounded-full ${probasiSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span>
+                            </button>
 
                             <button className={`w-full border ${false ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`}>নতুন পাসপোর্ট আবেদন</button>
                         </div>
-
-                        <button className="px-7 py-1.5 bg-green-600 border border-green-600 text-white transition-all duration-300 hover:bg-white hover:text-black" onClick={() => {
-                            setLandSeba(false);
-                            setNidSeba(false);
-                            setProbasiSeba(!probasiSeba);
-                            setDobSeba(false);
-                        }}>{probasiSeba ? 'লুকান' : 'আরো দেখুন'} <span className={`absolute right-14 p-1.5 rounded-full ${probasiSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span></button>
 
                         <button className={`w-full border ${driving ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                             setLandTax(false);
