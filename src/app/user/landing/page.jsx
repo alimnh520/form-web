@@ -324,7 +324,7 @@ const page = () => {
 
                     {/* set user image */}
 
-                    <div className={`w-full transition-all duration-300 pt-2 border overflow-y-hidden bg-white border-green-600 flex flex-col items-center justify-center relative`}>
+                    <div className={`w-full min-h-56 ${(name || image) && 'min-h-[268px]'} transition-all relative duration-300 pt-2 border overflow-y-hidden bg-white border-green-600 flex flex-col items-center justify-center`}>
 
                         <div className={`size-40 rounded-full self-center relative transition-all duration-300`}>
                             <button className="absolute bottom-2 right-2 text-xl text-white bg-red-700 rounded-full p-2" onClick={() => {
@@ -343,7 +343,7 @@ const page = () => {
                         </div>
 
                         <div className={`w-full ${image ? 'h-10' : 'h-0'} transition-all duration-300 overflow-hidden flex items-center justify-between`}>
-                            <input type="file" className="w-3/4 outline-none border border-gray-400 px-4 py-1" onChange={(e) => {
+                            <input type="file" className="w-3/4 outline-none border border-green-600 px-4 py-1" onChange={(e) => {
                                 setNewImage(e.target.files[0]);
                                 setDisplayImage(URL.createObjectURL(e.target.files[0]));
                             }} />
@@ -363,7 +363,7 @@ const page = () => {
                         </div>
 
                         <div className={`w-full ${name ? 'h-10' : 'h-0'} transition-all duration-300 overflow-hidden flex items-center justify-between`}>
-                            <input type="text" className="w-3/4 outline-none border border-gray-400 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
+                            <input type="text" className="w-3/4 outline-none border border-green-600 px-4 py-1.5" value={newName} onChange={(e) => setNewName(e.target.value)} />
                             <button className="w-1/4 flex items-center justify-center py-1.5 text-white bg-green-700 border border-green-700" onClick={handleNameEdit}>set</button>
                         </div>
 
@@ -556,17 +556,30 @@ const page = () => {
                 <div className={`h-screen overflow-y-scroll ${hideMenu ? 'w-11/12' : 'w-9/12'} bg-white transition-all duration-300`}>
                     {
                         !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && !driving && !mouzaMap && (
-                            <div className="w-full flex flex-col items-center gap-y-4 mt-16">
-                                <h1 className="text-xl font-semibold text-center">রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span></h1>
-                                <h1 className="text-3xl font-light text-center text-green-700">আপনাকে স্বাগতম !</h1>
+                            <div className="max-w-md mx-auto my-10 bg-white shadow-lg border-l-4 border-green-600 rounded-lg p-6 space-y-4 top-1/4 -translate-y-1/4 relative">
+                                <h2 className="text-2xl font-bold text-green-700 text-center">
+                                    রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট (অনলাইন)
+                                </h2>
 
-                                <div className="flex flex-col items-center gap-y-3 mt-10 text-green-700 w-80">
-                                    <Link href="/office" className="text-3xl flex items-center justify-center gap-x-2 font-semibold text-center text-green-700">ড্যাশবোর্ড <span><FaArrowRight /></span></Link>
-                                    <p className="text-xl">জরুরী প্রয়োজনে কল বা ইমেইল করুন</p>
+                                <p className="text-gray-700 text-center">আপনাকে স্বাগতম!</p>
 
-                                    <div className="w-full h-24 rounded-lg border border-green-700 p-5 flex flex-col gap-y-1 items-start justify-center">
-                                        <p className="flex items-center text-lg justify-center gap-x-2">মোবাইল নম্বর: <span><IoCall /></span> 01850685033</p>
-                                        <p className="flex items-center text-lg justify-center gap-x-2">ইমেইল: <span><FaMailBulk /></span> uddokta@bdl.tax</p>
+                                <Link href="/office">
+                                    <div className="text-center bg-green-50 p-4 rounded-md border border-green-200 hover:bg-green-100 cursor-pointer transition">
+                                        <p className="font-semibold text-green-800">📊 ড্যাশবোর্ড</p>
+                                    </div>
+                                </Link>
+
+                                <div className="bg-yellow-100 p-4 rounded-md">
+                                    <p className="text-lg font-semibold text-yellow-700 mb-2">
+                                        📞 জরুরী প্রয়োজনে যোগাযোগ করুন:
+                                    </p>
+                                    <div className="text-gray-800 space-y-1">
+                                        <p>
+                                            📱 মোবাইল নম্বর: <span className="font-bold">01850-685033</span>
+                                        </p>
+                                        <p>
+                                            ✉️ ইমেইল: <span className="font-bold">uddokta@bdl.tax</span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>

@@ -643,25 +643,35 @@ const page = () => {
 
           {
             !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !serverNidCard && !subAdmin && !mouzamap && !recharge && !driving && (
-              <div className="w-full flex flex-col items-center gap-y-4 mt-16">
-                <h1 className="text-xl font-semibold text-center">রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span></h1>
-                <h1 className="text-3xl font-light text-center text-green-700">আপনাকে স্বাগতম !</h1>
+              <div className="bg-green-100 w-full flex flex-col items-center justify-center px-4 py-10 space-y-6">
+                <h2 className="text-xl font-semibold text-black">
+                  রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span>
+                </h2>
 
-                <div className="flex flex-col items-center gap-y-3 mt-10 text-green-700 w-80">
-                  <Link href="" className="text-3xl flex items-center justify-center gap-x-2 font-semibold text-center text-green-700">ড্যাশবোর্ড <span><FaArrowRight /></span></Link>
-                  <p className="text-xl">জরুরী প্রয়োজনে কল বা ইমেইল করুন</p>
+                <h1 className="text-3xl font-bold text-green-800">ড্যাশবোর্ডে আপনাকে স্বাগতম !</h1>
 
-                  <div className="w-full h-24 rounded-lg border border-green-700 p-5 flex flex-col gap-y-1 items-start justify-center">
-                    <p className="flex items-center text-lg justify-center gap-x-2">মোবাইল নম্বর: <span><IoCall /></span> 01850685033</p>
-                    <p className="flex items-center text-lg justify-center gap-x-2">ইমেইল: <span><FaMailBulk /></span> uddokta@bdl.tax</p>
-                  </div>
+
+                <div className="bg-white rounded-md p-4 border border-green-300 shadow-md w-full max-w-sm text-center space-y-2">
+                  <p className="text-gray-700">জরুরী প্রয়োজনে কল বা ইমেইল করুন</p>
+                  <p className="text-green-800 font-semibold">
+                    মোবাইল নম্বর: 📞 01850685033
+                  </p>
+                  <p className="text-green-800 font-semibold">
+                    ইমেইল: 📧 uddokta@bdl.tax
+                  </p>
                 </div>
 
-                <h1 className="text-4xl font-thin">ভূমি উন্নয়ন দাখিলার আবেদন</h1>
-                <div className="flex items-center justify-center gap-x-6">
-                  <Link href="/components/fill-form" className="px-6 py-1 bg-blue-600 text-lg font-semibold text-white">দাখিলা ফর্ম</Link>
+                <h2 className="text-2xl font-bold text-black mt-4">
+                  ভূমি উন্নয়ন দাখিলার আবেদন
+                </h2>
 
-                  <Link href="/dakhila-print" className="px-6 py-1 bg-blue-600 text-lg font-semibold text-white">দাখিলা প্রিন্ট</Link>
+                <div className="flex gap-4">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-semibold">
+                    দাখিলা ফর্ম
+                  </button>
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-semibold">
+                    দাখিলা প্রিন্ট
+                  </button>
                 </div>
               </div>
             )
