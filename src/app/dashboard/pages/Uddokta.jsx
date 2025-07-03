@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import { HiCurrencyBangladeshi } from 'react-icons/hi';
 import { IoCheckmarkSharp, IoClose } from 'react-icons/io5';
 import { MdDeleteForever } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
@@ -25,6 +26,22 @@ export const Uddokta = () => {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const convertTaka = (taka) => {
+        const engToBangla = {
+            '1': '১',
+            '2': '২',
+            '3': '৩',
+            '4': '৪',
+            '5': '৫',
+            '6': '৬',
+            '7': '৭',
+            '8': '৮',
+            '9': '৯',
+            '0': '০',
+        }
+        return taka.toString().replace(/[0-9]/g, digit => engToBangla[digit]);
     }
 
     useEffect(() => {
@@ -113,20 +130,21 @@ export const Uddokta = () => {
                         <p className="text-center border-r border-l border-b py-3">ক্রঃ</p>
                         <p className="text-center border-r py-3 border-b">ইউজার নেম</p>
                         <p className="text-center border-r py-3 border-b">ইমেইল</p>
-                        <p className="text-center border-r py-3 border-b">মোবাইল</p>
+                        <p className="text-center border-r py-3 border-b">ব্যালেন্স (টাকা)</p>
                         <p className="text-center border-r py-3 border-b">স্টাটাস</p>
                         <p className="text-center border-r py-3 border-b">ঠিকানা</p>
                     </div>
                     {
                         uddoktaData ? (
                             uddoktaData.slice().reverse().map((elem, index) => {
+                                const reverseIndex = uddoktaData?.length - 1 - index
                                 return (
                                     <div className="w-full flex flex-col relative " key={elem._id}>
                                         <div className="w-full grid grid-cols-[40px_1fr_1fr_1fr_1fr_1fr]">
-                                            <p className="text-center border-r overflow-x-scroll border-l border-b py-3">{index + 1}</p>
+                                            <p className="text-center border-r overflow-x-scroll border-l border-b py-3">{reverseIndex + 1}</p>
                                             <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.username}</p>
                                             <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.email}</p>
-                                            <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.mobile}</p>
+                                            <p className="text-center border-r overflow-x-scroll border-b py-3 flex items-center justify-center gap-x-0.5 text-lg">{convertTaka(elem.balance)}</p>
                                             {
                                                 elem.status !== 'pending' && (
                                                     <div className={`text-center border-r border-b grid grid-cols-2 gap-x-px ${elem.status === 'accept' ? 'text-green-700' : 'text-red-600'}`}>
