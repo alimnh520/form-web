@@ -16,13 +16,13 @@ export const POST = async (request) => {
         const collection = (await dbConnection()).collection('userprofiles');
 
         const userData = await collection.findOne({ email });
-        if (userData.balance < 1000) {
+        if (userData.balance < 2250) {
             return NextResponse.json({ message: 'পর্যাপ্ত ব্যালেন্স নেই!', success: false });
         }
 
         await collection.findOneAndUpdate({ email }, {
             $inc: {
-                balance: -1000
+                balance: -2250
             }
         });
 

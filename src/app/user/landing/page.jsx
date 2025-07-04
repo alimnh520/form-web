@@ -24,7 +24,10 @@ import { MouzaMap } from "./pages/Mouza";
 
 const page = () => {
     const router = useRouter();
-    const { user } = useContext(UserProvider);
+    const { user, admin } = useContext(UserProvider);
+
+    console.log('Admin is : ', admin);
+
     const path = usePathname();
 
     // edit name
@@ -67,6 +70,7 @@ const page = () => {
     const [balance, setBalance] = useState(false);
     const [driving, setDriving] = useState(false);
     const [mouzaMap, setMouzaMap] = useState(false);
+    const [missKase, setMissKase] = useState(false);
 
     const [amount, setAmount] = useState('');
     const [trxnum, setTrxnum] = useState('');
@@ -199,7 +203,7 @@ const page = () => {
             const data = await res.json();
             setMessage(data.message);
             if (data.success) {
-                window.location.reload();
+                setBalance(false);
             }
         } catch (error) {
             console.log(error);
@@ -376,7 +380,7 @@ const page = () => {
 
                         {/* land sheba */}
 
-                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${landSeba ? 'h-[357px]' : 'h-12'}`}>
+                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${landSeba ? 'h-[410px]' : 'h-12'}`}>
 
                             <button className={`w-full border border-green-600 ${landSeba ? 'text-black bg-white' : 'text-white bg-green-600'} px-4 py-1.5 hover:bg-white hover:text-black transition-all duration-300`} onClick={() => {
                                 setLandSeba(!landSeba);
@@ -397,6 +401,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMissKase(false);
                                 setMouzaMap(false);
                             }}>ডি,সি,আর পেমেন্ট</button>
                             <button className={`w-full border ${landTax3 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
@@ -408,6 +413,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMissKase(false);
                                 setMouzaMap(false);
                             }}>মিউটেশন</button>
                             <button className={`w-full border ${landTaxSelf ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
@@ -419,6 +425,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMissKase(false);
                                 setMouzaMap(false);
                             }}>প্রতিনিধি ভূমি উন্নয়ন কর</button>
                             <button className={`w-full border ${landTax2 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
@@ -430,6 +437,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMissKase(false);
                                 setMouzaMap(false);
                             }}>ভূমি উন্নয়ন কর</button>
                             <button className={`w-full border ${landTax ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
@@ -441,6 +449,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMissKase(false);
                                 setMouzaMap(false);
                             }}>ভূমি রেকর্ড ও ম্যাপ
                             </button>
@@ -453,8 +462,22 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMissKase(false);
                                 setMouzaMap(!mouzaMap);
                             }}>মৌজা ম্যাপ
+                            </button>
+                            <button className={`w-full border ${missKase ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
+                                setLandTax(false);
+                                setLandTax2(false);
+                                setLandTax3(false);
+                                setLandTaxSelf(false);
+                                setDcrPayment(false);
+                                setServerNidCard(false);
+                                setNidCard(false);
+                                setDriving(false);
+                                setMissKase(!missKase);
+                                setMouzaMap(false);
+                            }}>খতিয়ান সংসোধন
                             </button>
 
                         </div>
@@ -480,6 +503,7 @@ const page = () => {
                                 setDcrPayment(false);
                                 setNidCard(false);
                                 setDriving(false);
+                                setMissKase(false);
                                 setMouzaMap(false);
                                 setServerNidCard(!ServerNidCard);
                             }}>NID সার্ভার কপি</button>
@@ -492,6 +516,7 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(!nidCard);
                                 setDriving(false);
+                                setMissKase(false);
                                 setMouzaMap(false);
                             }}>NID কার্ড</button>
 
@@ -540,6 +565,7 @@ const page = () => {
                             setNidCard(false);
                             setDriving(!driving);
                             setMouzaMap(false);
+                            setMissKase(false);
                         }}>ড্রাইভিং লাইসেন্স BRTA</button>
                     </div>
 
@@ -555,7 +581,7 @@ const page = () => {
 
                 <div className={`h-screen overflow-y-scroll ${hideMenu ? 'w-11/12' : 'w-9/12'} bg-white transition-all duration-300`}>
                     {
-                        !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && !driving && !mouzaMap && (
+                        !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && !driving && !mouzaMap && !missKase && (
                             <div className="max-w-md mx-auto my-10 bg-white shadow-lg border-l-4 border-green-600 rounded-lg p-6 space-y-4 top-1/4 -translate-y-1/4 relative">
                                 <h2 className="text-2xl font-bold text-green-700 text-center">
                                     রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট (অনলাইন)
@@ -563,11 +589,13 @@ const page = () => {
 
                                 <p className="text-gray-700 text-center">আপনাকে স্বাগতম!</p>
 
-                                <Link href="/office">
-                                    <div className="text-center bg-green-50 p-4 rounded-md border border-green-200 hover:bg-green-100 cursor-pointer transition">
-                                        <p className="font-semibold text-green-800">📊 ড্যাশবোর্ড</p>
-                                    </div>
-                                </Link>
+                                {admin && (
+                                    <Link href="/office">
+                                        <div className="text-center bg-green-50 p-4 rounded-md border border-green-200 hover:bg-green-100 cursor-pointer transition">
+                                            <p className="font-semibold text-green-800">📊 ড্যাশবোর্ড</p>
+                                        </div>
+                                    </Link>
+                                )}
 
                                 <div className="bg-yellow-100 p-4 rounded-md">
                                     <p className="text-lg font-semibold text-yellow-700 mb-2">

@@ -50,6 +50,7 @@ const page = () => {
   const [mouzamap, setMouzaMap] = useState(false);
   const [recharge, setRecharge] = useState(false);
   const [driving, setDriving] = useState(false);
+  const [missKase, setMissKase] = useState(false);
 
 
   const [landSeba, setLandSeba] = useState(false);
@@ -335,6 +336,7 @@ const page = () => {
                 setUddokta(!isUddokta);
                 setNidCard(false);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
                 setServerNidCard(false);
                 setSubAdmin(false);
@@ -352,6 +354,7 @@ const page = () => {
                 setUddokta(false);
                 setNidCard(false);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
                 setServerNidCard(false);
                 setSubAdmin(false);
@@ -370,6 +373,7 @@ const page = () => {
                 setProsason(!prosason);
                 setNidCard(false);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
                 setServerNidCard(false);
                 setSubAdmin(false);
@@ -387,6 +391,7 @@ const page = () => {
                 setProsason(false);
                 setNidCard(false);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
                 setServerNidCard(false);
                 setSubAdmin(!subAdmin);
@@ -395,7 +400,7 @@ const page = () => {
             </div>
 
 
-            <div className={`w-full transition-all duration-300 overflow-y-hidden bg-white ${landSeba ? 'h-[415px]' : 'h-12'} flex flex-col items-center gap-y-5`}>
+            <div className={`w-full transition-all duration-300 overflow-y-hidden bg-white ${landSeba ? 'h-[480px]' : 'h-12'} flex flex-col items-center gap-y-5`}>
 
               <button className={`py-1.5 w-10/12 h-12 border ${landSeba ? 'text-black bg-white' : 'bg-[#59b8a0] text-white'} hover:text-black hover:bg-white transition-all duration-300 group border-[#59b8a0] bg-[#59b8a0] items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
                 setLandSeba(!landSeba);
@@ -416,6 +421,7 @@ const page = () => {
                 setDcrPayment(!dcrPayment);
                 setNidCard(false);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
                 setServerNidCard(false);
                 setSubAdmin(false);
@@ -433,6 +439,7 @@ const page = () => {
                 setRecharge(false);
                 setNidCard(false);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
                 setServerNidCard(false);
                 setSubAdmin(false);
@@ -450,6 +457,7 @@ const page = () => {
                 setRecharge(false);
                 setNidCard(false);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
                 setServerNidCard(false);
                 setSubAdmin(false);
@@ -467,6 +475,7 @@ const page = () => {
                 setRecharge(false);
                 setNidCard(false);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
                 setServerNidCard(false);
                 setSubAdmin(false);
@@ -484,6 +493,7 @@ const page = () => {
                 setRecharge(false);
                 setNidCard(false);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
                 setServerNidCard(false);
                 setSubAdmin(false);
@@ -504,7 +514,25 @@ const page = () => {
                 setNidCard(false);
                 setDriving(false);
                 setMouzaMap(!mouzamap);
+                setMissKase(false);
               }}>মৌজা ম্যাপ<span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${mouzamap ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('খতিয়ান সংসোধন') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false);
+                setDcrPayment(false);
+                setProsason(false);
+                setUddokta(false);
+                setRecharge(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+                setNidCard(false);
+                setDriving(false);
+                setMouzaMap(false);
+                setMissKase(!missKase);
+              }}>খতিয়ান সংসোধন<span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${missKase ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
             </div>
 
@@ -530,6 +558,7 @@ const page = () => {
                 setRecharge(false);
                 setNidCard(false);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
                 setServerNidCard(!serverNidCard);
                 setSubAdmin(false);
@@ -549,6 +578,7 @@ const page = () => {
                 setSubAdmin(false);
                 setNidCard(!nidCard);
                 setMouzaMap(false);
+                setMissKase(false);
                 setDriving(false);
               }}>NID কার্ড<span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${nidCard ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
@@ -589,6 +619,7 @@ const page = () => {
               setSubAdmin(false);
               setNidCard(false);
               setMouzaMap(false);
+              setMissKase(false);
               setDriving(!driving);
             }}>ড্রাইভিং লাইসেন্স BRTA<span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${driving ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
           </div>
@@ -642,7 +673,7 @@ const page = () => {
           }
 
           {
-            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !serverNidCard && !subAdmin && !mouzamap && !recharge && !driving && (
+            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !serverNidCard && !subAdmin && !mouzamap && !recharge && !driving && !missKase && (
               <div className="bg-green-100 w-full flex flex-col items-center justify-center px-4 py-10 space-y-6">
                 <h2 className="text-xl font-semibold text-black">
                   রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span>

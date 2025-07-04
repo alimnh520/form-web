@@ -60,7 +60,7 @@ const page = () => {
                 router.push('/user/otpverify');
             }
         } catch (error) {
-            
+            console.log(error);
         }
     }
 

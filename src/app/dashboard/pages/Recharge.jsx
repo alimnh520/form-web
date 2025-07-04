@@ -9,6 +9,12 @@ const Recharge = () => {
     const [message, setMessage] = useState('');
     const [userBalance, setUserBalance] = useState('');
 
+    if (message) {
+        setTimeout(() => {
+            setMessage('');
+        }, 1500);
+    }
+
     useEffect(() => {
         async function getBalance() {
             try {
