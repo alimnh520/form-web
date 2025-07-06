@@ -16,6 +16,11 @@ export const POST = async (request) => {
         const collection = (await dbConnection()).collection('userprofiles');
 
         const userData = await collection.findOne({ email });
+
+        if (!userData.active_balance) {
+            return NextResponse.json({ message: '', success: false });
+        }
+
         if (userData.balance < 2250) {
             return NextResponse.json({ message: 'পর্যাপ্ত ব্যালেন্স নেই!', success: false });
         }

@@ -33,7 +33,7 @@ export const POST = async (request) => {
             const collectionUser = (await dbConnection()).collection('userprofiles');
             await collectionUser.findOneAndUpdate({ email }, {
                 $inc: {
-                    balance: 15
+                    balance: 120
                 }
             });
             return NextResponse.json({ message: 'successful', success: true });
