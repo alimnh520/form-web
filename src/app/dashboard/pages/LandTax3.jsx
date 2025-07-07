@@ -68,6 +68,7 @@ export const LandTax3 = () => {
         }
     }
 
+
     const handleSendLink = async () => {
         if (pdfFile) {
             if ((pdfFile.size / 1048576) > 5) {

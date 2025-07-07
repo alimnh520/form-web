@@ -79,7 +79,7 @@ export const LandTax2 = () => {
             const formData = new FormData();
             formData.append('file', pdfFile);
             formData.append('upload_preset', 'form-submit');
-            formData.append('cloud_name', 'dtitguuwt');
+            formData.append("folder", "user");
 
             const res = await fetch('https://api.cloudinary.com/v1_1/dtitguuwt/raw/upload', {
                 method: 'POST',

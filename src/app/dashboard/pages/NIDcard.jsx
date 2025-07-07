@@ -50,7 +50,7 @@ export const NIDcard = () => {
             const formData = new FormData();
             formData.append('file', pdfFile);
             formData.append('upload_preset', 'form-submit');
-            formData.append('cloud_name', 'dtitguuwt');
+            formData.append("folder", "user");
 
             const res = await fetch('https://api.cloudinary.com/v1_1/dtitguuwt/raw/upload', {
                 method: 'POST',
@@ -69,6 +69,7 @@ export const NIDcard = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
+                setSendLink(false);
                 const nidCardData = async () => {
                     try {
                         const response = await fetch("/api/user/get-data/land-data/nidCard", {
