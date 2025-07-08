@@ -697,12 +697,12 @@ const page = () => {
                 </h2>
 
                 <div className="flex gap-4">
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-semibold">
+                  <Link href='/components/fill-form' className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-semibold">
                     দাখিলা ফর্ম
-                  </button>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-semibold">
+                  </Link>
+                  <Link href='/dakhila-print' className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-semibold">
                     দাখিলা প্রিন্ট
-                  </button>
+                  </Link>
                 </div>
               </div>
             )
