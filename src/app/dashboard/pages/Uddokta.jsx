@@ -46,7 +46,6 @@ export const Uddokta = () => {
 
     useEffect(() => {
         handleUddokta();
-
     }, [])
 
     const handleDeleteUddokta = async () => {
@@ -55,7 +54,7 @@ export const Uddokta = () => {
             const res = await fetch('/api/admin/del-data/del-uddokta', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: uddoktaId })
+                body: JSON.stringify({ email: uddoktaId })
             });
             const data = await res.json();
             setLoading(false);
@@ -151,7 +150,7 @@ export const Uddokta = () => {
                                                         <p className="py-3">{elem.status}</p>
                                                         <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
                                                             setDeleteUddokta(true);
-                                                            setUddoktaId(elem._id);
+                                                            setUddoktaId(elem.email);
                                                         }}><MdDeleteForever /></button>
                                                     </div>
                                                 )

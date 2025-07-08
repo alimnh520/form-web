@@ -23,13 +23,13 @@ export const POST = async (request) => {
             return NextResponse.json({ message: "Password is wrong", success: false });
         }
 
-        const token = jwt.sign({ userId: data._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        const token = jwt.sign({ userId: data._id }, process.env.JWT_SECRET, { expiresIn: '3h' });
 
         const response = NextResponse.json({ message: 'Login successful', success: true });
         response.cookies.set('admin-token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 24 * 60 * 60 * 1000, // ⏳ 1 day in seconds
+            maxAge: 3 * 60 * 60,
             sameSite: "strict",
             path: '/'
         });
