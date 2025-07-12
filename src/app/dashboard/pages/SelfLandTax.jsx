@@ -10,9 +10,10 @@ export const SelfLandTax = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [sendLink, setSendLink] = useState(false);
-    const [fileLink, setFileLink] = useState('');
+    const [pdfFile, setPdfFile] = useState('');
     const [id, setId] = useState('');
     const [type, setType] = useState('');
+    const [publicUrl, setPublicUrl] = useState('');
 
     if (message) {
         setTimeout(() => {
@@ -21,21 +22,20 @@ export const SelfLandTax = () => {
     }
 
     useEffect(() => {
-        const selfLandTaxData = async () => {
+        async function getSelfLandData() {
             try {
-                const response = await fetch("/api/user/get-data/land-data/selfland-tax", {
-                    method: "GET",
-                });
-                const data = await response.json();
+                const res = await fetch('/api/user/get-data/land-data/self-landtax', { method: 'GET' });
+                const data = await res.json();
                 setLandTaxSelfData(data.message);
-            } catch (err) {
-                console.log(err);
+            } catch (error) {
+                console.log(error);
             }
-        };
-        selfLandTaxData();
+        }
+        getSelfLandData();
+
     }, []);
 
-    const handleLandStatus = async (id, type, email) => {
+    const handleSelfLandStatus = async (id, type, email) => {
         setLoading(true);
         try {
             const res = await fetch('/api/user/edit-data/editSelfLandTax', {
@@ -47,48 +47,65 @@ export const SelfLandTax = () => {
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
-                const selfLandTaxData = async () => {
+                async function getSelfLandData() {
                     try {
-                        const response = await fetch("/api/user/get-data/land-data/selfland-tax", {
-                            method: "GET",
-                        });
-                        const data = await response.json();
+                        const res = await fetch('/api/user/get-data/land-data/self-landtax', { method: 'GET' });
+                        const data = await res.json();
                         setLandTaxSelfData(data.message);
-                    } catch (err) {
-                        console.log(err);
+                    } catch (error) {
+                        console.log(error);
                     }
-                };
-                selfLandTaxData();
+                }
+                getSelfLandData();
             }
         } catch (error) {
             console.log(error)
         }
     }
+
+
     const handleSendLink = async () => {
+        if (pdfFile) {
+            if ((pdfFile.size / 1048576) > 5) {
+                setMessage('File size is too large');
+                return
+            }
+        }
         setLoading(true);
         try {
-            const res = await fetch('/api/user/edit-data/editSelfLandTax', {
+            const formData = new FormData();
+            formData.append('file', pdfFile);
+            formData.append('upload_preset', 'form-submit');
+            formData.append("folder", "user");
+
+            const res = await fetch('https://api.cloudinary.com/v1_1/dtitguuwt/raw/upload', {
+                method: 'POST',
+                body: formData,
+            });
+            const cloudData = await res.json();
+            const sourceUrl = cloudData.secure_url;
+            const publicId = cloudData.public_id;
+
+            const response = await fetch('/api/user/edit-data/editSelfLandTax', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, type, fileLink })
+                body: JSON.stringify({ id, type, sourceUrl, publicUrl, publicId })
             });
-            const data = await res.json();
+            const data = await response.json();
             setLoading(false);
             setMessage(data.message);
             if (data.success) {
                 setSendLink(false);
-                const selfLandTaxData = async () => {
+                async function getSelfLandData() {
                     try {
-                        const response = await fetch("/api/user/get-data/land-data/selfland-tax", {
-                            method: "GET",
-                        });
-                        const data = await response.json();
+                        const res = await fetch('/api/user/get-data/land-data/self-landtax', { method: 'GET' });
+                        const data = await res.json();
                         setLandTaxSelfData(data.message);
-                    } catch (err) {
-                        console.log(err);
+                    } catch (error) {
+                        console.log(error);
                     }
-                };
-                selfLandTaxData();
+                }
+                getSelfLandData();
             }
         } catch (error) {
             console.log(error)
@@ -117,7 +134,7 @@ export const SelfLandTax = () => {
             {
                 sendLink && (
                     <div className="w-96 h-40 bg-white border border-green-700 rounded-md flex flex-col items-center justify-center p-5 gap-y-5 absolute top-1/3 left-1/2 -translate-x-1/2 z-20">
-                        <input type="text" className='w-full py-1.5 px-4 outline-none border border-gray-700 rounded-md' value={fileLink} onChange={(e) => setFileLink(e.target.value)} />
+                        <input type="file" className='w-full py-1.5 px-4 outline-none border border-gray-700 rounded-md' onChange={(e) => setPdfFile(e.target.files[0])} />
                         <div className="w-full flex items-center justify-center gap-x-5">
                             <button className='px-9 py-2 bg-red-700 text-white rounded-md hover:text-red-700 hover:bg-white border border-red-700 transition-all duration-300' onClick={() => {
                                 setSendLink(false);
@@ -167,10 +184,10 @@ export const SelfLandTax = () => {
                                                 elem.status === 'pending' && (
                                                     <div className="text-center border-r border-b grid grid-cols-2 gap-x-px">
                                                         <button className="bg-green-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            handleLandStatus(elem._id, 'accept');
+                                                            handleSelfLandStatus(elem._id, 'accept');
                                                         }}><IoCheckmarkSharp /></button>
                                                         <button className="bg-red-700 flex items-center justify-center text-white text-2xl h-full font-semibold" onClick={() => {
-                                                            handleLandStatus(elem._id, 'cancel', elem.email);
+                                                            handleSelfLandStatus(elem._id, 'cancel', elem.email);
                                                         }}><RxCross2 /></button>
                                                     </div>
                                                 )
@@ -179,7 +196,8 @@ export const SelfLandTax = () => {
                                                 elem.status !== 'reject' && (
                                                     setId(elem._id),
                                                     setType('accept'),
-                                                    setSendLink(true)
+                                                    setSendLink(true),
+                                                    setPublicUrl(elem.pdf_url)
                                                 )
                                             }}>{
                                                     elem.status === 'reject' ? <ImCross /> : <FaLink />

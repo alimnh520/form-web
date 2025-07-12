@@ -25,7 +25,7 @@ export const LandTax = () => {
     useEffect(() => {
         const landTax = async () => {
             try {
-                const response = await fetch("/api/user/get-data/land-data/land-tax", {
+                const response = await fetch("/api/user/get-data/land-data/landTex", {
                     method: "GET",
                 });
                 const data = await response.json();
@@ -51,7 +51,7 @@ export const LandTax = () => {
             if (data.success) {
                 const landTax = async () => {
                     try {
-                        const response = await fetch("/api/user/get-data/land-data/land-tax", {
+                        const response = await fetch("/api/user/get-data/land-data/landTex", {
                             method: "GET",
                         });
                         const data = await response.json();
@@ -101,7 +101,7 @@ export const LandTax = () => {
                 setSendLink(false);
                 const landTax = async () => {
                     try {
-                        const response = await fetch("/api/user/get-data/land-data/land-tax", {
+                        const response = await fetch("/api/user/get-data/land-data/landTex", {
                             method: "GET",
                         });
                         const data = await response.json();

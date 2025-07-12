@@ -46,7 +46,7 @@ export const Uddokta = () => {
 
     useEffect(() => {
         handleUddokta();
-    }, [])
+    }, []);
 
     const handleDeleteUddokta = async () => {
         setLoading(true);

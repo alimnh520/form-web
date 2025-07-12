@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 import { dbConnection } from "../../../../../../../lib/connectDB";
 
-export const GET = async () => {
-    const collection = (await dbConnection()).collection('selflandtaxes');
+export const GET = async (request) => {
+    const collection = (await dbConnection()).collection('landtax2');
     const data = await collection.find({}).toArray();
     try {
         return NextResponse.json({ message: data });

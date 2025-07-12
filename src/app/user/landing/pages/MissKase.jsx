@@ -79,7 +79,7 @@ export const LandTax3 = ({ getNewMoney }) => {
 
         const selfLandTaxData = async () => {
             try {
-                const response = await fetch("/api/user/get-data/land-data/land-tax3", {
+                const response = await fetch("/api/user/submit-data/landTex3", {
                     method: "GET",
                 });
                 const data = await response.json();
@@ -133,7 +133,7 @@ export const LandTax3 = ({ getNewMoney }) => {
             setPhoto('');
             const selfLandTaxData = async () => {
                 try {
-                    const response = await fetch("/api/user/get-data/land-data/land-tax3", {
+                    const response = await fetch("/api/user/submit-data/landTex3", {
                         method: "GET",
                     });
                     const data = await response.json();

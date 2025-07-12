@@ -51,10 +51,12 @@ export const POST = async (request) => {
         return NextResponse.json({ message: 'failed', success: false });
     }
 }
-export const GET = async () => {
+export const GET = async (request) => {
+    const cookie = await request.cookies;
+    const email = cookie.get('profile')?.value;
     try {
         const collection = (await dbConnection()).collection('drivings');
-        const data = await collection.find({}).toArray();
+        const data = await collection.find({email}).toArray();
         return NextResponse.json({ message: data, success: true });
     } catch (error) {
         console.log(error);

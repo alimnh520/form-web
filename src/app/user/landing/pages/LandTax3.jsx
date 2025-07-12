@@ -79,7 +79,7 @@ export const LandTax3 = ({ getNewMoney }) => {
 
         const selfLandTaxData = async () => {
             try {
-                const response = await fetch("/api/user/get-data/land-data/land-tax3", {
+                const response = await fetch("/api/user/submit-data/landTex3", {
                     method: "GET",
                 });
                 const data = await response.json();
@@ -133,7 +133,7 @@ export const LandTax3 = ({ getNewMoney }) => {
             setPhoto('');
             const selfLandTaxData = async () => {
                 try {
-                    const response = await fetch("/api/user/get-data/land-data/land-tax3", {
+                    const response = await fetch("/api/user/submit-data/landTex3", {
                         method: "GET",
                     });
                     const data = await response.json();
@@ -195,7 +195,7 @@ export const LandTax3 = ({ getNewMoney }) => {
                 <div className="max-w-md mx-auto mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md z-30 absolute top-40">
                     <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
                     <p className="text-base leading-relaxed">
-                        আপনার একাউন্ট থেকে <span className="font-bold text-red-600">৩৭০ টাকা</span> কেটে নেওয়া হবে।
+                        আপনার একাউন্ট থেকে <span className="font-bold text-red-600">৫৭০ টাকা</span> কেটে নেওয়া হবে।
                     </p>
 
                     <div className="mt-6 flex justify-center gap-4">

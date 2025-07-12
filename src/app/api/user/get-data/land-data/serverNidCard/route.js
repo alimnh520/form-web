@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 import { dbConnection } from "../../../../../../../lib/connectDB";
 
-export const GET = async () => {
+export const GET = async (request) => {
     const collection = (await dbConnection()).collection('servernids');
     const data = await collection.find({}).toArray();
     try {

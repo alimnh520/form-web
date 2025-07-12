@@ -20,13 +20,13 @@ export const POST = async (request) => {
             return NextResponse.json({ message: '', success: false });
         }
 
-        if (userData.balance < 1110) {
+        if (userData.balance < 1150) {
             return NextResponse.json({ message: 'পর্যাপ্ত ব্যালেন্স নেই!', success: false });
         }
 
         await collection.findOneAndUpdate({ email }, {
             $inc: {
-                balance: -1110
+                balance: -1150
             }
         });
 
@@ -47,10 +47,12 @@ export const POST = async (request) => {
         return NextResponse.json({ message: 'failed', success: false });
     }
 }
-export const GET = async () => {
+export const GET = async (request) => {
+    const cookie = await request.cookies;
+    const email = cookie.get('profile')?.value;
     try {
         const collection = (await dbConnection()).collection('dcrpayments');
-        const data = await collection.find({}).toArray();
+        const data = await collection.find({email}).toArray();
         return NextResponse.json({ message: data, success: true });
     } catch (error) {
         console.log(error);

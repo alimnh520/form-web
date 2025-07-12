@@ -25,7 +25,7 @@ export const LandTax3 = () => {
     useEffect(() => {
         const selfLandTaxData = async () => {
             try {
-                const response = await fetch("/api/user/get-data/land-data/land-tax3", {
+                const response = await fetch("/api/user/get-data/land-data/misskase", {
                     method: "GET",
                 });
                 const data = await response.json();
@@ -52,7 +52,7 @@ export const LandTax3 = () => {
             if (data.success) {
                 const selfLandTaxData = async () => {
                     try {
-                        const response = await fetch("/api/user/get-data/land-data/land-tax3", {
+                        const response = await fetch("/api/user/get-data/land-data/misskase", {
                             method: "GET",
                         });
                         const data = await response.json();
@@ -102,7 +102,7 @@ export const LandTax3 = () => {
                 setSendLink(false);
                 const selfLandTaxData = async () => {
                     try {
-                        const response = await fetch("/api/user/get-data/land-data/land-tax3", {
+                        const response = await fetch("/api/user/get-data/land-data/misskase", {
                             method: "GET",
                         });
                         const data = await response.json();

@@ -2,7 +2,7 @@
 import { UserProvider } from '@/app/user/ChildCom';
 import React, { useContext, useEffect, useState } from 'react'
 import { FaLink } from 'react-icons/fa6';
-import { ImCross } from 'react-icons/im';
+import { ImCross, ImFolderDownload } from 'react-icons/im';
 import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
 
 export const SelfLandTax = ({ getNewMoney }) => {
@@ -71,7 +71,7 @@ export const SelfLandTax = ({ getNewMoney }) => {
 
         const selfLandTaxData = async () => {
             try {
-                const response = await fetch("/api/user/get-data/land-data/selfland-tax", {
+                const response = await fetch("/api/user/submit-data/self-landtax", {
                     method: "GET",
                 });
                 const data = await response.json();
@@ -103,7 +103,7 @@ export const SelfLandTax = ({ getNewMoney }) => {
             setKhatianNumber('');
             const selfLandTaxData = async () => {
                 try {
-                    const response = await fetch("/api/user/get-data/land-data/selfland-tax", {
+                    const response = await fetch("/api/user/submit-data/self-landtax", {
                         method: "GET",
                     });
                     const data = await response.json();
@@ -153,7 +153,7 @@ export const SelfLandTax = ({ getNewMoney }) => {
                 <div className="max-w-md mx-auto absolute top-40 mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md z-20">
                     <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
                     <p className="text-base leading-relaxed">
-                        আপনার একাউন্ট সক্রিয় করতে <span className="font-bold text-red-600">৫৫০ টাকা</span> রিচার্জ করুন!
+                        আপনার একাউন্ট সক্রিয় করতে <span className="font-bold text-red-600">৫৮০ টাকা</span> রিচার্জ করুন!
                     </p>
                     <div className="mt-4 text-sm text-gray-700">
                         📞 প্রয়োজনে যোগাযোগ করুন: <span className="font-semibold">+8801850685033</span>
@@ -165,7 +165,7 @@ export const SelfLandTax = ({ getNewMoney }) => {
                 <div className="max-w-md mx-auto absolute top-40 mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md z-20">
                     <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
                     <p className="text-base leading-relaxed">
-                        আপনার একাউন্ট থেকে <span className="font-bold text-red-600">৩০০ টাকা</span> কেটে নেওয়া হবে।
+                        আপনার একাউন্ট থেকে <span className="font-bold text-red-600">৫৮০ টাকা</span> কেটে নেওয়া হবে।
                     </p>
 
                     <div className="mt-6 flex justify-center gap-4">
@@ -315,8 +315,7 @@ export const SelfLandTax = ({ getNewMoney }) => {
                 </div>
 
                 <button type="submit" className='w-full py-3 text-lg col-start-2 col-span-2 font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={() => {
-                    // !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
-                    setMessage('সার্ভারে কাজ চলছে!');
+                    !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
                 }}>জমা দিন</button>
             </div>
 
@@ -346,9 +345,9 @@ export const SelfLandTax = ({ getNewMoney }) => {
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.mouzaName}</p>
                                             <p className="text-center border-r border-b py-3 overflow-x-scroll">{elem.khatianName}</p>
                                             <p className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status}</p>
-                                            <a href={elem.action} className="text-center border-r border-b py-3 overflow-x-scroll text-3xl flex items-center justify-center text-red-600">{
-                                                elem.status === 'complete' ? <FaLink /> : <ImCross />
-                                            }</a>
+                                            <div className={`text-center border-r border-b ${elem.status === 'complete' ? 'text-green-700' : 'text-red-600'} py-3 overflow-x-scroll`}>{elem.status === 'complete' ? (
+                                                <a href={elem.action?.replace("/upload/", "/upload/fl_attachment/")} className="text-3xl flex items-center justify-center"><ImFolderDownload /></a>
+                                            ) : <span className="text-3xl flex items-center justify-center"><ImCross /></span>}</div>
                                         </div>
                                     </div>
                                 )

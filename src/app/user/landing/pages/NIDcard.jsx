@@ -33,7 +33,7 @@ export const NIDcard = ({ getNewMoney }) => {
     useEffect(() => {
         const nidCardData = async () => {
             try {
-                const response = await fetch("/api/user/get-data/land-data/nidCard", {
+                const response = await fetch("/api/user/submit-data/nidCard", {
                     method: "GET",
                 });
                 const data = await response.json();
@@ -72,7 +72,7 @@ export const NIDcard = ({ getNewMoney }) => {
                 setDobNum('');
                 const nidCardData = async () => {
                     try {
-                        const response = await fetch("/api/user/get-data/land-data/nidCard", {
+                        const response = await fetch("/api/user/submit-data/nidCard", {
                             method: "GET",
                         });
                         const data = await response.json();

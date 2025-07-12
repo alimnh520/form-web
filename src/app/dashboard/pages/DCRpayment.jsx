@@ -24,7 +24,7 @@ export const DCRpayment = () => {
     useEffect(() => {
         async function handleDcrData() {
             try {
-                const res = await fetch('/api/user/submit-data/dcr-payment', { method: 'GET' });
+                const res = await fetch('/api/user/get-data/land-data/dcr-payment', { method: 'GET' });
                 const data = await res.json();
                 setDcrData(data.message);
             } catch (error) {
@@ -49,7 +49,7 @@ export const DCRpayment = () => {
             if (data.success) {
                 async function handleDcrData() {
                     try {
-                        const res = await fetch('/api/user/submit-data/dcr-payment', { method: 'GET' });
+                        const res = await fetch('/api/user/get-data/land-data/dcr-payment', { method: 'GET' });
                         const data = await res.json();
                         setDcrData(data.message);
                     } catch (error) {
@@ -78,7 +78,7 @@ export const DCRpayment = () => {
                 setSendLink(false);
                 async function handleDcrData() {
                     try {
-                        const res = await fetch('/api/user/submit-data/dcr-payment', { method: 'GET' });
+                        const res = await fetch('/api/user/get-data/land-data/dcr-payment', { method: 'GET' });
                         const data = await res.json();
                         setDcrData(data.message);
                     } catch (error) {

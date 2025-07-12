@@ -16,13 +16,13 @@ export const POST = async (request) => {
             return NextResponse.json({ message: '', success: false });
         }
 
-        if (userData.balance < 370) {
+        if (userData.balance < 570) {
             return NextResponse.json({ message: 'পর্যাপ্ত ব্যালেন্স নেই!', success: false });
         }
 
         await collection.findOneAndUpdate({ email }, {
             $inc: {
-                balance: -370
+                balance: -570
             }
         });
 
@@ -52,5 +52,17 @@ export const POST = async (request) => {
     } catch (error) {
         console.log(error);
         return NextResponse.json({ message: "upload failed", success: false });
+    }
+}
+
+export const GET = async (request) => {
+    const cookie = await request.cookies;
+    const email = cookie.get('profile')?.value;
+    const collection = (await dbConnection()).collection('landtax3');
+    const data = await collection.find({ email }).toArray();
+    try {
+        return NextResponse.json({ message: data });
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to get data' });
     }
 }

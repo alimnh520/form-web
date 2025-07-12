@@ -76,7 +76,7 @@ export const LandTax2 = ({ getNewMoney }) => {
 
         const landTax2 = async () => {
             try {
-                const response = await fetch("/api/user/get-data/land-data/land-tax2", {
+                const response = await fetch("/api/user/submit-data/landTex2", {
                     method: "GET",
                 });
                 const data = await response.json();
@@ -111,7 +111,7 @@ export const LandTax2 = ({ getNewMoney }) => {
             setDobNum('');
             const landTax2 = async () => {
                 try {
-                    const response = await fetch("/api/user/get-data/land-data/land-tax2", {
+                    const response = await fetch("/api/user/submit-data/landTex2", {
                         method: "GET",
                     });
                     const data = await response.json();
@@ -172,7 +172,7 @@ export const LandTax2 = ({ getNewMoney }) => {
                 <div className="max-w-md mx-auto absolute top-40 mt-10 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg shadow-md z-20">
                     <h2 className="text-xl font-semibold mb-2">⚠️ গুরুত্বপূর্ণ নির্দেশনা</h2>
                     <p className="text-base leading-relaxed">
-                        আপনার একাউন্ট থেকে <span className="font-bold text-red-600">৩০০ টাকা</span> কেটে নেওয়া হবে।
+                        আপনার একাউন্ট থেকে <span className="font-bold text-red-600">৫৮০ টাকা</span> কেটে নেওয়া হবে।
                     </p>
 
                     <div className="mt-6 flex justify-center gap-4">
@@ -343,8 +343,7 @@ export const LandTax2 = ({ getNewMoney }) => {
                 </div>
 
                 <button type="submit" className='w-full py-3 text-lg col-start-2 col-span-2 font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={() => {
-                    // !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
-                    setMessage('সার্ভারে কাজ চলছে!');
+                    !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
                 }}>জমা দিন</button>
             </div>
 

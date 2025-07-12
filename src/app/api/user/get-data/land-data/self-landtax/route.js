@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { dbConnection } from "../../../../../../../lib/connectDB";
 
 export const GET = async (request) => {
-    const collection = (await dbConnection()).collection('nidcards');
+    const collection = (await dbConnection()).collection('selflandtaxes');
     const data = await collection.find({}).toArray();
     try {
         return NextResponse.json({ message: data });

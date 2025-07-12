@@ -46,3 +46,15 @@ export async function POST(request) {
         return NextResponse.json({ message: 'failed', success: false });
     }
 }
+
+export const GET = async (request) => {
+    const cookie = await request.cookies;
+    const email = cookie.get('profile')?.value;
+    const collection = (await dbConnection()).collection('servernids');
+    const data = await collection.find({ email }).toArray();
+    try {
+        return NextResponse.json({ message: data });
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to get data' });
+    }
+}

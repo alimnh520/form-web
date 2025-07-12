@@ -20,13 +20,13 @@ export async function POST(request) {
             return NextResponse.json({ message: '', success: false });
         }
 
-        if (userData.balance < 300) {
+        if (userData.balance < 580) {
             return NextResponse.json({ message: 'পর্যাপ্ত ব্যালেন্স নেই!', success: false });
         }
 
         await collection.findOneAndUpdate({ email }, {
             $inc: {
-                balance: -300
+                balance: -580
             }
         });
 
@@ -47,5 +47,17 @@ export async function POST(request) {
     } catch (error) {
         console.log(error)
         return NextResponse.json({ message: 'Failed', success: false });
+    }
+}
+
+export const GET = async (request) => {
+    const cookie = await request.cookies;
+    const email = cookie.get('profile')?.value;
+    const collection = (await dbConnection()).collection('selflandtaxes');
+    const data = await collection.find({ email }).toArray();
+    try {
+        return NextResponse.json({ message: data });
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to get data' });
     }
 }

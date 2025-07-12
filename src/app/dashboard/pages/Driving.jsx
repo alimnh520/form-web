@@ -25,7 +25,7 @@ export const Driving = () => {
     useEffect(() => {
         async function getDrivingData() {
             try {
-                const res = await fetch('/api/user/submit-data/driving', { method: 'GET' });
+                const res = await fetch('/api/user/get-data/land-data/driving', { method: 'GET' });
                 const data = await res.json();
                 setDriving(data.message);
             } catch (error) {
@@ -50,7 +50,7 @@ export const Driving = () => {
             if (data.success) {
                 async function getDrivingData() {
                     try {
-                        const res = await fetch('/api/user/submit-data/driving', { method: 'GET' });
+                        const res = await fetch('/api/user/get-data/land-data/driving', { method: 'GET' });
                         const data = await res.json();
                         setDriving(data.message);
                     } catch (error) {
@@ -99,7 +99,7 @@ export const Driving = () => {
                 setSendLink(false);
                 async function getDrivingData() {
                     try {
-                        const res = await fetch('/api/user/submit-data/driving', { method: 'GET' });
+                        const res = await fetch('/api/user/get-data/land-data/driving', { method: 'GET' });
                         const data = await res.json();
                         setDriving(data.message);
                     } catch (error) {
