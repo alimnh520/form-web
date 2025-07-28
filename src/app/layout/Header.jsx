@@ -72,8 +72,8 @@ const Header = () => {
     const year = engDate.getFullYear();
 
     // একটা রাফ অনুমান ভিত্তিক হিসাব (বাংলা মাস সাধারণত ইংরেজি মাসের মাঝামাঝি শুরু হয়)
-    const banglaDay = convertToBanglaNumber((day + 16) % 30 || 1);
-    const banglaMonth = banglaMonths[(month + 9) % 13];
+    const banglaDay = convertToBanglaNumber((day + 15) % 30 || 1);
+    const banglaMonth = banglaMonths[(month + 10) % 13];
     const banglaYear = convertToBanglaNumber(year - 593); // Approx Bengali Year
 
     return `${splitDate[0]}, ${banglaDay} ${banglaMonth} ${banglaYear} , ${splitDate[1]} ${splitDate[2]}`;

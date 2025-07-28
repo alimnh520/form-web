@@ -38,7 +38,7 @@ export const SelfLandTax = ({ getNewMoney }) => {
     useEffect(() => {
         async function getDivision() {
             try {
-                const response = await fetch("https://raw.githubusercontent.com/alimnh520/bd-api/refs/heads/main/Division.json");
+                const response = await fetch(process.env.NEXT_PUBLIC_DIVISION);
                 const result = await response.json();
                 setDivision(result.data);
             } catch (error) {
@@ -49,7 +49,7 @@ export const SelfLandTax = ({ getNewMoney }) => {
 
         async function getDistrict() {
             try {
-                const response = await fetch("https://raw.githubusercontent.com/alimnh520/bd-api/refs/heads/main/District.json");
+                const response = await fetch(process.env.NEXT_PUBLIC_DISTRICT);
                 const result = await response.json();
                 setDistrict(result.data);
             } catch (error) {
@@ -60,7 +60,7 @@ export const SelfLandTax = ({ getNewMoney }) => {
 
         async function getUpazilla() {
             try {
-                const response = await fetch("https://raw.githubusercontent.com/alimnh520/bd-api/refs/heads/main/Upazilla.json");
+                const response = await fetch(process.env.NEXT_PUBLIC_UPAZILLA);
                 const result = await response.json();
                 setUpazilla(result.data);
             } catch (error) {

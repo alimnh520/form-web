@@ -82,7 +82,7 @@ export const MouzaMap = () => {
             formData.append('upload_preset', 'form-submit');
             formData.append("folder", "user");
 
-            const res = await fetch('https://api.cloudinary.com/v1_1/dtitguuwt/raw/upload', {
+            const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/raw/upload`, {
                 method: 'POST',
                 body: formData,
             });

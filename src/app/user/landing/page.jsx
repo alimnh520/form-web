@@ -21,6 +21,7 @@ import { NIDcard } from "./pages/NIDcard";
 import { NIDserverCopy } from "./pages/NIDserverCopy";
 import { Driving } from "./pages/Driving";
 import { MouzaMap } from "./pages/Mouza";
+import { MissKase } from "./pages/MissKase";
 
 const page = () => {
     const router = useRouter();
@@ -640,6 +641,9 @@ const page = () => {
                     }
                     {
                         mouzaMap && <MouzaMap getNewMoney={setNewMoney} />
+                    }
+                    {
+                        missKase && <MissKase getNewMoney={setNewMoney} />
                     }
                 </div>
             </div>
