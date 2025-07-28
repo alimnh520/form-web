@@ -52,6 +52,20 @@ const page = () => {
     });
   };
 
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Enter') {
+        handleSubmit();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [user]);
+
   return (
     <div className="w-full h-auto flex flex-col items-center justify-start px-20 py-5 cursor-pointer relative sm:px-0">
       <img

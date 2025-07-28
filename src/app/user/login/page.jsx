@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import { RiRefreshLine } from "react-icons/ri";
 import { BsQuestion } from "react-icons/bs";
 import { BsFillEyeFill } from "react-icons/bs";
@@ -62,7 +62,7 @@ const page = () => {
         if (user.mobile !== '') {
             setNumberLabel(true);
         } else {
-            setNumberLabel(false);
+            setNumberLabel(false)
         }
     }
     //verify focus
@@ -100,7 +100,7 @@ const page = () => {
             if (user.email === '') {
                 setMessage('আপনার ইমেইল প্রদান করুন');
                 setTimeout(() => {
-                    setMessage('')
+                    setMessage('');
                 }, 2000);
                 return
             }
@@ -146,6 +146,20 @@ const page = () => {
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        const handleKeyPress = (e) => {
+            if (e.key === 'Enter') {
+                handleSubmit();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [user, checked, verifyLetter]);
 
 
     return (

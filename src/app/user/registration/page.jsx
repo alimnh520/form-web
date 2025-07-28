@@ -140,6 +140,20 @@ const page = () => {
             console.log(error);
         }
     }
+    
+     useEffect(() => {
+        const handleKeyPress = (e) => {
+            if (e.key === 'Enter') {
+                handleSubmit();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [user, checked, verifyLetter]);
 
 
     return (
