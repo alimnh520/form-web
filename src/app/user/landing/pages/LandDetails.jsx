@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UserProvider } from '../../ChildCom';
 
 
-export const LandDetails = () => {
+export const LandDetails = ({ getNewMoney }) => {
     const { user } = useContext(UserProvider);
     const [landDetailsData, setLandDetailsData] = useState('');
     const [loading, setLoading] = useState(false);
@@ -38,13 +38,24 @@ export const LandDetails = () => {
             });
             const data = await response.json();
             setLandDetailsData(data.message);
+            async function userData() {
+                try {
+                    const res = await fetch('/api/user/userdata', { method: 'GET' });
+                    const data = await res.json();
+                    if (data.success) {
+                        getNewMoney(data.message?.balance);
+                    } else setUser('');
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            userData();
         } catch (err) {
             console.log(err);
         }
+        setNidNum('');
         setLoading(false);
     };
-
-    console.log(landDetailsData)
 
 
     return (
