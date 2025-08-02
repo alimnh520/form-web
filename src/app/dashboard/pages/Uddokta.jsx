@@ -143,7 +143,7 @@ export const Uddokta = () => {
                                             <p className="text-center border-r overflow-x-scroll border-l border-b py-3">{reverseIndex + 1}</p>
                                             <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.username}</p>
                                             <p className="text-center border-r overflow-x-scroll border-b py-3">{elem.email}</p>
-                                            <p className="text-center border-r overflow-x-scroll border-b py-3 flex items-center justify-center gap-x-0.5 text-lg">{convertTaka(elem.balance)}</p>
+                                            <p className="text-center border-r overflow-x-scroll border-b py-3 flex items-center justify-center gap-x-0.5 text-lg">{elem.balance && convertTaka(elem.balance)}</p>
                                             {
                                                 elem.status !== 'pending' && (
                                                     <div className={`text-center border-r border-b grid grid-cols-2 gap-x-px ${elem.status === 'accept' ? 'text-green-700' : 'text-red-600'}`}>

@@ -22,6 +22,8 @@ import { NIDserverCopy } from "./pages/NIDserverCopy";
 import { Driving } from "./pages/Driving";
 import { MouzaMap } from "./pages/Mouza";
 import { MissKase } from "./pages/MissKase";
+import { DabiKomano } from "./pages/DabiKomano";
+import { LandDetails } from "./pages/LandDetails";
 
 const page = () => {
     const router = useRouter();
@@ -73,6 +75,7 @@ const page = () => {
     const [mouzaMap, setMouzaMap] = useState(false);
     const [missKase, setMissKase] = useState(false);
     const [dabiKomano, setDabiKomano] = useState(false);
+    const [landDetails, setLandDetails] = useState(false);
 
     const [amount, setAmount] = useState('');
     const [trxnum, setTrxnum] = useState('');
@@ -382,7 +385,22 @@ const page = () => {
 
                         {/* land sheba */}
 
-                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${landSeba ? 'h-[410px]' : 'h-12'}`}>
+                        <button className={`w-full border ${landDetails ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
+                            setLandTax(false);
+                            setLandTax2(false);
+                            setLandTax3(false);
+                            setLandTaxSelf(false);
+                            setDcrPayment(false);
+                            setServerNidCard(false);
+                            setNidCard(false);
+                            setDriving(false);
+                            setMouzaMap(false);
+                            setMissKase(false);
+                            setDabiKomano(false);
+                            setLandDetails(!landDetails);
+                        }}>ভূমি নাগরিকের তথ্য</button>
+
+                        <div className={`w-full flex text-lg flex-col overflow-y-hidden  gap-y-2.5 transition-all duration-300 ${landSeba ? 'h-[460px]' : 'h-12'}`}>
 
                             <button className={`w-full border border-green-600 ${landSeba ? 'text-black bg-white' : 'text-white bg-green-600'} px-4 py-1.5 hover:bg-white hover:text-black transition-all duration-300`} onClick={() => {
                                 setLandSeba(!landSeba);
@@ -393,7 +411,49 @@ const page = () => {
                                 ভূমি সেবা <span className={`absolute right-14 p-1.5 rounded-full ${landSeba ? 'rotate-180' : 'rotate-0'} transition-all duration-300`}><IoIosArrowDown /></span>
                             </button>
 
-
+                            <button className={`w-full border ${dabiKomano ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
+                                setLandTax(false);
+                                setLandTax2(false);
+                                setLandTax3(false);
+                                setLandTaxSelf(false);
+                                setDcrPayment(false);
+                                setServerNidCard(false);
+                                setNidCard(false);
+                                setDriving(false);
+                                setMissKase(false);
+                                setDabiKomano(!dabiKomano);
+                                setLandDetails(false);
+                                setMouzaMap(false);
+                            }}>দাবি কমানো
+                            </button>
+                            <button className={`w-full border ${landTaxSelf ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
+                                setLandTax(false);
+                                setLandTax2(false);
+                                setLandTax3(false);
+                                setLandTaxSelf(!landTaxSelf);
+                                setDcrPayment(false);
+                                setServerNidCard(false);
+                                setNidCard(false);
+                                setDriving(false);
+                                setMissKase(false);
+                                setDabiKomano(false);
+                                setLandDetails(false);
+                                setMouzaMap(false);
+                            }}>প্রতিনিধি ভূমি উন্নয়ন কর</button>
+                            <button className={`w-full border ${landTax2 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
+                                setLandTax(false);
+                                setLandTax2(!landTax2);
+                                setLandTax3(false);
+                                setLandTaxSelf(false);
+                                setDcrPayment(false);
+                                setServerNidCard(false);
+                                setNidCard(false);
+                                setDriving(false);
+                                setMissKase(false);
+                                setDabiKomano(false);
+                                setLandDetails(false);
+                                setMouzaMap(false);
+                            }}>ভূমি উন্নয়ন কর</button>
                             <button className={`w-full border ${dcrPayment ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                                 setLandTax(false);
                                 setLandTax2(false);
@@ -403,7 +463,9 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
-                                szetMissKase(false);
+                                setMissKase(false);
+                                setDabiKomano(false);
+                                setLandDetails(false);
                                 setMouzaMap(false);
                             }}>ডি,সি,আর পেমেন্ট</button>
                             <button className={`w-full border ${landTax3 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
@@ -415,33 +477,13 @@ const page = () => {
                                 setServerNidCard(false);
                                 setNidCard(false);
                                 setDriving(false);
-                                szetMissKase(false);
+                                setMissKase(false);
+                                setDabiKomano(false);
+                                setLandDetails(false);
                                 setMouzaMap(false);
                             }}>মিউটেশন</button>
-                            <button className={`w-full border ${landTaxSelf ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
-                                setLandTax(false);
-                                setLandTax2(false);
-                                setLandTax3(false);
-                                setLandTaxSelf(!landTaxSelf);
-                                setDcrPayment(false);
-                                setServerNidCard(false);
-                                setNidCard(false);
-                                setDriving(false);
-                                szetMissKase(false);
-                                setMouzaMap(false);
-                            }}>প্রতিনিধি ভূমি উন্নয়ন কর</button>
-                            <button className={`w-full bordzer ${landzTax2 ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
-                                setLandTax(false);
-                                setLandTax2(!landTax2);
-                                setLandTax3(false);
-                                setLandTaxSelf(false);
-                                setDcrPayment(false);
-                                setServerNidCard(false);
-                                setNidCard(false);
-                                setDriving(false);
-                                setMissKase(false);
-                                setMouzaMap(false);
-                            }}>ভূমি উন্নয়ন কর</button>
+
+
                             <button className={`w-full border ${landTax ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
                                 setLandTax(!landTax);
                                 setLandTax2(false);
@@ -452,6 +494,8 @@ const page = () => {
                                 setNidCard(false);
                                 setDriving(false);
                                 setMissKase(false);
+                                setDabiKomano(false);
+                                setLandDetails(false);
                                 setMouzaMap(false);
                             }}>ভূমি রেকর্ড ও ম্যাপ
                             </button>
@@ -465,6 +509,8 @@ const page = () => {
                                 setNidCard(false);
                                 setDriving(false);
                                 setMissKase(false);
+                                setDabiKomano(false);
+                                setLandDetails(false);
                                 setMouzaMap(!mouzaMap);
                             }}>মৌজা ম্যাপ
                             </button>
@@ -478,21 +524,10 @@ const page = () => {
                                 setNidCard(false);
                                 setDriving(false);
                                 setMissKase(!missKase);
+                                setDabiKomano(false);
+                                setLandDetails(false);
                                 setMouzaMap(false);
                             }}>খতিয়ান সংশোধন
-                            </button>
-                            <button className={`w-full border ${dabiKomano ? 'bg-green-600 text-white' : 'bg-white'} border-green-600  px-4 py-1.5 hover:bg-green-600 hover:text-white transition-all duration-300`} onClick={() => {
-                                setLandTax(false);
-                                setLandTax2(false);
-                                setLandTax3(false);
-                                setLandTaxSelf(false);
-                                setDcrPayment(false);
-                                setServerNidCard(false);
-                                setNidCard(false);
-                                setDriving(false);
-                                setMissKase(!missKase);
-                                setMouzaMap(false);
-                            }}>দাবি কমানো
                             </button>
 
                         </div>
@@ -519,6 +554,8 @@ const page = () => {
                                 setNidCard(false);
                                 setDriving(false);
                                 setMissKase(false);
+                                setDabiKomano(false);
+                                setLandDetails(false);
                                 setMouzaMap(false);
                                 setServerNidCard(!ServerNidCard);
                             }}>NID সার্ভার কপি</button>
@@ -532,6 +569,8 @@ const page = () => {
                                 setNidCard(!nidCard);
                                 setDriving(false);
                                 setMissKase(false);
+                                setDabiKomano(false);
+                                setLandDetails(false);
                                 setMouzaMap(false);
                             }}>NID কার্ড</button>
 
@@ -580,8 +619,11 @@ const page = () => {
                             setNidCard(false);
                             setDriving(!driving);
                             setMouzaMap(false);
-                            szetMissKase(false);
+                            setMissKase(false);
+                            setDabiKomano(false);
+                            setLandDetails(false);
                         }}>ড্রাইভিং লাইসেন্স BRTA</button>
+
                     </div>
 
                 </div>
@@ -596,7 +638,7 @@ const page = () => {
 
                 <div className={`h-screen overflow-y-scroll ${hideMenu ? 'w-11/12' : 'w-9/12'} bg-white transition-all duration-300`}>
                     {
-                        !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && !driving && !mouzaMap && !missKase && (
+                        !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !ServerNidCard && !driving && !mouzaMap && !missKase && !dabiKomano && !landDetails && (
                             <div className="max-w-md mx-auto my-10 bg-white shadow-lg border-l-4 border-green-600 rounded-lg p-6 space-y-4 top-1/4 -translate-y-1/4 relative">
                                 <h2 className="text-2xl font-bold text-green-700 text-center">
                                     রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট (অনলাইন)
@@ -658,6 +700,12 @@ const page = () => {
                     }
                     {
                         missKase && <MissKase getNewMoney={setNewMoney} />
+                    }
+                    {
+                        dabiKomano && <DabiKomano getNewMoney={setNewMoney} />
+                    }
+                    {
+                        landDetails && <LandDetails getNewMoney={setNewMoney} />
                     }
                 </div>
             </div>

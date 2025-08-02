@@ -22,6 +22,7 @@ import SubAdmin from "./pages/SubAdmin";
 import { MouzaMap } from "./pages/MouzaMap";
 import Recharge from "./pages/Recharge";
 import { Driving } from "./pages/Driving";
+import { DabiKomano } from "./pages/Dabikomano";
 
 const page = () => {
   const [name, setName] = useState(false);
@@ -58,6 +59,7 @@ const page = () => {
   const [probasiSeba, setProbasiSeba] = useState(false);
   const [dobSeba, setDobSeba] = useState(false);
   const [customerSeba, setCustomerSeba] = useState(false);
+  const [dabikomano, setDabiKomano] = useState(false);
 
   if (message) {
     setTimeout(() => {
@@ -119,6 +121,9 @@ const page = () => {
       case driving:
         document.title = 'ড্রাইভিং লাইসেন্স'
         break;
+      case dabikomano:
+        document.title = 'ড্রাইভিং লাইসেন্স'
+        break;
       default:
         document.title = 'ড্যাশবোর্ড'
         break;
@@ -128,7 +133,7 @@ const page = () => {
       document.body.style.background = 'rgb(220,252,231)'
     }
 
-  }, [dcrPayment, subAdmin, landTax, landTax2, landTax3, landTaxSelf, nidCard, serverNidCard, prosason, isUddokta, mouzamap, recharge, driving]);
+  }, [dcrPayment, subAdmin, landTax, landTax2, landTax3, landTaxSelf, nidCard, serverNidCard, prosason, isUddokta, mouzamap, recharge, driving, dabikomano]);
 
   useEffect(() => {
     async function getAdminNotice() {
@@ -332,6 +337,7 @@ const page = () => {
                 setLandTax3(false);
                 setLandTaxSelf(false);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setUddokta(!isUddokta);
                 setNidCard(false);
@@ -350,6 +356,7 @@ const page = () => {
                 setLandTax3(false);
                 setLandTaxSelf(false)
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setUddokta(false);
                 setNidCard(false);
@@ -370,6 +377,7 @@ const page = () => {
                 setUddokta(false);
                 setRecharge(false);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(!prosason);
                 setNidCard(false);
                 setMouzaMap(false);
@@ -388,6 +396,7 @@ const page = () => {
                 setUddokta(false);
                 setRecharge(false);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setNidCard(false);
                 setMouzaMap(false);
@@ -400,7 +409,7 @@ const page = () => {
             </div>
 
 
-            <div className={`w-full transition-all duration-300 overflow-y-hidden bg-white ${landSeba ? 'h-[480px]' : 'h-12'} flex flex-col items-center gap-y-5`}>
+            <div className={`w-full transition-all duration-300 overflow-y-hidden bg-white ${landSeba ? 'h-[540px]' : 'h-12'} flex flex-col items-center gap-y-5`}>
 
               <button className={`py-1.5 w-10/12 h-12 border ${landSeba ? 'text-black bg-white' : 'bg-[#59b8a0] text-white'} hover:text-black hover:bg-white transition-all duration-300 group border-[#59b8a0] bg-[#59b8a0] items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
                 setLandSeba(!landSeba);
@@ -418,7 +427,26 @@ const page = () => {
                 setProsason(false);
                 setUddokta(false);
                 setRecharge(false);
+                setDcrPayment(false);
+                setDabiKomano(!dabikomano);
+                setNidCard(false);
+                setMouzaMap(false);
+                setMissKase(false);
+                setDriving(false);
+                setServerNidCard(false);
+                setSubAdmin(false);
+              }}>দাবি কমানো <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${dabikomano ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
+
+              <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('ডি,সি,আর পেমেন্ট') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
+                setLandTax(false);
+                setLandTax2(false);
+                setLandTax3(false);
+                setLandTaxSelf(false)
+                setProsason(false);
+                setUddokta(false);
+                setRecharge(false);
                 setDcrPayment(!dcrPayment);
+                setDabiKomano(false);
                 setNidCard(false);
                 setMouzaMap(false);
                 setMissKase(false);
@@ -427,13 +455,13 @@ const page = () => {
                 setSubAdmin(false);
               }}>ডি,সি,আর পেমেন্ট <span className={`absolute right-2 bg-white p-1.5 rounded-full text-black ${dcrPayment ? 'rotate-180' : 'rotate-0'} mt-1 transition-all duration-300`}><IoIosArrowDown /></span></button>
 
-
               <button className={`py-1.5 w-10/12 h-12 text-white border border-[#6cb859] bg-[#6cb859] ${admin?._id === '67b9c9b18529900963e44adf' || admin?.workList?.includes('মিউটেশন') ? 'flex' : 'hidden'} items-center justify-center cursor-pointer relative text-lg`} onClick={() => {
                 setLandTax(false);
                 setLandTax2(false);
                 setLandTax3(!landTax3);
                 setLandTaxSelf(false);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setUddokta(false);
                 setRecharge(false);
@@ -452,6 +480,7 @@ const page = () => {
                 setLandTax3(false);
                 setLandTaxSelf(!landTaxSelf);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setUddokta(false);
                 setRecharge(false);
@@ -470,6 +499,7 @@ const page = () => {
                 setLandTax3(false);
                 setLandTaxSelf(false);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setUddokta(false);
                 setRecharge(false);
@@ -488,6 +518,7 @@ const page = () => {
                 setLandTax3(false);
                 setLandTaxSelf(false);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setUddokta(false);
                 setRecharge(false);
@@ -506,6 +537,7 @@ const page = () => {
                 setLandTax3(false);
                 setLandTaxSelf(false);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setUddokta(false);
                 setRecharge(false);
@@ -523,6 +555,7 @@ const page = () => {
                 setLandTax3(false);
                 setLandTaxSelf(false);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setUddokta(false);
                 setRecharge(false);
@@ -553,6 +586,7 @@ const page = () => {
                 setLandTax3(false);
                 setLandTaxSelf(false);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setUddokta(false);
                 setRecharge(false);
@@ -571,6 +605,7 @@ const page = () => {
                 setLandTax3(false);
                 setLandTaxSelf(false);
                 setDcrPayment(false);
+                setDabiKomano(false);
                 setProsason(false);
                 setUddokta(false);
                 setRecharge(false);
@@ -612,6 +647,7 @@ const page = () => {
               setLandTax3(false);
               setLandTaxSelf(false);
               setDcrPayment(false);
+              setDabiKomano(false);
               setProsason(false);
               setUddokta(false);
               setRecharge(false);
@@ -671,9 +707,12 @@ const page = () => {
           {
             driving && <Driving />
           }
+          {
+            dabikomano && <DabiKomano/>
+          }
 
           {
-            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !serverNidCard && !subAdmin && !mouzamap && !recharge && !driving && !missKase && (
+            !isUddokta && !prosason && !dcrPayment && !landTax && !landTax2 && !landTax3 && !landTaxSelf && !nidCard && !serverNidCard && !subAdmin && !mouzamap && !recharge && !driving && !missKase && !dabikomano && (
               <div className="bg-green-100 w-full flex flex-col items-center justify-center px-4 py-10 space-y-6">
                 <h2 className="text-xl font-semibold text-black">
                   রাজিম ল্যান্ড সার্ভিস এন্ড কনসালটেন্ট <span className="text-green-700">(অনলাইন)</span>
