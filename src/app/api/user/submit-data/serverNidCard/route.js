@@ -6,7 +6,7 @@ import { dbConnection } from "../../../../../../lib/connectDB";
 export async function POST(request) {
     try {
 
-        const { voterNum, nidNum, dobNum, username, email } = await request.json();
+        const { select, voterNum, nidNum, dobNum, username, email } = await request.json();
 
         if (!dobNum || !username || !email) {
             return NextResponse.json({ message: 'Fill up all', success: false });
@@ -35,8 +35,8 @@ export async function POST(request) {
         const saveUser = new ServerNIDCard({
             username,
             email,
-            voternum: voterNum,
-            nidnum: nidNum,
+            voternum: !select ? voterNum : '',
+            nidnum: select ? nidNum : '',
             dob: dobNum
         });
         await saveUser.save();

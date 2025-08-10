@@ -60,7 +60,7 @@ export const NIDserverCopy = ({ getNewMoney }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ nidNum, voterNum, dobNum, email: user.email, username: user.username }),
+                body: JSON.stringify({ select, nidNum, voterNum, dobNum, email: user.email, username: user.username }),
             });
             setLoading(false);
             const data = await res.json();
