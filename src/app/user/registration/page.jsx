@@ -180,8 +180,8 @@ const page = () => {
                     </div>
 
                     <div className="flex items-center justify-start gap-x-1">
-                        <input type="radio" name="select" id="email" value="email" onChange={(e) => setValue(e.target.value)} />
-                        <label htmlFor="email" className='mt-1 cursor-pointer' onClick={() => setChecked(false)}>ইমেইল</label>
+                        <input type="radio" name="select" id="email" value="email" onChange={(e) => setValue(e.target.value)} onClick={() => setChecked(false)} />
+                        <label htmlFor="email" className='mt-1 cursor-pointer' >ইমেইল</label>
                     </div>
                 </div>
                 <div className="w-full h-10 border border-gray-300 rounded-md bg-gray-100 relative flex items-center justify-start px-4 mt-2">
