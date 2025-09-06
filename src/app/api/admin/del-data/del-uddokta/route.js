@@ -4,9 +4,9 @@ import { dbConnection } from "../../../../../../lib/connectDB";
 
 export const POST = async (request) => {
     try {
-        const { id } = await request.json();
+        const { email } = await request.json();
         const collection = (await dbConnection()).collection('userprofiles');
-        await collection.deleteOne({ _id: new ObjectId(id) });
+        await collection.deleteOne({ _id: new ObjectId(email) });
         return NextResponse.json({ message: 'success', success: true });
 
         // const collections = [
