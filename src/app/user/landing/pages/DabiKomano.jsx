@@ -348,10 +348,13 @@ export const DabiKomano = ({ getNewMoney }) => {
                     </div>
                 </div>
 
-                <button type="submit" className='w-full py-3 text-lg col-start-2 col-span-2 font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={() => {
+                {/* <button type="submit" className='w-full py-3 text-lg col-start-2 col-span-2 font-semibold bg-green-600 hover:bg-transparent border border-green-600 transition-all duration-300 hover:text-green-600 text-white rounded-lg' onClick={() => {
                     if (amount < 2500) return setMessage('সর্বনিম্ন ২৫০০ টাকা দাবি থাকতে হবে!');
                     !user.active_balance ? setActiveBalance(true) : setTakaKata(true);
-                }}>জমা দিন</button>
+                }}>জমা দিন</button> */} 
+
+                <button type="submit" className='w-full py-3 text-lg col-start-2 col-span-2 font-semibold bg-red-600 hover:bg-transparent border border-red-600 transition-all duration-300 hover:text-red-600 text-white rounded-lg' >Server is busy</button>
+                
             </div>
 
             <div className="w-full h-auto flex flex-col items-center mt-10 gap-y-5">
