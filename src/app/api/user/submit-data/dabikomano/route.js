@@ -7,6 +7,8 @@ export async function POST(request) {
     try {
 
         const { divisionName, districtName, upazilaName, mouzaName, khatianName, amount, username, email } = await request.json();
+        
+        return NextResponse.json({ message: 'Server is unavilable!', success: false });
 
         if (!divisionName || !districtName || !upazilaName || !mouzaName || !khatianName || !amount || !username || !email) {
             return NextResponse.json({ message: 'Fill up all', success: false });
